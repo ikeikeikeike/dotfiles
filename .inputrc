@@ -1,0 +1,10 @@
+# たとえば vi と打ってから Ctrl + P を押せば、過去に使ったコマンド履歴の中から、 vi を使った履歴だけが出てくるので便利です。
+#"\C-n":history-search-forward
+#"\C-p":history-search-backward
+#"\e[A":history-search-backward
+#"\e[B":history-search-forward
+
+# readline 対応のアプリケーションで delete を使った文字の削除が正常に機能するように設定
+"\e[3~": delete-char
+
+
