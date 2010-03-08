@@ -1,0 +1,1 @@
+/Users/ikeda/.bash_profile
