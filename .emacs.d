@@ -1,1 +1,0 @@
-/Users/ikeda/.emacs.d
