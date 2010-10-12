@@ -1,5 +1,5 @@
 ;;;; anything.el --- open anything / QuickSilver-like candidate-selection framework
-;; $Id: anything.el,v 1.248 2010/02/20 12:34:38 rubikitch Exp $
+;; $Id: anything.el,v 1.257 2010/03/24 11:08:19 rubikitch Exp $
 
 ;; Copyright (C) 2007              Tamas Patrovics
 ;;               2008, 2009, 2010  rubikitch <rubikitch@ruby-lang.org>
@@ -184,6 +184,22 @@
 ;;; (@* "Tips")
 
 ;;
+;; `anything-interpret-value' is useful function to interpret value
+;; like `candidates' attribute.
+;;
+;; (anything-interpret-value "literal")            ; => "literal"
+;; (anything-interpret-value (lambda () "lambda")) ; => "lambda"
+;; (let ((source '((name . "lambda with source name"))))
+;;   (anything-interpret-value
+;;    (lambda () anything-source-name)
+;;    source))                             ; => "lambda with source name"
+;; (flet ((f () "function symbol"))
+;;   (anything-interpret-value 'f))        ; => "function symbol"
+;; (let ((v "variable symbol"))
+;;   (anything-interpret-value 'v))        ; => "variable symbol"
+;; (anything-interpret-value 'unbounded-1) ; error
+
+;;
 ;; Now symbols are acceptable as candidates. So you do not have to use
 ;; `symbol-name' function. The source is much simpler. For example,
 ;; `apropos-internal' returns a list of symbols.
@@ -327,6 +343,39 @@
 
 ;; (@* "HISTORY")
 ;; $Log: anything.el,v $
+;; Revision 1.257  2010/03/24 11:08:19  rubikitch
+;; revert to 1.255
+;;
+;; Revision 1.256  2010/03/24 08:29:43  rubikitch
+;; `anything-check-minibuffer-input' set repeat timer.
+;;
+;; Revision 1.255  2010/03/24 02:35:47  rubikitch
+;; `anything-candidate-number-limit':
+;; When (candidate-number-limit) is specified in SOURCE,
+;; cancel the effect of `anything-candidate-number-limit'.
+;;
+;; Revision 1.254  2010/03/23 00:33:18  rubikitch
+;; New API: `anything-interpret-value'
+;;
+;; Revision 1.253  2010/03/22 07:04:03  rubikitch
+;; `anything-get-current-source': return nil when no candidates rather than error
+;;
+;; Revision 1.252  2010/03/21 06:08:44  rubikitch
+;; Mark bug fix. thx hchbaw!
+;; http://d.hatena.ne.jp/hchbaw/20100226/1267200447
+;;
+;; Revision 1.251  2010/03/21 02:39:34  rubikitch
+;; Fix a wrong usage of `delq'. thx hchbaw.
+;; http://d.hatena.ne.jp/hchbaw/20100226/1267200447
+;;
+;; Revision 1.250  2010/03/21 02:32:29  rubikitch
+;; Fix `select deleted buffer' error message when calling `anything-resume'.
+;;
+;; It was occurred when killing `anything-current-buffer' and calling `anything-resume'.
+;;
+;; Revision 1.249  2010/02/23 20:43:35  rubikitch
+;; `anything-update': Ensure to call `anything-next-line'
+;;
 ;; Revision 1.248  2010/02/20 12:34:38  rubikitch
 ;; Mode-line help!! `anything-mode-line-string' is help string.
 ;;
@@ -1132,7 +1181,7 @@
 
 ;; ugly hack to auto-update version
 (defvar anything-version nil)
-(setq anything-version "$Id: anything.el,v 1.248 2010/02/20 12:34:38 rubikitch Exp $")
+(setq anything-version "$Id: anything.el,v 1.257 2010/03/24 11:08:19 rubikitch Exp $")
 (require 'cl)
 
 ;; (@* "User Configuration")
@@ -2054,22 +2103,25 @@ If FORCE-DISPLAY-PART is non-nil, return the display string."
   ;; The name `anything-get-current-source' should be used in init function etc.
   (if (and (boundp 'anything-source-name) (stringp anything-source-name))
       source
-    (with-current-buffer (anything-buffer-get)
-      ;; This goto-char shouldn't be necessary, but point is moved to
-      ;; point-min somewhere else which shouldn't happen.
-      (goto-char (overlay-start anything-selection-overlay))
-      (let* ((header-pos (anything-get-previous-header-pos))
-             (source-name
-              (save-excursion
-                (or header-pos (error "No candidates"))
-                (goto-char header-pos)
-                (buffer-substring-no-properties
-                 (line-beginning-position) (line-end-position)))))
-        (some (lambda (source)
-                (if (equal (assoc-default 'name source)
-                           source-name)
-                    source))
-              (anything-get-sources))))))
+    (block exit
+      (with-current-buffer (anything-buffer-get)
+        ;; This goto-char shouldn't be necessary, but point is moved to
+        ;; point-min somewhere else which shouldn't happen.
+        (goto-char (overlay-start anything-selection-overlay))
+        (let* ((header-pos (anything-get-previous-header-pos))
+               (source-name
+                (save-excursion
+                  (unless header-pos
+                    (message "No candidates")
+                    (return-from exit nil))
+                  (goto-char header-pos)
+                  (buffer-substring-no-properties
+                   (line-beginning-position) (line-end-position)))))
+          (some (lambda (source)
+                  (if (equal (assoc-default 'name source)
+                             source-name)
+                      source))
+                (anything-get-sources)))))))
 
 (defun anything-buffer-is-modified (buffer)
   "Return non-nil when BUFFER is modified since `anything' was invoked."
@@ -2128,6 +2180,27 @@ This is suitable for anything applications."
 http://www.emacswiki.org/cgi-bin/wiki/download/anything.el
 
 or  M-x install-elisp-from-emacswiki anything.el")))
+
+(defun anything-interpret-value (value &optional source)
+  "interpret VALUE as variable, function or literal.
+If VALUE is a function, call it with no arguments and return the value.
+If SOURCE is `anything' source, `anything-source-name' is source name.
+
+If VALUE is a variable, return the value.
+
+If VALUE is a symbol, but it is not a function or a variable, cause an error.
+
+Otherwise, return VALUE itself."
+  (cond ((and source (functionp value))
+         (anything-funcall-with-source source value))
+        ((functionp value)
+         (funcall value))
+        ((and (symbolp value) (boundp value))
+         (symbol-value value))
+        ((symbolp value)
+         (error "anything-interpret-value: Symbol must be a function or a variable"))
+        (t
+         value)))
 
 ;; (@* "Core: tools")
 (defun anything-current-frame/window-configuration ()
@@ -2436,10 +2509,9 @@ If TEST-MODE is non-nil, clear `anything-candidate-cache'."
   (let ((hooks '((post-command-hook anything-check-minibuffer-input)
                  (minibuffer-setup-hook anything-print-error-messages)
                  (minibuffer-exit-hook (lambda () (anything-window-configuration 'store))))))
-    (with-current-buffer anything-current-buffer
-      (if (eq setup-or-cleanup 'setup)
-          (dolist (args hooks) (apply 'add-hook args))
-        (dolist (args (reverse hooks)) (apply 'remove-hook args))))))
+    (if (eq setup-or-cleanup 'setup)
+        (dolist (args hooks) (apply 'add-hook args))
+      (dolist (args (reverse hooks)) (apply 'remove-hook args)))))
 
 ;; (@* "Core: clean up")
 (defun anything-cleanup ()
@@ -2519,20 +2591,12 @@ SOURCE."
             (funcall it)
             (add-to-list 'anything-delayed-init-executed name)))))
   (let* ((candidate-source (assoc-default 'candidates source))
-         (candidates
-          (cond ((functionp candidate-source)
-                 (anything-funcall-with-source source candidate-source))
-                ((listp candidate-source)
-                 candidate-source)
-                ((and (symbolp candidate-source) (boundp candidate-source))
-                 (symbol-value candidate-source))
-                (t
-                 (error (concat "Candidates must either be a function, "
+         (candidates (anything-interpret-value candidate-source source)))
+    (cond ((processp candidates) candidates)
+          ((listp candidates) (anything-transform-candidates candidates source))
+          (t (error (concat "Candidates must either be a function, "
                                  " a variable or a list: %s")
                         candidate-source)))))
-    (if (processp candidates)
-        candidates
-      (anything-transform-candidates candidates source))))
          
 
 (defun anything-transform-candidates (candidates source)
@@ -2580,10 +2644,12 @@ Cache the candidates if there is not yet a cached value."
 
 ;; (@* "Core: narrowing candidates")
 (defun anything-candidate-number-limit (source)
-  "`anything-candidate-number-limit' variable may be overridden by SOURCE."
-  (or (assoc-default 'candidate-number-limit source)
-      anything-candidate-number-limit
-      99999999))
+  "`anything-candidate-number-limit' variable may be overridden by SOURCE.
+If (candidate-number-limit) is in SOURCE, show all candidates in SOURCE,
+ie. cancel the effect of `anything-candidate-number-limit'."
+  (anything-aif (assq 'candidate-number-limit source)
+      (or (cdr it) 99999999)
+    (or anything-candidate-number-limit 99999999)))
 
 (defun anything-compute-matches (source)
   "Compute matches from SOURCE according to its settings."
@@ -2724,35 +2790,36 @@ the current pattern."
           (delete-overlay overlay)))
 
     (let (delayed-sources)
-      (dolist (source (anything-get-sources))
-        (when (and (or (not anything-source-filter)
-                       (member (assoc-default 'name source) anything-source-filter))
-                   (>= (length anything-pattern)
-                       (anything-aif (assoc 'requires-pattern source)
-                           (or (cdr it) 1)
-                         0)))
-          (if (or (assoc 'delayed source)
-                  (and anything-quick-update
-                       (< (window-height (get-buffer-window (current-buffer)))
-                          (line-number-at-pos (point-max)))))
-              (push source delayed-sources)
-            (anything-process-source source))))
+      (unwind-protect
+          (dolist (source (anything-get-sources))
+            (when (and (or (not anything-source-filter)
+                           (member (assoc-default 'name source) anything-source-filter))
+                       (>= (length anything-pattern)
+                           (anything-aif (assoc 'requires-pattern source)
+                               (or (cdr it) 1)
+                             0)))
+              (if (or (assoc 'delayed source)
+                      (and anything-quick-update
+                           (< (window-height (get-buffer-window (current-buffer)))
+                              (line-number-at-pos (point-max)))))
+                  (push source delayed-sources)
+                (anything-process-source source))))
 
-      (goto-char (point-min))
-      (save-excursion (run-hooks 'anything-update-hook))
-      (anything-next-line)
-      (setq delayed-sources (nreverse delayed-sources))
-      (if anything-test-mode
-          (dolist (source delayed-sources)
-            (anything-process-source source))
-        (anything-maybe-fit-frame)
-        (when delayed-sources
-          (run-with-idle-timer (if (featurep 'xemacs)
-                                   0.1
-                                 0)
-                               nil
-                               'anything-process-delayed-sources
-                               delayed-sources))))))
+        (goto-char (point-min))
+        (save-excursion (run-hooks 'anything-update-hook))
+        (anything-next-line)
+        (setq delayed-sources (nreverse delayed-sources))
+        (if anything-test-mode
+            (dolist (source delayed-sources)
+              (anything-process-source source))
+          (anything-maybe-fit-frame)
+          (when delayed-sources
+            (run-with-idle-timer (if (featurep 'xemacs)
+                                     0.1
+                                   0)
+                                 nil
+                                 'anything-process-delayed-sources
+                                 delayed-sources)))))))
 
 (defun anything-insert-match (match insert-function &optional ignored)
   "Insert MATCH into the anything buffer. If MATCH is a list then
@@ -3612,7 +3679,7 @@ Otherwise ignores `special-display-buffer-names' and `special-display-regexps'."
                    (cons source selection)
                    anything-marked-candidates))
             (delete-overlay it)
-            (delq it anything-visible-mark-overlays))
+            (setq anything-visible-mark-overlays (delq it anything-visible-mark-overlays)))
         (let ((o (make-overlay (line-beginning-position) (1+ (line-end-position)))))
           (overlay-put o 'face anything-visible-mark-face)
           (overlay-put o 'source (assoc-default 'name source))
@@ -3641,13 +3708,20 @@ Otherwise ignores `special-display-buffer-names' and `special-display-regexps'."
   (with-current-buffer anything-buffer
     (loop for o in anything-visible-mark-overlays do
           (goto-char (point-min))
-          (when (search-forward (overlay-get o 'string) nil t)
-            (forward-line -1)
-            (when (save-excursion
-                    (goto-char (anything-get-previous-header-pos))
-                    (equal (overlay-get o 'source)
-                           (buffer-substring (line-beginning-position) (line-end-position))))
-              (move-overlay o (line-beginning-position) (1+ (line-end-position))))))))
+          (let (moved)
+            (while (and (not moved)
+                        (search-forward (overlay-get o 'string) nil t))
+              (forward-line -1)
+              (when (and (save-excursion
+                           (goto-char (anything-get-previous-header-pos))
+                           (equal (overlay-get o 'source)
+                                  (buffer-substring (line-beginning-position) (line-end-position))))
+                         (not (find-if (lambda (x)
+                                         (memq x anything-visible-mark-overlays))
+                                       (overlays-at (point)))))
+                (move-overlay o (line-beginning-position) (1+ (line-end-position)))
+                (setq moved t))
+              (forward-line 1))))))
 (add-hook 'anything-update-hook 'anything-revive-visible-mark)
 
 (defun anything-next-visible-mark (&optional prev)
@@ -4243,6 +4317,22 @@ Given pseudo `anything-sources' and `anything-pattern', returns list like
               anything-buffer-file-name
             ;;(kill-buffer "__a_file__")
             )))
+      (desc "anything-interpret-value")
+      (expect "literal"
+        (anything-interpret-value "literal"))
+      (expect "lambda"
+        (anything-interpret-value (lambda () "lambda")))
+      (expect "lambda with source name"
+        (let ((source '((name . "lambda with source name"))))
+          (anything-interpret-value (lambda () anything-source-name) source)))
+      (expect "function symbol"
+        (flet ((f () "function symbol"))
+          (anything-interpret-value 'f)))
+      (expect "variable symbol"
+        (let ((v "variable symbol"))
+          (anything-interpret-value 'v)))
+      (expect (error error *)
+        (anything-interpret-value 'unbounded-1))
       (desc "anything-compile-sources")
       (expect '(((name . "foo")))
         (anything-compile-sources '(((name . "foo"))) nil)
@@ -4302,6 +4392,17 @@ Given pseudo `anything-sources' and `anything-pattern', returns list like
       (expect '("foo" "bar")
         (anything-get-candidates '((name . "foo")
                                    (candidates . (lambda () '("foo" "bar"))))))
+      (expect '("foo" "bar")
+        (let ((var '("foo" "bar")))
+          (anything-get-candidates '((name . "foo")
+                                     (candidates . var)))))
+      (expect (error error *)
+        (anything-get-candidates '((name . "foo")
+                                   (candidates . "err"))))
+      (expect (error error *)
+        (let ((var "err"))
+          (anything-get-candidates '((name . "foo")
+                                     (candidates . var)))))
       (desc "anything-compute-matches")
       (expect '("foo" "bar")
         (let ((anything-pattern ""))
@@ -5151,6 +5252,11 @@ Given pseudo `anything-sources' and `anything-pattern', returns list like
               (anything-candidate-number-limit 20))
           (anything-compute-matches '((name . "FOO") (candidates "a" "b" "c")
                                       (candidate-number-limit . 2) (volatile)))))
+      (expect '("a" "b" "c" "d")
+        (let ((anything-pattern "[abcd]")
+              (anything-candidate-number-limit 2))
+          (anything-compute-matches '((name . "FOO") (candidates "a" "b" "c" "d")
+                                      (candidate-number-limit) (volatile)))))
       (expect '(("TEST" ("a" "b" "c")))
         (let ((anything-candidate-number-limit 2))
           (anything-test-candidates
@@ -5557,7 +5663,7 @@ Given pseudo `anything-sources' and `anything-pattern', returns list like
           (define-anything-type-attribute 'buffer '((action . switch-to-buffer)))
           (define-anything-type-attribute 'file '((action . find-file)))
           anything-type-attributes))
-      (defun "anything-approximate-candidate-number")
+      (desc "anything-approximate-candidate-number")
       (expect 0
         (with-temp-buffer
           (let ((anything-buffer (current-buffer)))

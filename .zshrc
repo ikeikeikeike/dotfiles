@@ -3,15 +3,24 @@
 #export DISPLAY=:0.0
 
 export LANG=ja_JP.UTF-8
-export MANPATH=/usr/local/man:/usr/share/man
-#export SHELL=/usr/local/bin/zsh 
+#export SHELL=/usr/local/bin/zsh
+export PYTHONSTARTUP=$HOME/.pythonrc.py
+export DISPLAY=:0.0
+# Emacsと同じキー操作を行う
+bindkey -e
+
+# history
 HISTFILE=$HOME/.zsh-history
 HISTSIZE=10000000
 SAVEHIST=10000000
-function history-all { history -E 1 }
+
+# auto complete compile
+autoload -U compinit
+compinit
 
 # alias
 alias emacs='open -a Emacs.app'
+alias py=python
 alias screen='screen -U'
 alias ls='ls -Gfh'
 alias vi='vim'
@@ -20,6 +29,19 @@ alias grep='grep --color'
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias mysql='mysql5'
+alias gd='source $HOME/.zsh_extend/gd/gd.sh'
+alias updatedb='source $HOME/script/shell/updatedb.sh'
+
+# rsync
+alias rsync_gigacast_dev='source $HOME/script/shell/rsync_gigacast_dev'
+alias rsync_gigacast_v14_dev='source $HOME/script/shell/rsync_gigacast_v14_dev'
+alias rsync_gigacast_plcdn='source $HOME/script/shell/rsync_gigacast_plcdn'
+alias rsync_gigacast_aidia='source $HOME/script/shell/rsync_gigacast_aidia'
+alias rsync_gigacast_gaitame='source $HOME/script/shell/rsync_gigacast_gaitame'
+alias rsync_gigacast_jikiden='source $HOME/script/shell/rsync_gigacast_jikiden'
+
+#alias gd='dirs -v; echo -n "select number: "; read newdir; cd -"$newdir"'
+
 # for crontab
 alias crontab="EDITOR=/usr/local/bin/vi crontab"
 
@@ -43,9 +65,6 @@ local WHITE=$'%{^[[1;37m%}'$
 # less
 export PAGER='less'
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case'
-
-# sources
-source ~/.zsh_extend/cdd
 
 #エイリアスも補完対象に設定
 setopt complete_aliases
@@ -119,25 +138,6 @@ setopt auto_param_slash
 ## スペルチェック
 setopt correct
 
-# settei wo kaiteinai
-#function chpwd(){
-#	_reg_pwd_screennum
-#}
-
-# auto complete compile
-autoload -U compinit
-compinit
-
-# ssh screen name
-function ssh_screen(){
-	#eval 
-	server=?${$#}
-	screen -t $server ssh "$@"
-}
-if [ x$TERM = xscreen ]; then
-	alias ssh=ssh_screen
-fi
-
 ## cd conf
 # カレントディレクトリ中にサブディレクトリが無い場合に cd が検索するディレクトリのリスト
 cdpath=($HOME)
@@ -149,16 +149,12 @@ zstyle ':completion:*:cd:*' ignore-parents parent pwd
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 #ファイル補完候補に色を付ける
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-#cdを打ったら自動的にlsを打ってくれる関数
-function cd(){
-    builtin cd $@ && ls;
-}
 
 ## auto complete conf
-# 補完候補を ←↓↑→ でも選択出来るようにする 
+# 補完候補を ←↓↑→ でも選択出来るようにする
 zstyle ':completion:*:default' menu select=2
 zstyle ':completion:*' verbose yes
-# 
+#
 #_complete
 #普通の補完関数
 #_approximate
@@ -181,4 +177,56 @@ zstyle ':completion:*:options' description 'yes'
 # したがって，すべての マッチ種別を別々に表示させたいなら以下のようにする
 zstyle ':completion:*' group-name ''
 
+#################################################################
+# 上記でカラーの設定をしているため上記に該当するコマンド群は下記に書く
+# ぶっちゃけfunctionの設定を下記に書けば良いぐらいだと思う
+#################################################################
 
+# functionの設定
+function history-all { history -E 1 }
+
+# cdを打ったら自動的にlsを打ってくれる関数
+function cd(){
+    builtin cd $@ && ls -alt;
+}
+
+# settei wo kaiteinai
+#function chpwd(){
+#	_reg_pwd_screennum
+#}
+
+# ssh screen name
+function ssh_screen(){
+	#eval
+	server=?${$#}
+	screen -t $server ssh "$@"
+}
+if [ x$TERM = xscreen ]; then
+	alias ssh=ssh_screen
+fi
+
+#source ~/.zsh_extend/cdd
+source $HOME/.zsh_extend/emacs/isemacs.sh
+#source $HOME/.zsh_extend/gd/gd.sh
+
+# history
+zshaddhistory() {
+    local line=${1%%$'\n'}
+    local cmd=${line%% *}
+
+    # 以下の条件をすべて満たすものだけをヒストリに追加する
+    # 追加したくないコマンドを列挙する
+    # この場合、以下のいずれかを満たすコマンドラインがヒストリに追加されなくなる。
+    # * 4文字以下である
+    # * コマンド名の部分が l, ls, la, ll のいずれかである
+    # * コマンド名の部分が c, cd のいずれかである
+    # * コマンド名の部分が m, man のいずれかである
+
+    [[ ${#line} -ge 5
+        && ${cmd} != (l|l[sal])
+        && ${cmd} != (c|cd)
+#	&& ${cmd} != (gd)
+        && ${cmd} != (m|man)
+    ]]
+}
+ 

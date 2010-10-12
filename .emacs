@@ -9,19 +9,47 @@
 		   "~/.emacs.d/elisp"
 		   "~/.emacs.d/auto-install"
 		   "~/.emacs.d/init"
+		   "~/.emacs.d/navi2ch"
 		   )
                  load-path))
 
 (setq exec-path (append
                  '("/opt/local/bin"
+		   "/opt/local/sbin"
                    "/usr/bin" "/bin"
-                   "/usr/sbin" "/sbin" "/usr/local/bin"
-                   "/usr/X11/bin" "/opt/local/bin" "/opt/local/bin")
+                   "/usr/sbin" "/sbin"
+                   "/usr/X11/bin")
                  exec-path))
 
 ;; テキストエンコーディングとしてUTF-8を優先使用
 (prefer-coding-system 'utf-8)
-;;(add-to-list 'face-font-rescale-alist '(".*osaka-bold.*" . 1.2))
+;; (add-to-list 'face-font-rescale-alist '(".*osaka-bold.*" . 0.3))
+
+;; (add-to-list 'default-frame-alist
+;;              '(font . "16-dot medium"))
+;; (add-to-list 'default-frame-alist
+;;              '(font . "-*-*-medium-r-normal--12-*-*-*-*-*-16-dot medium"))
+
+
+(add-to-list 'default-frame-alist '(font . "fontset-default"))
+;; (set-frame-font "fontset-default")
+
+(set-face-attribute 'default nil
+                    :family "monaco"
+                    :height 100)
+
+(set-fontset-font "fontset-default"
+                  'japanese-jisx0208
+                  '("ヒラギノ丸ゴ pro w4*" . "jisx0208.*"))
+
+(set-fontset-font "fontset-default"
+                  'katakana-jisx0201
+                  '("ヒラギノ丸ゴ pro w4*" . "jisx0201.*"))
+
+(add-to-list 'face-font-rescale-alist
+             `(,(encode-coding-string ".*ヒラギノ丸ゴ pro w4.*" 'emacs-mule) . 1.0))
+
+
 
 (require 'install-elisp)
 ;; install-elisp-reposirory
@@ -179,6 +207,24 @@
              (setq javascript-basic-offset tab-width)
              )))
 
+;; pymacs
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+(eval-after-load "pymacs"
+  '(add-to-list 'pymacs-load-path "YOUR-PYMACS-DIRECTORY"))
+;; python-mode, pycomplete 
+(setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
+(setq interpreter-mode-alist (cons '("python" . python-mode)
+                                   interpreter-mode-alist))
+(autoload 'python-mode "python-mode" "Python editing mode." t)
+(add-hook 'python-mode-hook '(lambda ()
+                               (require 'pycomplete)
+                               ))
+
+
 ;; nxhtml
 	
 ;; css-mode
@@ -275,10 +321,8 @@
 (require 'jaspace)
 ;; 全角空白を表示させる
 (setq jaspace-alternate-jaspace-string "□")
-
 ;; タブを表示
 (setq jaspace-highlight-tabs t)
-
 ;; フック
 (add-hook 'text-mode-hook 'jaspace-mode)
 
@@ -315,11 +359,11 @@
 (global-undo-tree-mode)
 
 ;; one Key 使い方わからん
-(require 'one-key)
-(require 'one-key-default)   ; one-key.el も一緒に読み込んでくれる
-(require 'one-key-config)    ; one-key.el をより便利にする
-(one-key-default-setup-keys) ; one-key- で始まるメニュー使える様になる
-					;(define-key global-map "\C-x" 'one-key-menu-C-x) ;; C-x にコマンドを定義
+;; (require 'one-key)
+;; (require 'one-key-default)   ; one-key.el も一緒に読み込んでくれる
+;; (require 'one-key-config)    ; one-key.el をより便利にする
+;; (one-key-default-setup-keys) ; one-key- で始まるメニュー使える様になる
+;;(define-key global-map "\C-x" 'one-key-menu-C-x) ;; C-x にコマンドを定義
 
 ;; C-tで画面分割連続押しでフォーカス移動
 (defun other-window-or-split ()
@@ -363,7 +407,7 @@
 ;; [M-e]で編集箇所を逆方向に辿る
 ;; うまく動かん一度でフォルトのキーバインドを無効にする必要がある
 ;; http://www.emacswiki.org/cgi-bin/wiki/goto-chg.el
-(require 'goto-chg)
+;;(require 'goto-chg)
 ;; (global-set-key (kbd "M-a") 'goto-last-change)
 ;; (global-set-key (kbd "M-e") 'goto-last-change-reverse)
 
@@ -448,7 +492,7 @@
       scroll-step 1)
 (setq comint-scroll-show-maximum-output t) ;; for shell-mode
 
-;;C-c cで選択範囲をコメントorコメントアウトn
+;;C-c cで選択範囲をコメントorコメントアウト
 (global-set-key "\C-cc" 'comment-or-uncomment-region)
 
 ;;yes/noをy/nに変換
@@ -476,6 +520,10 @@
             (gtags-mode 1)
             (setq gtags-libpath `((,(expand-file-name "~/.tags/php") . "/opt/local/lib/php")
                                   (,(expand-file-name "~/.tags/php_zend") . "/var/www/Zend/ZendFramework-1.10.1-minimal/library")))))
+(add-hook 'python-mode-hook
+          (lambda ()
+            (gtags-mode 1)
+            (setq gtags-libpath `((,(expand-file-name "~/.tags/python") . "/opt/local/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6"))))
 ;; (add-hook 'c-mode-common-hook
 ;;           (lambda ()
 ;;             (gtags-mode 1)
@@ -504,7 +552,17 @@
 (global-set-key (kbd "C-,") 'anything-gtags-select)
 (global-set-key (kbd "C-<") 'anything-gtags-resume)
 
-;; dired::本日変更ファイルを強調
+;; growl通知www
+(defun growlnotify-after-save-hook ()
+  (shell-command
+   (format "growlnotify -m \"Emacs: ファイル %s を保存しました\""
+		   (buffer-name (current-buffer)))))
+(add-hook 'after-save-hook 'growlnotify-after-save-hook)
+
+(autoload 'navi2ch "navi2ch" "Navigator for 2ch for Emacs" t)
+
+;; dired:
+;;本日変更ファイルを強調
 ;; (defface my-face-f-2 '((t (:foreground "GreenYellow"))) nil)
 ;; (defvar my-face-f-2 'my-face-f-2)
 ;; (defun my-dired-today-search (arg)
@@ -523,3 +581,41 @@
 
 ;; howm
 (load "init-kowm")
+
+;; debuger
+;;(setq debug-on-error t)
+
+;; Emacs shell ansi-termでエラーが出るのでコメントアウト
+;;(load "init-shell")
+
+;; 直そうと思ったがだめだった
+;; (require 'term)
+;; (defvar ansi-term-after-hook nil)
+;; (add-hook 'ansi-term-after-hook
+;;         (function
+;;           (lambda ()
+;;              (define-key term-raw-map "\C-x\C-v" '(lambda ()(interactive)(ansi-term "/bin/bash")))
+;;              (define-key term-raw-map "\C-c\C-c" 'my-term-line-char-switch))))
+
+;; (defadvice ansi-term (after ansi-term-after-advice (arg))
+;;   "run hook as after advice"
+;;   (run-hooks 'ansi-term-after-hook))
+;; (ad-activate 'ansi-term)
+
+;; (defun my-term-line-char-switch()
+;;   (interactive)
+;;   (if (term-in-line-mode) (term-char-mode)
+;;     (if (term-in-char-mode) (term-line-mode))))
+
+;; (add-hook 'term-mode-hook
+;;         (function
+;;           (lambda ()
+;;                 (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
+;;                 (make-local-variable 'mouse-yank-at-point)
+;;                 (make-local-variable 'transient-mark-mode)
+;;                 (setq mouse-yank-at-point t)
+;;                 (setq transient-mark-mode t)
+;;                 (auto-fill-mode -1)
+;;         (setq tab-width 4)
+;;                 (define-key term-mode-map "\C-i" 'term-dynamic-complete)
+;;                 (define-key term-mode-map "\C-m" 'term-send-input))))

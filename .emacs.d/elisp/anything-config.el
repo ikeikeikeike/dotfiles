@@ -75,8 +75,9 @@
 ;; buffer, because M-x anything-resume revives anything command.
 
 ;;
+;; Anything sources can be tested by M-x `anything-call-source'.
 ;; Below are complete source list you can setup in the first argument
-;; of `anything-other-buffer' (or `anything-sources'):
+;; of `anything-other-buffer':
 ;;
 ;;  Buffer:
 ;;     `anything-c-source-buffers'          (Buffers)
@@ -302,6 +303,8 @@
 ;;    Do many create actions from STRING.
 ;;  `anything-top'
 ;;    Preconfigured `anything' for top command.
+;;  `anything-select-xfont'
+;;    Preconfigured `anything' to select Xfont.
 ;;  `anything-apt'
 ;;    The `anything' frontend of APT package manager.
 ;;  `anything-c-set-variable'
@@ -415,11 +418,12 @@
 (require 'anything)
 (require 'thingatpt)
 (require 'ffap)
+(require 'cl)
 
 ;;; Code:
 
 ;; version check
-(let ((version "1.244"))
+(let ((version "1.256"))
   (when (and (string= "1." (substring version 0 2))
              (string-match "1\.\\([0-9]+\\)" anything-version)
              (< (string-to-number (match-string 1 anything-version))
@@ -588,9 +592,9 @@ If you want to have the default tramp messages set it to 3."
        (pop-to-buffer "*Anything Help*")
        (goto-char (point-min)))))
 
-;; rubikitch: I think many people binds `delete-backward-char' to C-h.
-;;            So I rebound `anything-c-describe-anything-bindings' to C-c ?.
-(define-key anything-map (kbd "C-c ?") 'anything-c-describe-anything-bindings)
+;; Use `describe-mode' key in `global-map'
+(dolist (k (where-is-internal 'describe-mode global-map))
+  (define-key anything-map k 'anything-c-describe-anything-bindings))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Preconfigured Anything ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun anything-for-files ()
@@ -1293,12 +1297,13 @@ buffer that is not the current buffer."
     (persistent-action . anything-find-files-persistent-action)
     (volatile)
     (action . ,(delq nil `(("Find File" . find-file-at-point)
-                           ("Find file other window" . find-file-other-window)
                            ("Find file in Dired" . anything-c-point-file-in-dired)
-                           ,(when (require 'elscreen nil t)
-                                  '("Find file in Elscreen"  . elscreen-find-file))
+                           ,(and (locate-library "elscreen") '("Find file in Elscreen"  . anything-elscreen-find-file))
+                           ("Complete at point" . anything-c-insert-file-name-completion-at-point)
+                           ("Delete File(s)" . anything-delete-marked-files)
                            ("Find file as root" . anything-find-file-as-root)
-                           ("Delete File(s)" . anything-delete-marked-files))))))
+                           ("Find file other window" . find-file-other-window)
+                           ("Find file other frame" . find-file-other-frame))))))
 
 ;; (anything 'anything-c-source-find-files)
 
@@ -1451,6 +1456,21 @@ If CANDIDATE is not a directory open this file."
            (let ((new-pattern (anything-get-selection anything-last-buffer)))
              (set-text-properties 0 (length new-pattern) nil new-pattern)
              (insert-in-minibuffer new-pattern))))))
+
+
+(defun anything-c-insert-file-name-completion-at-point (candidate)
+  "Insert file name completion at point."
+  (let* ((end         (point))
+         (guess       (thing-at-point 'filename))
+         (full-path-p (string-match (concat "^" (getenv "HOME")) guess)))
+    (condition-case nil
+        (when (file-exists-p (file-name-directory guess))
+          (search-backward guess (- (point) (length guess)))
+          (delete-region (point) end)
+          (if full-path-p
+              (insert (expand-file-name candidate))
+              (insert (abbreviate-file-name candidate))))
+      (error nil))))
 
 
 (defun anything-find-files ()
@@ -2224,6 +2244,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-region-setup-alist)
     (candidate-transformer anything-c-highlight-bookmark)
+    (filtered-candidate-transformer . anything-c-adaptive-sort)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-regions)
 
@@ -2239,6 +2260,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-w3m-setup-alist)
     (candidate-transformer anything-c-highlight-bookmark)
+    (filtered-candidate-transformer . anything-c-adaptive-sort)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-w3m)
 
@@ -2254,6 +2276,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-man-setup-alist)
     (candidate-transformer anything-c-highlight-bookmark)
+    (filtered-candidate-transformer . anything-c-adaptive-sort)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-man)
 
@@ -2270,6 +2293,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-gnus-setup-alist)
     (candidate-transformer anything-c-highlight-bookmark)
+    (filtered-candidate-transformer . anything-c-adaptive-sort)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-gnus)
 
@@ -2285,6 +2309,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-info-setup-alist)
     (candidate-transformer anything-c-highlight-bookmark)
+    (filtered-candidate-transformer . anything-c-adaptive-sort)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-info)
 
@@ -2300,6 +2325,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-local-files-setup-alist)
     (candidate-transformer anything-c-highlight-bookmark)
+    (filtered-candidate-transformer . anything-c-adaptive-sort)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-files&dirs)
 
@@ -2320,6 +2346,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-su-files-setup-alist)
     (candidate-transformer anything-c-highlight-bmkext-su)
+    (filtered-candidate-transformer . anything-c-adaptive-sort)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-su-files&dirs)
 
@@ -2344,6 +2371,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
               (require 'bookmark-extensions)
               (bookmark-maybe-load-default-file)))
     (candidates . anything-c-bookmark-ssh-files-setup-alist)
+    (filtered-candidate-transformer . anything-c-adaptive-sort)
     (type . bookmark)))
 ;; (anything 'anything-c-source-bookmark-ssh-files&dirs)
 
@@ -2360,6 +2388,7 @@ Work both with standard Emacs bookmarks and bookmark-extensions.el."
                       (string-match "/ssh:" isfile))
      if isssh
      collect i))
+
 
 ;; All bookmark-extensions sources.
 (defun anything-bookmark-ext ()
@@ -2726,7 +2755,8 @@ http://ctags.sourceforge.net/")
                          (let ((type (semantic-tag-type tag))
                                (class (semantic-tag-class tag)))
                            (if (or (and (stringp type)
-                                        (string= type "class"))
+                                        (or (string= type "class")
+                                            (string= type "namespace")))
                                    (eq class 'function)
                                    (eq class 'variable))
                                (cons (cons (concat (make-string (* depth 2) ?\s)
@@ -3743,7 +3773,8 @@ A list of search engines."
                                   (url (second stream)))
                              (funcall fn url))))
                ("Delete" . anything-emms-stream-delete-bookmark)
-               ("Edit" . anything-emms-stream-edit-bookmark)))))
+               ("Edit" . anything-emms-stream-edit-bookmark)))
+    (filtered-candidate-transformer . anything-c-adaptive-sort)))
 ;; (anything 'anything-c-source-emms-streams)
 
 ;; Don't forget to set `emms-source-file-default-directory'
@@ -3751,14 +3782,18 @@ A list of search engines."
   '((name . "Music Directory")
     (candidates . (lambda ()
                     (cddr (directory-files emms-source-file-default-directory))))
-    (action . (("Play Directory" . (lambda (item)
-                                     (emms-play-directory
-                                      (expand-file-name item
-                                                        emms-source-file-default-directory))))
-               ("Open dired in file's directory" . (lambda (item)
-                                                     (anything-c-open-dired
-                                                      (expand-file-name item
-                                                                        emms-source-file-default-directory))))))))
+    (action .
+     (("Play Directory" . (lambda (item)
+                            (emms-play-directory
+                             (expand-file-name
+                              item
+                              emms-source-file-default-directory))))
+      ("Open dired in file's directory" . (lambda (item)
+                                            (anything-c-open-dired
+                                             (expand-file-name
+                                              item
+                                              emms-source-file-default-directory))))))
+    (filtered-candidate-transformer . anything-c-adaptive-sort)))
 ;; (anything 'anything-c-source-emms-dired)
 
 ;;; Jabber Contacts (jabber.el)
@@ -3788,12 +3823,14 @@ A list of search engines."
 (defvar anything-source-select-buffer "*anything source select*")
 (defvar anything-c-source-call-source
   `((name . "Call anything source")
-    (candidate-number-limit . 9999)
+    (candidate-number-limit)
     (candidates . (lambda ()
                     (loop for vname in (all-completions "anything-c-source-" obarray)
                           for var = (intern vname)
                           for name = (ignore-errors (assoc-default 'name (symbol-value var)))
-                          if name collect (cons (format "%s (%s)" name vname) var))))
+                          if name collect (cons (format "%s `%s'"
+                                                        name (propertize vname 'face 'font-lock-variable-name-face))
+                                                var))))
     (action . (("Invoke anything with selected source" .
                 (lambda (candidate)
                   (setq anything-candidate-number-limit 9999)
@@ -4016,8 +4053,11 @@ See also `anything-create--actions'."
 ;;; Xfont selection
 (defun anything-c-persistent-xfont-action (elm)
   "Show current font temporarily"
-  (let ((default-font elm))
-    (set-default-font default-font)))
+  (let ((current-font (cdr (assoc 'font (frame-parameters))))
+        (default-font elm))
+    (unwind-protect
+         (progn (set-frame-font default-font 'keep-size) (sit-for 2))
+      (set-frame-font current-font))))
 
 (defvar anything-c-xfonts-cache nil)
 (defvar anything-c-source-xfonts
@@ -4031,10 +4071,15 @@ See also `anything-create--actions'."
                                         (kill-new elm)))
                ("Set Font" . (lambda (elm)
                                (kill-new elm)
-                               (set-default-font elm 'keep-size)
+                               (set-frame-font elm 'keep-size)
                                (message "New font have been copied to kill ring")))))
     (persistent-action . anything-c-persistent-xfont-action)))
-  
+
+(defun anything-select-xfont ()
+  "Preconfigured `anything' to select Xfont."
+  (interactive)
+  (anything-other-buffer 'anything-c-source-xfonts "*anything select* xfont"))
+
 ;; (anything 'anything-c-source-xfonts)
 
 ;; Source for Debian/Ubuntu users
@@ -4132,9 +4177,9 @@ See also `anything-create--actions'."
                                         (anything-c-gentoo-default-action elm "equery" "-C" "d")))
                ("Show related files" . (lambda (elm)
                                          (anything-c-gentoo-default-action elm "equery" "files")))
-               ("Update" . (lambda (elm)
-                             (anything-c-gentoo-setup-cache)
-                             (setq anything-c-cache-world (anything-c-gentoo-get-world))))))))
+               ("Refresh" . (lambda (elm)
+                              (anything-c-gentoo-setup-cache)
+                              (setq anything-c-cache-world (anything-c-gentoo-get-world))))))))
 
 ;; (anything 'anything-c-source-gentoo)
 
@@ -4170,15 +4215,7 @@ See also `anything-create--actions'."
     (candidates-in-buffer)
     (match . identity)
     (candidate-transformer anything-c-highlight-local-use)
-    (action . (("Show which dep use this flag"
-                . (lambda (elm)
-                    (switch-to-buffer anything-c-gentoo-buffer)
-                    (erase-buffer)
-                    (apply #'call-process "equery" nil t nil
-                           `("-C"
-                             "h"
-                             ,elm))))
-               ("Description"
+    (action . (("Description"
                 . (lambda (elm)
                     (switch-to-buffer anything-c-gentoo-buffer)
                     (erase-buffer)
@@ -4186,7 +4223,24 @@ See also `anything-create--actions'."
                            `("-i"
                              ,elm))
                     (font-lock-add-keywords nil `((,elm . font-lock-variable-name-face)))
-                    (font-lock-mode 1)))))))
+                    (font-lock-mode 1)))
+               ("Enable"
+                . (lambda (elm)
+                    (anything-c-gentoo-eshell-action elm "*sudo euse -E")))
+               ("Disable"
+                . (lambda (elm)
+                    (anything-c-gentoo-eshell-action elm "*sudo euse -D")))
+               ("Remove"
+                . (lambda (elm)
+                    (anything-c-gentoo-eshell-action elm "*sudo euse -P")))
+               ("Show which dep use this flag"
+                . (lambda (elm)
+                    (switch-to-buffer anything-c-gentoo-buffer)
+                    (erase-buffer)
+                    (apply #'call-process "equery" nil t nil
+                           `("-C"
+                             "h"
+                             ,elm))))))))
 
 
 ;; (anything 'anything-c-source-use-flags)
@@ -4676,60 +4730,76 @@ when a candidate is selected with RET."
 when the user goes to the action list with TAB."
   (anything-c-adaptive-store-selection))
 
+(defun anything-c-source-use-adaptative-p (&optional source-name)
+  "Return current source only if it use adaptative history, nil otherwise."
+  (let* ((source (or source-name (anything-get-current-source)))
+         (adapt-source (or (assoc-default 'filtered-candidate-transformer
+                                          (assoc (assoc-default 'type source)
+                                                 anything-type-attributes))
+                           (assoc-default 'candidate-transformer
+                                          (assoc (assoc-default 'type source)
+                                                 anything-type-attributes))
+                           (assoc-default 'filtered-candidate-transformer source)
+                           (assoc-default 'candidate-transformer source))))
+    (if (listp adapt-source)
+        (when (member 'anything-c-adaptive-sort adapt-source) source)
+        (when (eq adapt-source 'anything-c-adaptive-sort) source))))
+
 (defun anything-c-adaptive-store-selection ()
   "Store history information for the selected candidate."
   (unless anything-c-adaptive-done
     (setq anything-c-adaptive-done t)
-    (let* ((source (anything-get-current-source))
-           (source-name (or (assoc-default 'type source)
-                            (assoc-default 'name source)))
-           (source-info (or (assoc source-name anything-c-adaptive-history)
-                            (progn
-                              (push (list source-name) anything-c-adaptive-history)
-                              (car anything-c-adaptive-history))))
-           (selection (anything-get-selection))
-           (selection-info (progn
-                             (setcdr source-info
-                                     (cons
-                                      (let ((found (assoc selection (cdr source-info))))
-                                        (if (not found)
-                                            ;; new entry
-                                            (list selection)
+    (let ((source (anything-c-source-use-adaptative-p)))
+      (when source
+        (let* ((source-name (or (assoc-default 'type source)
+                                (assoc-default 'name source)))
+               (source-info (or (assoc source-name anything-c-adaptive-history)
+                                (progn
+                                  (push (list source-name) anything-c-adaptive-history)
+                                  (car anything-c-adaptive-history))))
+               (selection (anything-get-selection))
+               (selection-info (progn
+                                 (setcdr source-info
+                                         (cons
+                                          (let ((found (assoc selection (cdr source-info))))
+                                            (if (not found)
+                                                ;; new entry
+                                                (list selection)
 
-                                          ;; move entry to the beginning of the
-                                          ;; list, so that it doesn't get
-                                          ;; trimmed when the history is
-                                          ;; truncated
-                                          (setcdr source-info
-                                                  (delete found (cdr source-info)))
-                                          found))
-                                      (cdr source-info)))
-                             (cadr source-info)))
-           (pattern-info (progn
-                           (setcdr selection-info
-                                   (cons
-                                    (let ((found (assoc anything-pattern (cdr selection-info))))
-                                      (if (not found)
-                                          ;; new entry
-                                          (cons anything-pattern 0)
+                                                ;; move entry to the beginning of the
+                                                ;; list, so that it doesn't get
+                                                ;; trimmed when the history is
+                                                ;; truncated
+                                                (setcdr source-info
+                                                        (delete found (cdr source-info)))
+                                                found))
+                                          (cdr source-info)))
+                                 (cadr source-info)))
+               (pattern-info (progn
+                               (setcdr selection-info
+                                       (cons
+                                        (let ((found (assoc anything-pattern (cdr selection-info))))
+                                          (if (not found)
+                                              ;; new entry
+                                              (cons anything-pattern 0)
 
-                                        ;; move entry to the beginning of the
-                                        ;; list, so if two patterns used the
-                                        ;; same number of times then the one
-                                        ;; used last appears first in the list
-                                        (setcdr selection-info
-                                                (delete found (cdr selection-info)))
-                                        found))
-                                    (cdr selection-info)))
-                           (cadr selection-info))))
+                                              ;; move entry to the beginning of the
+                                              ;; list, so if two patterns used the
+                                              ;; same number of times then the one
+                                              ;; used last appears first in the list
+                                              (setcdr selection-info
+                                                      (delete found (cdr selection-info)))
+                                              found))
+                                        (cdr selection-info)))
+                               (cadr selection-info))))
 
-      ;; increase usage count
-      (setcdr pattern-info (1+ (cdr pattern-info)))
+          ;; increase usage count
+          (setcdr pattern-info (1+ (cdr pattern-info)))
 
-      ;; truncate history if needed
-      (if (> (length (cdr selection-info)) anything-c-adaptive-history-length)
-          (setcdr selection-info
-                  (subseq (cdr selection-info) 0 anything-c-adaptive-history-length))))))
+          ;; truncate history if needed
+          (if (> (length (cdr selection-info)) anything-c-adaptive-history-length)
+              (setcdr selection-info
+                      (subseq (cdr selection-info) 0 anything-c-adaptive-history-length))))))))
 
 (if (file-readable-p anything-c-adaptive-history-file)
     (load-file anything-c-adaptive-history-file))
@@ -4824,8 +4894,7 @@ candidate can be in (DISPLAY . REAL) format."
 (defun anything-p-candidats-file-init ()
   (destructuring-bind (file &optional updating)
       (anything-mklist (anything-attr 'candidates-file))
-    (when (symbolp file)
-      (setq file (symbol-value file)))
+    (setq file (anything-interpret-value file))
     (with-current-buffer (anything-candidate-buffer (find-file-noselect file))
       (when updating
         (buffer-disable-undo)
@@ -4835,6 +4904,7 @@ candidate can be in (DISPLAY . REAL) format."
 (anything-document-attribute 'candidates-file "candidates-file plugin"
   "Use a file as the candidates buffer.
 
+1st argument is a filename, string or function name or variable name.
 If optional 2nd argument is non-nil, the file opened with `auto-revert-mode'.")
 
 ;; Plug-in: headline
@@ -5000,8 +5070,13 @@ Return nil if bmk is not a valid bookmark."
                 (setq deactivate-mark nil)))))
       (error nil))))
 
+(defun anything-require-or-error (feature function)
+  (or (require feature nil t)
+      (error "Need %s to use `%s'." feature function)))
+
 (defun anything-find-buffer-on-elscreen (candidate)
   "Open buffer in new screen, if marked buffers open all in elscreens."
+  (anything-require-or-error 'elscreen 'anything-find-buffer-on-elscreen)
   (anything-aif (anything-marked-candidates)
       (dolist (i it)
         (let ((target-screen (elscreen-find-screen-by-buffer
@@ -5010,6 +5085,10 @@ Return nil if bmk is not a valid bookmark."
     (let ((target-screen (elscreen-find-screen-by-buffer
                           (get-buffer candidate) 'create)))
       (elscreen-goto target-screen))))
+
+(defun anything-elscreen-find-file (file)
+  (anything-require-or-error 'elscreen 'anything-elscreen-find-file)
+  (elscreen-find-file file))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Setup ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -5022,8 +5101,7 @@ Return nil if bmk is not a valid bookmark."
          '(("Switch to buffer" . switch-to-buffer)
            ("Switch to buffer other window" . switch-to-buffer-other-window)
            ("Switch to buffer other frame" . switch-to-buffer-other-frame)))
-     ,@(when (require 'elscreen nil t)
-             '(("Display buffer in Elscreen" . anything-find-buffer-on-elscreen)))
+     ,(and (locate-library "elscreen") '("Display buffer in Elscreen" . anything-find-buffer-on-elscreen))
      ("Display buffer"   . display-buffer)
      ("Revert buffer" . anything-revert-buffer)
      ("Revert Marked buffers" . anything-revert-marked-buffers)
@@ -5090,7 +5168,8 @@ Return nil if bmk is not a valid bookmark."
 (define-anything-type-attribute 'bookmark
   `((action
      ("Jump to bookmark" . (lambda (candidate)
-                             (let ((bookmark (anything-bookmark-get-bookmark-from-name candidate)))
+                             (let ((bookmark (anything-bookmark-get-bookmark-from-name candidate))
+                                   (current-prefix-arg anything-current-prefix-arg))
                                (bookmark-jump bookmark))
                              (anything-update)
                              (anything-bookmark-active-region-maybe candidate)))

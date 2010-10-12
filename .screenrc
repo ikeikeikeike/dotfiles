@@ -7,7 +7,7 @@ startup_message off
 shell /opt/local/bin/zsh
 
 # rollback
-defscrollback 10000
+defscrollback 100000
 
 # 画面下部にステータスバー
 hardstatus on
@@ -20,6 +20,9 @@ escape ^tT
 
 ## 自動でデタッチする
 autodetach on
+
+## scroll buffer
+termcapinfo xterm* ti@:te@
 
 #defkanji utf-8
 #encoding utf-8 utf-8
