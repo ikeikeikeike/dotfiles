@@ -30,7 +30,7 @@ alias cp='cp -iv'
 alias mv='mv -iv'
 alias mysql='mysql5'
 alias gd='source $HOME/.zsh_extend/gd/gd.sh'
-alias updatedb='source $HOME/script/shell/updatedb.sh'
+alias updatedb='$HOME/.zsh_extend/updatedb/updatedb.sh &'
 
 # rsync
 alias rsync_gigacast_dev='source $HOME/script/shell/rsync_gigacast_dev'
