@@ -199,7 +199,7 @@ function cd(){
 function ssh_screen(){
 	#eval
 	server=?${$#}
-	screen -t $server ssh "$@"
+	screen -t ${@}${server} ssh ${@}
 }
 if [ x$TERM = xscreen ]; then
 	alias ssh=ssh_screen
@@ -229,4 +229,3 @@ zshaddhistory() {
         && ${cmd} != (m|man)
     ]]
 }
- 
