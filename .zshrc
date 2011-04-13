@@ -1,11 +1,6 @@
-# macports
-#export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-#export DISPLAY=:0.0
-
 export LANG=ja_JP.UTF-8
 #export SHELL=/usr/local/bin/zsh
-export PYTHONSTARTUP=$HOME/.pythonrc.py
-export DISPLAY=:0.0
+
 # Emacsと同じキー操作を行う
 bindkey -e
 
@@ -18,19 +13,32 @@ SAVEHIST=10000000
 autoload -U compinit
 compinit
 
-# alias
-alias emacs='open -a Emacs.app'
+# java
+alias javac='javac -encoding UTF-8'
+alias java='java -Dfile.encoding=UTF-8'
+
+# alia
+alias top='htop'
+alias emacs='open -a /Applications/MacPorts/Emacs.app'
+#alias emacs_sudo='sudo open -a /Applications/MacPorts/Emacs.app'
+alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/Vim "$@"'
+alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/Vim "$@"'
+alias mvi='env LANG=ja_JP.UTF-8 /Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/MacVim "$@"'
+alias mvim='env LANG=ja_JP.UTF-8 /Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/MacVim "$@"'
 alias py=python
 alias screen='screen -U'
-alias ls='ls -Gfh'
+alias ls='ls -FGh'
 alias vi='vim'
-alias less='less -M'
-alias grep='grep --color'
+alias less='less -MX'
+alias grep='grep --color=always '
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias mysql='mysql5'
 alias gd='source $HOME/.zsh_extend/gd/gd.sh'
-alias updatedb='$HOME/.zsh_extend/updatedb/updatedb.sh &'
+#alias updatedb='$HOME/.zsh_extend/updatedb/updatedb.sh &'
+alias updatedb=' sudo LC_ALL=C gupdatedb '
+alias locate='glocate -i '
+alias winscp='open /Users/ikeda/Library/Application\ Support/MikuInstaller/prefix/default/drive_c/Program\ Files/WinSCP/WinSCP.exe'
 
 # rsync
 alias rsync_gigacast_dev='source $HOME/script/shell/rsync_gigacast_dev'
@@ -39,6 +47,7 @@ alias rsync_gigacast_plcdn='source $HOME/script/shell/rsync_gigacast_plcdn'
 alias rsync_gigacast_aidia='source $HOME/script/shell/rsync_gigacast_aidia'
 alias rsync_gigacast_gaitame='source $HOME/script/shell/rsync_gigacast_gaitame'
 alias rsync_gigacast_jikiden='source $HOME/script/shell/rsync_gigacast_jikiden'
+alias rsync_gigacast_local_dev='source $HOME/script/shell/rsync_gigacast_local_dev'
 
 #alias gd='dirs -v; echo -n "select number: "; read newdir; cd -"$newdir"'
 
@@ -138,6 +147,9 @@ setopt auto_param_slash
 ## スペルチェック
 setopt correct
 
+# 辞書順ではなく数値順でソート
+setopt numeric_glob_sort
+
 ## cd conf
 # カレントディレクトリ中にサブディレクトリが無い場合に cd が検索するディレクトリのリスト
 cdpath=($HOME)
@@ -187,7 +199,7 @@ function history-all { history -E 1 }
 
 # cdを打ったら自動的にlsを打ってくれる関数
 function cd(){
-    builtin cd $@ && ls -alt;
+    builtin cd $@ && ls && ls -alt;
 }
 
 # settei wo kaiteinai
@@ -197,12 +209,21 @@ function cd(){
 
 # ssh screen name
 function ssh_screen(){
-	#eval
-	server=?${$#}
-	screen -t ${@}${server} ssh ${@}
+    server=?${$#}
+    screen -t ${@}${server} ssh ${@}
 }
+function ssh_tmux(){
+    server=?${$#}
+    tmux new-window -n ${@}${server} "ssh ${@}"
+}
+
+# tmux screen 判別
 if [ x$TERM = xscreen ]; then
+    if [ -e $TMUX ]; then
 	alias ssh=ssh_screen
+    else
+	alias ssh=ssh_tmux
+    fi
 fi
 
 #source ~/.zsh_extend/cdd
@@ -228,4 +249,64 @@ zshaddhistory() {
 #	&& ${cmd} != (gd)
         && ${cmd} != (m|man)
     ]]
+}
+
+export_grep_color(){
+    x=$GREP_COLOR;
+    export GREP_COLOR=$1;
+    grep --color=always $2;
+    export GREP_COLOR=$x
+}
+#alias grep=' export_grep_color "01;31" $1' # red
+alias grep1=' export_grep_color "01;32" $1' # green
+alias grep2=' export_grep_color "01;33" $1' # yellow
+alias grep3=' export_grep_color "01;34" $1' # blue
+alias grep4=' export_grep_color "01;35" $1' # purple
+alias grep5=' export_grep_color "01;36" $1' # 水色
+alias grep6=' export_grep_color "01;37" $1' # white
+
+# 解凍
+function extract (){
+  if [ -f $1 ] ; then
+      case $1 in
+          *.tar.bz2)   echo "tar xvjf $1"   && tar xvjf $1    ;;
+          *.tar.gz)    echo "tar xvzf $1"   && tar xvzf $1    ;;
+          *.tar.xz)    echo "tar xvJf $1"   && tar xvJf $1    ;;
+          *.bz2)       echo "bunzip2 $1"    && bunzip2 $1     ;;
+          *.rar)       echo "unrar x $1"    && unrar x $1     ;;
+          *.gz)        echo "gunzip $1"     && gunzip $1      ;;
+          *.tar)       echo "tar xvf $1"    && tar xvf $1     ;;
+          *.tbz2)      echo "tar xvjf $1"   && tar xvjf $1    ;;
+          *.tgz)       echo "tar xvzf $1"   && tar xvzf $1    ;;
+          *.zip)       echo "unzip $1"      && unzip $1       ;;
+          *.Z)         echo "uncompress $1" && uncompress $1  ;;
+          *.7z)        echo "7z x $1"       && 7z x $1        ;;
+          *.lzma)      echo "lzma -dv $1"   && lzma -dv $1    ;;
+          *.xz)        echo "xz -dv $1"     && xz -dv $1      ;;
+          *)           echo "don't know how to extract '$1'..." ;;
+      esac
+  else
+      echo "'$1' is not a valid file!"
+  fi
+}
+
+# growlnotify exevute  30 second later
+local COMMAND=""
+local COMMAND_TIME=""
+precmd() {
+    if [ "$COMMAND_TIME" -ne "0" ] ; then
+        local d=`date +%s`
+        d=`expr $d - $COMMAND_TIME`
+        if [ "$d" -ge "30" ] ; then
+             COMMAND="$COMMAND "
+             growlnotify -t "${${(s: :)COMMAND}[1]}" -m "$COMMAND"
+        fi
+    fi
+    COMMAND="0"
+    COMMAND_TIME="0"
+}
+
+preexec () {
+    COMMAND="${1}"
+    COMMAND_TIME=`date +%s`
 }

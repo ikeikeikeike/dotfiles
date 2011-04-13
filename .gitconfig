@@ -1,0 +1,10 @@
+[user]
+	name = username
+  email = username@mail.com
+[color]
+    ui = auto
+[core]
+  excludesfile = ~/.gitignore
+  pager = LESS=-R less
+[gui]
+	recentrepo = ~/.virtualenvs/project

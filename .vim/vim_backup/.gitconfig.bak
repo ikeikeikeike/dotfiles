@@ -1,0 +1,10 @@
+[user]
+	name = TatsuoIkeda
+  email = ikedat@logosware.com
+[color]
+    ui = auto
+[core]
+  excludesfile = /Users/ikeda/.gitignore
+  pager = less -r
+[gui]
+	recentrepo = /Users/ikeda/.virtualenvs/powerlive.jp/powerlive_creater

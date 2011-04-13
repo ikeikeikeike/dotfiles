@@ -1,3 +1,6 @@
+;; debuger
+;(setq debug-on-error t)
+
 ;; load-path
 					;(setq load-path (cons "~/.emacs.d/elisp" load-path))
 ;;====================
@@ -6,10 +9,13 @@
 ;; load-pathを追加
 (setq load-path (append
                  '("/Applications/Emacs.app/Contents/Resources/site-lisp"
+		   "/Applications/MacPorts/Emacs.app/Contents/Resources/site-lisp"
 		   "~/.emacs.d/elisp"
 		   "~/.emacs.d/auto-install"
 		   "~/.emacs.d/init"
 		   "~/.emacs.d/navi2ch"
+		   "/opt/local/share/emacs/site-lisp"
+		   "/opt/local/share/emacs/site-lisp/howm"
 		   )
                  load-path))
 
@@ -21,8 +27,11 @@
                    "/usr/X11/bin")
                  exec-path))
 
-;; テキストエンコーディングとしてUTF-8を優先使用
+					; 言語を日本語にする
+(set-language-environment 'Japanese)
+					; 極力UTF-8とする
 (prefer-coding-system 'utf-8)
+
 ;; (add-to-list 'face-font-rescale-alist '(".*osaka-bold.*" . 0.3))
 
 ;; (add-to-list 'default-frame-alist
@@ -31,23 +40,23 @@
 ;;              '(font . "-*-*-medium-r-normal--12-*-*-*-*-*-16-dot medium"))
 
 
-(add-to-list 'default-frame-alist '(font . "fontset-default"))
-;; (set-frame-font "fontset-default")
+;; (add-to-list 'default-frame-alist '(font . "fontset-default"))
+;; ;; (set-frame-font "fontset-default")
 
-(set-face-attribute 'default nil
-                    :family "monaco"
-                    :height 100)
+;; (set-face-attribute 'default nil
+;;                     :family "monaco"
+;;                     :height 100)
 
-(set-fontset-font "fontset-default"
-                  'japanese-jisx0208
-                  '("ヒラギノ丸ゴ pro w4*" . "jisx0208.*"))
+;; (set-fontset-font "fontset-default"
+;;                   'japanese-jisx0208
+;;                   '("ヒラギノ丸ゴ pro w4*" . "jisx0208.*"))
 
-(set-fontset-font "fontset-default"
-                  'katakana-jisx0201
-                  '("ヒラギノ丸ゴ pro w4*" . "jisx0201.*"))
+;; (set-fontset-font "fontset-default"
+;;                   'katakana-jisx0201
+;;                   '("ヒラギノ丸ゴ pro w4*" . "jisx0201.*"))
 
-(add-to-list 'face-font-rescale-alist
-             `(,(encode-coding-string ".*ヒラギノ丸ゴ pro w4.*" 'emacs-mule) . 1.0))
+;; (add-to-list 'face-font-rescale-alist
+;;              `(,(encode-coding-string ".*ヒラギノ丸ゴ pro w4.*" 'emacs-mule) . 1.0))
 
 
 
@@ -99,11 +108,11 @@
     :front "<style[^>]*>\\([^<]*\\)?\n[ \t]*</style>"
     )
 
-;;    (html-php
-;;     :submode php-mode
-;;     :front "<\\?\\(php\\)?"
-;;     :back "\\?>"
-;;     )
+   ;;    (html-php
+   ;;     :submode php-mode
+   ;;     :front "<\\?\\(php\\)?"
+   ;;     :back "\\?>"
+   ;;     )
 
    (mmm-html-javascript-mode
     :submode javascript-mode
@@ -208,25 +217,79 @@
              )))
 
 ;; pymacs
-(autoload 'pymacs-apply "pymacs")
-(autoload 'pymacs-call "pymacs")
-(autoload 'pymacs-eval "pymacs" nil t)
-(autoload 'pymacs-exec "pymacs" nil t)
-(autoload 'pymacs-load "pymacs" nil t)
-(eval-after-load "pymacs"
-  '(add-to-list 'pymacs-load-path "YOUR-PYMACS-DIRECTORY"))
-;; python-mode, pycomplete 
-(setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
-(setq interpreter-mode-alist (cons '("python" . python-mode)
-                                   interpreter-mode-alist))
-(autoload 'python-mode "python-mode" "Python editing mode." t)
-(add-hook 'python-mode-hook '(lambda ()
-                               (require 'pycomplete)
-                               ))
+;; (autoload 'pymacs-apply "pymacs")
+;; (autoload 'pymacs-call "pymacs")
+;; (autoload 'pymacs-eval "pymacs" nil t)
+;; (autoload 'pymacs-exec "pymacs" nil t)
+;; (autoload 'pymacs-load "pymacs" nil t)
+;; (eval-after-load "pymacs"
+;;   '(add-to-list 'pymacs-load-path "YOUR-PYMACS-DIRECTORY"))
+;; ;; python-mode, pycomplete 
+;; (setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
+;; (setq interpreter-mode-alist (cons '("python" . python-mode)
+;;                                    interpreter-mode-alist))
+;; (autoload 'python-mode "python-mode" "Python editing mode." t)
+;; (add-hook 'python-mode-hook '(lambda ()
+;;                                (require 'pycomplete)
+;;                                ))
+
+
+(defvar is_emacs23 (>= emacs-major-version 23))
+
+(when is_emacs23
+  (defun python-partial-symbol ()
+    "Return the partial symbol before point (for completion)."
+    (let ((end (point))
+          (start (save-excursion
+                   (and (re-search-backward
+                         (rx (or buffer-start (regexp "[^[:alnum:]._]"))
+                             (group (1+ (regexp "[[:alnum:]._]"))) point)
+                         nil t)
+                        (match-beginning 1)))))
+      (if start (buffer-substring-no-properties start end))))
+  )
+
+(defun ac-python-candidates ()
+  (python-find-imports)
+  (car (read-from-string
+        (python-send-receive
+         (format "emacs.complete(%S,%s)"
+                 (python-partial-symbol)
+                 python-imports)))))
+
+(ac-define-source python
+  '((candidates . ac-python-candidates)
+    (prefix . (unless
+                  (save-excursion
+                    (re-search-backward "^import"
+                                        (save-excursion
+                                          (re-search-backward "^")) t))
+                (let ((symbol
+                       (python-partial-symbol)
+                       ))
+                  (if symbol
+                      (save-excursion (search-backward symbol))))))
+    (symbol . "py-f")))
+
+(add-hook
+ 'python-mode-hook
+ '(lambda ()
+    (add-to-list 'ac-sources 'ac-source-python)
+    (setq tab-width 2)
+    ))
+
+(add-hook
+ 'inferior-python-mode-hook
+ '(lambda ()
+    (define-key inferior-python-mode-map "\C-c\C-f" 'python-describe-symbol)
+    (define-key inferior-python-mode-map "\C-c\C-z" 'kill-buffer-and-window)
+    (process-kill-without-query (get-process "Python"))
+    ))
+
 
 
 ;; nxhtml
-	
+
 ;; css-mode
 (autoload 'css-mode "css-mode" nil t)
 (setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
@@ -301,12 +364,12 @@
 (global-hl-line-mode)
 
 ;; ElScreenの有効化
-(require 'elscreen)
+					;(require 'elscreen)
 ;; PrefixキーをC-zに割り当て
-(elscreen-set-prefix-key "\C-z")
-(if window-system
-    (define-key elscreen-map "\C-z" 'iconify-or-deiconify-frame)
-  (define-key elscreen-map "\C-z" 'suspend-emacs))
+					;(elscreen-set-prefix-key "\C-z")
+					;(if window-system
+					;    (define-key elscreen-map "\C-z" 'iconify-or-deiconify-frame)
+					;  (define-key elscreen-map "\C-z" 'suspend-emacs))
 
 ;; linum.el(行番号の表示)
 (require 'linum)
@@ -364,6 +427,7 @@
 ;; (require 'one-key-config)    ; one-key.el をより便利にする
 ;; (one-key-default-setup-keys) ; one-key- で始まるメニュー使える様になる
 ;;(define-key global-map "\C-x" 'one-key-menu-C-x) ;; C-x にコマンドを定義
+
 
 ;; C-tで画面分割連続押しでフォーカス移動
 (defun other-window-or-split ()
@@ -437,7 +501,7 @@
 
 ;; タブをタブとして消す
 (global-set-key [backspace] 'backward-delete-char)
- 
+
 ;; マウスのホイールスクロールスピードを調節
 ;; (連続して回しているととんでもない早さになってしまう。特にlogicoolのマウス)
 (global-set-key [wheel-up] '(lambda () "" (interactive) (scroll-down 1)))
@@ -509,21 +573,78 @@
 ;; ssh root とか sshが重いかも
 (require 'tramp)
 
-;; gtags
+;; 2ch
+(autoload 'navi2ch "navi2ch" "Navigator for 2ch for Emacs" t)
+
+
+
+
+
+;; dired:
+;;本日変更ファイルを強調
+;; (defface my-face-f-2 '((t (:foreground "GreenYellow"))) nil)
+;; (defvar my-face-f-2 'my-face-f-2)
+;; (defun my-dired-today-search (arg)
+;;   "Fontlock search function for dired."
+;;   (search-forward-regexp
+;;    (concat (format-time-string "%b %e" (current-time)) " [0-9]....") arg t))
+;; (add-hook 'dired-mode-hook
+;;           '(lambda ()
+;;              (font-lock-add-keywords
+;;               major-mode
+;;               (list
+;;                '(my-dired-today-search . my-face-f-2)
+
+
+;; load-init
+;(load "init-flymake")
+
+;; howm
+(load "init-howm")
+
+
+
+;; growl通知w
+;; (defun growlnotify-after-save-hook ()
+;;   (shell-command
+;;    (format "growlnotify -m \"Emacs: ファイル %s を保存しました\""
+;; 		   (buffer-name (current-buffer)))))
+;; (add-hook 'after-save-hook 'growlnotify-after-save-hook)
+
+
+					; zsh
+(require 'zlc)
+(setq zlc-select-completion-immediately t)
+(let ((map minibuffer-local-map))
+  ;;; like menu select
+  (define-key map (kbd "<down>")  'zlc-select-next-vertical)
+  (define-key map (kbd "<up>")    'zlc-select-previous-vertical)
+  (define-key map (kbd "<right>") 'zlc-select-next)
+  (define-key map (kbd "<left>")  'zlc-select-previous)
+
+  ;;; reset selection
+  (define-key map (kbd "C-c") 'zlc-reset)
+  )
+
+
 (require 'gtags)
-;; (define-key gtags-mode-map "\M-," 'gtags-find-tag)
-(define-key gtags-mode-map "\M-," 'gtags-find-rtag)
-(define-key gtags-mode-map (kbd "C-.") 'gtags-find-symbol)
-(define-key gtags-mode-map "\M-r" 'gtags-pop-stack)
-(add-hook 'php-mode-hook
-          (lambda ()
-            (gtags-mode 1)
-            (setq gtags-libpath `((,(expand-file-name "~/.tags/php") . "/opt/local/lib/php")
-                                  (,(expand-file-name "~/.tags/php_zend") . "/var/www/Zend/ZendFramework-1.10.1-minimal/library")))))
-(add-hook 'python-mode-hook
-          (lambda ()
-            (gtags-mode 1)
-            (setq gtags-libpath `((,(expand-file-name "~/.tags/python") . "/opt/local/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6"))))
+
+;; gtags
+(global-set-key (kbd "C-,") 'gtags-find-tag)
+(global-set-key (kbd "C-<") 'gtags-pop-stack)
+;; (define-key gtags-mode-map (kbd "C-i") 'gtags-find-tag) ;; 関数の定義元へ移動
+;; (define-key gtags-mode-map (kbd "C-u") 'gtags-pop-stack) ;; 前のバッファへ戻る
+;; (define-key gtags-mode-map "\M-," 'gtags-find-rtag) ;; 関数の参照元の一覧を表示
+;; (define-key gtags-mode-map (kbd "C-.") 'gtags-find-symbol) ;; 変数の定義元と参照元の一覧を表示
+;; (add-hook 'php-mode-hook
+;;           (lambda ()
+;;             (gtags-mode 1)
+;;             (setq gtags-libpath `((,(expand-file-name "~/.tags/php") . "/opt/local/lib/php")
+;;                                   (,(expand-file-name "~/.tags/php_zend") . "/var/www/Zend/ZendFramework-1.10.1-minimal/library")))))
+;; (add-hook 'python-mode-hook
+;;           (lambda ()
+;;             (gtags-mode 1)
+;;             (setq gtags-libpath `((,(expand-file-name "~/.tags/python") . "/opt/local/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6"))))
 ;; (add-hook 'c-mode-common-hook
 ;;           (lambda ()
 ;;             (gtags-mode 1)
@@ -548,47 +669,17 @@
 (require 'auto-complete-gtags)
 
 ;; anything-gtags
-(require 'anything-gtags) 
-(global-set-key (kbd "C-,") 'anything-gtags-select)
-(global-set-key (kbd "C-<") 'anything-gtags-resume)
+;; (require 'anything-gtags) 
+;; (global-set-key (kbd "C-,") 'anything-gtags-select)
+;; (global-set-key (kbd "C-<") 'anything-gtags-resume)
 
-;; growl通知www
-(defun growlnotify-after-save-hook ()
-  (shell-command
-   (format "growlnotify -m \"Emacs: ファイル %s を保存しました\""
-		   (buffer-name (current-buffer)))))
-(add-hook 'after-save-hook 'growlnotify-after-save-hook)
 
-(autoload 'navi2ch "navi2ch" "Navigator for 2ch for Emacs" t)
 
-;; dired:
-;;本日変更ファイルを強調
-;; (defface my-face-f-2 '((t (:foreground "GreenYellow"))) nil)
-;; (defvar my-face-f-2 'my-face-f-2)
-;; (defun my-dired-today-search (arg)
-;;   "Fontlock search function for dired."
-;;   (search-forward-regexp
-;;    (concat (format-time-string "%b %e" (current-time)) " [0-9]....") arg t))
-;; (add-hook 'dired-mode-hook
-;;           '(lambda ()
-;;              (font-lock-add-keywords
-;;               major-mode
-;;               (list
-;;                '(my-dired-today-search . my-face-f-2)
+;; ;; Emacs shell ansi-termでエラーが出るのでコメントアウト
+;; (load "init-shell")
 
-;; load-init
-(load "init-flymake")
 
-;; howm
-(load "init-kowm")
-
-;; debuger
-;;(setq debug-on-error t)
-
-;; Emacs shell ansi-termでエラーが出るのでコメントアウト
-;;(load "init-shell")
-
-;; 直そうと思ったがだめだった
+					;直そうと思ったがだめだった
 ;; (require 'term)
 ;; (defvar ansi-term-after-hook nil)
 ;; (add-hook 'ansi-term-after-hook
@@ -619,3 +710,176 @@
 ;;         (setq tab-width 4)
 ;;                 (define-key term-mode-map "\C-i" 'term-dynamic-complete)
 ;;                 (define-key term-mode-map "\C-m" 'term-send-input))))
+
+
+					;
+					; since emacs 23
+					;
+
+					;command キーと Option キーの動作を逆にしたい場合は以下のような設定をします。
+(setq ns-command-modifier (quote meta))
+(setq ns-alternate-modifier (quote super))
+
+;; 垂直スクロール用のスクロールバーを付けない
+(add-to-list 'default-frame-alist '(vertical-scroll-bars . nil))
+					; 背景の透過
+(add-to-list 'default-frame-alist '(alpha . (92 70)))
+
+;; 等幅のフォントセットを幾つか作成予定
+
+(when (find-font (font-spec :family "Menlo"))
+  ;; ヒラギノ 角ゴ ProN + Menlo
+  (create-fontset-from-ascii-font "Menlo-14" nil "menlokakugo")
+  (set-fontset-font "fontset-menlokakugo"
+                    'unicode
+                    (font-spec :family "Hiragino Kaku Gothic ProN" :size 16))
+  ;; 確認用 (set-frame-font "fontset-menlokakugo")
+  ;; (add-to-list 'default-frame-alist '(font . "fontset-menlokakugo"))  ;; 実際に設定する場合
+  )
+
+
+;; フォントロックの設定
+(when (fboundp 'global-font-lock-mode)
+  (global-font-lock-mode t)
+  ;;(setq font-lock-maximum-decoration t)
+  (setq font-lock-support-mode 'jit-lock-mode))
+
+;; タブ文字、全角空白、文末の空白の色付け
+;; @see http://www.emacswiki.org/emacs/WhiteSpace
+;; @see http://xahlee.org/emacs/whitespace-mode.html
+(setq whitespace-style '(spaces tabs newline space-mark tab-mark newline-mark))
+
+;; タブ文字、全角空白、文末の空白の色付け
+;; font-lockに対応したモードでしか動作しません
+(defface my-mark-tabs
+  '((t (:foreground "red" :underline t)))
+  nil :group 'skt)
+(defface my-mark-whitespace
+  '((t (:background "gray")))
+  nil :group 'skt)
+(defface my-mark-lineendspaces
+  '((t (:foreground "SteelBlue" :underline t)))
+  nil :group 'skt)
+
+(defvar my-mark-tabs 'my-mark-tabs)
+(defvar my-mark-whitespace 'my-mark-whitespace)
+(defvar my-mark-lineendspaces 'my-mark-lineendspaces)
+
+(defadvice font-lock-mode (before my-font-lock-mode ())
+  (font-lock-add-keywords
+   major-mode
+   '(
+     ("\t" 0 my-mark-tabs append)
+     ("　" 0 my-mark-whitespace append)
+     ;;     ("[ \t]+$" 0 my-mark-lineendspaces append)
+     )))
+(ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
+(ad-activate 'font-lock-mode)
+
+;; 行末の空白を表示
+(setq-default show-trailing-whitespace t)
+;; EOB を表示
+(setq-default indicate-empty-lines t)
+(setq-default indicate-buffer-boundaries 'left)
+
+;; 変更点に色付け
+(global-highlight-changes-mode t)
+(setq highlight-changes-visibility-initial-state t)
+(global-set-key (kbd "M-]") 'highlight-changes-next-change)
+(global-set-key (kbd "M-[")  'highlight-changes-previous-change)
+
+
+;; color-theme
+(setq color-theme-load-all-themes nil)
+(setq color-theme-libraries nil)
+(require 'color-theme)
+;; (eval-after-load "color-theme"
+;;   '(progn
+;;      (color-theme-initialize)
+;;      (cond
+;;       (mac-p
+;;        (require 'color-theme-deep-blue)
+;;        (color-theme-deep-blue)
+;;        )
+;;       (windows-p
+;;        (require 'color-theme-ntemacs)
+;;        (color-theme-ntemacs))
+;;       )))
+
+(when (>= emacs-major-version 23)
+  (set-face-attribute 'default nil
+		      :family "monaco"
+		      :height 110)
+  (set-fontset-font
+   (frame-parameter nil 'font)
+   'japanese-jisx0208
+   '("Hiragino Maru Gothic Pro" . "iso10646-1"))
+  (set-fontset-font
+   (frame-parameter nil 'font)
+   'japanese-jisx0212
+   '("Hiragino Maru Gothic Pro" . "iso10646-1"))
+  (set-fontset-font
+   (frame-parameter nil 'font)
+   'mule-unicode-0100-24ff
+   '("monaco" . "iso10646-1"))
+  (setq face-font-rescale-alist
+	'(("^-apple-hiragino.*" . 1.2)
+	  (".*osaka-bold.*" . 1.2)
+	  (".*osaka-medium.*" . 1.2)
+	  (".*courier-bold-.*-mac-roman" . 1.0)
+	  (".*monaco cy-bold-.*-mac-cyrillic" . 0.9)
+	  (".*monaco-bold-.*-mac-roman" . 0.9)
+	  ("-cdac$" . 1.3))))
+
+					; ドラッグアンドドロップ
+(define-key global-map [ns-drag-file] 'ns-find-file)
+
+;;; リージョンをインデント
+;; バッファ全体をインデント
+(define-key global-map (kbd "C-<f7>") (kbd "C-x h TAB"))
+
+;;; color-moccur.elの設定
+(require 'color-moccur)
+;; 複数の検索語や、特定のフェイスのみマッチ等の機能を有効にする
+;; 詳細は http://www.bookshelf.jp/soft/meadow_50.html#SEC751
+(setq moccur-split-word t)
+;; migemoがrequireできる環境ならmigemoを使う
+(when (require 'migemo nil t) ;第三引数がnon-nilだとloadできなかった場合にエラーではなくnilを返す
+  (setq moccur-use-migemo t))
+
+;;; anything-c-moccurの設定
+(require 'anything-c-moccur)
+;; カスタマイズ可能変数の設定(M-x customize-group anything-c-moccur でも設定可能)
+(setq anything-c-moccur-anything-idle-delay 0.2 ;`anything-idle-delay'
+      anything-c-moccur-higligt-info-line-flag t ; `anything-c-moccur-dmoccur'などのコマンドでバッファの情報をハイライトする
+      anything-c-moccur-enable-auto-look-flag t ; 現在選択中の候補の位置を他のwindowに表示する
+      anything-c-moccur-enable-initial-pattern t) ; `anything-c-moccur-occur-by-moccur'の起動時にポイントの位置の単語を初期パターンにする
+
+;;; キーバインドの割当(好みに合わせて設定してください)
+(global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur) ;バッファ内検索
+(global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur) ;ディレクトリ
+(add-hook 'dired-mode-hook ;dired
+          '(lambda ()
+             (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
+
+
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+
+;; (save-window-excursion (shell-command (format "emacs-test -l %s %s &" buffer-file-name buffer-file-name)))
+;; (add-to-list 'load-path "~/.emacs.d/el-get/el-get/")
+;; (require 'el-get)
+;; (load "el-get.el")
+;; ;; 初期化ファイルのワイルドカードを指定する
+;; (setq el-get-init-files-pattern "~/emacs.d/elisp/[0-9]*.el")
+;; (setq el-get-sources (el-get:packages))
+;; (el-get)
+
+

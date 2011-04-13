@@ -21,6 +21,10 @@ export C_INCLUDE_PATH=/opt/local/include
 export CPLUS_INCLUDE_PATH=/opt/local/include
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
 
+# default editor
+#export EDITOR="vim"
+export EDITOR=/Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/Vim
+
 # Finished adapting your PATH environment variable for use with MacPorts.
 
 export DISPLAY=:0.0
@@ -33,6 +37,19 @@ else
 fi
 
 # Import virtualenvwrapper
-if [ -f /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtualenvwrapper_bashrc ]; then
-	source virtualenvwrapper_bashrc
+export WORKON_HOME=$HOME/.virtualenvs
+#if [ -f /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtualenvwrapper_bashrc ]; then
+#	source virtualenvwrapper_bashrc
+#fi
+if [ -f /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtualenvwrapper.sh ]; then
+    source virtualenvwrapper.sh
 fi
+
+# python
+export PIP_REQUIRE_VIRTUALENV=true
+#export PYTHONSTARTUP=$HOME/.pythonrc.py
+export VIRTUALENV_USE_DISTRIBUTE=true
+
+# less utf8
+export LESSCHARSET=utf-8
+

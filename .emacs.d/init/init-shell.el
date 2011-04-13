@@ -41,18 +41,12 @@
 
 ;; Mac OS X では utf-8 だと日本語のファイル名を利用すると正常に処理できなくなるので utf-8-hfs を利用します。
 (cond
- (or (eq window-system 'mac) (eq window-system 'ns)
+ (t (eq window-system 'mac) (eq window-system 'ns)
      ;; Mac OS X の HFC+ ファイルフォーマットではファイル名は NFD (の様な物)で扱うため以下の設定をする必要がある
      (require 'ucs-normalize)
      (setq file-name-coding-system 'utf-8-hfs)
      (setq locale-coding-system 'utf-8-hfs))
- (or (eq system-type 'cygwin) (eq system-type 'windows-nt)
-     (setq file-name-coding-system 'utf-8)
-     (setq locale-coding-system 'utf-8)
-     ;; もしコマンドプロンプトを利用するなら sjisにする
-     ;; (setq file-name-coding-system 'sjis)
-     ;; (setq locale-coding-system 'sjis)
-     )
+
  (t
   (setq file-name-coding-system 'utf-8)
   (setq locale-coding-system 'utf-8)))
