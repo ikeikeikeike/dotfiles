@@ -7,7 +7,10 @@ export MANPATH=/opt/local/man:$MANPATH
 
 # extra
 export PATH=/Developer/usr/bin/:/opt/local/apache2/bin:/opt/local/lib/mysql5/bin:$PATH
-export MANPATH=/usr/bin/man:/usr/local/man:/usr/share/man:/usr/X11/man:/Developer/usr/share/man:$MANPATH
+export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/X11/man:/Developer/usr/share/man:$MANPATH
+
+# extra
+export PATH=/usr/local/sbin:$PATH
 
 # @see python_select
 PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
@@ -45,11 +48,16 @@ if [ -f /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virt
     source virtualenvwrapper.sh
 fi
 
-# python
+# extra virtualenv
 export PIP_REQUIRE_VIRTUALENV=true
-#export PYTHONSTARTUP=$HOME/.pythonrc.py
 export VIRTUALENV_USE_DISTRIBUTE=true
+#export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 # less utf8
 export LESSCHARSET=utf-8
+
+# ruby
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
+
 

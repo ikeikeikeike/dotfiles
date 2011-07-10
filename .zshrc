@@ -13,6 +13,12 @@ SAVEHIST=10000000
 autoload -U compinit
 compinit
 
+# extra auto complete
+#fpath=($fpath $HOME/.zsh_extend/autocomplete)
+#autoload -Uz compinit
+#compinit
+
+
 # java
 alias javac='javac -encoding UTF-8'
 alias java='java -Dfile.encoding=UTF-8'
@@ -152,7 +158,7 @@ setopt numeric_glob_sort
 
 ## cd conf
 # カレントディレクトリ中にサブディレクトリが無い場合に cd が検索するディレクトリのリスト
-cdpath=($HOME)
+#cdpath=($HOME)
 # カレントディレクトリに候補がない場合のみ cdpath 上のディレクトリを候補に出す
 zstyle ':completion:*:cd:*' tag-order local-directories path-directories
 #cd は親ディレクトリからカレントディレクトリを選択しないので表示させないようにする (例: cd ../<TAB>):
@@ -220,9 +226,9 @@ function ssh_tmux(){
 # tmux screen 判別
 if [ x$TERM = xscreen ]; then
     if [ -e $TMUX ]; then
-	alias ssh=ssh_screen
+      	alias ssh=ssh_screen
     else
-	alias ssh=ssh_tmux
+      	alias ssh=ssh_tmux
     fi
 fi
 
@@ -246,6 +252,7 @@ zshaddhistory() {
     [[ ${#line} -ge 5
         && ${cmd} != (l|l[sal])
         && ${cmd} != (c|cd)
+        && ${cmd} != (sl)
 #	&& ${cmd} != (gd)
         && ${cmd} != (m|man)
     ]]

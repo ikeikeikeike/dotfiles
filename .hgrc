@@ -1,0 +1,4 @@
+[ui]
+username = Tatsuo Ikeda <jp.ne.co.jp@gmail.com>
+merge = internal:merge
+ssh = ssh -C

@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/users/ikeda/.virtualenvs/pinax09_django12/build/django-tagging-ext/django_tagging_ext.egg-info'
-let g:netrw_dirhist_2='/users/ikeda/.virtualenvs/pinax09_django12/build/django-tagging-ext'
-let g:netrw_dirhist_3='/users/ikeda/.virtualenvs/pinax09_django12/build/django-tagging-ext/pip-egg-info'
-let g:netrw_dirhist_4='/users/ikeda/.virtualenvs/pinax09_django12/build/django-tagging-ext'
-let g:netrw_dirhist_5='/users/ikeda/.virtualenvs/pinax09_django12/build/django-tagging-ext/tagging_ext'
-let g:netrw_dirhist_6='/users/ikeda/.virtualenvs/pinax09_django12/build/django-tagging-ext'
-let g:netrw_dirhist_7='/Users/ikeda/.virtualenvs/django_cms/mycmsproject/templates'
