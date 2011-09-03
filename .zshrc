@@ -1,5 +1,3 @@
-export LANG=ja_JP.UTF-8
-#export SHELL=/usr/local/bin/zsh
 
 # Emacsと同じキー操作を行う
 bindkey -e
@@ -17,11 +15,6 @@ compinit
 #fpath=($fpath $HOME/.zsh_extend/autocomplete)
 #autoload -Uz compinit
 #compinit
-
-
-# java
-alias javac='javac -encoding UTF-8'
-alias java='java -Dfile.encoding=UTF-8'
 
 # alia
 alias top='htop'
@@ -60,22 +53,78 @@ alias rsync_gigacast_local_dev='source $HOME/script/shell/rsync_gigacast_local_d
 # for crontab
 alias crontab="EDITOR=/usr/local/bin/vi crontab"
 
-## prompt
+#### Prompt Color Table Z shell
+## Text Forground Colors
+local fg_black=$'\e[0;30m'
+local fg_red=$'\e[0;31m'
+local fg_green=$'\e[0;32m'
+local fg_brown=$'\e[0;33m'
+local fg_blue=$'\e[0;34m'
+local fg_purple=$'\e[0;35m'
+local fg_cyan=$'\e[0;36m'
+local fg_lgray=$'\e[0;37m'
+local fg_dgray=$'\e[1;30m'
+local fg_lred=$'\e[1;31m'
+local fg_lgreen=$'\e[1;32m'
+local fg_yellow=$'\e[1;33m'
+local fg_lblue=$'\e[1;34m'
+local fg_pink=$'\e[1;35m'
+local fg_lcyan=$'\e[1;36m'
+local fg_white=$'\e[1;37m'
+## Text Background Colors
+local bg_red=$'\e[0;41m'
+local bg_green=$'\e[0;42m'
+local bg_brown=$'\e[0;43m'
+local bg_blue=$'\e[0;44m'
+local bg_purple=$'\e[0;45m'
+local bg_cyan=$'\e[0;46m'
+local bg_gray=$'\e[0;47m'
+## Attributes
+local at_normal=$'\e[0m'
+local at_bold=$'\e[1m'
+local at_italics=$'\e[3m'
+local at_underl=$'\e[4m'
+local at_blink=$'\e[5m'
+local at_outline=$'\e[6m'
+local at_reverse=$'\e[7m'
+local at_nondisp=$'\e[8m'
+local at_strike=$'\e[9m'
+local at_boldoff=$'\e[22m'
+local at_italicsoff=$'\e[23m'
+local at_underloff=$'\e[24m'
+local at_blinkoff=$'\e[25m'
+local at_reverseoff=$'\e[27m'
+local at_strikeoff=$'\e[29m'
+# compatibility
+local RED=$'%{\e[0;31m%}'
+local PURPLE=$'%{\e[0;35m%}'
+local LIGHT_BLUE=$'%{\e[1;34m%}'
+local WHITE=$'%{\e[1;37m%}'
 local GREEN=$'%{\e[1;32m%}'
 local YELLOW=$'%{\e[1;33m%}'
 local BLUE=$'%{\e[1;34m%}'
 local DEFAULT=$'%{\e[1;m%}'
-PROMPT=$'\n'$GREEN'${USER}@${HOSTNAME} '$YELLOW'%~ '$'\n'$DEFAULT'%(!.#.$) '
 
-## color
-#local DEFAULT=$'%{^[[m%}'$
-local RED=$'%{^[[1;31m%}'$
-#local GREEN=$'%{^[[1;32m%}'$
-#local YELLOW=$'%{^[[1;33m%}'$
-#local BLUE=$'%{^[[1;34m%}'$
-local PURPLE=$'%{^[[1;35m%}'$
-local LIGHT_BLUE=$'%{^[[1;36m%}'$
-local WHITE=$'%{^[[1;37m%}'$
+# disp git or hg branch name
+function output_branch {
+  _git_output=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'`
+  _hg_output=`hg branch 2> /dev/null`
+
+  if [ "$_git_output" ]; then
+    git_output="git:$_git_output"
+  fi
+
+  if [ "$_hg_output" ]; then
+    hg_output="hg:$_hg_output"
+  fi
+
+  if [ $_git_output ] || [ $_hg_output ]; then
+    echo "[$git_output$hg_output]"
+  fi
+}
+
+## prompt
+PROMPT=$'\n'$GREEN'${USER}@${HOST}'$fg_cyan'(${ARCHI})'$fg_brown'$(output_branch) '$YELLOW'%~ '$'\n'$DEFAULT'%(!.#.$) '
 
 # less
 export PAGER='less'
@@ -236,6 +285,11 @@ fi
 source $HOME/.zsh_extend/emacs/isemacs.sh
 #source $HOME/.zsh_extend/gd/gd.sh
 
+
+# cdhist
+#source $HOME/.zsh_extend/cdhist/cdhist.sh
+
+
 # history
 zshaddhistory() {
     local line=${1%%$'\n'}
@@ -317,3 +371,4 @@ preexec () {
     COMMAND="${1}"
     COMMAND_TIME=`date +%s`
 }
+
