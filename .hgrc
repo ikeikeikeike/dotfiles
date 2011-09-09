@@ -1,4 +1,22 @@
 [ui]
-username = Tatsuo Ikeda <jp.ne.co.jp@gmail.com>
+username = ikeikeikeike <jp.ne.co.jp@gmail.com>
 merge = internal:merge
 ssh = ssh -C
+
+[extensions]
+hgext.mq=
+hgext.convert=
+color=
+graphlog=
+rebase =
+
+[alias]
+glog = glog --color=always
+latest = glog -l 5
+diff = diff --color=always
+
+[color]
+mode = ansi
+
+[hooks]
+update.clean = find . -name \*.pyc -or -name \*.orig | xargs rm -f
