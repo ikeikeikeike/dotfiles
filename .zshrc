@@ -27,17 +27,22 @@ alias mvim='env LANG=ja_JP.UTF-8 /Applications/MacVim-7_3-53/MacVim.app/Contents
 alias py=python
 alias screen='screen -U'
 alias ls='ls -FGh'
+alias la='ls -alt'
 alias vi='vim'
 alias less='less -MX'
-alias grep='grep --color=always '
+alias grep='grep -i --color=always '
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias mysql='mysql5'
 alias gd='source $HOME/.zsh_extend/gd/gd.sh'
+alias cdh='gd'
+alias cdd='gd'
+alias cdhistory='gd'
 #alias updatedb='$HOME/.zsh_extend/updatedb/updatedb.sh &'
-alias updatedb=' sudo LC_ALL=C gupdatedb '
+alias updatedb=' sudo LC_ALL=C gupdatedb --prunepaths="/tmp /var/tmp /.fseventsd /Volumes/MobileBackups /Volumes/Volume /.MobileBackups" '
 alias locate='glocate -i '
-alias winscp='open /Users/ikeda/Library/Application\ Support/MikuInstaller/prefix/default/drive_c/Program\ Files/WinSCP/WinSCP.exe'
+alias winscp="open $HOME/Library/Application\ Support/MikuInstaller/prefix/default/drive_c/Program\ Files/WinSCP/WinSCP.exe"
+alias which='which -a'
 
 # rsync
 alias rsync_gigacast_dev='source $HOME/script/shell/rsync_gigacast_dev'
@@ -104,27 +109,9 @@ local GREEN=$'%{\e[1;32m%}'
 local YELLOW=$'%{\e[1;33m%}'
 local BLUE=$'%{\e[1;34m%}'
 local DEFAULT=$'%{\e[1;m%}'
-
-# disp git or hg branch name
-function output_branch {
-  _git_output=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'`
-  _hg_output=`hg branch 2> /dev/null`
-
-  if [ "$_git_output" ]; then
-    git_output="git:$_git_output"
-  fi
-
-  if [ "$_hg_output" ]; then
-    hg_output="hg:$_hg_output"
-  fi
-
-  if [ $_git_output ] || [ $_hg_output ]; then
-    echo "[$git_output$hg_output]"
-  fi
-}
-
-## prompt
-PROMPT=$'\n'$GREEN'${USER}@${HOST}'$fg_cyan'(${ARCHI})'$fg_brown'$(output_branch) '$YELLOW'%~ '$'\n'$DEFAULT'%(!.#.$) '
+local CYAN=$'%{\e[0;36m%}'
+local BROWN=$'%{\e[0;33m%}'
+local BG_BLUE=$'%{\e[0;44m%}'
 
 # less
 export PAGER='less'
@@ -365,10 +352,36 @@ precmd() {
     fi
     COMMAND="0"
     COMMAND_TIME="0"
+
+    # prompt vcs_info
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    psvar[1]=$vcs_info_msg_0_
 }
 
 preexec () {
     COMMAND="${1}"
     COMMAND_TIME=`date +%s`
 }
+
+# vcs_info
+autoload -Uz add-zsh-hook
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:*' enable git svn hg bzr
+zstyle ':vcs_info:*' formats '%s-[%b] ~/%S'
+zstyle ':vcs_info:*' actionformats '%s-[%b|%a]'
+zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
+zstyle ':vcs_info:bzr:*' use-simple true
+
+function _update_vcs_info_msg() {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+add-zsh-hook precmd _update_vcs_info_msg
+
+## prompt
+PROMPT=$'\n'$GREEN'${USER}@${HOST}'$CYAN'(${ARCHI}) '$YELLOW'%~ '$'\n'$DEFAULT'%(!.#.$) '
+RPROMPT=${BG_BLUE}%1v%2v%f${DEFAULT}
 
