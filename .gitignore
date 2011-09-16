@@ -39,3 +39,8 @@ migrations
 .vim/.netrwhist
 .vim/vim_backup
 .vim/vim_swap
+.emacs.d/ac-comphist.dat
+.emacs.d/anything-c-adaptive-history
+.emacs.d/tramp
+.emacs.d/backup
+.emacs.d/auto-save-list
