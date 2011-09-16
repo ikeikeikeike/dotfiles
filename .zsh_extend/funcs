@@ -1,0 +1,130 @@
+
+if [ $ARCHI = osx ]; then
+  # growlnotify exevute  30 second later
+  local COMMAND=""
+  local COMMAND_TIME=""
+  precmd() {
+    if [ "$COMMAND_TIME" -ne "0" ] ; then
+      local d=`date +%s`
+      d=`expr $d - $COMMAND_TIME`
+      if [ "$d" -ge "30" ] ; then
+         COMMAND="$COMMAND "
+         growlnotify -t "${${(s: :)COMMAND}[1]}" -m "$COMMAND"
+      fi
+    fi
+    COMMAND="0"
+    COMMAND_TIME="0"
+
+    # prompt vcs_info
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    psvar[1]=$vcs_info_msg_0_
+  }
+
+  preexec () {
+    COMMAND="${1}"
+    COMMAND_TIME=`date +%s`
+  }
+fi
+
+# functionの設定
+function history-all { history -E 1 }
+
+# cdを打ったら自動的にlsを打ってくれる関数
+function cd(){
+    builtin cd $@ && ls && ls -alt;
+}
+
+# settei wo kaiteinai
+#function chpwd(){
+# _reg_pwd_screennum
+#}
+
+# ssh screen name
+function ssh_screen(){
+    server=?${$#}
+    screen -t ${@}${server} ssh ${@}
+}
+function ssh_tmux(){
+    server=?${$#}
+    tmux new-window -n ${@}${server} "ssh ${@}"
+}
+
+# tmux screen 判別
+if [ x$TERM = xscreen ]; then
+    if [ -e $TMUX ]; then
+        alias ssh=ssh_screen
+    else
+        alias ssh=ssh_tmux
+    fi
+fi
+
+source $HOME/.zsh_extend/emacs/isemacs.sh
+
+# cdhist
+#source $HOME/.zsh_extend/cdhist/cdhist.sh
+
+# history
+zshaddhistory() {
+    local line=${1%%$'\n'}
+    local cmd=${line%% *}
+
+    # 以下の条件をすべて満たすものだけをヒストリに追加する
+    # 追加したくないコマンドを列挙する
+    # この場合、以下のいずれかを満たすコマンドラインがヒストリに追加されなくなる。
+    # * 4文字以下である
+    # * コマンド名の部分が l, ls, la, ll のいずれかである
+    # * コマンド名の部分が c, cd のいずれかである
+    # * コマンド名の部分が m, man のいずれかである
+
+    [[ ${#line} -ge 5
+        && ${cmd} != (l|l[sal])
+        && ${cmd} != (c|cd)
+        && ${cmd} != (sl)
+# && ${cmd} != (gd)
+        && ${cmd} != (m|man)
+    ]]
+}
+
+export_grep_color(){
+    x=$GREP_COLOR;
+    export GREP_COLOR=$1;
+    grep --color=always $2;
+    export GREP_COLOR=$x
+}
+#alias grep=' export_grep_color "01;31" $1' # red
+alias grep1=' export_grep_color "01;32" $1' # green
+alias grep2=' export_grep_color "01;33" $1' # yellow
+alias grep3=' export_grep_color "01;34" $1' # blue
+alias grep4=' export_grep_color "01;35" $1' # purple
+alias grep5=' export_grep_color "01;36" $1' # 水色
+alias grep6=' export_grep_color "01;37" $1' # white
+
+
+# 解凍
+function extract (){
+  if [ -f $1 ] ; then
+      case $1 in
+          *.tar.bz2)   echo "tar xvjf $1"   && tar xvjf $1    ;;
+          *.tar.gz)    echo "tar xvzf $1"   && tar xvzf $1    ;;
+          *.tar.xz)    echo "tar xvJf $1"   && tar xvJf $1    ;;
+          *.bz2)       echo "bunzip2 $1"    && bunzip2 $1     ;;
+          *.rar)       echo "unrar x $1"    && unrar x $1     ;;
+          *.gz)        echo "gunzip $1"     && gunzip $1      ;;
+          *.tar)       echo "tar xvf $1"    && tar xvf $1     ;;
+          *.tbz2)      echo "tar xvjf $1"   && tar xvjf $1    ;;
+          *.tgz)       echo "tar xvzf $1"   && tar xvzf $1    ;;
+          *.zip)       echo "unzip $1"      && unzip $1       ;;
+          *.Z)         echo "uncompress $1" && uncompress $1  ;;
+          *.7z)        echo "7z x $1"       && 7z x $1        ;;
+          *.lzma)      echo "lzma -dv $1"   && lzma -dv $1    ;;
+          *.xz)        echo "xz -dv $1"     && xz -dv $1      ;;
+          *)           echo "don't know how to extract '$1'..." ;;
+      esac
+  else
+      echo "'$1' is not a valid file!"
+  fi
+}
+
+
+
