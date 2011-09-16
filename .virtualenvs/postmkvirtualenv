@@ -1,0 +1,36 @@
+#!/opt/local/bin/zsh
+# This hook is run after a new virtualenv is activated.
+
+#
+#easy_install pip
+
+#
+pip install distribute
+
+# ipython
+pip install ipython
+
+# debug
+pip install pudb
+
+# django
+pip install django
+
+# image library
+pip install PIL
+
+# document
+pip install Sphinx
+
+# debug
+pip install Werkzeug
+
+# django extra
+pip install django-debug-toolbar
+pip install django-extensions
+
+# datastorage
+pip install MySQL-python
+pip install pysqlite
+
+
