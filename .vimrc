@@ -233,6 +233,8 @@ set backupext=.bak
 
 "set encoding=utf8 "menu encoding...
 set fileencoding=utf8
+:set encoding=utf-8
+:set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 
 " 文字コードの自動認識
 if has('iconv')
