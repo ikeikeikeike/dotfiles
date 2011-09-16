@@ -16,47 +16,7 @@ compinit
 #autoload -Uz compinit
 #compinit
 
-# alia
-alias top='htop'
-alias emacs='open -a /Applications/MacPorts/Emacs.app'
-#alias emacs_sudo='sudo open -a /Applications/MacPorts/Emacs.app'
-alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/Vim "$@"'
-alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/Vim "$@"'
-alias mvi='env LANG=ja_JP.UTF-8 /Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/MacVim "$@"'
-alias mvim='env LANG=ja_JP.UTF-8 /Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/MacVim "$@"'
-alias py=python
-alias screen='screen -U'
-alias ls='ls -FGh'
-alias la='ls -alt'
-alias vi='vim'
-alias less='less -MX'
-alias grep='grep -i --color=always '
-alias cp='cp -iv'
-alias mv='mv -iv'
-alias mysql='mysql5'
-alias gd='source $HOME/.zsh_extend/gd/gd.sh'
-alias cdh='gd'
-alias cdd='gd'
-alias cdhistory='gd'
-#alias updatedb='$HOME/.zsh_extend/updatedb/updatedb.sh &'
-alias updatedb=' sudo LC_ALL=C gupdatedb --prunepaths="/tmp /var/tmp /.fseventsd /Volumes/MobileBackups /Volumes/Volume /.MobileBackups" '
-alias locate='glocate -i '
-alias winscp="open $HOME/Library/Application\ Support/MikuInstaller/prefix/default/drive_c/Program\ Files/WinSCP/WinSCP.exe"
-alias which='which -a'
-
-# rsync
-alias rsync_gigacast_dev='source $HOME/script/shell/rsync_gigacast_dev'
-alias rsync_gigacast_v14_dev='source $HOME/script/shell/rsync_gigacast_v14_dev'
-alias rsync_gigacast_plcdn='source $HOME/script/shell/rsync_gigacast_plcdn'
-alias rsync_gigacast_aidia='source $HOME/script/shell/rsync_gigacast_aidia'
-alias rsync_gigacast_gaitame='source $HOME/script/shell/rsync_gigacast_gaitame'
-alias rsync_gigacast_jikiden='source $HOME/script/shell/rsync_gigacast_jikiden'
-alias rsync_gigacast_local_dev='source $HOME/script/shell/rsync_gigacast_local_dev'
-
-#alias gd='dirs -v; echo -n "select number: "; read newdir; cd -"$newdir"'
-
-# for crontab
-alias crontab="EDITOR=/usr/local/bin/vi crontab"
+source .zsh_extend/aliases
 
 #### Prompt Color Table Z shell
 ## Text Forground Colors
