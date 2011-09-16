@@ -4,7 +4,7 @@
 startup_message off
 
 # default shell
-shell /opt/local/bin/zsh
+shell zsh
 
 # rollback
 defscrollback 100000
