@@ -36,3 +36,6 @@
 .idea
 migrations
 *.hgignore
+.vim/.netrwhist
+.vim/vim_backup
+.vim/vim_swap
