@@ -100,9 +100,9 @@ if [ -f `\which virtualenvwrapper.sh` ]; then
 fi
 
 ## extra virtualenv
-#
+# require
 export PIP_REQUIRE_VIRTUALENV=true
-#
+# require distribure
 export VIRTUALENV_USE_DISTRIBUTE=true
 # cached download package
 export PIP_DOWNLOAD_CACHE=$HOME/.pip_cache
