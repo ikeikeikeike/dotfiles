@@ -18,6 +18,11 @@ compinit
 
 source $HOME/.zsh_extend/aliases
 
+if [ -f $HOME/.archirc ]; then
+  echo 1111
+  source $HOME/.archirc
+fi
+
 #### Prompt Color Table Z shell
 ## Text Forground Colors
 local fg_black=$'\e[0;30m'
