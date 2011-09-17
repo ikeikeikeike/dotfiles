@@ -16,8 +16,10 @@ compinit
 #autoload -Uz compinit
 #compinit
 
+# alias
 source $HOME/.zsh_extend/aliases
 
+# archifile
 if [ -f $HOME/.archirc ]; then
   echo 1111
   source $HOME/.archirc
