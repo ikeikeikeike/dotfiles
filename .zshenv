@@ -13,7 +13,8 @@ if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
     *);        export ARCHI="dummy"   ;;
   esac
   case "`uname -v`" in
-    *-Ubuntu*); export DISTRIBUTE="ubuntu"   ;;
+    *-Ubuntu*); export DISTRIBUTE="ubuntu" ;;
+    *);         export DISTRIBUTE="dummy"  ;;
   esac
 else
   export ARCHI="dummy"
