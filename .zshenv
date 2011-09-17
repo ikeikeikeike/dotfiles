@@ -1,6 +1,3 @@
-# encode
-export LANG=ja_JP.UTF-8
-
 # ARCHI & distribute
 if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
   case "`uname -sr`" in
@@ -29,6 +26,8 @@ export host=`echo $HOST | sed -e 's/\..*//'`
 
 
 if [ $ARCHI = darwin ]; then
+  # encode
+  export LANG=ja_JP.UTF-8
   # MacPorts Installer addition on 2010-02-14_at_19:14:58: adding an appropriate PATH variable for use with MacPorts.
   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
   export MANPATH=/opt/local/man:$MANPATH
@@ -52,15 +51,9 @@ if [ $ARCHI = darwin ]; then
     #source virtualenvwrapper_bashrc
   fi
 fi
-if [ $ARCHI = freebsd ]; then
-  # default editor
-  export EDITOR="vim"
-fi
 if [ $ARCHI = linux ]; then
-  # default editor
-  export EDITOR="vim"
-fi
-if [ $ARCHI = cygwin ]; then
+  # encode
+  export LANG=en_US.UTF-8
   # default editor
   export EDITOR="vim"
 fi
