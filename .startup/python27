@@ -5,6 +5,7 @@ cd /tmp/startup
 
 if [ $DISTRIBUTE = ubuntu ]; then
   sudo aptitude install python2.7
+  sudo aptitude install python2.7-dev
   sudo aptitude install curl
 
   curl -O http://peak.telecommunity.com/dist/ez_setup.py
