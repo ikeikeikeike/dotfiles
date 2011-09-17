@@ -4,9 +4,9 @@ mkdir /tmp/startup
 cd /tmp/startup
 
 if [ $DISTRIBUTE = ubuntu ]; then
-  sudo aptitude install python2.7 -y
-  sudo aptitude install python2.7-dev -y
-  sudo aptitude install curl -y
+  sudo aptitude install python2.7 python2.7-dev -y
+  sudo aptitude install curl build-essential mysql-server sqlite3 -y
+  sudo aptitude install libsqlite3-dev libmysqlclient-dev libpng-dev -y
 
   curl -O http://peak.telecommunity.com/dist/ez_setup.py
   sudo python2.7 ez_setup.py
