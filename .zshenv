@@ -44,12 +44,7 @@ if [ $ARCHI = darwin ]; then
   # default editor
   export EDITOR=/Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/Vim
   # @see python_select
-  PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
-  # virtualenvwrapper
-  if [ -f /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtualenvwrapper.sh ]; then
-    source virtualenvwrapper.sh
-    #source virtualenvwrapper_bashrc
-  fi
+  export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
 fi
 if [ $ARCHI = linux ]; then
   # encode
@@ -99,6 +94,10 @@ export PYTHONIOENCODING=UTF-8
 
 # Import virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
+# virtualenvwrapper
+if [ -f `\which virtualenvwrapper.sh` ]; then
+  source virtualenvwrapper.sh
+fi
 
 ## extra virtualenv
 #
