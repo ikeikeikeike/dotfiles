@@ -12,6 +12,12 @@ if [ $DISTRIBUTE = ubuntu ]; then
 
   sudo easy_install-2.7 virtualenv
   sudo easy_install-2.7 virtualenvwrapper
+
+  virtualenvwrapper.sh
+  echo ''
+  echo ''
+  echo "mkvirtualenv --python=/usr/local/bin/python2.7 --distribute first_project"
+  mkvirtualenv --python=/usr/local/bin/python2.7 --distribute first_project
 fi
 
 rm -rf /tmp/startup
