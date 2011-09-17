@@ -9,7 +9,7 @@ if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
     CYGWIN*);  export ARCHI="cygwin"  ;;
     IRIX*);    export ARCHI="irix"    ;;
     OSF1*);    export ARCHI="osf1"    ;;
-    Darwin*);  export ARCHI="osx"     ;;
+    Darwin*);  export ARCHI="darwin"  ;;
     *);        export ARCHI="dummy"   ;;
   esac
   case "`uname -v`" in
@@ -28,7 +28,7 @@ fi;
 export host=`echo $HOST | sed -e 's/\..*//'`
 
 
-if [ $ARCHI = osx ]; then
+if [ $ARCHI = darwin ]; then
   # MacPorts Installer addition on 2010-02-14_at_19:14:58: adding an appropriate PATH variable for use with MacPorts.
   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
   export MANPATH=/opt/local/man:$MANPATH

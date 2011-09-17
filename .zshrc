@@ -212,6 +212,6 @@ function _update_vcs_info_msg() {
 add-zsh-hook precmd _update_vcs_info_msg
 
 ## prompt
-PROMPT=$'\n'$GREEN'${USER}@${HOST}'$CYAN'(${ARCHI}) '$YELLOW'%~ '$'\n'$DEFAULT'%(!.#.$) '
+PROMPT=$'\n'$GREEN'${USER}@${HOST}'$CYAN'(${ARCHI}-${DISTRIBUTE}) '$YELLOW'%~ '$'\n'$DEFAULT'%(!.#.$) '
 RPROMPT=${BG_BLUE}%1v%2v%f${DEFAULT}
 
