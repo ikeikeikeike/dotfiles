@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+mkdir /tmp/startup
+cd /tmp/startup
+
+if [ $DISTRIBUTE = ubuntu ]; then
+  sudo aptitude install python2.7
+  sudo aptitude install curl
+
+  curl -O http://peak.telecommunity.com/dist/ez_setup.py
+  sudo python2.7 ez_setup.py
+
+  sudo easy_install-2.7 virtualenv
+  sudo easy_install-2.7 virtualenvwrapper
+fi
+
+rm -rf /tmp/startup
