@@ -1,7 +1,7 @@
 # encode
 export LANG=ja_JP.UTF-8
 
-# ARCHI
+# ARCHI & distribute
 if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
   case "`uname -sr`" in
     FreeBSD*); export ARCHI="freebsd" ;;
@@ -12,8 +12,12 @@ if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
     Darwin*);  export ARCHI="osx"     ;;
     *);        export ARCHI="dummy"   ;;
   esac
+  case "`uname -v`" in
+    *-Ubuntu*); export DISTRIBUTE="ubuntu"   ;;
+  esac
 else
   export ARCHI="dummy"
+  export DISTRIBUTE="dummy"
 fi
 
 # HOST
