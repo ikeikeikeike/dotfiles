@@ -5,6 +5,9 @@
 #easy_install pip
 
 #
+pip install virtualenv virtualenvwrapper
+
+#
 pip install distribute
 
 # ipython

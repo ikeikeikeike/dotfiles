@@ -14,6 +14,7 @@
 		   "~/.emacs.d/auto-install"
 		   "~/.emacs.d/init"
 		   "~/.emacs.d/navi2ch"
+		   "~/.emacs.d/haskell-mode-2.8.0"
 		   "/opt/local/share/emacs/site-lisp"
 		   "/opt/local/share/emacs/site-lisp/howm"
 		   )
@@ -232,6 +233,12 @@
 ;; (add-hook 'python-mode-hook '(lambda ()
 ;;                                (require 'pycomplete)
 ;;                                ))
+
+;; haskell-mode
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
 
 (defvar is_emacs23 (>= emacs-major-version 23))
@@ -483,7 +490,7 @@
 (setq truncate-partial-width-windows nil)
 
 ;; session
-(require 'session)
+;;(require 'session)
 (desktop-save-mode 1)
 
 ;; desktop file
