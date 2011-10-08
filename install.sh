@@ -11,7 +11,6 @@ do
      [ $i = .gitconfig ] ||
      [ $i = .gitignore ]; then
     continue
-    echo 1
   fi
   \ln -s `pwd`/$i $HOME/$i
 done
