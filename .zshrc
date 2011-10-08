@@ -222,3 +222,7 @@ add-zsh-hook precmd _update_vcs_info_msg
 PROMPT=$'\n'$GREEN'${USER}@${HOST}'$CYAN'(${ARCHI}-${DISTRIBUTE}) '$YELLOW'%~ '$'\n'$DEFAULT'%(!.#.$) '
 RPROMPT=${BG_BLUE}%1v%2v%f${DEFAULT}
 
+if [ "${TMUX}" != "" ] ; then
+  tmux pipe-pane 'cat >> ~/.tmux/`date +%Y-%m-%d`_#S:#I.#P.log'
+fi
+
