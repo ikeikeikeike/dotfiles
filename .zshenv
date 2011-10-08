@@ -13,7 +13,7 @@ if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
     *-Ubuntu*); export DISTRIBUTE="ubuntu" ;;
     *);         export DISTRIBUTE="dummy"  ;;
   esac
-  case "`cat /etc/redhat-release 2> /dev/null` " in
+  case "`cat /etc/redhat-release 2> /dev/null`" in
     *CentOS*); export DISTRIBUTE="centos" ;;
     *RedHat*); export DISTRIBUTE="redhat" ;;
     *);        export DISTRIBUTE="dummy" ;;
@@ -100,7 +100,7 @@ export PYTHONIOENCODING=UTF-8
 # Import virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
 # virtualenvwrapper
-if [ -f `\which virtualenvwrapper.sh` ]; then
+if [ -f `\which virtualenvwrapper.sh 2> /dev/null` ]; then
   source virtualenvwrapper.sh
 fi
 
