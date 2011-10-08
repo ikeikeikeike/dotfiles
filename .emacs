@@ -23,8 +23,12 @@
 (setq exec-path (append
                  '("/opt/local/bin"
 		   "/opt/local/sbin"
-                   "/usr/bin" "/bin"
-                   "/usr/sbin" "/sbin"
+                   "/usr/bin"
+		   "/bin"
+                   "/usr/sbin"
+		   "/sbin"
+		   "/usr/local/bin"
+		   "/usr/local/sbin"
                    "/usr/X11/bin")
                  exec-path))
 
@@ -235,8 +239,29 @@
 ;;                                ))
 
 ;; haskell-mode
+
+
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(setq auto-mode-alist
+      (append auto-mode-alist
+              '(("\\.[hg]s$"  . haskell-mode)
+                ("\\.hi$"     . haskell-mode)
+                ("\\.l[hg]s$" . literate-haskell-mode))))
+(autoload 'haskell-mode "haskell-mode"
+   "Major mode for editing Haskell scripts." t)
+(autoload 'literate-haskell-mode "haskell-mode"
+   "Major mode for editing literate Haskell scripts." t)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-decl-scan)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-ghci)
+(add-hook 'haskell-mode-hook 'auto-complete-mode)
+(load "auto-complete-haskellfunctions")
+
+(setq haskell-literate-default 'latex)
+(setq haskell-doc-idle-delay 0)
+
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
@@ -490,8 +515,8 @@
 (setq truncate-partial-width-windows nil)
 
 ;; session
-;;(require 'session)
-(desktop-save-mode 1)
+(require 'session)
+;;(desktop-save-mode 1)
 
 ;; desktop file
 ;; setq desktop-files-not-to-save "\\(^/[^/:]*:\\|\\.diary$\\)")
@@ -604,7 +629,7 @@
 
 
 ;; load-init
-;(load "init-flymake")
+(load "init-flymake")
 
 ;; howm
 (load "init-howm")

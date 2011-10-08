@@ -27,6 +27,50 @@
           )
         (popup-tip menu-item-text)))))
 
+;; python
+(defun flymake-python-init ()
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                     'flymake-create-temp-inplace))
+         (local-file (file-relative-name
+                      temp-file
+                      (file-name-directory buffer-file-name))))
+    (list "pyflakes" (list local-file))))
+ 
+(defconst flymake-allowed-python-file-name-masks '(("\\.py$" flymake-python-init)))
+(defvar flymake-python-err-line-patterns '(("\\(.*\\):\\([0-9]+\\):\\(.*\\)" 1 2 nil 3)))
+ 
+(defun flymake-python-load ()
+  (interactive)
+  (defadvice flymake-post-syntax-check (before flymake-force-check-was-interrupted)
+    (setq flymake-check-was-interrupted t))
+  (ad-activate 'flymake-post-syntax-check)
+  (setq flymake-allowed-file-name-masks (append flymake-allowed-file-name-masks flymake-allowed-python-file-name-masks))
+  (setq flymake-err-line-patterns flymake-python-err-line-patterns)
+  (flymake-mode t))
+(add-hook 'python-mode-hook '(lambda () (flymake-python-load)))
+
+
+;; haskell
+(defun flymake-haskell-init ()
+  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+         (local-dir   (file-name-directory buffer-file-name))
+         (local-file  (file-relative-name
+                       temp-file
+                       local-dir)))
+    (list "~/.emacs.d/bin/flycheck_haskell.pl" (list local-file local-dir))))
+
+(push '(".+\\hs$" flymake-haskell-init) flymake-allowed-file-name-masks)
+(push '(".+\\lhs$" flymake-haskell-init) flymake-allowed-file-name-masks)
+(push
+ '("^\\(\.+\.hs\\|\.lhs\\):\\([0-9]+\\):\\([0-9]+\\):\\(.+\\)"
+   1 2 3 4) flymake-err-line-patterns)
+
+(add-hook 'haskell-mode-hook
+          '(lambda ()
+             (if (not (null buffer-file-name)) (flymake-mode))
+          ))
+
 ;; PHP
 (when (not (fboundp 'flymake-php-init))
   ;; flymake-php-initが未定義のバージョンだったら、自分で定義する
@@ -179,6 +223,16 @@
 ;;           )
 ;;         )
 ;;       (setq count (1- count)))))
+
+
+(defun next-flymake-error ()
+  (interactive)
+  (flymake-goto-next-error)
+  (let ((err (get-char-property (point) 'help-echo)))
+    (when err
+      (message err))))
+(global-set-key "\C-c e" 'next-flymake-error)
+
 
 ;; when buffer-file-name is nil.
 (defadvice flymake-mode (around check-buffer-file-name-exists activate)

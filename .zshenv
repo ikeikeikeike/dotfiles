@@ -13,6 +13,11 @@ if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
     *-Ubuntu*); export DISTRIBUTE="ubuntu" ;;
     *);         export DISTRIBUTE="dummy"  ;;
   esac
+  case "`cat /etc/redhat-release 2> /dev/null` " in
+    *CentOS*); export DISTRIBUTE="centos" ;;
+    *RedHat*); export DISTRIBUTE="redhat" ;;
+    *);        export DISTRIBUTE="dummy" ;;
+  esac
 else
   export ARCHI="dummy"
   export DISTRIBUTE="dummy"
