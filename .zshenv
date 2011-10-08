@@ -100,9 +100,9 @@ export PYTHONIOENCODING=UTF-8
 # Import virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
 # virtualenvwrapper
-if [ -f `\which virtualenvwrapper.sh 2> /dev/null` ]; then
-  source virtualenvwrapper.sh
-fi
+#if [ -f `\which virtualenvwrapper.sh 2> /dev/null` ]; then
+  source virtualenvwrapper.sh 2> /dev/null
+#fi
 
 ## extra virtualenv
 # require
