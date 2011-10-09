@@ -62,8 +62,8 @@ fi
 export MANPATH=/usr/share/man:/usr/X11/man:$MANPATH
 
 # extra
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-export MANPATH=/usr/local/man:/usr/local/share/man:$MANPATH
+export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
+export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
 
 # extra
 export PATH=$HOME/bin:$PATH
