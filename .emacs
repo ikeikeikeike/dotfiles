@@ -17,6 +17,7 @@
 		   "~/.emacs.d/haskell-mode-2.8.0"
 		   "/opt/local/share/emacs/site-lisp"
 		   "/opt/local/share/emacs/site-lisp/howm"
+		   "/usr/local/Cellar/erlang/R14B03/lib/erlang/lib/tools-2.6.6.4/emacs"
 		   )
                  load-path))
 
@@ -29,7 +30,9 @@
 		   "/sbin"
 		   "/usr/local/bin"
 		   "/usr/local/sbin"
-                   "/usr/X11/bin")
+                   "/usr/X11/bin"
+		   "/usr/local/Cellar/erlang/R14B03/bin"
+		   )
                  exec-path))
 
 					; 言語を日本語にする
@@ -181,6 +184,9 @@
 (require 'ac-company)
 ;; 対象の全てで補完を有効にする
 (global-auto-complete-mode t)
+;; enabled auto-complete-mode.
+(add-to-list 'ac-modes 'erlang-mode 'haskell-mode)
+
 
 ;; php-complete
 ;; php-mode
@@ -237,6 +243,17 @@
 ;; (add-hook 'python-mode-hook '(lambda ()
 ;;                                (require 'pycomplete)
 ;;                                ))
+
+
+;; erlang mode
+(setq erlang-root-dir "/usr/local/Cellar/erlang/R14B03")
+(require 'erlang-start)
+(add-hook 'erlang-mode-hook 'auto-complete-mode)
+             (when (require 'auto-complete nil t)
+;;               (make-variable-buffer-local 'ac-sources)
+;;               (add-to-list 'ac-sources 'ac-source-php-completion)
+               (auto-complete-mode t))
+
 
 ;; haskell-mode
 
