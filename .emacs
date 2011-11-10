@@ -1,3 +1,4 @@
+
 ;; debuger
 ;(setq debug-on-error t)
 
@@ -832,10 +833,23 @@
 (setq-default indicate-buffer-boundaries 'left)
 
 ;; 変更点に色付け
-(global-highlight-changes-mode t)
-(setq highlight-changes-visibility-initial-state t)
-(global-set-key (kbd "M-]") 'highlight-changes-next-change)
-(global-set-key (kbd "M-[")  'highlight-changes-previous-change)
+;; (global-highlight-changes-mode t)
+;; (setq highlight-changes-visibility-initial-state t)
+;; (global-set-key (kbd "M-]") 'highlight-changes-next-change)
+;; (global-set-key (kbd "M-[")  'highlight-changes-previous-change)
+
+
+;; full path
+(setq frame-title-format '(buffer-file-name "%f" ("%b")))
+ 
+
+;; show-paren-mode 1
+(show-paren-mode 1)
+(setq show-paren-delay 0)
+(setq show-paren-style 'expression)
+(set-face-attribute 'show-paren-match-face nil
+                    :background nil :foreground nil
+                    :underline "#ffff00" :weight 'extra-bold)
 
 
 ;; color-theme

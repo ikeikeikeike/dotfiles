@@ -15,7 +15,7 @@ if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
   esac
   case "`cat /etc/redhat-release 2> /dev/null`" in
     *CentOS*); export DISTRIBUTE="centos" ;;
-    *RedHat*); export DISTRIBUTE="redhat" ;;
+    *Red*);    export DISTRIBUTE="redhat" ;;
     *);        export DISTRIBUTE="dummy" ;;
   esac
 else
@@ -29,6 +29,16 @@ if [ -x /bin/hostname ]; then
 fi;
 export host=`echo $HOST | sed -e 's/\..*//'`
 
+############# path
+# extra
+export MANPATH=/usr/share/man:/usr/X11/man:$MANPATH
+
+# extra
+export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
+export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
+
+# extra
+export PATH=$HOME/bin:$PATH
 
 if [ $ARCHI = darwin ]; then
   # encode
@@ -57,16 +67,6 @@ if [ $ARCHI = linux ]; then
   # default editor
   export EDITOR="vim"
 fi
-
-# extra
-export MANPATH=/usr/share/man:/usr/X11/man:$MANPATH
-
-# extra
-export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
-export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
-
-# extra
-export PATH=$HOME/bin:$PATH
 
 # emacs view setting
 if [ "$SHELL" = "/bin/bash" ];then
