@@ -37,6 +37,10 @@ alias cdd='gd'
 alias cdhistory='gd'
 alias which='which -a'
 
+# emacs縛り
+alias vi=emacs
+alias vim=emacs
+
 # rsync
 alias rsync_gigacast_dev='source $HOME/script/shell/rsync_gigacast_dev'
 alias rsync_gigacast_v14_dev='source $HOME/script/shell/rsync_gigacast_v14_dev'

@@ -585,9 +585,14 @@
       (back-to-indentation))))
 (global-set-key "\C-a" 'beggining-of-physical-indented-line )
 
+;; For Emacs on Mac OS X http://emacsformacosx.com/
+;; Opens files in the existing frame instead of making new ones.
+(setq ns-pop-up-frames nil)
+
+
 ;; C-kで行全体を削除
-(setq kill-whole-line t)
-(global-set-key "\C-k" 'kill-whole-line)
+;; (setq kill-whole-line t)
+;; (global-set-key "\C-k" 'kill-whole-line)
 
 ;; カーソル移動を物理行単位に
 (require 'physical-line)
