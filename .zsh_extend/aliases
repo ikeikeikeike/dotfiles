@@ -39,10 +39,6 @@ alias which='which -a'
 alias ctags=/opt/local/bin/ctags
 alias pb='tmux-pbcopy'
 
-# emacs縛り
-alias vi=emacs
-alias vim=emacs
-
 # rsync
 alias rsync_gigacast_dev='source $HOME/script/shell/rsync_gigacast_dev'
 alias rsync_gigacast_v14_dev='source $HOME/script/shell/rsync_gigacast_v14_dev'
