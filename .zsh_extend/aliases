@@ -36,6 +36,8 @@ alias cdh='gd'
 alias cdd='gd'
 alias cdhistory='gd'
 alias which='which -a'
+alias ctags=/opt/local/bin/ctags
+alias pb='tmux-pbcopy'
 
 # emacs縛り
 alias vi=emacs

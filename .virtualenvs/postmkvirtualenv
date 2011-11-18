@@ -14,7 +14,7 @@ pip install distribute
 pip install ipython
 
 # debug
-pip install pudb
+pip install pudb debug
 
 # django
 pip install django
@@ -36,4 +36,5 @@ pip install django-extensions
 pip install MySQL-python
 pip install pysqlite
 
-
+# emacs
+pip install pyflakes pep8

@@ -181,12 +181,24 @@
 
 ;; Auto-complete
 (require 'auto-complete)
-(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+;(require 'auto-complete-config)
+;(ac-config-default)
 (require 'ac-company)
+(require 'fuzzy)
+(require 'popup)
 ;; 対象の全てで補完を有効にする
 (global-auto-complete-mode t)
 ;; enabled auto-complete-mode.
 (add-to-list 'ac-modes 'erlang-mode 'haskell-mode)
+
+;; pipup
+
+(setq ac-use-menu-map t)
+;; デフォルトで設定済み
+(define-key ac-menu-map "\C-n" 'ac-next)
+(define-key ac-menu-map "\C-p" 'ac-previous)
+
 
 
 ;; php-complete
@@ -205,8 +217,8 @@
 	     (setq php-manual-path "/usr/local/share/php/doc/html")
 	     (setq php-manual-url "http://www.php.net/manual/ja/")
 	     (c-set-style "stroustrup")
-             (setq tab-width 4)
-             (setq c-basic-offset 4)
+             (setq tab-width 2)
+             (setq c-basic-offset 2)
 	     (setq indent-tabs-mode t)
              (require 'php-completion)
              (php-completion-mode t)
@@ -227,23 +239,6 @@
              (setq javascript-indent-level 4)
              (setq javascript-basic-offset tab-width)
              )))
-
-;; pymacs
-;; (autoload 'pymacs-apply "pymacs")
-;; (autoload 'pymacs-call "pymacs")
-;; (autoload 'pymacs-eval "pymacs" nil t)
-;; (autoload 'pymacs-exec "pymacs" nil t)
-;; (autoload 'pymacs-load "pymacs" nil t)
-;; (eval-after-load "pymacs"
-;;   '(add-to-list 'pymacs-load-path "YOUR-PYMACS-DIRECTORY"))
-;; ;; python-mode, pycomplete 
-;; (setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
-;; (setq interpreter-mode-alist (cons '("python" . python-mode)
-;;                                    interpreter-mode-alist))
-;; (autoload 'python-mode "python-mode" "Python editing mode." t)
-;; (add-hook 'python-mode-hook '(lambda ()
-;;                                (require 'pycomplete)
-;;                                ))
 
 
 ;; erlang mode
@@ -299,6 +294,7 @@
       (if start (buffer-substring-no-properties start end))))
   )
 
+;; python
 (defun ac-python-candidates ()
   (python-find-imports)
   (car (read-from-string
@@ -337,6 +333,22 @@
     ))
 
 
+;; pymacs
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+(eval-after-load "pymacs"
+  '(add-to-list 'pymacs-load-path "YOUR-PYMACS-DIRECTORY"))
+;; python-mode, pycomplete 
+(setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
+(setq interpreter-mode-alist (cons '("python" . python-mode)
+                                   interpreter-mode-alist))
+;;(autoload 'python-mode "python-mode" "Python editing mode." t)
+(add-hook 'python-mode-hook '(lambda ()
+                               (require 'pycomplete)
+                               ))
 
 ;; nxhtml
 
@@ -488,8 +500,12 @@
 (global-set-key (kbd "C-t") 'other-window-or-split)
 
 ;; grep系keyバインド
-(global-set-key [?\C-c?\C-\S-g] 'anything-grep)
-(global-set-key "\C-c\C-g" 'anything-project-grep)
+;;(global-set-key [?\C-c?\C-\S-g] 'anything-grep)
+;;(global-set-key "\C-c\C-g" 'anything-project-grep)
+(global-set-key "\C-c\C-g" 'grep-find)
+;; etags
+(global-set-key [?\C-c?\C-\S-g] 'tags-search)
+
 
 ;; anything-frep list
 					;(setq anything-grep-alist
@@ -590,6 +606,22 @@
 (setq ns-pop-up-frames nil)
 
 
+;; 対応する括弧
+(add-hook 'c-mode-common-hook
+         '(lambda()
+            ;; 対応する括弧の挿入
+            (make-variable-buffer-local 'skeleton-pair)
+            (make-variable-buffer-local 'skeleton-pair-on-word)
+            (setq skeleton-pair-on-word t)
+            (setq skeleton-pair t)
+            (make-variable-buffer-local 'skeleton-pair-alist)
+            (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
+            (local-set-key (kbd "[") 'skeleton-pair-insert-maybe)
+            (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
+            (local-set-key (kbd "`") 'skeleton-pair-insert-maybe)
+            (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
+            ))
+
 ;; C-kで行全体を削除
 ;; (setq kill-whole-line t)
 ;; (global-set-key "\C-k" 'kill-whole-line)
@@ -682,11 +714,11 @@
   )
 
 
-(require 'gtags)
+;; (require 'gtags)
 
-;; gtags
-(global-set-key (kbd "C-,") 'gtags-find-tag)
-(global-set-key (kbd "C-<") 'gtags-pop-stack)
+;; ;; gtags
+;; (global-set-key (kbd "C-,") 'gtags-find-tag)
+;; (global-set-key (kbd "C-<") 'gtags-pop-stack)
 ;; (define-key gtags-mode-map (kbd "C-i") 'gtags-find-tag) ;; 関数の定義元へ移動
 ;; (define-key gtags-mode-map (kbd "C-u") 'gtags-pop-stack) ;; 前のバッファへ戻る
 ;; (define-key gtags-mode-map "\M-," 'gtags-find-rtag) ;; 関数の参照元の一覧を表示
@@ -721,13 +753,12 @@
 ;;             (setq gtags-libpath `((,(expand-file-name "~/.tags/python") . " /usr/lib/python2.5")))))
 
 ;; auto-complete-gtags
-(require 'auto-complete-gtags)
+;;(require 'auto-complete-gtags)
 
 ;; anything-gtags
 ;; (require 'anything-gtags) 
 ;; (global-set-key (kbd "C-,") 'anything-gtags-select)
 ;; (global-set-key (kbd "C-<") 'anything-gtags-resume)
-
 
 
 ;; ;; Emacs shell ansi-termでエラーが出るのでコメントアウト

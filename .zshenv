@@ -90,6 +90,10 @@ alias java='java -Dfile.encoding=UTF-8'
 export REBEL_HOME=/usr/local/share/jrebel
 export PATH=$REBEL_HOME/bin:$PATH
 
+export PLAY_HOME=/opt/local/share/java/play-1.2.3
+export PATH=$PLAY_HOME:$PATH
+
+
 ### python ###
 export PATH=$PYTHON_HOME/bin:$PATH
 export MANPATH=$PYTHON_HOME/share/man:$MANPATH
