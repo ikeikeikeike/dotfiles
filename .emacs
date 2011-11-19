@@ -382,13 +382,53 @@
 	      ;; (set-frame-parameter nil 'fullscreen 'fullboth)
 	      )))
 
-;; full screen
-(defun mac-toggle-max-window ()
+
+;; sppedbar
+(require 'sr-speedbar)
+
+;; 右側に表示
+(setq sr-speedbar-right-side t)
+
+(defun my-speedbar-expand-line ()
   (interactive)
-  (if (frame-parameter nil 'fullscreen)
-      (set-frame-parameter nil 'fullscreen nil)
-    (set-frame-parameter nil 'fullscreen 'fullboth)))
-(global-set-key "\C-cm" 'mac-toggle-max-window)
+  (if (= (point-max) (progn (speedbar-expand-line) (point-max)))
+      (save-current-buffer
+        (speedbar-edit-line))))
+
+(when (locate-library "speedbar")
+  (require 'speedbar)
+  ;; "a" で無視ファイル表示/非表示のトグル
+  (define-key speedbar-file-key-map "a" 'speedbar-toggle-show-all-files)
+  ;; ← や → でもディレクトリを開閉 ;;デフォルト: "=" "+", "-"
+  (define-key speedbar-file-key-map [right] 'my-speedbar-expand-line)
+  (define-key speedbar-file-key-map "\C-f" 'my-speedbar-expand-line)
+  (define-key speedbar-file-key-map [left] 'speedbar-contract-line)
+  (define-key speedbar-file-key-map "\C-b" 'speedbar-contract-line)
+  ;; BS でも上位ディレクトリへ ;;デフォルト: "U"
+  (define-key speedbar-file-key-map [backspace] 'speedbar-up-directory)
+  (define-key speedbar-file-key-map "\C-h" 'speedbar-up-directory)
+  ;; 起動位置を直接指定する
+  (setq speedbar-frame-parameters
+        (append (list '(top . 40)
+                      '(left . 780)
+                      '(width . 25))
+                speedbar-frame-parameters)))
+
+;; speedbar に拡張子を登録
+(add-hook 'speedbar-mode-hook
+          '(lambda ()
+             (speedbar-add-supported-extension '("js" "as" "html" "css" "php" "py"))))
+
+(global-set-key (kbd "<f6>") 'sr-speedbar-toggle)
+
+
+;; full screen
+;; (defun mac-toggle-max-window ()
+;;   (interactive)
+;;   (if (frame-parameter nil 'fullscreen)
+;;       (set-frame-parameter nil 'fullscreen nil)
+;;     (set-frame-parameter nil 'fullscreen 'fullboth)))
+;; (global-set-key "\C-cm" 'mac-toggle-max-window)
 
 ;; Carbon Emacsの設定で入れられた. メニューを隠したり．
 (custom-set-variables
@@ -436,7 +476,7 @@
 ;; linum.el(行番号の表示)
 (require 'linum)
 ;; デフォルトでONにする
-(global-linum-mode 1)
+(global-linum-mode 0)
 ;; F5キーにON/OFFの切り替えを割り当てる
 (global-set-key [f5] 'linum-mode)
 ;; 5桁とスペースの領域を割り当てる

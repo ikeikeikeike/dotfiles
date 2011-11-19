@@ -11,7 +11,7 @@ pip install virtualenv virtualenvwrapper
 pip install distribute
 
 # ipython
-pip install ipython
+#pip install ipython
 
 # debug
 pip install pudb debug
