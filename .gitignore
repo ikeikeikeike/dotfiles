@@ -20,6 +20,7 @@
 *.snm
 *.vrb
 \#*\#
+\.#*
 .project
 .pydevproject
 .settings
