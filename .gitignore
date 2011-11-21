@@ -21,6 +21,7 @@
 *.vrb
 \#*\#
 \.#*
+%*%~
 .project
 .pydevproject
 .settings

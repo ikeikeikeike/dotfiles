@@ -16,6 +16,7 @@
 		   "~/.emacs.d/init"
 		   "~/.emacs.d/navi2ch"
 		   "~/.emacs.d/haskell-mode-2.8.0"
+		   "~/.emacs.d/geben"
 		   "/opt/local/share/emacs/site-lisp"
 		   "/opt/local/share/emacs/site-lisp/howm"
 		   "/usr/local/Cellar/erlang/R14B03/lib/erlang/lib/tools-2.6.6.4/emacs"
@@ -180,17 +181,22 @@
 ;; (custom-set-faces)
 
 ;; Auto-complete
+;;(require 'auto-complete-config)
 (require 'auto-complete)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-;(require 'auto-complete-config)
-;(ac-config-default)
 (require 'ac-company)
 (require 'fuzzy)
 (require 'popup)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+;;(ac-config-default)
 ;; 対象の全てで補完を有効にする
 (global-auto-complete-mode t)
 ;; enabled auto-complete-mode.
 (add-to-list 'ac-modes 'erlang-mode 'haskell-mode)
+
+;; auto complete etags
+(require 'auto-complete-etags)
+
+
 
 ;; pipup
 
@@ -225,8 +231,11 @@
              (define-key php-mode-map (kbd "C-o") 'phpcmp-complete)
              (when (require 'auto-complete nil t)
                (make-variable-buffer-local 'ac-sources)
-               (add-to-list 'ac-sources 'ac-source-php-completion)
+               (add-to-list 'ac-sources 'ac-source-php-completion 'ac-source-etags)
                (auto-complete-mode t))))
+
+;; geben
+(autoload 'geben "geben" "PHP Debugger on Emacs" t)
 
 ;; javascript mode
 (autoload 'js2-mode "js2" nil t)
@@ -320,7 +329,7 @@
 (add-hook
  'python-mode-hook
  '(lambda ()
-    (add-to-list 'ac-sources 'ac-source-python)
+    (add-to-list 'ac-sources 'ac-source-python 'ac-source-etags)
     (setq tab-width 2)
     ))
 
@@ -341,7 +350,7 @@
 (autoload 'pymacs-load "pymacs" nil t)
 (eval-after-load "pymacs"
   '(add-to-list 'pymacs-load-path "YOUR-PYMACS-DIRECTORY"))
-;; python-mode, pycomplete 
+;; python-mode, pycomplete
 (setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
 (setq interpreter-mode-alist (cons '("python" . python-mode)
                                    interpreter-mode-alist))
@@ -519,7 +528,7 @@
 (setq undo-no-redo t)
 (setq undo-limit 600000)
 (setq undo-strong-limit 900000)
-;; undo tree 
+;; undo tree
 (require 'undo-tree)
 (global-undo-tree-mode)
 
@@ -543,8 +552,25 @@
 ;;(global-set-key [?\C-c?\C-\S-g] 'anything-grep)
 ;;(global-set-key "\C-c\C-g" 'anything-project-grep)
 (global-set-key "\C-c\C-g" 'grep-find)
-;; etags
+
+;; tags
 (global-set-key [?\C-c?\C-\S-g] 'tags-search)
+(require 'anything-etags)
+(global-set-key (kbd "M-/") 'anything-etags-select-from-here)
+;;(require 'key-chord)
+;; (setq key-chord-two-keys-delay 0.04)
+;; (key-chord-mode 1)
+;; (key-chord-define-global ",." 'anything-etags-select-from-here)
+
+
+
+;; 関数名を表示
+(which-func-mode 1)
+;; all meger mode enabled.
+(setq which-func-modes t)
+;; 上部に表示
+;; (delete (assoc 'which-funcmode mode-line-format) mode-line-format)
+;; (setq-default header-line-format '(which-func-mode ("" which-func-format)))
 
 
 ;; anything-frep list
@@ -646,21 +672,29 @@
 (setq ns-pop-up-frames nil)
 
 
-;; 対応する括弧
-(add-hook 'c-mode-common-hook
-         '(lambda()
-            ;; 対応する括弧の挿入
-            (make-variable-buffer-local 'skeleton-pair)
-            (make-variable-buffer-local 'skeleton-pair-on-word)
-            (setq skeleton-pair-on-word t)
-            (setq skeleton-pair t)
-            (make-variable-buffer-local 'skeleton-pair-alist)
-            (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
-            (local-set-key (kbd "[") 'skeleton-pair-insert-maybe)
-            (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
-            (local-set-key (kbd "`") 'skeleton-pair-insert-maybe)
-            (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
-            ))
+;; ファイル名がかぶった場合のバッファ名
+(require 'uniquify)
+; finename<dir>
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+; 対象外 *
+(setq uniquify-ignore-buffers-rs "*[^*]+*")
+
+
+;; ;; 対応する括弧
+;; (add-hook 'c-mode-common-hook
+;;          '(lambda()
+;;             ;; 対応する括弧の挿入
+;;             (make-variable-buffer-local 'skeleton-pair)
+;;             (make-variable-buffer-local 'skeleton-pair-on-word)
+;;             (setq skeleton-pair-on-word t)
+;;             (setq skeleton-pair t)
+;;             (make-variable-buffer-local 'skeleton-pair-alist)
+;;             (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
+;;             (local-set-key (kbd "[") 'skeleton-pair-insert-maybe)
+;;             (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
+;;             (local-set-key (kbd "`") 'skeleton-pair-insert-maybe)
+;;             (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
+;;             ))
 
 ;; C-kで行全体を削除
 ;; (setq kill-whole-line t)
@@ -796,7 +830,7 @@
 ;;(require 'auto-complete-gtags)
 
 ;; anything-gtags
-;; (require 'anything-gtags) 
+;; (require 'anything-gtags)
 ;; (global-set-key (kbd "C-,") 'anything-gtags-select)
 ;; (global-set-key (kbd "C-<") 'anything-gtags-resume)
 
@@ -917,7 +951,7 @@
 
 ;; full path
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
- 
+
 
 ;; show-paren-mode 1
 (show-paren-mode 1)
@@ -994,6 +1028,10 @@
       anything-c-moccur-enable-auto-look-flag t ; 現在選択中の候補の位置を他のwindowに表示する
       anything-c-moccur-enable-initial-pattern t) ; `anything-c-moccur-occur-by-moccur'の起動時にポイントの位置の単語を初期パターンにする
 
+;; インクリメンタルサーチとoccur合体
+;; (setq moccur-split-word t)
+;; (global-set-key (kbd "M-s") 'anything-c-moccur-occur-by-moccur)
+
 ;;; キーバインドの割当(好みに合わせて設定してください)
 (global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur) ;バッファ内検索
 (global-set-key (kbd "C-M-o") 'anything-c-moccur-dmoccur) ;ディレクトリ
@@ -1022,3 +1060,42 @@
 ;; (el-get)
 
 
+;;;;;;;;;;;;;; python
+;; autopair
+(require 'autopair)
+;;(autoload 'autopair-global-mode "autopair" nil t)
+;; (autopair-global-mode)
+(add-hook 'lisp-mode-hook
+          #'(lambda () (setq autopair-dont-activate t)))
+(add-hook 'python-mode-hook
+          #'(lambda ()
+              (push '(?' . ?')
+                    (getf autopair-extra-pairs :code))
+              (setq autopair-handle-action-fns
+                    (list #'autopair-default-handle-action
+                          #'autopair-python-triple-quote-action))))
+
+(require 'python-pep8)
+(require 'python-pylint)
+
+;; 末尾空白除去(半角のみ)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(require 'lambda-mode)
+(add-hook 'python-mode-hook #'lambda-mode 1)
+
+(defun annotate-pdb ()
+  (interactive)
+  (highlight-lines-matching-regexp "import pdb")
+  (highlight-lines-matching-regexp "import debug")
+  (highlight-lines-matching-regexp "pdb.set_trace()"))
+(add-hook 'python-mode-hook 'annotate-pdb)
+;; (defun python-add-breakpoint ()
+;;   (interactive)
+;;   (py-newline-and-indent)
+;;   (insert "import ipdb; ipdb.set_trace()")
+;;   (highlight-lines-matching-regexp "^[ 	]*import ipdb; ipdb.set_trace()"))
+;; (define-key py-mode-map (kbd "C-c C-t") 'python-add-breakpoint)
+
+;; adds grep-edit commands
+(require 'grep-edit)
