@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # alias
 if [ $ARCHI = darwin ]; then
   alias emacs='open -a /Applications/Emacs.app'

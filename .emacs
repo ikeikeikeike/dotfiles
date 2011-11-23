@@ -3,43 +3,43 @@
 ;(setq debug-on-error t)
 
 ;; load-path
-					;(setq load-path (cons "~/.emacs.d/elisp" load-path))
+          ;(setq load-path (cons "~/.emacs.d/elisp" load-path))
 ;;====================
 ;; General
 ;;====================
 ;; load-pathを追加
 (setq load-path (append
                  '("/Applications/Emacs.app/Contents/Resources/site-lisp"
-		   "/Applications/MacPorts/Emacs.app/Contents/Resources/site-lisp"
-		   "~/.emacs.d/elisp"
-		   "~/.emacs.d/auto-install"
-		   "~/.emacs.d/init"
-		   "~/.emacs.d/navi2ch"
-		   "~/.emacs.d/haskell-mode-2.8.0"
-		   "~/.emacs.d/geben"
-		   "/opt/local/share/emacs/site-lisp"
-		   "/opt/local/share/emacs/site-lisp/howm"
-		   "/usr/local/Cellar/erlang/R14B03/lib/erlang/lib/tools-2.6.6.4/emacs"
-		   )
+       "/Applications/MacPorts/Emacs.app/Contents/Resources/site-lisp"
+       "~/.emacs.d/elisp"
+       "~/.emacs.d/auto-install"
+       "~/.emacs.d/init"
+       "~/.emacs.d/navi2ch"
+       "~/.emacs.d/haskell-mode-2.8.0"
+       "~/.emacs.d/geben"
+       "/opt/local/share/emacs/site-lisp"
+       "/opt/local/share/emacs/site-lisp/howm"
+       "/usr/local/Cellar/erlang/R14B03/lib/erlang/lib/tools-2.6.6.4/emacs"
+       )
                  load-path))
 
 (setq exec-path (append
                  '("/opt/local/bin"
-		   "/opt/local/sbin"
+       "/opt/local/sbin"
                    "/usr/bin"
-		   "/bin"
+       "/bin"
                    "/usr/sbin"
-		   "/sbin"
-		   "/usr/local/bin"
-		   "/usr/local/sbin"
+       "/sbin"
+       "/usr/local/bin"
+       "/usr/local/sbin"
                    "/usr/X11/bin"
-		   "/usr/local/Cellar/erlang/R14B03/bin"
-		   )
+       "/usr/local/Cellar/erlang/R14B03/bin"
+       )
                  exec-path))
 
-					; 言語を日本語にする
+          ; 言語を日本語にする
 (set-language-environment 'Japanese)
-					; 極力UTF-8とする
+          ; 極力UTF-8とする
 (prefer-coding-system 'utf-8)
 
 ;; (add-to-list 'face-font-rescale-alist '(".*osaka-bold.*" . 0.3))
@@ -82,7 +82,7 @@
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/auto-install/")
 (auto-install-update-emacswiki-package-name t)
-(auto-install-compatibility-setup)	; 互換性確保
+(auto-install-compatibility-setup)  ; 互換性確保
 
 ;; anything関連ロード
 (require 'anything-startup)
@@ -196,36 +196,31 @@
 ;; auto complete etags
 (require 'auto-complete-etags)
 
-
-
-;; pipup
-
 (setq ac-use-menu-map t)
 ;; デフォルトで設定済み
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
 
 
-
 ;; php-complete
 ;; php-mode
 ;; 設定例
-(load-library "php-mode")
+;;(load-library "php-mode")
 (require 'php-mode)
-(autoload 'php-mode "php-mode")
+;;(autoload 'php-mode "php-mode")
 (setq auto-mode-alist
       (cons '("\\.php\\'" . php-mode) auto-mode-alist))
 
 ;; php  auto-complete
 (add-hook  'php-mode-hook
            (lambda ()
-	     (setq php-mode-force-pear t)
-	     (setq php-manual-path "/usr/local/share/php/doc/html")
-	     (setq php-manual-url "http://www.php.net/manual/ja/")
-	     (c-set-style "stroustrup")
+       (setq php-mode-force-pear t)
+       (setq php-manual-path "/usr/local/share/php/doc/html")
+       (setq php-manual-url "http://www.php.net/manual/ja/")
+       (c-set-style "stroustrup")
              (setq tab-width 2)
              (setq c-basic-offset 2)
-	     (setq indent-tabs-mode t)
+       (setq indent-tabs-mode t)
              (require 'php-completion)
              (php-completion-mode t)
              (define-key php-mode-map (kbd "C-o") 'phpcmp-complete)
@@ -288,8 +283,17 @@
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
 
+(require 'ac-python)
+;(require 'pysmell)
+(require 'python-pep8)
+(require 'python-pylint)
+(require 'lambda-mode)
+(require 'autopair)
+
+
 (defvar is_emacs23 (>= emacs-major-version 23))
 
+;; python.el
 (when is_emacs23
   (defun python-partial-symbol ()
     "Return the partial symbol before point (for completion)."
@@ -300,8 +304,7 @@
                              (group (1+ (regexp "[[:alnum:]._]"))) point)
                          nil t)
                         (match-beginning 1)))))
-      (if start (buffer-substring-no-properties start end))))
-  )
+      (if start (buffer-substring-no-properties start end)))))
 
 ;; python
 (defun ac-python-candidates ()
@@ -329,9 +332,7 @@
 (add-hook
  'python-mode-hook
  '(lambda ()
-    (add-to-list 'ac-sources 'ac-source-python 'ac-source-etags)
-    (setq tab-width 2)
-    ))
+    (add-to-list 'ac-sources 'ac-source-python 'ac-source-etags)))
 
 (add-hook
  'inferior-python-mode-hook
@@ -342,22 +343,106 @@
     ))
 
 
-;; pymacs
-(autoload 'pymacs-apply "pymacs")
-(autoload 'pymacs-call "pymacs")
-(autoload 'pymacs-eval "pymacs" nil t)
-(autoload 'pymacs-exec "pymacs" nil t)
-(autoload 'pymacs-load "pymacs" nil t)
-(eval-after-load "pymacs"
-  '(add-to-list 'pymacs-load-path "YOUR-PYMACS-DIRECTORY"))
-;; python-mode, pycomplete
-(setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
-(setq interpreter-mode-alist (cons '("python" . python-mode)
-                                   interpreter-mode-alist))
-;;(autoload 'python-mode "python-mode" "Python editing mode." t)
+;; ;; pysmell
+;; (add-hook 'python-mode-hook (lambda () (pysmell-mode 1)))
+
+;; (defvar ac-source-pysmell
+;;   '((candidates
+;;      . (lambda ()
+;;          (require 'pysmell)
+;;          (pysmell-get-all-completions))))
+;;     "~/")
+
+;; (add-hook 'python-mode-hook
+;;     '(lambda ()
+;;         (set (make-local-variable 'ac-sources) (append ac-sources '(ac-source-pysmell)))))
+
+;; ;; ;; pymacs
+;; (autoload 'pymacs-apply "pymacs")
+;; (autoload 'pymacs-call "pymacs")
+;; (autoload 'pymacs-eval "pymacs" nil t)
+;; (autoload 'pymacs-exec "pymacs" nil t)
+;; (autoload 'pymacs-load "pymacs" nil t)
+;; (eval-after-load "pymacs"
+;;   '(add-to-list 'pymacs-load-path "~/emacs.d/pymacs-elisp"))
+
+;; (setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
+;; (setq interpreter-mode-alist (cons '("python" . python-mode)
+;;                                    interpreter-mode-alist))
+;; (autoload 'python-mode "python-mode" "Python editing mode." t)
+;; (add-hook 'python-mode-hook
+;;           '(lambda()
+;;              (require 'pycomplete)))
+
+;; (global-set-key (kbd "M-h") 'ac-complete-pycomplete-pycomplete)
+
+;; (defun ac-complete-pycomplete-pycomplete ()
+;;   (interactive)
+;;   (auto-complete '(ac-source-python)))
+
+;; (setq ac-source-python
+;;   '((prefix "\\(?:\\.\\|->\\)\\(\\(?:[a-zA-Z_][a-zA-Z0-9_]*\\)?\\)" nil 1)
+;;     (candidates . ac-py-candidates)
+;;     (requires . 0)))
+
+;; (defun ac-py-candidates ()
+;;   (pycomplete-pycomplete (py-symbol-near-point) (py-find-global-imports)))
+;; (defun my-ac-python-mode ()
+;;   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-dictionary)))
+;; (add-hook 'python-mode-hook 'my-ac-python-mode)
+
+
+;; autopair
+; (autoload 'autopair-global-mode "autopair" nil t)
+; (autopair-global-mode)
+
+; (add-hook 'python-mode-hook
+          ; #'(lambda ()
+              ; (push '(?' . ?')
+                    ; (getf autopair-extra-pairs :code))
+              ; (setq autopair-handle-action-fns
+                    ; (list #'autopair-default-handle-action
+                          ; #'autopair-python-triple-quote-action))))
+
+;; 末尾空白除去(半角のみ)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; lambda
+(add-hook 'python-mode-hook #'lambda-mode 1)
+
+(defun annotate-pdb ()
+  (interactive)
+  (highlight-lines-matching-regexp "import pdb")
+  (highlight-lines-matching-regexp "import debug")
+  (highlight-lines-matching-regexp "pdb.set_trace()"))
+(add-hook 'python-mode-hook 'annotate-pdb)
+
+;; debug
+;; (defun python-add-breakpoint ()
+;;   (interactive)
+;;   (py-newline-and-indent)
+;;   (insert "import ipdb; ipdb.set_trace()")
+;;   (highlight-lines-matching-regexp "^[   ]*import ipdb; ipdb.set_trace()"))
+;; (define-key py-mode-map (kbd "C-c C-t") 'python-add-breakpoint)
+
+;; python括弧
+(add-hook 'python-mode-hook
+          (lambda ()
+            (define-key python-mode-map "\"" 'electric-pair)
+            (define-key python-mode-map "\'" 'electric-pair)
+            (define-key python-mode-map "(" 'electric-pair)
+            (define-key python-mode-map "[" 'electric-pair)
+            (define-key python-mode-map "{" 'electric-pair)))
+(defun electric-pair ()
+  "Insert character pair without sournding spaces"
+  (interactive)
+  (let (parens-require-spaces)
+    (insert-pair)))
+
+;; python indent
 (add-hook 'python-mode-hook '(lambda ()
-                               (require 'pycomplete)
-                               ))
+     (define-key python-mode-map "\C-m" 'newline-and-indent)))
+
 
 ;; nxhtml
 
@@ -375,8 +460,8 @@
 (add-to-list 'auto-mode-alist '("sites-\\(available\\|enabled\\)/" . apache-mode))
 
 ;; dsvn subversion
-					;(autoload 'svn-status "dsvn" "Run `svn status'." t)
-					;(autoload 'svn-update "dsvn" "Run `svn update'." t)
+          ;(autoload 'svn-status "dsvn" "Run `svn status'." t)
+          ;(autoload 'svn-update "dsvn" "Run `svn update'." t)
 
 ;; 行数表示
 (line-number-mode t)
@@ -386,10 +471,10 @@
 ;; wondowをmac UI
 (when (eq window-system 'mac)
   (add-hook 'window-setup-hook
-	    (lambda ()
-	      (setq mac-autohide-menubar-on-maximize t)
-	      ;; (set-frame-parameter nil 'fullscreen 'fullboth)
-	      )))
+      (lambda ()
+        (setq mac-autohide-menubar-on-maximize t)
+        ;; (set-frame-parameter nil 'fullscreen 'fullboth)
+        )))
 
 
 ;; sppedbar
@@ -448,14 +533,14 @@
 
 ;; Color
 (if window-system (progn
-		    (set-background-color "Black")
-		    (set-foreground-color "LightGray")
-		    (set-cursor-color "Gray")
-		    (set-frame-parameter nil 'alpha 80)
-		    ))
+        (set-background-color "Black")
+        (set-foreground-color "LightGray")
+        (set-cursor-color "Gray")
+        (set-frame-parameter nil 'alpha 80)
+        ))
 
 ;; Macのキーバインドを使う
-					;(mac-key-mode 1)
+          ;(mac-key-mode 1)
 
 ;; シフト + 矢印で範囲選択
 (setq pc-select-selection-keys-only t)
@@ -474,13 +559,16 @@
 ;; 編集行のハイライト
 (global-hl-line-mode)
 
+;; バックアップファイルを作らない
+(setq backup-inhibited t)
+
 ;; ElScreenの有効化
-					;(require 'elscreen)
+          ;(require 'elscreen)
 ;; PrefixキーをC-zに割り当て
-					;(elscreen-set-prefix-key "\C-z")
-					;(if window-system
-					;    (define-key elscreen-map "\C-z" 'iconify-or-deiconify-frame)
-					;  (define-key elscreen-map "\C-z" 'suspend-emacs))
+          ;(elscreen-set-prefix-key "\C-z")
+          ;(if window-system
+          ;    (define-key elscreen-map "\C-z" 'iconify-or-deiconify-frame)
+          ;  (define-key elscreen-map "\C-z" 'suspend-emacs))
 
 ;; linum.el(行番号の表示)
 (require 'linum)
@@ -503,14 +591,14 @@
 ;; backup dir
 (setq backup-directory "~/.emacs.d/backup")
 (if (and (boundp 'backup-directory)
-	 (not (fboundp 'make-backup-file-name-original)))
+   (not (fboundp 'make-backup-file-name-original)))
     (progn
       (fset 'make-backup-file-name-original
-	    (symbol-function 'make-backup-file-name))
+      (symbol-function 'make-backup-file-name))
       (defun make-backup-file-name (filename)
-	(if (file-directory-p backup-directory)
-	    (concat backup-directory "/" (file-name-nondirectory filename))
-	  (make-backup-file-name-original filename)))))
+  (if (file-directory-p backup-directory)
+      (concat backup-directory "/" (file-name-nondirectory filename))
+    (make-backup-file-name-original filename)))))
 ;;;終了時に自動生成されたオートセーブファイルを削除行う
 (setq delete-auto-save-files t)
 
@@ -522,9 +610,9 @@
 (when (require 'redo+ nil t)
   (define-key ctl-x-map (if window-system "U" "r") 'redo)
   (define-key global-map  [?\C-?] 'redo))
-					;(define-key global-map  [?\C-\S-/] 'redo)
-					;(define-key global-map "\C-\S-/" 'redo)
-					;(define-key global-map "\C-\S-_" 'redo)) )
+          ;(define-key global-map  [?\C-\S-/] 'redo)
+          ;(define-key global-map "\C-\S-/" 'redo)
+          ;(define-key global-map "\C-\S-_" 'redo)) )
 (setq undo-no-redo t)
 (setq undo-limit 600000)
 (setq undo-strong-limit 900000)
@@ -574,19 +662,19 @@
 
 
 ;; anything-frep list
-					;(setq anything-grep-alist
+          ;(setq anything-grep-alist
 ;; 全バッファのファイル名においてegrepをかける。moccurの代わり。
-					;      '(("buffers" ("egrep -Hin %s $buffers" "/"))
+          ;      '(("buffers" ("egrep -Hin %s $buffers" "/"))
 ;; ~/ 以下から再帰的にegrepをかける。不要なファイルは除かれる。
-					;	("home" ("ack | xargs egrep -Hin %s" "~/"))
+          ;  ("home" ("ack | xargs egrep -Hin %s" "~/"))
 ;; /usr/loacal/share/php/doc から *.html に対してegrepをかける。
-					;	("phpdoc" ("egrep -Hin %s *.html" "/usr/loacal/share/php/doc/"))
+          ;  ("phpdoc" ("egrep -Hin %s *.html" "/usr/loacal/share/php/doc/"))
 ;; ~/ruby以下の全Rubyスクリプトと~/bin以下のファイルをまとめて検索する。
-					;	("~/bin and ~/ruby"
-					;	 ("ack -afG 'rb$' | xargs egrep -Hin %s" "~/ruby")
-					;	 ("ack | xargs egrep -Hin %s" "~/bin"))
+          ;  ("~/bin and ~/ruby"
+          ;   ("ack -afG 'rb$' | xargs egrep -Hin %s" "~/ruby")
+          ;   ("ack | xargs egrep -Hin %s" "~/bin"))
 ;; ~/smartacademy/ferris 以下から再帰的に 文字列検索 ark をかける。不要なファイルは除かれる。
-					;	("ferris" ("ack %s" "~/smartacademy/ferris"))))
+          ;  ("ferris" ("ack %s" "~/smartacademy/ferris"))))
 
 ;; anything-grep-alistでやりたいことがこれでおkなので上記はコメント
 ;; ディレクトリは検索からのぞく設定
@@ -594,7 +682,7 @@
 (setq ap:project-files-filters
       (list
        (lambda (files)
-	 (remove-if 'file-directory-p files))))
+   (remove-if 'file-directory-p files))))
 
 ;; file検索
 (global-set-key [?\C-c?\C-r] 'anything-project)
@@ -679,22 +767,21 @@
 ; 対象外 *
 (setq uniquify-ignore-buffers-rs "*[^*]+*")
 
-
-;; ;; 対応する括弧
-;; (add-hook 'c-mode-common-hook
-;;          '(lambda()
-;;             ;; 対応する括弧の挿入
-;;             (make-variable-buffer-local 'skeleton-pair)
-;;             (make-variable-buffer-local 'skeleton-pair-on-word)
-;;             (setq skeleton-pair-on-word t)
-;;             (setq skeleton-pair t)
-;;             (make-variable-buffer-local 'skeleton-pair-alist)
-;;             (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
-;;             (local-set-key (kbd "[") 'skeleton-pair-insert-maybe)
-;;             (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
-;;             (local-set-key (kbd "`") 'skeleton-pair-insert-maybe)
-;;             (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
-;;             ))
+;; 対応する括弧
+(add-hook 'c-mode-common-hook
+         '(lambda()
+            ;; 対応する括弧の挿入
+            (make-variable-buffer-local 'skeleton-pair)
+            (make-variable-buffer-local 'skeleton-pair-on-word)
+            (setq skeleton-pair-on-word t)
+            (setq skeleton-pair t)
+            (make-variable-buffer-local 'skeleton-pair-alist)
+            (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
+            (local-set-key (kbd "[") 'skeleton-pair-insert-maybe)
+            (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
+            (local-set-key (kbd "`") 'skeleton-pair-insert-maybe)
+            (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
+            ))
 
 ;; C-kで行全体を削除
 ;; (setq kill-whole-line t)
@@ -703,7 +790,7 @@
 ;; カーソル移動を物理行単位に
 (require 'physical-line)
 (setq-default physical-line-mode t)
-					; dired-modeは論理行移動のままにする
+          ; dired-modeは論理行移動のままにする
 (setq physical-line-ignoring-mode-list '(dired-mode))
 
 ;; 改行コードを表示
@@ -759,6 +846,8 @@
 
 ;; load-init
 (load "init-flymake")
+(load "init-flymake-mine")
+
 
 ;; howm
 (load "init-howm")
@@ -766,14 +855,14 @@
 
 
 ;; growl通知w
-;; (defun growlnotify-after-save-hook ()
-;;   (shell-command
-;;    (format "growlnotify -m \"Emacs: ファイル %s を保存しました\""
-;; 		   (buffer-name (current-buffer)))))
-;; (add-hook 'after-save-hook 'growlnotify-after-save-hook)
+(defun growlnotify-after-save-hook ()
+  (shell-command
+   (format "growlnotify -m \"Emacs: ファイル %s を保存しました\""
+       (buffer-name (current-buffer)))))
+(add-hook 'after-save-hook 'growlnotify-after-save-hook)
 
 
-					; zsh
+          ; zsh
 (require 'zlc)
 (setq zlc-select-completion-immediately t)
 (let ((map minibuffer-local-map))
@@ -839,7 +928,7 @@
 ;; (load "init-shell")
 
 
-					;直そうと思ったがだめだった
+          ;直そうと思ったがだめだった
 ;; (require 'term)
 ;; (defvar ansi-term-after-hook nil)
 ;; (add-hook 'ansi-term-after-hook
@@ -872,17 +961,17 @@
 ;;                 (define-key term-mode-map "\C-m" 'term-send-input))))
 
 
-					;
-					; since emacs 23
-					;
+          ;
+          ; since emacs 23
+          ;
 
-					;command キーと Option キーの動作を逆にしたい場合は以下のような設定をします。
+          ;command キーと Option キーの動作を逆にしたい場合は以下のような設定をします。
 (setq ns-command-modifier (quote meta))
 (setq ns-alternate-modifier (quote super))
 
 ;; 垂直スクロール用のスクロールバーを付けない
 (add-to-list 'default-frame-alist '(vertical-scroll-bars . nil))
-					; 背景の透過
+          ; 背景の透過
 (add-to-list 'default-frame-alist '(alpha . (92 70)))
 
 ;; 等幅のフォントセットを幾つか作成予定
@@ -981,8 +1070,8 @@
 
 (when (>= emacs-major-version 23)
   (set-face-attribute 'default nil
-		      :family "monaco"
-		      :height 110)
+          :family "monaco"
+          :height 110)
   (set-fontset-font
    (frame-parameter nil 'font)
    'japanese-jisx0208
@@ -996,15 +1085,15 @@
    'mule-unicode-0100-24ff
    '("monaco" . "iso10646-1"))
   (setq face-font-rescale-alist
-	'(("^-apple-hiragino.*" . 1.2)
-	  (".*osaka-bold.*" . 1.2)
-	  (".*osaka-medium.*" . 1.2)
-	  (".*courier-bold-.*-mac-roman" . 1.0)
-	  (".*monaco cy-bold-.*-mac-cyrillic" . 0.9)
-	  (".*monaco-bold-.*-mac-roman" . 0.9)
-	  ("-cdac$" . 1.3))))
+  '(("^-apple-hiragino.*" . 1.2)
+    (".*osaka-bold.*" . 1.2)
+    (".*osaka-medium.*" . 1.2)
+    (".*courier-bold-.*-mac-roman" . 1.0)
+    (".*monaco cy-bold-.*-mac-cyrillic" . 0.9)
+    (".*monaco-bold-.*-mac-roman" . 0.9)
+    ("-cdac$" . 1.3))))
 
-					; ドラッグアンドドロップ
+          ; ドラッグアンドドロップ
 (define-key global-map [ns-drag-file] 'ns-find-file)
 
 ;;; リージョンをインデント
@@ -1060,42 +1149,25 @@
 ;; (el-get)
 
 
-;;;;;;;;;;;;;; python
-;; autopair
-(require 'autopair)
-;;(autoload 'autopair-global-mode "autopair" nil t)
-;; (autopair-global-mode)
-(add-hook 'lisp-mode-hook
-          #'(lambda () (setq autopair-dont-activate t)))
-(add-hook 'python-mode-hook
-          #'(lambda ()
-              (push '(?' . ?')
-                    (getf autopair-extra-pairs :code))
-              (setq autopair-handle-action-fns
-                    (list #'autopair-default-handle-action
-                          #'autopair-python-triple-quote-action))))
-
-(require 'python-pep8)
-(require 'python-pylint)
-
-;; 末尾空白除去(半角のみ)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-(require 'lambda-mode)
-(add-hook 'python-mode-hook #'lambda-mode 1)
-
-(defun annotate-pdb ()
-  (interactive)
-  (highlight-lines-matching-regexp "import pdb")
-  (highlight-lines-matching-regexp "import debug")
-  (highlight-lines-matching-regexp "pdb.set_trace()"))
-(add-hook 'python-mode-hook 'annotate-pdb)
-;; (defun python-add-breakpoint ()
-;;   (interactive)
-;;   (py-newline-and-indent)
-;;   (insert "import ipdb; ipdb.set_trace()")
-;;   (highlight-lines-matching-regexp "^[ 	]*import ipdb; ipdb.set_trace()"))
-;; (define-key py-mode-map (kbd "C-c C-t") 'python-add-breakpoint)
 
 ;; adds grep-edit commands
 (require 'grep-edit)
+
+
+;; ecmascript
+(require 'ecmascript-mode)
+
+
+;; joseph-autopair
+(require 'joseph-autopair)
+(toggle-joseph-auto-pair-mode)
+(custom-set-variables
+ '(joseph-autopair-alist
+   (quote
+    ((emacs-lisp-mode ("\"" "\"") ("`" "'") ("(" ")") ("[" "]"))
+     (lisp-interaction-mode ("\"" "\"") ("`" "'") ("(" ")") ("[" "]"))
+     (c-mode ("\"" "\"") ("'" "'") ("(" ")") ("[" "]") ("{" (joseph-autopair-newline-indent-insert "}")))
+     (php-mode ("\"" "\"") ("'" "'") ("(" ")") ("[" "]") ("{" (joseph-autopair-newline-indent-insert "}")))
+     (java-mode ("\"" "\"") ("'" "'") ("(" ")") ("[" "]") ("{" (joseph-autopair-newline-indent-insert "}")))
+     (sh-mode ("if " (joseph-autopair-newline-indent-insert "fi")) ("begin " (progn (insert " end") (end-of-line))))))))
+

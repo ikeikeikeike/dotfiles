@@ -1,67 +1,3 @@
-"-----------
-"
-" plugin
-"
-"----------
-
-"<Leader>xでコメントをトグル(NERD_commenter.vim)
-map <Leader>x ,c<space>
-"未対応ファイルタイプのエラーメッセージを表示しない
-let NERDShutUp=1
-
-
-"
-"
-"
-" gtags
-" 検索結果Windowを閉じる
-nnoremap <C-q> <C-w><C-w><C-w>q
-" Grep 準備
-nnoremap <C-g> :Gtags -g
-" このファイルの関数一覧
-nnoremap <C-l> :Gtags -f %<CR>
-" カーソル以下の定義元を探す
-nnoremap <C-j> :Gtags <C-r><C-w><CR>
-" カーソル以下の使用箇所を探す
-nnoremap <C-k> :Gtags -r <C-r><C-w><CR>
-" 次の検索結果
-nnoremap <C-n> :cn<CR>
-" 前の検索結果
-nnoremap <C-p> :cp<CR>
-
-
-" バッファ管理プラグイン
-"nmap <Space> :MBEbn<CR>
-" GNU screen likeなキーバインド
-"let mapleader = "^F"
-"nnoremap <Leader><Space> :MBEbn<CR>
-"nnoremap <Leader>n       :MBEbn<CR>
-"nnoremap <Leader><C-n>   :MBEbn<CR>
-"nnoremap <Leader>p       :MBEbp<CR>
-"nnoremap <Leader><C-p>   :MBEbp<CR>
-"nnoremap <Leader>c       :new<CR>
-"nnoremap <Leader><C-c>   :new<CR>
-"nnoremap <Leader>k       :bd<CR>
-"nnoremap <Leader><C-k>   :bd<CR>
-"nnoremap <Leader>s       :IncBufSwitch<CR>
-"nnoremap <Leader><C-s>   :IncBufSwitch<CR>
-"nnoremap <Leader><Tab>   :wincmd w<CR>
-"nnoremap <Leader>Q       :only<CR>
-"nnoremap <Leader>w       :ls<CR>
-"nnoremap <Leader><C-w>   :ls<CR>
-"nnoremap <Leader>a       :e #<CR>
-"nnoremap <Leader><C-a>   :e #<CR>
-"nnoremap <Leader>"       :BufExp<CR>
-"nnoremap <Leader>1   :e #1<CR>
-"nnoremap <Leader>2   :e #2<CR>
-"nnoremap <Leader>3   :e #3<CR>
-"nnoremap <Leader>4   :e #4<CR>
-"nnoremap <Leader>5   :e #5<CR>
-"nnoremap <Leader>6   :e #6<CR>
-"nnoremap <Leader>7   :e #7<CR>
-"nnoremap <Leader>8   :e #8<CR>
-"nnoremap <Leader>9   :e #9<CR>
-
 "----------------------------------------------------
 " 基本的な設定
 "----------------------------------------------------
@@ -88,10 +24,23 @@ set backspace=indent,eol,start
 highlight ZenkakuSpace ctermbg=6
 match ZenkakuSpace /\s\+$\|　/
 
+" カーソル行をハイライト
+set cursorline
+" カレントウィンドウにのみ罫線を引く
+augroup cch
+  autocmd! cch
+  autocmd WinLeave * set nocursorline
+  autocmd WinEnter,BufRead * set cursorline
+augroup END
+:hi clear CursorLine
+:hi CursorLine gui=underline
+highlight CursorLine ctermbg=black guibg=black
+
+
 " 補完候補を表示する
 set wildmenu
 
-set number "行番号表示
+"set number "行番号表示
 
 set showmode "モード表示
 
@@ -116,9 +65,9 @@ set scrolloff=5  " スクロール時に余分に表示する行数，画面の�
 setlocal omnifunc=syntaxcomplete#Complete
 
 " 保存時に行末の空白を除去する
-"autocmd BufWritePre * :%s/\s\+$//ge
+autocmd BufWritePre * :%s/\s\+$//ge
 " 保存時にtabをスペースに変換する
-"autocmd BufWritePre * :%s/\t/  /ge
+autocmd BufWritePre * :%s/\t/  /ge
 " Ctrl-iでヘルプ
 nnoremap <C-i>  :<C-u>help<Space>
 
@@ -162,19 +111,7 @@ if has("autocmd")
   "辞書ファイルを使用する設定に変更
   set complete+=k
 
-  " -----
-  "
-  " python
-  "
-  " -----
-  filetype plugin on
-  autocmd FileType python setl autoindent
-  autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-  autocmd FileType python setl expandtab tabstop=4 shiftwidth=4 softtabstop=4
-
 endif
-
-" tab関連
 
 set expandtab "タブの代わりに空白文字挿入
 "set noexpandtab " タブはタブのまま
@@ -203,6 +140,10 @@ set noincsearch "検索文字列入力時に順次対象文字列にヒットさ
 
 "set nohlsearch "検索結果文字列の非ハイライト表示
 set hlsearch "検索結果文字列のハイライトを有効にする
+
+" Escの2回押しでハイライト消去
+nmap <ESC><ESC> ;nohlsearch<CR><ESC>
+
 
 "#######################
 
@@ -283,4 +224,65 @@ if has('autocmd')
   endfunction
   autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
+
+
+" ------------
+"
+"   vundle
+"
+" ------------
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'unite.vim'
+
+
+"-----------
+"
+" plugin
+"
+"----------
+
+
+" ##########  Nerd_Commenter の基本設定
+let g:NERDCreateDefaultMappings = 0
+let NERDSpaceDelims = 1
+""未対応ファイルタイプのエラーメッセージを表示しない
+let NERDShutUp=1
+nmap <Leader>/ <Plug>NERDCommenterToggle
+vmap <Leader>/ <Plug>NERDCommenterToggle
+
+
+""" #############   Unite.vim
+" 起動時にインサートモードで開始
+let g:unite_enable_start_insert = 1
+
+" インサート／ノーマルどちらからでも呼び出せるようにキーマップ
+nnoremap <silent> <C-f> :<C-u>UniteWithBufferDir -vertical -buffer-name=files file<CR>
+inoremap <silent> <C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> <C-b> :<C-u>Unite -vertical buffer file_mru<CR>
+inoremap <silent> <C-b> <ESC>:<C-u>Unite -vertical buffer file_mru<CR>
+
+" バッファ一覧
+nnoremap <silent> ,ub :<C-u>Unite -vertical buffer<CR>
+" ファイル一覧
+nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -vertical -buffer-name=files file<CR>
+" レジスタ一覧
+nnoremap <silent> ,ur :<C-u>Unite -vertical -buffer-name=register register<CR>
+" 最近使用したファイル一覧
+nnoremap <silent> ,um :<C-u>Unite -vertical file_mru<CR>
+" 全部乗せ
+nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -vertical -buffer-name=files buffer file_mru bookmark file<CR>
+
+" unite.vim上でのキーマッピング
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()
+  " 単語単位からパス単位で削除するように変更
+  imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+  " ESCキーを2回押すと終了する
+  nmap <silent><buffer> <ESC><ESC> q
+  imap <silent><buffer> <ESC><ESC> <ESC>q
+endfunction
+
 
