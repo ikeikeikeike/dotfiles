@@ -1,45 +1,46 @@
 
 ;; debuger
-;(setq debug-on-error t)
+;;(setq debug-on-error t)
 
 ;; load-path
-          ;(setq load-path (cons "~/.emacs.d/elisp" load-path))
+;;(setq load-path (cons "~/.emacs.d/elisp" load-path))
 ;;====================
 ;; General
 ;;====================
 ;; load-pathを追加
 (setq load-path (append
                  '("/Applications/Emacs.app/Contents/Resources/site-lisp"
-       "/Applications/MacPorts/Emacs.app/Contents/Resources/site-lisp"
-       "~/.emacs.d/elisp"
-       "~/.emacs.d/auto-install"
-       "~/.emacs.d/init"
-       "~/.emacs.d/navi2ch"
-       "~/.emacs.d/haskell-mode-2.8.0"
-       "~/.emacs.d/geben"
-       "/opt/local/share/emacs/site-lisp"
-       "/opt/local/share/emacs/site-lisp/howm"
-       "/usr/local/Cellar/erlang/R14B03/lib/erlang/lib/tools-2.6.6.4/emacs"
-       )
+		   "/Applications/MacPorts/Emacs.app/Contents/Resources/site-lisp"
+		   "~/.emacs.d/elisp"
+		   "~/.emacs.d/auto-install"
+		   "~/.emacs.d/init"
+		   "~/.emacs.d/navi2ch"
+		   "~/.emacs.d/haskell-mode-2.8.0"
+		   "~/.emacs.d/geben"
+		   "/opt/local/share/emacs/site-lisp"
+		   "/opt/local/share/emacs/site-lisp/howm"
+		   "/usr/local/Cellar/erlang/R14B03/lib/erlang/lib/tools-2.6.6.4/emacs"
+		   )
                  load-path))
 
 (setq exec-path (append
                  '("/opt/local/bin"
-       "/opt/local/sbin"
+		   "/opt/local/sbin"
                    "/usr/bin"
-       "/bin"
+		   "/bin"
                    "/usr/sbin"
-       "/sbin"
-       "/usr/local/bin"
-       "/usr/local/sbin"
+		   "/sbin"
+		   "/usr/local/bin"
+		   "/usr/local/sbin"
                    "/usr/X11/bin"
-       "/usr/local/Cellar/erlang/R14B03/bin"
-       )
+		   "/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin"
+		   "/usr/local/Cellar/erlang/R14B03/bin"
+		   )
                  exec-path))
 
-          ; 言語を日本語にする
+;; 言語を日本語にする
 (set-language-environment 'Japanese)
-          ; 極力UTF-8とする
+;; 極力UTF-8とする
 (prefer-coding-system 'utf-8)
 
 ;; (add-to-list 'face-font-rescale-alist '(".*osaka-bold.*" . 0.3))
@@ -83,6 +84,10 @@
 (setq auto-install-directory "~/.emacs.d/auto-install/")
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)  ; 互換性確保
+
+(require 'auto-async-byte-compile)
+(setq auto-async-byte-compile-exclude-files-regexp "/junk/")
+(add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
 
 ;; anything関連ロード
 (require 'anything-startup)
@@ -205,29 +210,52 @@
 ;; php-complete
 ;; php-mode
 ;; 設定例
-;;(load-library "php-mode")
+
 (require 'php-mode)
-;;(autoload 'php-mode "php-mode")
 (setq auto-mode-alist
       (cons '("\\.php\\'" . php-mode) auto-mode-alist))
 
+;;
+(load-library "php-mode")
+;;
+(autoload 'php-mode "php-mode")
+
 ;; php  auto-complete
-(add-hook  'php-mode-hook
-           (lambda ()
-       (setq php-mode-force-pear t)
-       (setq php-manual-path "/usr/local/share/php/doc/html")
-       (setq php-manual-url "http://www.php.net/manual/ja/")
-       (c-set-style "stroustrup")
-             (setq tab-width 2)
-             (setq c-basic-offset 2)
-       (setq indent-tabs-mode t)
-             (require 'php-completion)
-             (php-completion-mode t)
-             (define-key php-mode-map (kbd "C-o") 'phpcmp-complete)
-             (when (require 'auto-complete nil t)
-               (make-variable-buffer-local 'ac-sources)
-               (add-to-list 'ac-sources 'ac-source-php-completion 'ac-source-etags)
-               (auto-complete-mode t))))
+(add-hook
+ 'php-mode-hook
+ (lambda ()
+   ;;
+   (setq php-mode-force-pear t)
+   ;;
+   (setq php-manual-path "/usr/local/share/php/doc/html")
+   (setq php-manual-url "http://www.php.net/manual/ja/")
+   ;;
+   (c-set-style "K&R")
+   ;;
+   (setq tab-width 2)
+   ;;
+   (setq c-basic-offset 2)
+   ;;
+   (setq indent-tabs-mode t)
+   ;; 連続する空白の一括削除 (必要なければコメントアウトする)
+   (c-toggle-hungry-state t)
+   ;; コメント行のインデント (必要なければコメントアウトする)
+   (setq c-comment-only-line-offset 0)
+   ;; コメントのスタイル (必要なければコメントアウトする)
+   (setq comment-start "// "
+         comment-end   ""
+         comment-start-skip "// *")
+   ;; インデント
+   (define-key php-mode-map "\C-m" 'newline-and-indent)
+
+   ;; php complete
+   (require 'php-completion)
+   (php-completion-mode t)
+   (define-key php-mode-map (kbd "C-o") 'phpcmp-complete)
+   (when (require 'auto-complete nil t)
+     (make-variable-buffer-local 'ac-sources)
+     (add-to-list 'ac-sources 'ac-source-php-completion)
+     (auto-complete-mode t))))
 
 ;; geben
 (autoload 'geben "geben" "PHP Debugger on Emacs" t)
@@ -283,165 +311,270 @@
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
 
-(require 'ac-python)
-;(require 'pysmell)
-(require 'python-pep8)
-(require 'python-pylint)
-(require 'lambda-mode)
-(require 'autopair)
+;; ;(require 'ac-python)
+;; ;(require 'pysmell)
+;; (require 'python-pep8)
+;; (require 'python-pylint)
+;; (require 'lambda-mode)
+;; (require 'autopair)
+;; (require 'python)
+;; ;(require 'auto-complete)
+;; (require 'yasnippet)
 
+;; (autoload 'python-mode "python-mode" "Python Mode." t)
+;; (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+;; (add-to-list 'interpreter-mode-alist '("python" . python-mode))
 
-(defvar is_emacs23 (>= emacs-major-version 23))
-
-;; python.el
-(when is_emacs23
-  (defun python-partial-symbol ()
-    "Return the partial symbol before point (for completion)."
-    (let ((end (point))
-          (start (save-excursion
-                   (and (re-search-backward
-                         (rx (or buffer-start (regexp "[^[:alnum:]._]"))
-                             (group (1+ (regexp "[[:alnum:]._]"))) point)
-                         nil t)
-                        (match-beginning 1)))))
-      (if start (buffer-substring-no-properties start end)))))
-
-;; python
-(defun ac-python-candidates ()
-  (python-find-imports)
-  (car (read-from-string
-        (python-send-receive
-         (format "emacs.complete(%S,%s)"
-                 (python-partial-symbol)
-                 python-imports)))))
-
-(ac-define-source python
-  '((candidates . ac-python-candidates)
-    (prefix . (unless
-                  (save-excursion
-                    (re-search-backward "^import"
-                                        (save-excursion
-                                          (re-search-backward "^")) t))
-                (let ((symbol
-                       (python-partial-symbol)
-                       ))
-                  (if symbol
-                      (save-excursion (search-backward symbol))))))
-    (symbol . "py-f")))
-
-(add-hook
- 'python-mode-hook
- '(lambda ()
-    (add-to-list 'ac-sources 'ac-source-python 'ac-source-etags)))
-
-(add-hook
- 'inferior-python-mode-hook
- '(lambda ()
-    (define-key inferior-python-mode-map "\C-c\C-f" 'python-describe-symbol)
-    (define-key inferior-python-mode-map "\C-c\C-z" 'kill-buffer-and-window)
-    (process-kill-without-query (get-process "Python"))
-    ))
-
-
-;; ;; pysmell
-;; (add-hook 'python-mode-hook (lambda () (pysmell-mode 1)))
-
-;; (defvar ac-source-pysmell
-;;   '((candidates
-;;      . (lambda ()
-;;          (require 'pysmell)
-;;          (pysmell-get-all-completions))))
-;;     "~/")
-
-;; (add-hook 'python-mode-hook
-;;     '(lambda ()
-;;         (set (make-local-variable 'ac-sources) (append ac-sources '(ac-source-pysmell)))))
-
-;; ;; ;; pymacs
+;; ;; Initialize Pymacs
 ;; (autoload 'pymacs-apply "pymacs")
 ;; (autoload 'pymacs-call "pymacs")
 ;; (autoload 'pymacs-eval "pymacs" nil t)
 ;; (autoload 'pymacs-exec "pymacs" nil t)
 ;; (autoload 'pymacs-load "pymacs" nil t)
-;; (eval-after-load "pymacs"
-;;   '(add-to-list 'pymacs-load-path "~/emacs.d/pymacs-elisp"))
+;; ;; Initialize Rope
+;; (pymacs-load "ropemacs" "rope-")
+;; (setq ropemacs-enable-autoimport t)
 
-;; (setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
-;; (setq interpreter-mode-alist (cons '("python" . python-mode)
-;;                                    interpreter-mode-alist))
-;; (autoload 'python-mode "python-mode" "Python editing mode." t)
+;; ;; Initialize Yasnippet
+;; ;Don't map TAB to yasnippet
+;; ;In fact, set it to something we'll never use because
+;; ;we'll only ever trigger it indirectly.
+;; (setq yas/trigger-key (kbd "C-c <kp-multiply>"))
+;; (yas/initialize)
+;; (yas/load-directory "~/.emacs.d/snippets")
+
+
+
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;;; Auto-completion
+;; ;;;  Integrates:
+;; ;;;   1) Rope
+;; ;;;   2) Yasnippet
+;; ;;;   all with AutoComplete.el
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (defun prefix-list-elements (list prefix)
+;;   (let (value)
+;;     (nreverse
+;;      (dolist (element list value)
+;;       (setq value (cons (format "%s%s" prefix element) value))))))
+;; (defvar ac-source-rope
+;;   '((candidates
+;;      . (lambda ()
+;;          (prefix-list-elements (rope-completions) ac-target))))
+;;   "Source for Rope")
+;; (defun ac-python-find ()
+;;   "Python `ac-find-function'."
+;;   (require 'thingatpt)
+;;   (let ((symbol (car-safe (bounds-of-thing-at-point 'symbol))))
+;;     (if (null symbol)
+;;         (if (string= "." (buffer-substring (- (point) 1) (point)))
+;;             (point)
+;;           nil)
+;;       symbol)))
+;; (defun ac-python-candidate ()
+;;   "Python `ac-candidates-function'"
+;;   (let (candidates)
+;;     (dolist (source ac-sources)
+;;       (if (symbolp source)
+;;           (setq source (symbol-value source)))
+;;       (let* ((ac-limit (or (cdr-safe (assq 'limit source)) ac-limit))
+;;              (requires (cdr-safe (assq 'requires source)))
+;;              cand)
+;;         (if (or (null requires)
+;;                 (>= (length ac-target) requires))
+;;             (setq cand
+;;                   (delq nil
+;;                         (mapcar (lambda (candidate)
+;;                                   (propertize candidate 'source source))
+;;                                 (funcall (cdr (assq 'candidates source)))))))
+;;         (if (and (> ac-limit 1)
+;;                  (> (length cand) ac-limit))
+;;             (setcdr (nthcdr (1- ac-limit) cand) nil))
+;;         (setq candidates (append candidates cand))))
+;;     (delete-dups candidates)))
 ;; (add-hook 'python-mode-hook
-;;           '(lambda()
-;;              (require 'pycomplete)))
+;;           (lambda ()
+;;                  (auto-complete-mode 1)
+;;                  (set (make-local-variable 'ac-sources)
+;;                       (append ac-sources '(ac-source-rope) '(ac-source-yasnippet)))
+;;                  (set (make-local-variable 'ac-find-function) 'ac-python-find)
+;;                  (set (make-local-variable 'ac-candidate-function) 'ac-python-candidate)
+;;                  (set (make-local-variable 'ac-auto-start) nil)))
 
-;; (global-set-key (kbd "M-h") 'ac-complete-pycomplete-pycomplete)
-
-;; (defun ac-complete-pycomplete-pycomplete ()
+;; ;;Ryan's python specific tab completion
+;; (defun ryan-python-tab ()
+;;   ; Try the following:
+;;   ; 1) Do a yasnippet expansion
+;;   ; 2) Do a Rope code completion
+;;   ; 3) Do an indent
 ;;   (interactive)
-;;   (auto-complete '(ac-source-python)))
+;;   (if (eql (ac-start) 0)
+;;       (indent-for-tab-command)))
 
-;; (setq ac-source-python
-;;   '((prefix "\\(?:\\.\\|->\\)\\(\\(?:[a-zA-Z_][a-zA-Z0-9_]*\\)?\\)" nil 1)
-;;     (candidates . ac-py-candidates)
-;;     (requires . 0)))
+;; (defadvice ac-start (before advice-turn-on-auto-start activate)
+;;   (set (make-local-variable 'ac-auto-start) t))
+;; (defadvice ac-cleanup (after advice-turn-off-auto-start activate)
+;;   (set (make-local-variable 'ac-auto-start) nil))
 
-;; (defun ac-py-candidates ()
-;;   (pycomplete-pycomplete (py-symbol-near-point) (py-find-global-imports)))
-;; (defun my-ac-python-mode ()
-;;   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-dictionary)))
-;; (add-hook 'python-mode-hook 'my-ac-python-mode)
+;; (define-key python-mode-map "\t" 'ryan-python-tab)
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;;; End Auto Completion
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;; autopair
-; (autoload 'autopair-global-mode "autopair" nil t)
-; (autopair-global-mode)
+;; ;; (defvar is_emacs23 (>= emacs-major-version 23))
 
-; (add-hook 'python-mode-hook
-          ; #'(lambda ()
-              ; (push '(?' . ?')
-                    ; (getf autopair-extra-pairs :code))
-              ; (setq autopair-handle-action-fns
-                    ; (list #'autopair-default-handle-action
-                          ; #'autopair-python-triple-quote-action))))
+;; ;; (when is_emacs23
+;; ;;   (defun python-partial-symbol ()
+;; ;;     "Return the partial symbol before point (for completion)."
+;; ;;     (let ((end (point))
+;; ;;           (start (save-excursion
+;; ;;                    (and (re-search-backward
+;; ;;                          (rx (or buffer-start (regexp "[^[:alnum:]._]"))
+;; ;;                              (group (1+ (regexp "[[:alnum:]._]"))) point)
+;; ;;                          nil t)
+;; ;;                         (match-beginning 1)))))
+;; ;;       (if start (buffer-substring-no-properties start end))))
+;; ;;   )
 
-;; 末尾空白除去(半角のみ)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; ;; (defun ac-python-candidates ()
+;; ;;   (python-find-imports)
+;; ;;   (car (read-from-string
+;; ;;         (python-send-receive
+;; ;;          (format "emacs.complete(%S,%s)"
+;; ;;                  (python-partial-symbol)
+;; ;;                  python-imports)))))
 
-;; lambda
-(add-hook 'python-mode-hook #'lambda-mode 1)
+;; ;; (ac-define-source python
+;; ;;   '((candidates . ac-python-candidates)
+;; ;;     (prefix . (unless
+;; ;;                   (save-excursion
+;; ;;                     (re-search-backward "^import"
+;; ;;                                         (save-excursion
+;; ;;                                           (re-search-backward "^")) t))
+;; ;;                 (let ((symbol
+;; ;;                        (python-partial-symbol)
+;; ;;                        ))
+;; ;;                   (if symbol
+;; ;;                       (save-excursion (search-backward symbol))))))
+;; ;;     (symbol . "py-f")))
 
-(defun annotate-pdb ()
-  (interactive)
-  (highlight-lines-matching-regexp "import pdb")
-  (highlight-lines-matching-regexp "import debug")
-  (highlight-lines-matching-regexp "pdb.set_trace()"))
-(add-hook 'python-mode-hook 'annotate-pdb)
+;; ;; (add-hook
+;; ;;  'python-mode-hook
+;; ;;  '(lambda ()
+;; ;;     (add-to-list 'ac-sources 'ac-source-python)
+;; ;;     ))
 
-;; debug
-;; (defun python-add-breakpoint ()
-;;   (interactive)
-;;   (py-newline-and-indent)
-;;   (insert "import ipdb; ipdb.set_trace()")
-;;   (highlight-lines-matching-regexp "^[   ]*import ipdb; ipdb.set_trace()"))
-;; (define-key py-mode-map (kbd "C-c C-t") 'python-add-breakpoint)
+;; ;; (add-hook
+;; ;;  'inferior-python-mode-hook
+;; ;;  '(lambda ()
+;; ;;     (define-key inferior-python-mode-map "\C-c\C-f" 'python-describe-symbol)
+;; ;;     (define-key inferior-python-mode-map "\C-c\C-z" 'kill-buffer-and-window)
+;; ;;     (process-kill-without-query (get-process "Python"))
+;; ;;     ))
 
-;; python括弧
-(add-hook 'python-mode-hook
-          (lambda ()
-            (define-key python-mode-map "\"" 'electric-pair)
-            (define-key python-mode-map "\'" 'electric-pair)
-            (define-key python-mode-map "(" 'electric-pair)
-            (define-key python-mode-map "[" 'electric-pair)
-            (define-key python-mode-map "{" 'electric-pair)))
-(defun electric-pair ()
-  "Insert character pair without sournding spaces"
-  (interactive)
-  (let (parens-require-spaces)
-    (insert-pair)))
 
-;; python indent
-(add-hook 'python-mode-hook '(lambda ()
-     (define-key python-mode-map "\C-m" 'newline-and-indent)))
+;; ;; ;; pysmell
+;; ;; (add-hook 'python-mode-hook (lambda () (pysmell-mode 1)))
+
+;; ;; (defvar ac-source-pysmell
+;; ;;   '((candidates
+;; ;;      . (lambda ()
+;; ;;          (require 'pysmell)
+;; ;;          (pysmell-get-all-completions))))
+;; ;;     "~/")
+
+;; ;; (add-hook 'python-mode-hook
+;; ;;     '(lambda ()
+;; ;;         (set (make-local-variable 'ac-sources) (append ac-sources '(ac-source-pysmell)))))
+
+;; ;; ;; ;; pymacs
+;; ;; (autoload 'pymacs-apply "pymacs")
+;; ;; (autoload 'pymacs-call "pymacs")
+;; ;; (autoload 'pymacs-eval "pymacs" nil t)
+;; ;; (autoload 'pymacs-exec "pymacs" nil t)
+;; ;; (autoload 'pymacs-load "pymacs" nil t)
+;; ;; (eval-after-load "pymacs"
+;; ;;   '(add-to-list 'pymacs-load-path "~/emacs.d/pymacs-elisp"))
+
+;; ;; (setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
+;; ;; (setq interpreter-mode-alist (cons '("python" . python-mode)
+;; ;;                                    interpreter-mode-alist))
+;; ;; (autoload 'python-mode "python-mode" "Python editing mode." t)
+;; ;; (add-hook 'python-mode-hook
+;; ;;           '(lambda()
+;; ;;              (require 'pycomplete)))
+
+;; ;; (global-set-key (kbd "M-h") 'ac-complete-pycomplete-pycomplete)
+
+;; ;; (defun ac-complete-pycomplete-pycomplete ()
+;; ;;   (interactive)
+;; ;;   (auto-complete '(ac-source-python)))
+
+;; ;; (setq ac-source-python
+;; ;;   '((prefix "\\(?:\\.\\|->\\)\\(\\(?:[a-zA-Z_][a-zA-Z0-9_]*\\)?\\)" nil 1)
+;; ;;     (candidates . ac-py-candidates)
+;; ;;     (requires . 0)))
+
+;; ;; (defun ac-py-candidates ()
+;; ;;   (pycomplete-pycomplete (py-symbol-near-point) (py-find-global-imports)))
+;; ;; (defun my-ac-python-mode ()
+;; ;;   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-dictionary)))
+;; ;; (add-hook 'python-mode-hook 'my-ac-python-mode)
+
+
+;; ;; autopair
+;; ; (autoload 'autopair-global-mode "autopair" nil t)
+;; ; (autopair-global-mode)
+
+;; ; (add-hook 'python-mode-hook
+;;           ; #'(lambda ()
+;;               ; (push '(?' . ?')
+;;                     ; (getf autopair-extra-pairs :code))
+;;               ; (setq autopair-handle-action-fns
+;;                     ; (list #'autopair-default-handle-action
+;;                           ; #'autopair-python-triple-quote-action))))
+
+;; ;; ;;末尾空白除去(半角のみ)
+;; ;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; ;; ;;lambda
+;; ;; (add-hook 'python-mode-hook #'lambda-mode 1)
+
+;; ;; (defun annotate-pdb ()
+;; ;;  (interactive)
+;; ;;  (highlight-lines-matching-regexp "import pdb")
+;; ;;  (highlight-lines-matching-regexp "import debug")
+;; ;;  (highlight-lines-matching-regexp "pdb.set_trace()"))
+;; ;; (add-hook 'python-mode-hook 'annotate-pdb)
+
+;; ;; ;;debug
+;; ;; ;; (defun python-add-breakpoint ()
+;; ;; ;;   (interactive)
+;; ;; ;;   (py-newline-and-indent)
+;; ;; ;;   (insert "import ipdb; ipdb.set_trace()")
+;; ;; ;;   (highlight-lines-matching-regexp "^[   ]*import ipdb; ipdb.set_trace()"))
+;; ;; ;; (define-key py-mode-map (kbd "C-c C-t") 'python-add-breakpoint)
+
+;; ;; ;;python括弧
+;; ;; (add-hook 'python-mode-hook
+;; ;;           (lambda ()
+;; ;;             (define-key python-mode-map "\"" 'electric-pair)
+;; ;;             (define-key python-mode-map "\'" 'electric-pair)
+;; ;;             (define-key python-mode-map "(" 'electric-pair)
+;; ;;             (define-key python-mode-map "[" 'electric-pair)
+;; ;;             (define-key python-mode-map "{" 'electric-pair)))
+;; ;; (defun electric-pair ()
+;; ;;   "Insert character pair without sournding spaces"
+;; ;;   (interactive)
+;; ;;   (let (parens-require-spaces)
+;; ;;     (insert-pair)))
+
+;; ;; ;; python indent
+;; ;; (add-hook 'python-mode-hook
+;; ;;     '(lambda ()
+;; ;;        (define-key python-mode-map "\C-m" 'newline-and-indent)
+;; ;;        ))
 
 
 ;; nxhtml
@@ -449,6 +582,7 @@
 ;; css-mode
 (autoload 'css-mode "css-mode" nil t)
 (setq auto-mode-alist (cons '("\\.css$" . css-mode) auto-mode-alist))
+
 (setq css-indent-level 4)
 
 ;; apache-mode
@@ -462,6 +596,9 @@
 ;; dsvn subversion
           ;(autoload 'svn-status "dsvn" "Run `svn status'." t)
           ;(autoload 'svn-update "dsvn" "Run `svn update'." t)
+
+;; Show white space
+(require 'show-wspace)
 
 ;; 行数表示
 (line-number-mode t)
@@ -559,8 +696,12 @@
 ;; 編集行のハイライト
 (global-hl-line-mode)
 
+;;
+;; backup file
+;;______________________________________________________________________
 ;; バックアップファイルを作らない
 (setq backup-inhibited t)
+(setq make-backup-files nil)
 
 ;; ElScreenの有効化
           ;(require 'elscreen)
@@ -643,8 +784,8 @@
 
 ;; tags
 (global-set-key [?\C-c?\C-\S-g] 'tags-search)
-(require 'anything-etags)
-(global-set-key (kbd "M-/") 'anything-etags-select-from-here)
+;(require 'anything-etags)
+;(global-set-key (kbd "M-/") 'anything-etags-select-from-here)
 ;;(require 'key-chord)
 ;; (setq key-chord-two-keys-delay 0.04)
 ;; (key-chord-mode 1)
@@ -847,7 +988,6 @@
 ;; load-init
 (load "init-flymake")
 (load "init-flymake-mine")
-
 
 ;; howm
 (load "init-howm")

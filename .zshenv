@@ -43,13 +43,13 @@ export PATH=$HOME/bin:$PATH
 if [ $ARCHI = darwin ]; then
   # encode
   export LANG=ja_JP.UTF-8
+  # Finished adapting your PATH environment variable for use with MacPorts.
+  export PATH=/Developer/usr/bin/:/opt/local/apache2/bin:/opt/local/lib/mysql5/bin:$PATH
+  export MANPATH=/Developer/usr/share/man:$MANPATH
   # MacPorts Installer addition on 2010-02-14_at_19:14:58: adding an appropriate PATH variable for use with MacPorts.
   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
   export MANPATH=/opt/local/man:$MANPATH
   export DISPLAY=:0.0
-  # Finished adapting your PATH environment variable for use with MacPorts.
-  export PATH=/Developer/usr/bin/:/opt/local/apache2/bin:/opt/local/lib/mysql5/bin:$PATH
-  export MANPATH=/Developer/usr/share/man:$MANPATH
   # extends
   export LIBRARY_PATH=/opt/local/lib
   export LD_LIBRARY_PATH=/opt/local/lib
@@ -110,7 +110,7 @@ export WORKON_HOME=$HOME/.virtualenvs
 
 ## extra virtualenv
 # require
-export PIP_REQUIRE_VIRTUALENV=true
+export PIP_REQUIRE_VIRTUALENV=false
 # require distribure
 export VIRTUALENV_USE_DISTRIBUTE=true
 # cached download package

@@ -8,62 +8,46 @@
  '(flymake-warnline ((((class color)) (:foreground "Red" :underline t)))))
 
 ;; flymake 現在行のエラーをpopup.elのツールチップで表示する
-(require 'popup)
-(defun flymake-display-err-menu-for-current-line ()
-  (interactive)
-  (let* ((line-no (flymake-current-line-no))
-         (line-err-info-list (nth 0 (flymake-find-err-info flymake-err-info line-no))))
-    (when line-err-info-list
-      (let* ((count (length line-err-info-list))
-             (menu-item-text nil))
-        (while (> count 0)
-          (setq menu-item-text (flymake-ler-text (nth (1- count) line-err-info-list)))
-          (let* ((file (flymake-ler-file (nth (1- count) line-err-info-list)))
-                 (line (flymake-ler-line (nth (1- count) line-err-info-list))))
-            (if file
-                (setq menu-item-text (concat menu-item-text " - " file "(" (format "%d" line) ")"))))
-          (setq count (1- count))
-          (if (> count 0) (setq menu-item-text (concat menu-item-text "\n")))
-          )
-        (popup-tip menu-item-text)))))
+;; (require 'popup)
+;; (defun flymake-display-err-menu-for-current-line ()
+;;   (interactive)
+;;   (let* ((line-yno (flymake-current-line-no))
+;;          (line-err-info-list (nth 0 (flymake-find-err-info flymake-err-info line-no))))
+;;     (when line-err-info-list
+;;       (let* ((count (length line-err-info-list))
+;;              (menu-item-text nil))
+;;         (while (> count 0)
+;;           (setq menu-item-text (flymake-ler-text (nth (1- count) line-err-info-list)))
+;;           (let* ((file (flymake-ler-file (nth (1- count) line-err-info-list)))
+;;                  (line (flymake-ler-line (nth (1- count) line-err-info-list))))
+;;             (if file
+;;                 (setq menu-item-text (concat menu-item-text " - " file "(" (format "%d" line) ")"))))
+;;           (setq count (1- count))
+;;           (if (> count 0) (setq menu-item-text (concat menu-item-text "\n")))
+;;           )
+;;         (popup-tip menu-item-text)))))
 
 ;; python
-;; (defun flymake-python-init ()
-;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
-;;                      'flymake-create-temp-inplace))
-;;          (local-file (file-relative-name
-;;                       temp-file
-;;                       (file-name-directory buffer-file-name))))
-;;     (list "pyflakes" (list local-file))))
+(defun flymake-python-init ()
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                     'flymake-create-temp-inplace))
+         (local-file (file-relative-name
+                      temp-file
+                      (file-name-directory buffer-file-name))))
+    (list "pyflakes" (list local-file))))
 
-;; (defconst flymake-allowed-python-file-name-masks '(("\\.py$" flymake-python-init)))
-;; (defvar flymake-python-err-line-patterns '(("\\(.*\\):\\([0-9]+\\):\\(.*\\)" 1 2 nil 3)))
+(defconst flymake-allowed-python-file-name-masks '(("\\.py$" flymake-python-init)))
+(defvar flymake-python-err-line-patterns '(("\\(.*\\):\\([0-9]+\\):\\(.*\\)" 1 2 nil 3)))
 
-;; (defun flymake-python-load ()
-;;   (interactive)
-;;   (defadvice flymake-post-syntax-check (before flymake-force-check-was-interrupted)
-;;     (setq flymake-check-was-interrupted t))
-;;   (ad-activate 'flymake-post-syntax-check)
-;;   (setq flymake-allowed-file-name-masks (append flymake-allowed-file-name-masks flymake-allowed-python-file-name-masks))
-;;   (setq flymake-err-line-patterns flymake-python-err-line-patterns)
-;;   (flymake-mode t))
-;; (add-hook 'python-mode-hook '(lambda () (flymake-python-load)))
-
-
-(add-hook 'find-file-hook 'flymake-find-file-hook)
-(when (load "flymake" t)
-  (defun flymake-pyflakes-init ()
-    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-               'flymake-create-temp-inplace))
-       (local-file (file-relative-name
-            temp-file
-            (file-name-directory buffer-file-name))))
-      (list "pycheckers"  (list local-file))))
-   (add-to-list 'flymake-allowed-file-name-masks
-             '("\\.py\\'" flymake-pyflakes-init)))
-(load-library "flymake-cursor")
-;; (global-set-key [f10] 'flymake-goto-prev-error)
-;; (global-set-key [f11] 'flymake-goto-next-error)
+(defun flymake-python-load ()
+  (interactive)
+  (defadvice flymake-post-syntax-check (before flymake-force-check-was-interrupted)
+    (setq flymake-check-was-interrupted t))
+  (ad-activate 'flymake-post-syntax-check)
+  (setq flymake-allowed-file-name-masks (append flymake-allowed-file-name-masks flymake-allowed-python-file-name-masks))
+  (setq flymake-err-line-patterns flymake-python-err-line-patterns)
+  (flymake-mode t))
+(add-hook 'python-mode-hook '(lambda () (flymake-python-load)))
 
 
 ;; haskell
@@ -241,16 +225,109 @@
 ;;       (setq count (1- count)))))
 
 
-(defun next-flymake-error ()
-  (interactive)
-  (flymake-goto-next-error)
-  (let ((err (get-char-property (point) 'help-echo)))
-    (when err
-      (message err))))
-(global-set-key "\C-c e" 'next-flymake-error)
+;; (defun next-flymake-error ()
+;;   (interactive)
+;;   (flymake-goto-next-error)
+;;   (let ((err (get-char-property (point) 'help-echo)))
+;;     (when err
+;;       (message err))))
+;; (global-set-key "\C-c e" 'next-flymake-error)
 
 
-;; when buffer-file-name is nil.
-(defadvice flymake-mode (around check-buffer-file-name-exists activate)
-  (when buffer-file-name
-    ad-do-it))
+;; ;; when buffer-file-name is nil.
+;; (defadvice flymake-mode (around check-buffer-file-name-exists activate)
+;;   (when buffer-file-name
+;;     ad-do-it))
+
+
+
+
+;; #### glowl 通知　激遅
+;; (setq flymake-growl-warning-priority 1)
+;; (setq flymake-growl-error-priority   2)
+
+;; (setq flymake-growl-warning-sticky t)
+;; (setq flymake-growl-error-sticky   t)
+
+;; (setq flymake-growl-sticky-list nil)
+
+;; (defun flymake-growl-notify (file line-no message priority sticky)
+;;   (let* ((title (concat file ":" (int-to-string line-no) ":"))
+;;         (command (concat "growlnotify --appIcon  Emacs"
+;;                                     " --progress 0.1"
+;;                                     " --title \""  title "\""
+;;                                     " --identifier \"" title "\""
+;;                                     " --message \"" message "\""
+;;                                     " --priority " (int-to-string priority))))
+;;     (shell-command (concat command (if sticky " --sticky")))
+;;     (if sticky (add-to-list 'flymake-growl-sticky-list (list file line-no message priority)))))
+
+;; (defun flymake-growl-delete-notify (buffer-name)
+;;   (interactive "b")
+;;   (let ((sticky-list flymake-growl-sticky-list))
+;;     (setq flymake-growl-sticky-list nil)
+;;     (mapc (lambda (sticky)
+;;             (if (string= buffer-name (car sticky))
+;;                 (apply 'flymake-growl-notify (append sticky '(nil)))
+;;               (add-to-list 'flymake-growl-sticky-list sticky)))
+;;           sticky-list)))
+
+;; (defun flymake-growl-delete-all-notify ()
+;;   (interactive)
+;;   (mapc (lambda (sticky)
+;;           (apply 'flymake-growl-notify (append sticky '(nil))))
+;;         flymake-growl-sticky-list)
+;;   (setq flymake-growl-sticky-list nil))
+
+;; (defun flymake-growl-rename-notify (old-name new-name)
+;;   (mapc (lambda (sticky)
+;;           (when (string= old-name (car sticky))
+;;             (flymake-growl-delete-notify old-name)
+;;             (flymake-growl-notify new-name
+;;                                   (nth 1 sticky)
+;;                                   (nth 2 sticky)
+;;                                   (nth 3 sticky)
+;;                                   t)))
+;;         flymake-growl-sticky-list))
+
+;; (defadvice flymake-make-overlay (after flymake-growl-make-overlay activate)
+;;   (let* ((face (ad-get-arg 3))
+;;          (priority (case face
+;;                      ('flymake-warnline flymake-growl-warning-priority)
+;;                      ('flymake-errline  flymake-growl-error-priority)
+;;                      (t 0)))
+;;          (sticky (case face
+;;                    ('flymake-warnline flymake-growl-warning-sticky)
+;;                    ('flymake-errline flymake-growl-error-sticky)
+;;                    (t nil))))
+;;     (flymake-growl-notify (buffer-name) line-no (ad-get-arg 2) priority sticky)))
+
+;; (defadvice flymake-delete-own-overlays (after flymake-growl-delete-own-overlays activate)
+;;   (flymake-growl-delete-notify (buffer-name)))
+
+;; (defadvice kill-buffer (before flymake-growl-kill-buffer activate)
+;;   (flymake-growl-delete-notify (buffer-name)))
+
+;; (add-hook 'kill-emacs-hook 'flymake-growl-delete-all-notify)
+
+;; (defadvice rename-buffer (around flymake-growl-rename-buffer activate)
+;;   (let ((old-name (buffer-name))
+;;         new-name)
+;;     ad-do-it
+;;     (setq new-name (buffer-name))
+;;     (flymake-growl-rename-notify old-name new-name)))
+
+
+;; エラーメッセージをポップアップ表示
+(global-set-key "\M-e" 'flymake-goto-next-error)
+(global-set-key "\M-E" 'flymake-goto-prev-error)
+
+;; gotoした際にエラーメッセージをminibufferに表示する
+(defun display-error-message ()
+  (message (get-char-property (point) 'help-echo)))
+(defadvice flymake-goto-prev-error (after flymake-goto-prev-error-display-message)
+  (display-error-message))
+(defadvice flymake-goto-next-error (after flymake-goto-next-error-display-message)
+  (display-error-message))
+(ad-activate 'flymake-goto-prev-error 'flymake-goto-prev-error-display-message)
+(ad-activate 'flymake-goto-next-error 'flymake-goto-next-error-display-message)

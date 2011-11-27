@@ -113,3 +113,4 @@ output buffer, to go to the lines where pylint found matches."
 (defalias 'pylint 'python-pylint)
 
 (provide 'python-pylint)
+

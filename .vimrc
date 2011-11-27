@@ -1,9 +1,51 @@
-"----------------------------------------------------
-" 基本的な設定
-"----------------------------------------------------
+" ------------
+"
+"   vundle
+"
+" ------------
 
 " viとの互換性をとらない(vimの独自拡張機能を使う為)
 set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'vundle'
+
+" anything like buffer management app.
+Bundle 'unite.vim'
+
+" buffer
+" Bundle 'minibufexpl.vim'
+
+" programings
+Bundle 'YankRing.vim'
+Bundle 'Shougo/neocomplcache'
+Bundle 'TaskList.vim'
+Bundle 'Source-Explorer-srcexpl.vim'
+Bundle 'taglist.vim'
+
+
+" help, doc
+Bundle 'ref.vim'
+
+" python
+Bundle 'pyflakes.vim'
+Bundle 'pep8'
+Bundle 'pydoc.vim'
+" Bundle 'vim-ipython'
+
+" scm
+Bundle 'fugitive.vim'
+
+" grep
+Bundle 'ack.vim'
+Bundle 'grep.vim'
+
+"----------------------------------------------------
+" 基本的な設定
+"----------------------------------------------------
 
 " ビープ音を鳴らさない
 set vb t_vb=
@@ -40,6 +82,9 @@ highlight CursorLine ctermbg=black guibg=black
 " 補完候補を表示する
 set wildmenu
 
+" コマンド・検索パターンの履歴数
+set history=1000
+
 "set number "行番号表示
 
 set showmode "モード表示
@@ -57,19 +102,17 @@ set showmatch   " ()や{}の対応関係をハイライトする
 set laststatus=2
 
 "ステータスライン文字コード表示
-set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l
+set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)%m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}
 
 set scrolloff=5  " スクロール時に余分に表示する行数，画面の行数より大きくするとカーソルが常に画面中央にくるようになる
 
-" omuni
-setlocal omnifunc=syntaxcomplete#Complete
 
 " 保存時に行末の空白を除去する
 autocmd BufWritePre * :%s/\s\+$//ge
 " 保存時にtabをスペースに変換する
 autocmd BufWritePre * :%s/\t/  /ge
 " Ctrl-iでヘルプ
-nnoremap <C-i>  :<C-u>help<Space>
+" nnoremap <C-i>  :<C-u>help<Space>
 
 "#######################
 
@@ -79,17 +122,54 @@ nnoremap <C-i>  :<C-u>help<Space>
 
 syntax on "カラー表示
 
+
 "-------------------------------------------------------------------------------
-"" インデント Indent
+" タグ関連 Tags
 "-------------------------------------------------------------------------------
+" set tags
+if has("autochdir")
+  " 編集しているファイルのディレクトリに自動で移動
+  set autochdir
+  set tags=tags;
+else
+  set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
+endif
+
+" keymap
+nnoremap <C-]>  g<C-]>
+
+
+"-------------------------------------------------------------------------------
+"" Indent and Dictionary
+"-------------------------------------------------------------------------------
+
 set autoindent   " 自動でインデント
-"set paste        "
-"ペースト時にautoindentを無効に(onにするとautocomplpop.vimが動かない)
+
 set smartindent  " 新しい行を開始したときに、新しい行のインデントを現在行と同じ量にする。
+
 set cindent      " Cプログラムファイルの自動インデントを始める
+
+set expandtab    "タブの代わりに空白文字挿入
+
+"set noexpandtab " タブはタブのまま
+
+set ts=2 sw=2 sts=0 "タブは半角2文字分のスペース
 
 " softtabstopはTabキー押し下げ時の挿入される空白の量，0の場合はtabstopと同じ，BSにも影響する
 set tabstop=2 shiftwidth=2 softtabstop=0
+
+
+" 検索などで飛んだらそこを真ん中に
+nmap n nzz
+nmap N Nzz
+nmap * *zz
+nmap # #zz
+nmap g* g*zz
+nmap g# g#zz
+nmap G Gzz
+
+" omuni
+setlocal omnifunc=syntaxcomplete#Complete
 
 if has("autocmd")
   "ファイルタイプの検索を有効にする
@@ -113,10 +193,6 @@ if has("autocmd")
 
 endif
 
-set expandtab "タブの代わりに空白文字挿入
-"set noexpandtab " タブはタブのまま
-
-set ts=2 sw=2 sts=0 "タブは半角2文字分のスペース
 
 " ファイルを開いた際に、前回終了時の行で起動
 
@@ -124,11 +200,11 @@ set ts=2 sw=2 sts=0 "タブは半角2文字分のスペース
 let g:neocomplcache_enable_at_startup = 1
 
 
-"#######################
+" #######################
 
 " 検索系
 
-"#######################
+" #######################
 
 set ignorecase "検索文字列が小文字の場合は大文字小文字を区別なく検索する
 
@@ -141,19 +217,49 @@ set noincsearch "検索文字列入力時に順次対象文字列にヒットさ
 "set nohlsearch "検索結果文字列の非ハイライト表示
 set hlsearch "検索結果文字列のハイライトを有効にする
 
-" Escの2回押しでハイライト消去
-nmap <ESC><ESC> ;nohlsearch<CR><ESC>
+" ハイライト消去
+nmap <ESC><ESC> :nohlsearch<CR><ESC>
 
 
-"#######################
+" ###################
+
+" buffer
+
+" ####################
+
+
+
+
+" ####################
+
+" window
+
+" ####################
+" 行・列を設定する
+set sessionoptions+=resize
+" 行数
+" set lines=48 
+" 横幅 
+" set columns=160 
+" コマンドラインの高さ
+set cmdheight=1
+" プレビューウィンドウの高さ
+set previewheight=5
+" 横分割したら新しいウィンドウは下に  
+set splitbelow
+" 縦分割したら新しいウィンドウは右に
+set splitright
+
+
+" #######################
 
 " システム管理系
 
-"#######################
+" #######################
 
-"----------------------------------------------------
+" ----------------------------------------------------
 " バックアップ関係
-"----------------------------------------------------
+" ----------------------------------------------------
 " ファイルの上書きの前にバックアップを作る
 " (ただし、backup がオンでない限り、バックアップは上書きに成功した後削除される)
 "set writebackup
@@ -226,54 +332,51 @@ if has('autocmd')
 endif
 
 
-" ------------
-"
-"   vundle
-"
-" ------------
+" ---------------------------------------
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-Bundle 'unite.vim'
-
-
-"-----------
-"
 " plugin
-"
-"----------
+
+" ---------------------------------------
 
 
-" ##########  Nerd_Commenter の基本設定
+" ######################################
+
+" コメント整形 Nerd_Commenter の基本設定
+
+" ######################################
 let g:NERDCreateDefaultMappings = 0
 let NERDSpaceDelims = 1
-""未対応ファイルタイプのエラーメッセージを表示しない
+"未対応ファイルタイプのエラーメッセージを表示しない
 let NERDShutUp=1
 nmap <Leader>/ <Plug>NERDCommenterToggle
 vmap <Leader>/ <Plug>NERDCommenterToggle
 
+" ######################################
 
-""" #############   Unite.vim
+" bundle管理  Unite.vim
+
+" ######################################
 " 起動時にインサートモードで開始
 let g:unite_enable_start_insert = 1
+let g:unite_update_time = 1000
+" shrtcut
+call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
+call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
+call unite#set_substitute_pattern('file', '/\ze[^*]', '/*', 10)
+call unite#set_substitute_pattern('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
+call unite#set_substitute_pattern('file', '^@', '\=getcwd()."/*"', 1)
+call unite#set_substitute_pattern('file', '^\\', '~/*')
+call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/*"')
+call unite#set_substitute_pattern('file', '\*\*\+', '*', -1)
+call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
+call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
+call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
 
-" インサート／ノーマルどちらからでも呼び出せるようにキーマップ
+" keymap
 nnoremap <silent> <C-f> :<C-u>UniteWithBufferDir -vertical -buffer-name=files file<CR>
 inoremap <silent> <C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> <C-b> :<C-u>Unite -vertical buffer file_mru<CR>
-inoremap <silent> <C-b> <ESC>:<C-u>Unite -vertical buffer file_mru<CR>
-
-" バッファ一覧
-nnoremap <silent> ,ub :<C-u>Unite -vertical buffer<CR>
-" ファイル一覧
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -vertical -buffer-name=files file<CR>
-" レジスタ一覧
-nnoremap <silent> ,ur :<C-u>Unite -vertical -buffer-name=register register<CR>
-" 最近使用したファイル一覧
-nnoremap <silent> ,um :<C-u>Unite -vertical file_mru<CR>
-" 全部乗せ
-nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -vertical -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> <C-b> :<C-u>Unite -vertical -buffer-name=files buffer file_mru bookmark<CR>
+inoremap <silent> <C-b> <ESC>:<C-u>Unite -vertical -buffer-name=files buffer file_mru bookmark<CR>
 
 " unite.vim上でのキーマッピング
 autocmd FileType unite call s:unite_my_settings()
@@ -284,5 +387,121 @@ function! s:unite_my_settings()
   nmap <silent><buffer> <ESC><ESC> q
   imap <silent><buffer> <ESC><ESC> <ESC>q
 endfunction
+
+
+
+" ######################################
+
+" 保管 newcomplecache auto-complete
+
+" ######################################
+" 起動
+let g:neocomplcache_enable_at_startup = 1
+" 大文字が入力されるまで大文字小文字の区別を無視
+let g:neocomplcache_enable_smart_case = 1
+" _ 区切りの補完を有効化します。
+let g:neocomplcache_enable_underbar_completion = 1
+" シンタックスをキャッシュするときの最小文字長を3文字 default 4
+let g:neocomplcache_min_syntax_length = 3
+"
+
+" ######################################
+
+" grep.vim
+
+" ######################################
+" for darwin settings
+let Grep_Xargs_Path = "/opt/local/bin/gxargs"
+" ignore settings
+let Grep_Skip_Dirs = '.svn .hg .git .idea'
+let Grep_Skip_Files = '*.bak *~'
+" :Gb <args> でGrepBufferする
+command! -nargs=1 Gb :GrepBuffer <args>
+" カーソル下の単語をGrepBufferする
+nnoremap <C-g><C-b> :<C-u>GrepBuffer<Space><C-r><C-w><Enter>
+
+
+" ######################################
+"
+" YankRing.vim
+"
+" ######################################
+" Yankの履歴参照
+nmap <Leader>y :YRShow<CR>
+
+
+
+" ######################################
+
+" ref.vim
+
+" ######################################
+
+
+
+" ######################################
+
+" cd.vim
+
+" ######################################
+au BufEnter * execute ":lcd " . expand("%:p:h")
+
+
+
+" ######################################
+
+" srcexl
+" link: http://d.hatena.ne.jp/guyon/20080409/1207737955
+
+" ######################################
+" "自動でプレビューを表示する。TODO:うざくなってきたら手動にする。またはソースを追う時だけ自動に変更する。
+" let g:SrcExpl_RefreshTime   = 1
+" "プレビューウインドウの高さ
+" let g:SrcExpl_WinHeight     = 9
+" "tagsは自動で作成する/ しない
+" " let g:SrcExpl_UpdateTags    = 1
+" "マッピング
+" let g:SrcExpl_RefreshMapKey = "<Space>"
+" let g:SrcExpl_GoBackMapKey  = "<C-b>"
+" nmap <Leader><F8> :SrcExplToggle<CR>
+
+
+" ----------------------------------------------------------------------
+
+" @link http://sontek.net/turning-vim-into-a-modern-python-ide
+
+" ----------------------------------------------------------------------
+
+" pyflakes
+"let g:pyflakes_use_quickfix=0
+
+" pep8
+let g:pep8_map='<leader>8'
+
+" complete with document
+ au FileType python set omnifunc=pythoncomplete#Complete
+ let g:SuperTabDefaultCompletionType = "context"
+ set completeopt=menuone,longest,preview
+
+" TaskList
+map <Leader>T :TaskList<CR>
+
+" taglist
+let Tlist_Use_Right_Window = 1   " right window.
+let Tlist_Auto_Highlight_Tag = 1 " auto highlighted tag.
+let Tlist_Auto_Open = 1          " auto enabled taglist.
+let Tlist_WinWidth = 40          " max window size.
+
+" Add  the  virtualenv's   site-packages  to  vim path
+py << EOF
+import os.path
+import sys
+import vim
+if 'VIRTUAL_ENV' in os.environ:
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    sys.path.insert(0, project_base_dir)
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    execfile(activate_this, dict(__file__=activate_this))
+EOF
 
 

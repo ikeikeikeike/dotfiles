@@ -1888,7 +1888,7 @@ inferior python process is updated properly."
 (add-to-list 'debug-ignored-errors
              "^Completion needs an inferior Python process running.")
 
-
+
 ;;; Fill paragraph
 
 (defcustom python-fill-comment-function 'python-fill-comment

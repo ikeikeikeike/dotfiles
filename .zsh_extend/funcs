@@ -129,7 +129,7 @@ function extract (){
 
 
 # anything.el like zaw.
-source $HOME/.zsh_extend/zaw/zaw.zsh 2> /dev/null
-bindkey '^;' zaw
-bindkey '^R' zaw-history
+# source $HOME/.zsh_extend/zaw/zaw.zsh 2> /dev/null
+# bindkey '^;' zaw
+# bindkey '^R' zaw-history
 

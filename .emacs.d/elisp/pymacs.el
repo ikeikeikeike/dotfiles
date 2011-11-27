@@ -24,33 +24,11 @@
 
 (eval-and-compile
 
-  (cond ((fboundp 'multibyte-string-p)
-         (defalias 'pymacs-multibyte-string-p 'multibyte-string-p))
-        ((fboundp 'find-charset-string)
-         (defun pymacs-multibyte-string-p (string)
-           "Tell XEmacs if STRING should be handled as multibyte."
-           (not (member (find-charset-string string) '(nil (ascii))))))
-        (t
-         (defun pymacs-multibyte-string-p (string)
-           "Tell XEmacs that STRING is unibyte, because Mule is not around!"
-           nil)))
-
-  (cond ((fboundp 'set-process-query-on-exit-flag)
-         (defun pymacs-kill-without-query (process)
-           "Tell recent Emacs how to quickly destroy PROCESS while exiting."
-           (set-process-query-on-exit-flag process nil)))
-        ((fboundp 'process-kill-without-query-process)
-         (defalias 'pymacs-kill-without-query 'process-kill-without-query))
-        (t
-         (defun pymacs-kill-without-query (process)
-           "Tell nothing when there is no way to speak."
-           nil)))
-
-  (if (fboundp 'set-buffer-multibyte)
-      (defalias 'pymacs-set-buffer-multibyte 'set-buffer-multibyte)
-    (defun pymacs-set-buffer-multibyte (flag)
-      "For use in Emacs 20.2 or earlier.  No-operation under XEmacs."
-      (setq enable-multibyte-characters flag))))
+  (if (fboundp 'multibyte-string-p)
+      (defalias 'pymacs-multibyte-string-p 'multibyte-string-p)
+    (defun pymacs-multibyte-string-p (string)
+      "Tell XEmacs if STRING should be handled as multibyte."
+      (not (equal (find-charset-string string) '(ascii))))))
 
 (defalias 'pymacs-report-error (symbol-function 'error))
 
@@ -495,7 +473,7 @@ The timer is used only if `post-gc-hook' is not available.")
   (let ((buffer (get-buffer-create "*Pymacs*")))
     (with-current-buffer buffer
       (buffer-disable-undo)
-      (pymacs-set-buffer-multibyte nil)
+      (set-buffer-multibyte nil)
       (set-buffer-file-coding-system 'raw-text)
       (save-match-data
         ;; Launch the Pymacs helper.
@@ -509,7 +487,10 @@ The timer is used only if `post-gc-hook' is not available.")
                                    " from Pymacs.pymacs import main;"
                                    " main(*sys.argv[1:])")
                       (mapcar 'expand-file-name pymacs-load-path))))
-          (pymacs-kill-without-query process)
+          (cond ((fboundp 'set-process-query-on-exit-flag)
+                 (set-process-query-on-exit-flag process nil))
+                ((fboundp 'process-kill-without-query-process)
+                 (process-kill-without-query process)))
           ;; Receive the synchronising reply.
           (while (progn
                    (goto-char (point-min))
@@ -531,10 +512,9 @@ The timer is used only if `post-gc-hook' is not available.")
           (if (and (pymacs-proper-list-p reply)
                    (= (length reply) 2)
                    (eq (car reply) 'version))
-              (unless (string-equal (cadr reply) "@VERSION@")
-                (pymacs-report-error
-                 "Pymacs Lisp version is @VERSION@, Python is %s"
-                 (cadr reply)))
+              (unless (string-equal (cadr reply) "0.23-beta9")
+                (pymacs-report-error "Pymacs Lisp version is 0.30, Python is %s"
+                       (cadr reply)))
             (pymacs-report-error "Pymacs got an invalid initial reply")))))
     (when pymacs-use-hash-tables
       (if pymacs-weak-hash
@@ -601,16 +581,14 @@ Killing the Pymacs helper might create zombie objects.  Kill? "))
                      (setq action "return"
                            inserter `(pymacs-print-for-eval ',value))
                    (setq action "raise"
-                         inserter `(let ((pymacs-forget-mutability t))
-                                     (pymacs-print-for-eval ,value)))))
+                         inserter `(princ ,value))))
                 ((eq action 'expand)
                  (if success
                      (setq action "return"
                            inserter `(let ((pymacs-forget-mutability t))
                                        (pymacs-print-for-eval ,value)))
                    (setq action "raise"
-                         inserter `(let ((pymacs-forget-mutability t))
-                                     (pymacs-print-for-eval ,value)))))
+                         inserter `(princ ,value))))
                 ((eq action 'return)
                  (if success
                      (setq done t)
@@ -692,12 +670,19 @@ Killing the Pymacs helper might create zombie objects.  Kill? "))
   ;; Any Emacs quit also gets forward as a SIGINT to the Pymacs handler.
   ;; With SUCCESS being true, VALUE is the expression value.
   ;; With SUCCESS being false, VALUE is an interruption diagnostic.
-  (condition-case info
-      (cons (let ((inhibit-quit nil)) (eval expression)) t)
-    (quit (setq quit-flag t)
-          (interrupt-process pymacs-transit-buffer)
-          (cons "*Interrupted!*" nil))
-    (error (cons (prin1-to-string info) nil))))
+  (let (value success)
+    (with-local-quit
+      (condition-case info
+          (setq value (eval expression)
+                success t)
+        (error
+         (setq value (prin1-to-string info)
+               success nil))))
+    (when quit-flag
+      (interrupt-process pymacs-transit-buffer)
+      (setq value "*Interrupted!*"
+            success nil))
+    (cons value success)))
 
 (defun pymacs-proper-list-p (expression)
   ;; Tell if a list is proper, id est, that it is `nil' or ends with `nil'.

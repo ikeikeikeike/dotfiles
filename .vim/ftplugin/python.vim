@@ -4,6 +4,7 @@
 " Original Author:  David Bustos <bustos@caltech.edu>
 " Last Change:      2010 Jun 18
 " modified by Tomoki_Imai
+" modified by Tatsuo Ikeda
 "setlocal number
 setlocal softtabstop=4
 setlocal shiftwidth=4
