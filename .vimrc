@@ -15,16 +15,31 @@ Bundle 'vundle'
 
 " anything like buffer management app.
 Bundle 'unite.vim'
+Bundle 'unite-tag'
 
 " buffer
 " Bundle 'minibufexpl.vim'
 
+" ############
+"
 " programings
+"
+" ############
 Bundle 'YankRing.vim'
+" auto complete
 Bundle 'Shougo/neocomplcache'
+" Todo tasklist
 Bundle 'TaskList.vim'
+" source viewer for tags
 Bundle 'Source-Explorer-srcexpl.vim'
+" taglist
 Bundle 'taglist.vim'
+" 保存前差分 表示
+Bundle 'Changed'
+" search auto complete
+Bundle 'SearchComplete'
+" TabKkey 連続して入力補完
+" Bundle 'SuperTab'
 
 
 " help, doc
@@ -42,6 +57,9 @@ Bundle 'fugitive.vim'
 " grep
 Bundle 'ack.vim'
 Bundle 'grep.vim'
+
+" session
+Bundle 'session.vim'
 
 "----------------------------------------------------
 " 基本的な設定
@@ -135,9 +153,8 @@ else
   set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
 endif
 
-" keymap
-nnoremap <C-]>  g<C-]>
-
+" keymap (replace unite-tag)
+" nnoremap <C-]>  g<C-]>
 
 "-------------------------------------------------------------------------------
 "" Indent and Dictionary
@@ -171,6 +188,7 @@ nmap G Gzz
 " omuni
 setlocal omnifunc=syntaxcomplete#Complete
 
+" autocmd settings
 if has("autocmd")
   "ファイルタイプの検索を有効にする
   filetype plugin on
@@ -190,6 +208,10 @@ if has("autocmd")
 
   "辞書ファイルを使用する設定に変更
   set complete+=k
+
+  " php syntax
+  autocmd filetype php :set makeprg=php\ -l\ %
+  autocmd filetype php :set errorformat=%m\ in\ %f\ on\ line\ %l
 
 endif
 
@@ -388,6 +410,19 @@ function! s:unite_my_settings()
   imap <silent><buffer> <ESC><ESC> <ESC>q
 endfunction
 
+" ######################################
+
+" unite-tag
+
+" ######################################
+" <C-]> 拡張
+autocmd BufEnter *
+      \   if empty(&buftype)
+      \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+      \|  endif
+" unite-tag
+nnoremap <silent> <C-T> :<C-u>Unite tag<CR>
+inoremap <silent> <C-T> <ESC>:<C-u>Unite tag<CR>
 
 
 " ######################################
@@ -429,6 +464,13 @@ nnoremap <C-g><C-b> :<C-u>GrepBuffer<Space><C-r><C-w><Enter>
 " Yankの履歴参照
 nmap <Leader>y :YRShow<CR>
 
+
+" ######################################
+
+" session.vim
+
+" ######################################
+let g:session_directory = "~/.vim/vim_session"
 
 
 " ######################################
@@ -487,10 +529,10 @@ let g:pep8_map='<leader>8'
 map <Leader>T :TaskList<CR>
 
 " taglist
-let Tlist_Use_Right_Window = 1   " right window.
-let Tlist_Auto_Highlight_Tag = 1 " auto highlighted tag.
-let Tlist_Auto_Open = 1          " auto enabled taglist.
-let Tlist_WinWidth = 40          " max window size.
+" let Tlist_Use_Right_Window = 1   " right window.
+" let Tlist_Auto_Highlight_Tag = 1 " auto highlighted tag.
+" let Tlist_Auto_Open = 1          " auto enabled taglist.
+" let Tlist_WinWidth = 40          " max window size.
 
 " Add  the  virtualenv's   site-packages  to  vim path
 py << EOF
