@@ -24,8 +24,10 @@ Bundle 'unite-tag'
 " programings
 " ############
 Bundle 'YankRing.vim'
-" auto complete
-Bundle 'Shougo/neocomplcache'
+if v:version > 710
+  " auto complete
+  Bundle 'Shougo/neocomplcache'
+endif
 " Todo tasklist
 Bundle 'TaskList.vim'
 " source viewer for tags
