@@ -218,12 +218,6 @@ if has("autocmd")
 endif
 
 
-" ファイルを開いた際に、前回終了時の行で起動
-
-"自動で補完候補をポップアップ
-let g:neocomplcache_enable_at_startup = 1
-
-
 " #######################
 
 " 検索系
@@ -432,15 +426,16 @@ inoremap <silent> <C-e> <ESC>:<C-u>Unite tag<CR>
 " 保管 newcomplecache auto-complete
 
 " ######################################
-" 起動
-let g:neocomplcache_enable_at_startup = 1
-" 大文字が入力されるまで大文字小文字の区別を無視
-let g:neocomplcache_enable_smart_case = 1
-" _ 区切りの補完を有効化します。
-let g:neocomplcache_enable_underbar_completion = 1
-" シンタックスをキャッシュするときの最小文字長を3文字 default 4
-let g:neocomplcache_min_syntax_length = 3
-"
+if v:version > 710
+  " 自動で補完候補をポップアップ
+  let g:neocomplcache_enable_at_startup = 1
+  " 大文字が入力されるまで大文字小文字の区別を無視
+  let g:neocomplcache_enable_smart_case = 1
+  " _ 区切りの補完を有効化します。
+  let g:neocomplcache_enable_underbar_completion = 1
+  " シンタックスをキャッシュするときの最小文字長を3文字 default 4
+  let g:neocomplcache_min_syntax_length = 3
+endif
 
 " ######################################
 
