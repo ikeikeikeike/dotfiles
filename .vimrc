@@ -62,8 +62,11 @@ Bundle 'fugitive.vim'
 Bundle 'ack.vim'
 Bundle 'grep.vim'
 
-" session
-Bundle 'session.vim'
+if v:version > 710
+  " session
+  Bundle 'session.vim'
+endif
+
 
 "----------------------------------------------------
 " 基本的な設定
@@ -469,7 +472,9 @@ nmap <Leader>y :YRShow<CR>
 " session.vim
 
 " ######################################
-let g:session_directory = "~/.vim/vim_session"
+if v:version > 710
+  let g:session_directory = "~/.vim/vim_session"
+endif
 
 
 " ######################################
