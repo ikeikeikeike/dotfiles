@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/Users/ikeda/.vim'
+let g:netrw_dirhist_2='/Users/ikeda/.vim_ref_cache'
+let g:netrw_dirhist_3='/Users/ikeda/.vim_ref_cache/pydoc'
+let g:netrw_dirhist_4='/opt/local/apache2/htdocs/php/gc/php/source/master_server/lwRemoting/library'
+let g:netrw_dirhist_5='/opt/local/apache2/htdocs/php/gc/php/source/master_server/lwRemoting/library/Zend'
+let g:netrw_dirhist_6='/Users/ikeda/git/home/.vim/bundle/vundle/autoload/vundle'

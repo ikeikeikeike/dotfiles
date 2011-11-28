@@ -1,0 +1,11 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=2333
+
+session.vim is the easy way to do vim sessions.  A session is automatically started or restored whenever you open vim with a single file, or no files.
+
+To delete a session, type :Sdelete, and the session will be deleted upon exiting vim.
+
+To prevent a session from starting, use the g:session_blacklist variable:
+let g:session_blacklist = ['\.swp$','\.tmp$','^\.']
+
+There is also a g:session_whitelist variable for easy refinement.
+let g:session_whitelist = ['^\.vimrc$']
