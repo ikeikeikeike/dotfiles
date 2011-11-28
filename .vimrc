@@ -21,9 +21,7 @@ Bundle 'unite-tag'
 " Bundle 'minibufexpl.vim'
 
 " ############
-"
 " programings
-"
 " ############
 Bundle 'YankRing.vim'
 " auto complete
@@ -40,8 +38,12 @@ Bundle 'Changed'
 Bundle 'SearchComplete'
 " TabKkey 連続して入力補完
 " Bundle 'SuperTab'
+" snipMate
+Bundle 'snipMate'
+" Bundle 'snipmate-snippets'
 
 
+" ##############
 " help, doc
 Bundle 'ref.vim'
 
@@ -154,7 +156,7 @@ else
 endif
 
 " keymap (replace unite-tag)
-" nnoremap <C-]>  g<C-]>
+nnoremap <C-]>  g<C-]>
 
 "-------------------------------------------------------------------------------
 "" Indent and Dictionary
@@ -418,11 +420,11 @@ endfunction
 " <C-]> 拡張
 autocmd BufEnter *
       \   if empty(&buftype)
-      \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+      \|      nnoremap <buffer> <Leader><C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
       \|  endif
 " unite-tag
-nnoremap <silent> <C-T> :<C-u>Unite tag<CR>
-inoremap <silent> <C-T> <ESC>:<C-u>Unite tag<CR>
+nnoremap <silent> <C-e> :<C-u>Unite tag<CR>
+inoremap <silent> <C-e> <ESC>:<C-u>Unite tag<CR>
 
 
 " ######################################
@@ -529,10 +531,10 @@ let g:pep8_map='<leader>8'
 map <Leader>T :TaskList<CR>
 
 " taglist
-" let Tlist_Use_Right_Window = 1   " right window.
-" let Tlist_Auto_Highlight_Tag = 1 " auto highlighted tag.
+let Tlist_Use_Right_Window = 1   " right window.
+let Tlist_Auto_Highlight_Tag = 1 " auto highlighted tag.
 " let Tlist_Auto_Open = 1          " auto enabled taglist.
-" let Tlist_WinWidth = 40          " max window size.
+let Tlist_WinWidth = 40          " max window size.
 
 " Add  the  virtualenv's   site-packages  to  vim path
 py << EOF
