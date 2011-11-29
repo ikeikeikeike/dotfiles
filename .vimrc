@@ -15,16 +15,29 @@ Bundle 'vundle'
 
 " anything like buffer management app.
 Bundle 'unite.vim'
-Bundle 'unite-tag'
+Bundle 'tsukkee/unite-tag'
+
+" ~~~~~~~~~~~~
+" general
+" ~~~~~~~~~~~~
+" reference
+Bundle 'thinca/vim-ref'
+" yank and clipboard
+Bundle 'kana/vim-fakeclip'
 
 " buffer
 " Bundle 'minibufexpl.vim'
 
-" ############
+" ~~~~~~~~~~~~
+" languages
+" ~~~~~~~~~~~~
+" Bundle 'javascript.vim'
+
+" ~~~~~~~~~~~~
 " programings
-" ############
+" ~~~~~~~~~~~~
 Bundle 'YankRing.vim'
-if v:version > 710
+if v:version > 700
   " auto complete
   Bundle 'Shougo/neocomplcache'
 endif
@@ -42,12 +55,12 @@ Bundle 'SearchComplete'
 " Bundle 'SuperTab'
 " snipMate
 Bundle 'snipMate'
-" Bundle 'snipmate-snippets'
 
 
 " ##############
 " help, doc
 Bundle 'ref.vim'
+Bundle "Shougo/echodoc"
 
 " python
 Bundle 'pyflakes.vim'
@@ -62,7 +75,7 @@ Bundle 'fugitive.vim'
 Bundle 'ack.vim'
 Bundle 'grep.vim'
 
-if v:version > 710
+if v:version > 700
   " session
   Bundle 'session.vim'
 endif
@@ -104,11 +117,9 @@ augroup END
 highlight CursorLine ctermbg=black guibg=black
 
 
-" 補完候補を表示する
-set wildmenu
+set wildmenu " 補完候補を表示する
 
-" コマンド・検索パターンの履歴数
-set history=1000
+set history=1000 " コマンド・検索パターンの履歴数
 
 "set number "行番号表示
 
@@ -123,21 +134,21 @@ set showcmd "入力中のコマンドをステータスに表示する
 set showmatch   " ()や{}の対応関係をハイライトする
 "set noshowmatch " ()や{}の対応関係をハイライトしない
 
-"ステータスラインを常に表示
-set laststatus=2
+set laststatus=2 " ステータスラインを常に表示
 
-"ステータスライン文字コード表示
+" ステータスライン文字コード表示
 set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)%m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}
 
 set scrolloff=5  " スクロール時に余分に表示する行数，画面の行数より大きくするとカーソルが常に画面中央にくるようになる
 
+autocmd BufWritePre * :%s/\s\+$//ge " 保存時に行末の空白を除去する
 
-" 保存時に行末の空白を除去する
-autocmd BufWritePre * :%s/\s\+$//ge
-" 保存時にtabをスペースに変換する
-autocmd BufWritePre * :%s/\t/  /ge
-" Ctrl-iでヘルプ
-" nnoremap <C-i>  :<C-u>help<Space>
+autocmd BufWritePre * :%s/\t/  /ge " 保存時にtabをスペースに変換する
+
+" nnoremap <C-i>  :<C-u>help<Space> " Ctrl-iでヘルプ
+
+" set clipboard=unnamed,autoselect " yank=clipboard
+" set clipboard+=unnamed
 
 "#######################
 
@@ -157,7 +168,7 @@ if has("autochdir")
   set autochdir
   set tags=tags;
 else
-  set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
+  set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags,./../../../../../../tags,./../../../../../../../tags,./../../../../../../../../tags,./../../../../../../../../../tags,./../../../../../../../../../../tags,./../../../../../../../../../../../tags,./../../../../../../../../../../../tags
 endif
 
 " keymap (replace unite-tag)
@@ -431,7 +442,7 @@ inoremap <silent> <C-e> <ESC>:<C-u>Unite tag<CR>
 " 保管 newcomplecache auto-complete
 
 " ######################################
-if v:version > 710
+if v:version > 700
   " 自動で補完候補をポップアップ
   let g:neocomplcache_enable_at_startup = 1
   " 大文字が入力されるまで大文字小文字の区別を無視
@@ -466,15 +477,30 @@ nnoremap <C-g><C-b> :<C-u>GrepBuffer<Space><C-r><C-w><Enter>
 " Yankの履歴参照
 nmap <Leader>y :YRShow<CR>
 
+" ######################################
+"
+" YankRingSync.vim
+"
+" ######################################
+" yankring.vim path
+" let g:yankringsync_yankring_path="~/.vim/bundle/YankRing.vim/plugin/yankring.vim"
+" let g:yankringsync_yankring_path = "~/.vim/bundle/YankRing.vim/plugin/"
+
+
+" ######################################
+"
+" fakeclip.vim
+"
+" ######################################
+
+
 
 " ######################################
 
 " session.vim
 
 " ######################################
-if v:version > 710
-  let g:session_directory = "~/.vim/vim_session"
-endif
+
 
 
 " ######################################
@@ -490,7 +516,7 @@ endif
 " cd.vim
 
 " ######################################
-au BufEnter * execute ":lcd " . expand("%:p:h")
+" au BufEnter * execute ":lcd " . expand("%:p:h")
 
 
 
@@ -510,6 +536,7 @@ au BufEnter * execute ":lcd " . expand("%:p:h")
 " let g:SrcExpl_RefreshMapKey = "<Space>"
 " let g:SrcExpl_GoBackMapKey  = "<C-b>"
 " nmap <Leader><F8> :SrcExplToggle<CR>
+
 
 
 " ----------------------------------------------------------------------
