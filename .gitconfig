@@ -1,14 +1,14 @@
 [user]
-	name = TatsuoIkeda
+	name = ikeikeikeike
 	email = jp.ne.co.jp@gmail.com
 [color]
-    ui = auto
-	diff = auto
-	status = auto
-	branch = auto
-	interactive = auto
+  ui = auto
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
 [core]
-  excludesfile = /Users/ikeda/.gitignore
+	excludesfile = /Users/ikeda/.gitignore
   pager = LESS=-R less
   autoCRLF = false
 [merge]
@@ -21,3 +21,9 @@
   keepBackup = false
 [diff]
   external = p4diff
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

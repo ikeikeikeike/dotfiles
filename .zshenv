@@ -117,5 +117,8 @@ export VIRTUALENV_USE_DISTRIBUTE=true
 export PIP_DOWNLOAD_CACHE=$HOME/.pip_cache
 # package in virtualenv sandbox.
 export PIP_RESPECT_VIRTUALENV=true
+# Tell pip to create its virtualenvs in $WORKON_HOME.
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
 #export PYTHONSTARTUP=$HOME/.pythonrc.py
+
 
