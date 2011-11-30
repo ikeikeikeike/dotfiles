@@ -567,6 +567,7 @@ let g:echodoc_enable_at_startup = 1
 
 " ----------------------------------------------------------------------
 
+" python
 " @link http://sontek.net/turning-vim-into-a-modern-python-ide
 
 " ----------------------------------------------------------------------
@@ -603,3 +604,10 @@ if 'VIRTUAL_ENV' in os.environ:
     execfile(activate_this, dict(__file__=activate_this))
 EOF
 
+
+" ----------------------------------------------------------------------
+
+" php
+
+" ----------------------------------------------------------------------
+let g:debuggerMaxDepth = 5
