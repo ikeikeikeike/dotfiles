@@ -28,6 +28,11 @@ Bundle 'kana/vim-fakeclip'
 " buffer
 " Bundle 'minibufexpl.vim'
 
+" color
+Bundle 'Color-Sampler-Pack'
+Bundle 'ujihisa/unite-colorscheme'
+Bundle 'unite-font'
+
 " ~~~~~~~~~~~~
 " languages
 " ~~~~~~~~~~~~
