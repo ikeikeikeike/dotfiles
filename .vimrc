@@ -13,76 +13,76 @@ call vundle#rc()
 
 Bundle 'vundle'
 
-" " anything like buffer management app.
-" Bundle 'unite.vim'
-" Bundle 'tsukkee/unite-tag'
+" anything like buffer management app.
+Bundle 'unite.vim'
+Bundle 'tsukkee/unite-tag'
 
-" " ~~~~~~~~~~~~
-" " general
-" " ~~~~~~~~~~~~
-" " reference
-" Bundle 'thinca/vim-ref'
-" " yank and clipboard
-" Bundle 'kana/vim-fakeclip'
+" ~~~~~~~~~~~~
+" general
+" ~~~~~~~~~~~~
+" reference
+Bundle 'thinca/vim-ref'
+" yank and clipboard
+Bundle 'kana/vim-fakeclip'
 
-" " buffer
-" " Bundle 'minibufexpl.vim'
+" buffer
+" Bundle 'minibufexpl.vim'
 
-" " ~~~~~~~~~~~~
-" " languages
-" " ~~~~~~~~~~~~
-" " Bundle 'javascript.vim'
+" ~~~~~~~~~~~~
+" languages
+" ~~~~~~~~~~~~
+" Bundle 'javascript.vim'
 
-" " ~~~~~~~~~~~~
-" " programings
-" " ~~~~~~~~~~~~
-" Bundle 'YankRing.vim'
-" if v:version > 700
-  " " auto complete
-  " Bundle 'Shougo/neocomplcache'
-" endif
-" " Todo tasklist
-" Bundle 'TaskList.vim'
-" " source viewer for tags
-" Bundle 'Source-Explorer-srcexpl.vim'
-" " taglist
-" Bundle 'taglist.vim'
-" " 保存前差分 表示
-" Bundle 'Changed'
-" " search auto complete
-" Bundle 'SearchComplete'
-" " TabKkey 連続して入力補完
-" " Bundle 'SuperTab'
-" " snipMate
-" " Bundle 'snipMate'
-" " support input
-" " Bundle 'kana/vim-smartchr'
+" ~~~~~~~~~~~~
+" programings
+" ~~~~~~~~~~~~
+Bundle 'YankRing.vim'
+if v:version > 700
+  " auto complete
+  Bundle 'Shougo/neocomplcache'
+endif
+" Todo tasklist
+Bundle 'TaskList.vim'
+" source viewer for tags
+Bundle 'Source-Explorer-srcexpl.vim'
+" taglist
+Bundle 'taglist.vim'
+" 保存前差分 表示
+Bundle 'Changed'
+" search auto complete
+Bundle 'SearchComplete'
+" TabKkey 連続して入力補完
+" Bundle 'SuperTab'
+" snipMate
+" Bundle 'snipMate'
+" support input
+" Bundle 'kana/vim-smartchr'
 
-" " ##############
-" " help, doc
-" Bundle 'ref.vim'
-" Bundle 'Shougo/echodoc'
+" ##############
+" help, doc
+Bundle 'ref.vim'
+Bundle 'Shougo/echodoc'
 
-" " python
-" Bundle 'pyflakes.vim'
-" Bundle 'pep8'
-" Bundle 'pydoc.vim'
-" " Bundle 'vim-ipython'
+" python
+Bundle 'pyflakes.vim'
+Bundle 'pep8'
+Bundle 'pydoc.vim'
+" Bundle 'vim-ipython'
 
-" " php
-" Bundle 'justinrainbow/php-xdebug.vim'
+" php
+Bundle 'justinrainbow/php-xdebug.vim'
 
-" " scm
-" Bundle 'fugitive.vim'
+" scm
+Bundle 'fugitive.vim'
 
-" " grep
-" Bundle 'ack.vim'
-" Bundle 'grep.vim'
+" grep
+Bundle 'ack.vim'
+Bundle 'grep.vim'
 
-" if v:version > 700
-  " " session
-  " Bundle 'session.vim'
-" endif
+if v:version > 700
+  " session
+  Bundle 'session.vim'
+endif
 
 
 "----------------------------------------------------
