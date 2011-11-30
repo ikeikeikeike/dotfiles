@@ -610,4 +610,4 @@ EOF
 " php
 
 " ----------------------------------------------------------------------
-let g:debuggerMaxDepth = 5
+let g:debuggerMaxDepth = 10
