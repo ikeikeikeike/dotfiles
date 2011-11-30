@@ -188,7 +188,7 @@ zstyle ':completion:*' verbose yes
 #_history
 #履歴から補完を行う。_history_complete_wordから使われる
 #_prefix
-#カーソルの位置で補完を行う 
+#カーソルの位置で補完を行う
 zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
 zstyle ':completion:*:messages' format $YELLOW'%d'$DEFAULT
 zstyle ':completion:*:warnings' format $RED'No matches for:'$YELLOW' %d'$DEFAULT

@@ -54,19 +54,23 @@ Bundle 'SearchComplete'
 " TabKkey 連続して入力補完
 " Bundle 'SuperTab'
 " snipMate
-Bundle 'snipMate'
-
+" Bundle 'snipMate'
+" support input
+" Bundle 'kana/vim-smartchr'
 
 " ##############
 " help, doc
 Bundle 'ref.vim'
-Bundle "Shougo/echodoc"
+Bundle 'Shougo/echodoc'
 
 " python
 Bundle 'pyflakes.vim'
 Bundle 'pep8'
 Bundle 'pydoc.vim'
 " Bundle 'vim-ipython'
+
+" php
+Bundle 'justinrainbow/php-xdebug.vim'
 
 " scm
 Bundle 'fugitive.vim'
@@ -439,7 +443,7 @@ inoremap <silent> <C-e> <ESC>:<C-u>Unite tag<CR>
 
 " ######################################
 
-" 保管 newcomplecache auto-complete
+" 保管 newcomplecache auto-complete snippets
 
 " ######################################
 if v:version > 700
@@ -451,7 +455,21 @@ if v:version > 700
   let g:neocomplcache_enable_underbar_completion = 1
   " シンタックスをキャッシュするときの最小文字長を3文字 default 4
   let g:neocomplcache_min_syntax_length = 3
+  " C-j snippet
+  imap <C-j> <Plug>(neocomplcache_snippets_expand)
+  " SuperTab like snippets behavior. TABでスニペットを展開
+  " imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+  " snippets の保存ディレクトリ
+  " let g:neocomplcache_snippets_dir = '~/.vim/bundle/snipMate/snippets'
 endif
+
+" ######################################
+
+" vim-smartchr
+
+" ######################################
+
+
 
 " ######################################
 
@@ -483,8 +501,8 @@ nmap <Leader>y :YRShow<CR>
 "
 " ######################################
 " yankring.vim path
-" let g:yankringsync_yankring_path="~/.vim/bundle/YankRing.vim/plugin/yankring.vim"
-" let g:yankringsync_yankring_path = "~/.vim/bundle/YankRing.vim/plugin/"
+" let g:yankringsync_yankring_path = '~/.vim/bundle/YankRing.vim/plugin/yankring.vim'
+" let g:yankringsync_yankring_path = '~/.vim/bundle/YankRing.vim/plugin/'
 
 
 " ######################################
@@ -513,10 +531,18 @@ nmap <Leader>y :YRShow<CR>
 
 " ######################################
 
+" echodoc
+
+" ######################################
+let g:echodoc_enable_at_startup = 1
+
+
+" ######################################
+
 " cd.vim
 
 " ######################################
-" au BufEnter * execute ":lcd " . expand("%:p:h")
+" au BufEnter * execute ':lcd ' . expand("%:p:h")
 
 
 
@@ -533,8 +559,8 @@ nmap <Leader>y :YRShow<CR>
 " "tagsは自動で作成する/ しない
 " " let g:SrcExpl_UpdateTags    = 1
 " "マッピング
-" let g:SrcExpl_RefreshMapKey = "<Space>"
-" let g:SrcExpl_GoBackMapKey  = "<C-b>"
+" let g:SrcExpl_RefreshMapKey = '<Space>'
+" let g:SrcExpl_GoBackMapKey  = '<C-b>'
 " nmap <Leader><F8> :SrcExplToggle<CR>
 
 
@@ -562,7 +588,7 @@ map <Leader>T :TaskList<CR>
 " taglist
 let Tlist_Use_Right_Window = 1   " right window.
 let Tlist_Auto_Highlight_Tag = 1 " auto highlighted tag.
-" let Tlist_Auto_Open = 1          " auto enabled taglist.
+let Tlist_Auto_Open = 1          " auto enabled taglist.
 let Tlist_WinWidth = 40          " max window size.
 
 " Add  the  virtualenv's   site-packages  to  vim path
@@ -576,5 +602,4 @@ if 'VIRTUAL_ENV' in os.environ:
     activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
     execfile(activate_this, dict(__file__=activate_this))
 EOF
-
 

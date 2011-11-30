@@ -5,7 +5,7 @@
 ###  Permission to use, copy, modify, distribute this software and
 ###  its documentation for any purpose is hereby granted, provided
 ###  that existing copyright notices are retained in all copies and
-###  that this notice is included verbatim in any distributions. 
+###  that this notice is included verbatim in any distributions.
 ###  This software is provided ``AS IS'' without any express or implied
 ###  warranty.
 ###
@@ -28,45 +28,45 @@
 ###  The following commands are added.
 ###
 ###  cd [pathname]
-###	Go to the given directory, or your home directory if 
-###	pathname is omitted. This overrides the original command.
-###	You can use it by typing '\cd'.
+###  Go to the given directory, or your home directory if
+###  pathname is omitted. This overrides the original command.
+###  You can use it by typing '\cd'.
 ###
 ###  + [n]
-###	'Forward' button. Go to the n'th posterior directory in the history.
-###	Go to the next directory if the number is omitted.
+###  'Forward' button. Go to the n'th posterior directory in the history.
+###  Go to the next directory if the number is omitted.
 ###
 ###  - [n]
-###	'Back' button. Go to the n'th prior directory in the history.
-###	Go to the previous directory if the number is omitted.
+###  'Back' button. Go to the n'th prior directory in the history.
+###  Go to the previous directory if the number is omitted.
 ###
 ###  = [n]
-###	Show histories with directory numbers.
+###  Show histories with directory numbers.
 ###
-###	A directory number shows the index to the current directory 
-###	in the history. The current directory always has directory number 0.
-###	For prior directories, a negative number is given.
-###	For posterior directories, a positive number is given.
+###  A directory number shows the index to the current directory
+###  in the history. The current directory always has directory number 0.
+###  For prior directories, a negative number is given.
+###  For posterior directories, a positive number is given.
 ###
 ###  cdhist_reset
-###	Clear the cd history.
+###  Clear the cd history.
 ###
 
 ###  Example
 ###
-###	/home/yusuke:$ . cdhist.sh
-###	/home/yusuke:$ cd /tmp
-###	/tmp:$ cd /usr/bin
-###	/usr/bin:$ cd /etc
-###	/etc:$ -
-###	/usr/bin:$ -
-###	/tmp:$ +
-###	/usr/bin:$ =
-###	-2 ~
-###	-1 /tmp
-###	 0:/usr/bin
-###	 1 /etc
-###	/usr/bin:$ - 2
+###  /home/yusuke:$ . cdhist.sh
+###  /home/yusuke:$ cd /tmp
+###  /tmp:$ cd /usr/bin
+###  /usr/bin:$ cd /etc
+###  /etc:$ -
+###  /usr/bin:$ -
+###  /tmp:$ +
+###  /usr/bin:$ =
+###  -2 ~
+###  -1 /tmp
+###   0:/usr/bin
+###   1 /etc
+###  /usr/bin:$ - 2
 ###     /home/yusuke:$
 ###
 
@@ -113,7 +113,7 @@ function cdhist_cd {
   done
   if [ $f -eq 1 ]; then
     cdhist_rot $((i+1)) -1
-  elif [ ${#CDHIST_CDQ[@]} -lt $CDHIST_CDQMAX ]; then 
+  elif [ ${#CDHIST_CDQ[@]} -lt $CDHIST_CDQMAX ]; then
     cdhist_add "$PWD"
   else
     cdhist_rot ${#CDHIST_CDQ[@]} -1

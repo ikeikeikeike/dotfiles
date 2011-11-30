@@ -1,10 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
-let g:netrw_dirhist_1='/opt/local/apache2/htdocs/php/gc/php/source/master_server/api/app/lib/logosware/Ssh'
-let g:netrw_dirhist_2='/opt/local/apache2/htdocs/php/gc/php/source/master_server/api/app/lib/logosware'
-let g:netrw_dirhist_3='/opt/local/apache2/htdocs/php/gc/php/source/master_server/api/app/lib/logosware/Ftp'
-let g:netrw_dirhist_4='/opt/local/apache2/htdocs/php/gc/php/source/master_server/api/app/lib/logosware/Db/Table'
-let g:netrw_dirhist_5='/opt/local/apache2/htdocs/php/gc/php/source/master_server/api/app/lib/Zend/Http/Client'
-let g:netrw_dirhist_6='/opt/local/apache2/htdocs/php/gc/php/source/master_server/api/app/lib/Zend/Http'
-let g:netrw_dirhist_7='/Users/ikeda/.virtualenvs/django-pudebug/lib/python2.7/site-packages/django_pudebug-0.2-py2.7.egg/EGG-INFO'
-let g:netrw_dirhist_8='/Users/ikeda/.virtualenvs/mw_py27/backend/apps/content_haystack'
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/Users/ikeda'
+let g:netrw_dirhist_2='/Users/ikeda/.vim'
+let g:netrw_dirhist_3='/opt/local/apache2/htdocs/php/gc/php/source/master_server/api/app/services/User/Table'

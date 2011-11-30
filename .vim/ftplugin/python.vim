@@ -13,7 +13,8 @@ setlocal smarttab
 setlocal expandtab
 setlocal nosmartindent
 set list
-set listchars=tab:>-,extends:<,trail:-,eol:<
+" set listchars=tab:>-,extends:<,trail:-,eol:<
+set listchars=tab:>-,extends:<,trail:-
 setlocal omnifunc=pythoncomplete#Complete
 let g:python_highlight_all=1
 " Only load this indent file when no other was loaded.

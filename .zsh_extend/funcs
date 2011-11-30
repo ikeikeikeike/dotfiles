@@ -31,10 +31,11 @@ fi
 # functionの設定
 function history-all { history -E 1 }
 
+# status code 0 で実行 調整時に有効
+# function TRAPZERR() { echo "exit:$? $@" }
+
 # cdを打ったら自動的にlsを打ってくれる関数
-function cd(){
-    builtin cd $@ && ls && ls -alt;
-}
+function cd(){ builtin cd $@ && ls && ls -alt; }
 
 # settei wo kaiteinai
 #function chpwd(){
@@ -63,7 +64,7 @@ fi
 source $HOME/.zsh_extend/emacs/isemacs.sh
 
 # cdhist
-#source $HOME/.zsh_extend/cdhist/cdhist.sh
+# source $HOME/.zsh_extend/cdhist/cdhist.sh
 
 # history
 zshaddhistory() {
@@ -87,6 +88,7 @@ zshaddhistory() {
     ]]
 }
 
+# Colorful
 export_grep_color(){
     x=$GREP_COLOR;
     export GREP_COLOR=$1;
