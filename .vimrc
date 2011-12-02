@@ -16,6 +16,7 @@ Bundle 'vundle'
 " anything like buffer management app.
 Bundle 'unite.vim'
 Bundle 'tsukkee/unite-tag'
+" Bundle 'Sixeight/unite-grep'
 
 " ~~~~~~~~~~~~
 " general
@@ -42,6 +43,7 @@ Bundle 'unite-font'
 " programings
 " ~~~~~~~~~~~~
 Bundle 'YankRing.vim'
+Bundle 'm4i/YankRingSync'
 if v:version > 700
   " auto complete
   Bundle 'Shougo/neocomplcache'
@@ -54,12 +56,8 @@ Bundle 'Source-Explorer-srcexpl.vim'
 Bundle 'taglist.vim'
 " 保存前差分 表示
 Bundle 'Changed'
-" search auto complete
+" vim search auto complete
 Bundle 'SearchComplete'
-" TabKkey 連続して入力補完
-" Bundle 'SuperTab'
-" snipMate
-" Bundle 'snipMate'
 " support input
 " Bundle 'kana/vim-smartchr'
 
@@ -67,11 +65,14 @@ Bundle 'SearchComplete'
 " help, doc
 Bundle 'ref.vim'
 Bundle 'Shougo/echodoc'
+Bundle 'pydoc.vim'
+Bundle 'Python-Documentation'
+Bundle 'php-doc'
 
 " python
 Bundle 'pyflakes.vim'
 Bundle 'pep8'
-Bundle 'pydoc.vim'
+
 " Bundle 'vim-ipython'
 
 " php
@@ -83,6 +84,7 @@ Bundle 'fugitive.vim'
 " grep
 Bundle 'ack.vim'
 Bundle 'grep.vim'
+Bundle 'thinca/vim-qfreplace'
 
 if v:version > 700
   " session
@@ -467,8 +469,13 @@ if v:version > 700
   imap <C-j> <Plug>(neocomplcache_snippets_expand)
   " SuperTab like snippets behavior. TABでスニペットを展開
   " imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-  " snippets の保存ディレクトリ
-  " let g:neocomplcache_snippets_dir = '~/.vim/bundle/snipMate/snippets'
+  " :NeoComplCacheEditSnippets [filetype]
+  " ユーザ定義用のスニペットファイルの編集ができる。
+  " ftを指定しなければ現在のftのスニペットファイルを開く。
+  " ちなみに、プラグインに組み込まれてるスニペットファイルは下記にある。
+  " ~/.vim/autoload/neocomplcache/sources/snippets_complete/
+  " User snippets の保存ディレクトリ
+  let g:neocomplcache_snippets_dir = '~/.vim/snippets'
 endif
 
 " ######################################
@@ -510,7 +517,6 @@ nmap <Leader>y :YRShow<CR>
 " ######################################
 " yankring.vim path
 " let g:yankringsync_yankring_path = '~/.vim/bundle/YankRing.vim/plugin/yankring.vim'
-" let g:yankringsync_yankring_path = '~/.vim/bundle/YankRing.vim/plugin/'
 
 
 " ######################################
