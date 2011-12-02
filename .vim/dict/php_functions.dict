@@ -9453,6 +9453,7 @@ arrayValue
 arrayValues
 array_dirlist
 array_empty_fill
+arrays
 artistGetRelatedArtists
 artistGetTopAlbums
 artistGetTopFans
@@ -14766,6 +14767,7 @@ initMaildir
 initMvc
 initOptions
 initResourceLoader
+initRiak
 initView
 initialData
 initialize
@@ -17621,6 +17623,7 @@ rfc3339
 rfcencoded
 rgb
 riIterator
+riak
 riak_config
 right
 rightChar
@@ -20650,6 +20653,7 @@ utf16
 utf8
 utf8Char
 utility
+uuid
 v
 va
 val
