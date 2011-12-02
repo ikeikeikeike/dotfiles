@@ -43,9 +43,10 @@ Bundle 'Color-Sampler-Pack'
 " ~~~~~~~~~~~~
 " programings
 " ~~~~~~~~~~~~
-Bundle 'YankRing.vim'
-Bundle 'm4i/YankRingSync'
 if v:version > 700
+  " yankring
+  Bundle 'YankRing.vim'
+  Bundle 'm4i/YankRingSync'
   " auto complete
   Bundle 'Shougo/neocomplcache'
 endif
