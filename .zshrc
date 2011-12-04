@@ -22,7 +22,6 @@ source $HOME/.adds_aliases 2> /dev/null
 
 # archifile
 if [ -f $HOME/.archirc ]; then
-  echo 1111
   source $HOME/.archirc
 fi
 
@@ -80,10 +79,6 @@ local DEFAULT=$'%{\e[1;m%}'
 local CYAN=$'%{\e[0;36m%}'
 local BROWN=$'%{\e[0;33m%}'
 local BG_BLUE=$'%{\e[0;44m%}'
-
-# less
-export PAGER='less'
-export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case'
 
 #エイリアスも補完対象に設定
 setopt complete_aliases
@@ -221,7 +216,8 @@ add-zsh-hook precmd _update_vcs_info_msg 2> /dev/null
 
 ## prompt
 PROMPT=$'\n'$GREEN'${USER}@${HOST}'$CYAN'(${ARCHI}-${DISTRIBUTE}) '$YELLOW'%~ '$'\n'$DEFAULT'%(!.#.$) '
-RPROMPT=${BG_BLUE}%1v%2v%f${DEFAULT}
+RPROMPT=%1v%2v%f${DEFAULT}
+# RPROMPT=${BG_BLUE}%1v%2v%f${DEFAULT}
 
 if [ "${TMUX}" != "" ] ; then
   tmux pipe-pane 'cat >> ~/.tmux/`date +%Y-%m-%d`_#S:#I.#P.log'

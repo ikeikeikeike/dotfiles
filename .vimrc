@@ -482,6 +482,8 @@ if v:version > 700
   " ~/.vim/autoload/neocomplcache/sources/snippets_complete/
   " User snippets の保存ディレクトリ
   let g:neocomplcache_snippets_dir = '~/.vim/snippets'
+  " key map
+  nnoremap <silent> <Space>es  :<C-u>NeoComplCacheEditSnippets
 endif
 
 " ######################################

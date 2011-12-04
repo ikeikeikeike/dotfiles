@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # ARCHI & distribute
 if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
   case "`uname -sr`" in
@@ -75,8 +76,11 @@ else
     export TERM=screen
 fi
 
-# less utf8
+# less
 export LESSCHARSET=utf-8
+export PAGER='less'
+export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case -R '
+export LESSOPEN='| src-hilite-lesspipe.sh %s'
 
 # ruby
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
@@ -119,6 +123,6 @@ export PIP_DOWNLOAD_CACHE=$HOME/.pip_cache
 export PIP_RESPECT_VIRTUALENV=true
 # Tell pip to create its virtualenvs in $WORKON_HOME.
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
-#export PYTHONSTARTUP=$HOME/.pythonrc.py
+export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 
