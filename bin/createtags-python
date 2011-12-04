@@ -9,7 +9,7 @@ simple simple*2 createtags-python
 import os
 import sys
 import popen2
-from distutils.sysconfig import get_python_lib
+# from distutils.sysconfig import get_python_lib
 
 def stdoutput(out):
     """output"""
@@ -17,6 +17,14 @@ def stdoutput(out):
         for o in out: print o
     except IOError:
         pass
+
+def rm_tags(path):
+    """delete tag"""
+    try:
+        os.remove(path)
+    except OSError:
+        pass
+
 
 def get_args():
     """simple get first args"""
@@ -31,6 +39,10 @@ def get_virtualenv_python_lib():
     return "%s/lib/python%s/site-packages" % (os.environ["VIRTUAL_ENV"], version)
 
 def run_command(command):
+    """run and output buffer
+
+    :param str command: command line string.
+    """
     cmd = ('%s' % command)
     print cmd
 
@@ -39,28 +51,36 @@ def run_command(command):
     stdoutput(stdin)
     stdoutput(stderr)
 
-def main():
-    try:
-        os.remove('./tags')
-    except OSError:
-        pass
+def main(path=""):
+    """
+    :param str path: virtualenv path.
+    """
+    rm_tags('./tags')
 
     exclude_option = ("--languages=python "
             "--exclude=test_* "
             "--exclude=tests.py "
             "--exclude=test.py "
+            "--exclude=*/IPython/* "
+            "--exclude=*/unittest/* "
+            "--exclude=*/testing/* "
+            "--exclude=*/testsuite/* "
             "--exclude=*/test/* "
             "--exclude=*/tests/*")
     run_command("ctags -R    %s %s" % (exclude_option, get_args()))
-    run_command("ctags -R -a %s %s" % (exclude_option, os.path.join(get_python_lib(), "../")))
+    # run_command("ctags -R -a %s %s" % (exclude_option, os.path.join(get_python_lib(), "../")))
     run_command("ctags -R -a --languages=python ~/.virtualenvs/__builtin__27/builtins/__builtin__.py")
     run_command("ctags -R -a --languages=python ~/.virtualenvs/__builtin__27/builtins/__builtin_exceptions__.py")
-    try:
-        run_command("ctags -R -a %s %s" % (exclude_option, get_virtualenv_python_lib()))
-    except KeyError:
-        pass
+
+    if path:
+        run_command("ctags -R -a %s %s" % (exclude_option, path))
+        rm_tags("%s/tags" % path)
+        os.symlink("%s/tags" % os.getcwd(), "%s/tags" % path)
 
 if __name__ == '__main__':
-    main()
+    try:
+        main(get_virtualenv_python_lib())
+    except KeyError:
+        main()
 
 

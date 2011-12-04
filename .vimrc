@@ -74,6 +74,7 @@ Bundle 'php-doc'
 " python
 Bundle 'pyflakes.vim'
 Bundle 'pep8'
+Bundle 'amitdev/vimpy'
 
 " Bundle 'vim-ipython'
 
