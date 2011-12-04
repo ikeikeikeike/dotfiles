@@ -1,0 +1,66 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+===================================
+simple simple*2 createtags-python
+===================================
+:create_date:  2011-12-04T23:23:21
+"""
+import os
+import sys
+import popen2
+from distutils.sysconfig import get_python_lib
+
+def stdoutput(out):
+    """output"""
+    try:
+        for o in out: print o
+    except IOError:
+        pass
+
+def get_args():
+    """simple get first args"""
+    try:
+        return sys.argv[1]
+    except IndexError:
+        return '.'
+
+def get_virtualenv_python_lib():
+    """like a get_python_lib()"""
+    version = "%s.%s" % (sys.version_info.major, sys.version_info.minor)
+    return "%s/lib/python%s/site-packages" % (os.environ["VIRTUAL_ENV"], version)
+
+def run_command(command):
+    cmd = ('%s' % command)
+    print cmd
+
+    stdout, stdin, stderr = popen2.popen3(cmd)
+    stdoutput(stdout)
+    stdoutput(stdin)
+    stdoutput(stderr)
+
+def main():
+    try:
+        os.remove('./tags')
+    except OSError:
+        pass
+
+    exclude_option = ("--languages=python "
+            "--exclude=test_* "
+            "--exclude=tests.py "
+            "--exclude=test.py "
+            "--exclude=*/test/* "
+            "--exclude=*/tests/*")
+    run_command("ctags -R    %s %s" % (exclude_option, get_args()))
+    run_command("ctags -R -a %s %s" % (exclude_option, os.path.join(get_python_lib(), "../")))
+    run_command("ctags -R -a --languages=python ~/.virtualenvs/__builtin__27/builtins/__builtin__.py")
+    run_command("ctags -R -a --languages=python ~/.virtualenvs/__builtin__27/builtins/__builtin_exceptions__.py")
+    try:
+        run_command("ctags -R -a %s %s" % (exclude_option, get_virtualenv_python_lib()))
+    except KeyError:
+        pass
+
+if __name__ == '__main__':
+    main()
+
+

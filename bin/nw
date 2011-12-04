@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+
+WN=`uuidgen | cut -c1-10`
+
+cd /opt/local/bin; tmux new-window -n $WN;
+
+case "$@" in
+  #
+  home);      tmux send-keys -t$WN 'cd ~; clear' C-m ;;
+  www);       tmux send-keys -t$WN 'cd /var/www; clear' C-m ;;
+  etc);       tmux send-keys -t$WN 'cd /etc; clear' C-m ;;
+  etcp);      tmux send-keys -t$WN 'cd /opt/local/etc; clear' C-m ;;
+  pythonhome);tmux send-keys -t$WN 'cd /opt/local/Library/Frameworks/Python.framework/Versions/Current; clear' C-m ;;
+  # project
+  gc);        tmux send-keys -t$WN 'cd /var/www/php/gc; clear' C-m ;;
+  gcsource);  tmux send-keys -t$WN 'cd /var/www/php/gc/php/source; clear' C-m ;;
+  # any
+  *);         tmux send-keys -t$WN "cd $@; clear" C-m ;;
+esac
+
+tmux rename-window "`basename $@`"

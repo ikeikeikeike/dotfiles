@@ -1,0 +1,2 @@
+#!/bin/sh
+reattach-to-user-namespace _tmux-pbcopy

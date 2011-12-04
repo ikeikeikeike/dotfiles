@@ -36,5 +36,5 @@ pip install Werkzeug
 #pip install MySQL-python
 #pip install pysqlite
 
-# emacs
-pip install pyflakes pep8 reimport pylint
+# peformance, analysis
+pip install pyflakes pep8 reimport pylint clonedigger

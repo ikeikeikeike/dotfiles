@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+FPATH=$@
+
+if [ ! $@ ];then
+  FPATH=.
+fi
+
+echo "create ctags: $FPATH/tags"
+ctags -R --languages=php $FPATH
+
+echo "create php dictionary:  ~/.vim/dict/php_functions.dict"
+php -r '$f=get_defined_functions();echo join("\n",$f["internal"]);' | sort > ~/.vim/dict/php_functions.dict
+cat tags | awk '{print $1}' | uniq >> ~/.vim/dict/php_functions.dict
+
+echo
+echo
+echo "   finish a script."
