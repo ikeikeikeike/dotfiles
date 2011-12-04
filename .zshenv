@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env zsh
+
 # ARCHI & distribute
 if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
   case "`uname -sr`" in
