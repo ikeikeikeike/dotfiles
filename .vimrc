@@ -44,9 +44,10 @@ Bundle 'Color-Sampler-Pack'
 " move
 " ~~~~~~~~~~~~
 " Bundle 'fuzzyjump.vim'
-Bundle 'clones/vim-l9'
-Bundle 'FuzzyFinder'
-
+if v:version > 700
+  Bundle 'clones/vim-l9'
+  Bundle 'FuzzyFinder'
+endif
 
 " ~~~~~~~~~~~~
 " languages
@@ -514,14 +515,15 @@ endif
 " FuzzyFinder
 
 " ######################################
-" file search
-nnoremap <silent> <C-f> :<C-u>FufFile<CR>
-inoremap <silent> <C-f> <ESC>:<C-u>FufFile<CR>
-" tag search
-nnoremap <silent> <C-e> :<C-u>FufTag<CR>
-inoremap <silent> <C-e> <ESC>:<C-u>FufTag<CR>
-nnoremap <buffer> <Leader><C-]> :<C-u>FufTagWithCursorWord<CR>
-
+if v:version > 700
+  " file search
+  nnoremap <silent> <C-f> :<C-u>FufFile<CR>
+  inoremap <silent> <C-f> <ESC>:<C-u>FufFile<CR>
+  " tag search
+  nnoremap <silent> <C-e> :<C-u>FufTag<CR>
+  inoremap <silent> <C-e> <ESC>:<C-u>FufTag<CR>
+  nnoremap <buffer> <Leader><C-]> :<C-u>FufTagWithCursorWord<CR>
+endif
 
 " ######################################
 
