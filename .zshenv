@@ -73,6 +73,7 @@ if [ "$SHELL" = "/bin/bash" ];then
     export TERM=xterm-color
 else
     export TERM=screen
+    # export TERM=xterm-256color
 fi
 
 # less

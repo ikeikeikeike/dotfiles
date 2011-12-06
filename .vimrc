@@ -13,10 +13,14 @@ call vundle#rc()
 
 Bundle 'vundle'
 
+" unites
 if v:version > 700
   " anything like buffer management app.
   Bundle 'unite.vim'
   Bundle 'tsukkee/unite-tag'
+  Bundle 'tsukkee/unite-help'
+  Bundle 'ujihisa/unite-locate'
+  Bundle 'heavenshell/unite-zf'
   " Bundle 'Sixeight/unite-grep'
   Bundle 'ujihisa/unite-colorscheme'
   Bundle 'unite-font'
@@ -34,6 +38,15 @@ Bundle 'kana/vim-fakeclip'
 
 " color
 Bundle 'Color-Sampler-Pack'
+
+
+" ~~~~~~~~~~~~
+" move
+" ~~~~~~~~~~~~
+" Bundle 'fuzzyjump.vim'
+Bundle 'clones/vim-l9'
+Bundle 'FuzzyFinder'
+
 
 " ~~~~~~~~~~~~
 " languages
@@ -53,9 +66,15 @@ endif
 " Todo tasklist
 Bundle 'TaskList.vim'
 " source viewer for tags
-Bundle 'Source-Explorer-srcexpl.vim'
+" Bundle 'Source-Explorer-srcexpl.vim'
+" easytags
+" Bundle 'xolox/vim-easytags'
 " taglist
 Bundle 'taglist.vim'
+if v:version > 700
+  " tagbar
+  Bundle 'majutsushi/tagbar'
+endif
 " 保存前差分 表示
 Bundle 'Changed'
 " vim search auto complete
@@ -100,7 +119,7 @@ endif
 "----------------------------------------------------
 
 "カラースキーマを設定
-colorscheme desert256
+colorscheme desert
 
 " ビープ音を鳴らさない
 set vb t_vb=
@@ -110,6 +129,17 @@ set vb t_vb=
 " eol     : 改行
 " start   : 挿入モード開始位置より手前の文字
 set backspace=indent,eol,start
+
+" " タブページを常に表示
+" set showtabline=2
+" " gVimでもテキストベースのタブページを使う
+" set guioptions-=e
+
+" --------------------
+" general keymap
+" --------------------
+nnoremap <leader>ccc :<C-u>cclose<CR>
+nnoremap <leader>cco :<C-u>copen<CR>
 
 "#######################
 
@@ -222,6 +252,16 @@ nmap G Gzz
 
 " omuni
 setlocal omnifunc=syntaxcomplete#Complete
+" ポップアップメニューの色変える
+" highlight Pmenu gui=bold ctermbg=gray ctermfg=black
+" highlight PmenuSel gui=bold ctermfg=white
+" highlight PmenuSel gui=bold ctermbg=gray ctermfg=lightgreen
+" highlight PmenuSbar ctermbg=darkgray
+" highlight PmenuThumb ctermbg=lightgray
+" highlight Pmenu ctermbg=8 guibg=#606060
+" highlight PmenuSel ctermbg=12 guibg=SlateBlue
+" highlight PmenuSbar ctermbg=0 guibg=#404040
+" highlight PmenuThumb ctermbg=0 guibg=Red
 
 " autocmd settings
 if has("autocmd")
@@ -427,8 +467,8 @@ if v:version > 700
   call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
 
   " keymap
-  nnoremap <silent> <C-f> :<C-u>UniteWithBufferDir -vertical -buffer-name=files file<CR>
-  inoremap <silent> <C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+  nnoremap <silent> <Leader><C-f> :<C-u>UniteWithBufferDir -vertical -buffer-name=files file<CR>
+  inoremap <silent> <Leader><C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
   nnoremap <silent> <C-b> :<C-u>Unite -vertical -buffer-name=files buffer file_mru bookmark<CR>
   inoremap <silent> <C-b> <ESC>:<C-u>Unite -vertical -buffer-name=files buffer file_mru bookmark<CR>
 
@@ -448,15 +488,40 @@ if v:version > 700
 
   " ######################################
   " <C-]> 拡張
-  autocmd BufEnter *
-        \   if empty(&buftype)
-        \|      nnoremap <buffer> <Leader><C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-        \|  endif
+  " autocmd BufEnter *
+        " \   if empty(&buftype)
+        " \|      nnoremap <buffer> <Leader><C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+        " \|  endif
   " unite-tag
-  nnoremap <silent> <C-e> :<C-u>Unite tag<CR>
-  inoremap <silent> <C-e> <ESC>:<C-u>Unite tag<CR>
+  nnoremap <silent> <Leader><C-e> :<C-u>Unite tag<CR>
+  inoremap <silent> <Leader><C-e> <ESC>:<C-u>Unite tag<CR>
+
+  " ######################################
+
+  " unite-help
+
+  " ######################################
+  " " Execute help.
+  " nnoremap <Leader><C-h>  :<C-u>Unite -start-insert help<CR>
+  " " Execute help by cursor keyword.
+  " nnoremap <silent> <Leader>g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 
 endif
+
+
+" ######################################
+
+" FuzzyFinder
+
+" ######################################
+" file search
+nnoremap <silent> <C-f> :<C-u>FufFile<CR>
+inoremap <silent> <C-f> <ESC>:<C-u>FufFile<CR>
+" tag search
+nnoremap <silent> <C-e> :<C-u>FufTag<CR>
+inoremap <silent> <C-e> <ESC>:<C-u>FufTag<CR>
+nnoremap <buffer> <Leader><C-]> :<C-u>FufTagWithCursorWord<CR>
+
 
 " ######################################
 
@@ -552,6 +617,17 @@ nmap <Leader>y :YRShow<CR>
 
 
 
+
+" ######################################
+
+" vim-ref
+
+" ######################################
+let g:ref_phpmanual_path = $HOME . '/share/doc/php-chunked-xhtml/'
+let g:ref_phpmanual_cmd = 'w3m -dump %s'
+
+
+
 " ######################################
 
 " echodoc
@@ -566,6 +642,14 @@ let g:echodoc_enable_at_startup = 1
 
 " ######################################
 " au BufEnter * execute ':lcd ' . expand("%:p:h")
+
+
+
+" ######################################
+
+" easytags
+
+" ######################################
 
 
 
@@ -609,11 +693,18 @@ let g:pep8_map='<leader>8'
 " TaskList
 map <Leader>T :TaskList<CR>
 
-" taglist
-let Tlist_Use_Right_Window = 1   " right window.
-let Tlist_Auto_Highlight_Tag = 1 " auto highlighted tag.
-let Tlist_Auto_Open = 1          " auto enabled taglist.
-let Tlist_WinWidth = 40          " max window size.
+" tag list plugins
+if v:version > 700
+  " tagbar
+  let g:tagbar_usearrows = 1
+  nmap <Leader>ll :TagbarToggle<CR>
+else
+  " taglist
+  let Tlist_Use_Right_Window = 1   " right window.
+  let Tlist_Auto_Highlight_Tag = 1 " auto highlighted tag.
+  let Tlist_Auto_Open = 1          " auto enabled taglist.
+  let Tlist_WinWidth = 40          " max window size.
+endif
 
 " Add  the  virtualenv's   site-packages  to  vim path
 py << EOF

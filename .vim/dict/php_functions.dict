@@ -10973,7 +10973,6 @@ deleteAlbumEntry
 deleteAttribute
 deleteAuthenticate
 deleteBlob
-deleteBucket
 deleteBundle
 deleteCommentEntry
 deleteComponent
@@ -14767,7 +14766,6 @@ initMaildir
 initMvc
 initOptions
 initResourceLoader
-initRiak
 initView
 initialData
 initialize
@@ -17624,7 +17622,6 @@ rfcencoded
 rgb
 riIterator
 riak
-riak_config
 right
 rightChar
 rightHash
@@ -19763,7 +19760,6 @@ storageClient
 storageOffset
 store
 storeAssertion
-storeBucket
 storeContent
 storeInfo
 storeParams
@@ -20392,7 +20388,7 @@ triggerDigit
 triggerPos
 trns
 trnsData
-truncateBucket
+truncate
 truncateTables
 truncatedRequestUri
 trunced

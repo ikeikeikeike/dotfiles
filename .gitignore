@@ -54,4 +54,6 @@ migrations
 .emacs.d/backup
 .emacs.d/auto-save-list
 
+# my ignore
+bin/rsync*
 
