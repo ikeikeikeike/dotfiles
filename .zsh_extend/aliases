@@ -15,7 +15,7 @@ if [ $ARCHI = darwin ]; then
   alias mysql='mysql5'
 fi
 if [ $ARCHI = freebsd ]; then
-
+  alias ls='ls -FGh'
 fi
 if [ $ARCHI = linux ]; then
   alias ls='ls -Fh --color'

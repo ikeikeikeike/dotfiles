@@ -39,6 +39,8 @@ Bundle 'kana/vim-fakeclip'
 " color
 Bundle 'Color-Sampler-Pack'
 
+" sudo
+Bundle 'sudo.vim'
 
 " ~~~~~~~~~~~~
 " move
@@ -53,6 +55,9 @@ endif
 " languages
 " ~~~~~~~~~~~~
 " Bundle 'javascript.vim'
+" Bundle 'sql.vim'
+" Bundle 'SQLComplete.vim'
+Bundle 'sql.vim--Fishburn-syntax'
 
 " ~~~~~~~~~~~~
 " programings
@@ -113,7 +118,7 @@ if v:version > 700
   " session
   Bundle 'session.vim'
 endif
-
+" Bundle 'sessionman.vim'
 
 "----------------------------------------------------
 " 基本的な設定

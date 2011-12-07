@@ -39,6 +39,7 @@ export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
 
 # extra
 export PATH=$HOME/bin:$PATH
+export MANPATH=$HOME/share/man:$MANPATH
 
 if [ $ARCHI = darwin ]; then
   # encode
@@ -125,4 +126,5 @@ export PIP_RESPECT_VIRTUALENV=true
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 
-
+# mysettings
+source $HOME/.adds_zshenv 2> /dev/null

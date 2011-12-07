@@ -46,6 +46,7 @@ migrations
 .vim/vim_swap
 .vim/vim_session
 .vim/bundle
+.vim/sessions
 
 # emacs
 .emacs.d/ac-comphist.dat

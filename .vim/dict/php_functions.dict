@@ -2056,7 +2056,6 @@ GetY
 GlancePage
 GroupController
 GroupModel
-HOST
 Header
 Height
 HelpfulVotes
@@ -2129,7 +2128,7 @@ LW_START_DIR
 LW_TABLE_ADMIN
 LW_TABLE_ADMIN_LEVEL
 LW_TABLE_BANNAR_INTERVAL
-LW_TABLE_CHAT_
+LW_TABLE_CHAT
 LW_TABLE_CONFIG
 LW_TABLE_DEBUG
 LW_TABLE_DOCUMENT
@@ -2146,15 +2145,15 @@ LW_TABLE_INADEQUACY
 LW_TABLE_JOB
 LW_TABLE_JOGGROUP
 LW_TABLE_LOG
-LW_TABLE_LOGIN_LOG_
-LW_TABLE_LOGOUT_
+LW_TABLE_LOGIN_LOG
+LW_TABLE_LOGOUT
 LW_TABLE_LOG_TYPE
 LW_TABLE_MAIL_STACK
 LW_TABLE_MAX_COUNT
 LW_TABLE_MESSAGE_TEMPLATE
 LW_TABLE_POSTCODE
 LW_TABLE_PREF
-LW_TABLE_QUESTION_
+LW_TABLE_QUESTION
 LW_TABLE_ROOM
 LW_TABLE_ROOM_STATUS
 LW_TABLE_SERVER_MONITOR
@@ -2168,7 +2167,7 @@ LW_TABLE_SURVEY_CHOICES
 LW_TABLE_SURVEY_RESULT_
 LW_TABLE_TEACHER
 LW_TABLE_TEACHER_2_CLIENT
-LW_TABLE_USER_
+LW_TABLE_USER
 LW_TABLE_VDOC_LOG
 LW_TBL_ENQUETE
 LW_TBL_ENQUETE_CHOICE
@@ -2311,9 +2310,6 @@ Lw_Gigacast_Data_Xml
 Lw_Gigacast_ErrorCode
 Lw_Gigacast_Rere
 Lw_Gigacast_Rere_Interface
-Lw_Riak
-Lw_Riak_Exception
-Lw_Riak_Observer
 Lw_Serializer
 Lw_Serializer_Adapter_Xml
 Lw_Serializer_Exception
@@ -2438,7 +2434,6 @@ PLCDN_TEACHER
 PLCDN_TEACHER2CLIENT
 PLCDN_TEIKEI
 PLCDN_USER
-PORT
 PageBreakTrigger
 PageFormats
 PageLinks
@@ -2468,15 +2463,6 @@ Rect
 RefererUrl
 RemotingService_
 RemotingSubClass
-RiakBucket
-RiakClient
-RiakLink
-RiakLinkPhase
-RiakMapReduce
-RiakMapReducePhase
-RiakObject
-RiakStringIO
-RiakUtils
 RoleController
 RoleEntity
 RoleModel
@@ -2757,7 +2743,6 @@ UserModel
 V
 VDocLogController
 VDocLogModel
-VERBOSE
 VN
 W
 Width
@@ -6394,6 +6379,7 @@ _getAccountFilter
 _getAccountFilterFormat
 _getAllParams
 _getAllowEmptyPassword
+_getAnswers
 _getArrayName
 _getAssociation
 _getAtomType
@@ -7403,7 +7389,6 @@ _objectSize
 _objectStack
 _objects
 _obscureValue
-_observer
 _observers
 _occupation
 _octdec
@@ -9122,7 +9107,6 @@ addLexemeAction
 addLexemeChar
 addLexemeCharAction
 addLexemeModifier
-addLink
 addLinks
 addLogicalOperator
 addManifest
@@ -9146,7 +9130,6 @@ addNew
 addNorm
 addNumberLexeme
 addNumberLexemeAction
-addObserver
 addOnLoad
 addOr
 addOwnerToGroup
@@ -9259,11 +9242,8 @@ addWsseLoginHeader
 addWsseSecurityTokenHeader
 addWsseTokenHeader
 addYear
-add_bucket
-add_bucket_key_data
 add_date
 add_end_category
-add_object
 addchatAction
 adddocumentAction
 added
@@ -9312,6 +9292,7 @@ allIds
 allProhibited
 allQualified
 allStrings
+all_correct
 allocate
 allocatedColor
 allow
@@ -9357,9 +9338,11 @@ angle
 annotation
 annotationDictionary
 annots
+ans
 answer
-answer_ids
+answerType
 answer_type
+answers
 any
 apiFields
 apiKey
@@ -9415,7 +9398,6 @@ archive
 areAllSectionsLoaded
 area_id
 arg
-arg2
 argList
 argNames
 arg_list
@@ -9453,7 +9435,6 @@ arrayValue
 arrayValues
 array_dirlist
 array_empty_fill
-arrays
 artistGetRelatedArtists
 artistGetTopAlbums
 artistGetTopFans
@@ -9794,7 +9775,6 @@ browsor
 bt
 btn
 btwoc
-bucket
 buckets
 buf
 buf1
@@ -9813,7 +9793,6 @@ buildQuery
 buildQueryLimit
 buildQueryOrder
 buildRawSignature
-buildRestPath
 buildSqlexp
 buildTitles
 buildWhereCondition
@@ -10090,8 +10069,8 @@ childrenCount
 chkFlg
 chkvalue
 chmod
-choice_date
-choice_id
+choice
+choice_header
 choices
 choicesArray
 choicesData
@@ -10231,7 +10210,6 @@ clientScheme
 clientVersion
 client_id
 client_public
-clientid
 clink
 clipCircle
 clipEllipse
@@ -10572,6 +10550,9 @@ copyUploadedFile
 copyright
 coreProperties
 correct
+correctExists
+correctTotal
+correct_exists
 correction
 correlationId
 correlationName
@@ -11323,7 +11304,6 @@ dumpOutline
 duration
 during
 dvalid
-dw
 dx
 dynamic
 e
@@ -11335,7 +11315,10 @@ eTrace
 eachSize
 eachUsed
 earlyChange
+ec_arr
 ec_id
+ec_id_arr
+ec_id_csv
 echo
 echoData
 editAction
@@ -12035,6 +12018,7 @@ frandom
 free
 free_size
 free_space
+freeans
 freq
 freq1
 freq2
@@ -12210,7 +12194,6 @@ getAllQuery
 getAllow
 getAllowDomainList
 getAllowEmpty
-getAllowMultiples
 getAllowWhiteSpace
 getAlt
 getAlternateLink
@@ -12220,6 +12203,7 @@ getAmbiguityIdentity
 getAmfBodies
 getAmfHeaders
 getAnnotationLink
+getAnswers
 getApiConvertToFields
 getApiEntityParams
 getApiFields
@@ -12304,7 +12288,6 @@ getBe164
 getBeforeDate
 getBelongsTo
 getBillingType
-getBinary
 getBind
 getBio
 getBitDepth
@@ -12337,7 +12320,6 @@ getBottomRight
 getBoundUser
 getBq
 getBrowser
-getBucket
 getBuckets
 getBuffered
 getBuildPath
@@ -12422,7 +12404,6 @@ getClearRequestParams
 getClickSelect
 getClickableIncrement
 getClient
-getClientID
 getClientIp
 getClientLoginToken
 getClientName
@@ -12483,6 +12464,7 @@ getConfigurationForRoleInstance
 getConfigurationNamingContext
 getConfirmationMethod
 getConnection
+getConnectionArray
 getConnectionTimeA
 getConnectionTimeB
 getConstraint
@@ -12559,7 +12541,6 @@ getCustomByName
 getCustomMessages
 getCustomProperties
 getDOM
-getDW
 getData
 getDataChild
 getDataContainer
@@ -13378,7 +13359,6 @@ getMustContain
 getMvcEnabled
 getMvcInstance
 getMvcSuccessfulActionOnly
-getNVal
 getName
 getNamedDestination
 getNamedDestinations
@@ -13641,7 +13621,6 @@ getQuotaLevel
 getQuotaMax
 getQuoteIdentifierSymbol
 getQuoteStyle
-getR
 getRacy
 getRadius
 getRandomString
@@ -13851,9 +13830,6 @@ getShortName
 getShowButtons
 getShowCustomFormErrors
 getShowOrderImages
-getSibling
-getSiblingCount
-getSiblings
 getSignatureForEachMethod
 getSignatureForEachMethodByLooping
 getSignatureForEachMethodByMulticall
@@ -14219,7 +14195,6 @@ getVoiceCallQuotaInformation
 getVolumeEntry
 getVolumeFeed
 getVolumeId
-getW
 getWarekiDate
 getWatchOnMobileVideoFeed
 getWatchlist
@@ -14268,9 +14243,9 @@ getZfPath
 getZoomFactor
 get_http_response
 get_month_last_day
-get_value
 get_week_first_day
 get_week_last_day
+getanswersAction
 getchatlistAction
 getdetailAction
 getdocumentlistAction
@@ -14450,7 +14425,6 @@ hasResourceType
 hasRole
 hasRoute
 hasSerial
-hasSiblings
 hasSingleNormFile
 hasStyleSheet
 hasSubscription
@@ -14610,12 +14584,10 @@ httpCodeSent
 httpData
 httpGetData
 httpMethod
-httpRequest
 httpResponse
 httpStatus
 httpVerb
 httpVersion
-http_code
 http_metod
 http_ver
 httpcharsets
@@ -14789,8 +14761,6 @@ inputHandler
 inputRequest
 inputResponse
 inputStream
-input_mode
-inputs
 inputsType
 ins
 insert
@@ -14870,7 +14840,6 @@ isActive
 isAdded
 isAdobeLatinSubset
 isAjaxRequest
-isAlive
 isAllowed
 isApcAvailable
 isAppendable
@@ -14913,7 +14882,6 @@ isEarlier
 isEmbeddable
 isEmpty
 isEnabled
-isEqual
 isError
 isErrors
 isException
@@ -15075,7 +15043,6 @@ isYesterday
 isZendTraversed
 isZero
 is_dumped
-is_equal
 is_hash
 isbn10
 isbn13
@@ -15122,7 +15089,6 @@ jjjj
 jjjjj
 jjjjjj
 jjjjjjj
-job
 jobId
 jobs
 join
@@ -15155,7 +15121,6 @@ json
 jsonArray
 jsonHelper
 jsonStringOutput
-jsonize
 judgement
 jump
 just_name
@@ -15163,10 +15128,8 @@ k
 k_ipad
 k_opad
 ka
-keep
 keepAlive
 keepLayouts
-keep_flag
 key
 keyBase
 keyCipherValueBase64Decoded
@@ -15244,7 +15207,6 @@ lastGetQueueDate
 lastId
 lastIndex
 lastInsertId
-lastIsLink
 lastKey
 lastLength
 lastLine
@@ -15354,8 +15316,6 @@ lines
 link
 link1
 link2
-linkHeader
-linkHeaders
 linkNodes
 linkText
 link_url
@@ -15631,7 +15591,6 @@ map
 map2
 mapped
 mappedName
-mapred_prefix
 margin
 margine
 markAsError
@@ -15706,6 +15665,7 @@ maxTerms
 maxUserQuota
 maxWait
 maxWeight
+max_choice_count
 max_count
 max_depth
 max_messages
@@ -15887,7 +15847,6 @@ moveToSubtree
 movies
 mp
 mqr
-mr
 ms
 msg
 msgLen
@@ -15974,7 +15933,6 @@ new
 newAdapter
 newArray
 newBaseAttribute
-newBinary
 newBody
 newByte
 newCall
@@ -16051,7 +16009,6 @@ newbind
 newcolor
 newdir
 newitem
-newlink
 newpath
 newrow
 newsSearch
@@ -16182,7 +16139,6 @@ numQueries
 numRoutes
 numRows
 num_count
-num_phases
 num_rows
 number
 numberHMetrics
@@ -16205,7 +16161,6 @@ obStartLevel
 obStarted
 obj
 obj2
-obj3
 objKeyword
 objNum
 objValue
@@ -16218,7 +16173,6 @@ objectEncoding
 objectOffset
 objects
 observeCheckBox_
-observer
 obtainOptimizationLock
 obtainReadLock
 obtainWriteLock
@@ -16270,7 +16224,6 @@ old_file
 old_log
 old_tags
 olddir
-oldlink
 oldzone
 omitAttribs
 omitChecksum
@@ -16537,7 +16490,6 @@ parms
 parray
 parse
 parseFormUploadTokenResponse
-parseHttpHeaders
 parseIntFromStream
 parseQueryString
 parseRequest
@@ -16549,7 +16501,6 @@ parsedDocComment
 parsedPermissionUrl
 parsedPermittedUrl
 parsedRequestUrl
-parsed_headers
 parser
 parserClass
 part
@@ -16641,7 +16592,6 @@ ph3
 ph4
 phase
 phaseEleemnt
-phases
 photoid
 photos
 phpArray
@@ -16715,7 +16665,6 @@ poolSize
 pop
 popStack
 populate
-populateLinks
 port
 portOperation
 portType
@@ -17160,7 +17109,6 @@ redirectAndExit
 redirectCounter
 redirectUrl
 redirector
-reduce
 ref
 refCol
 refColumn
@@ -17297,7 +17245,6 @@ removeHelper
 removeHubUrl
 removeItem
 removeLayer
-removeLink
 removeMarkup
 removeMemberFromGroup
 removeMessage
@@ -17418,7 +17365,6 @@ requestParams
 requestScheme
 requestUri
 requestUrl
-request_headers
 request_keys
 request_uri
 requireModule
@@ -17501,11 +17447,7 @@ responseType
 responseURI
 responseUri
 responseXml
-response_body
-response_body_io
 response_code
-response_headers
-response_headers_io
 responses
 rest
 restClient
@@ -17598,6 +17540,8 @@ returnTree
 returnType
 returnUserIds
 returnValue
+return_choices
+return_vals
 returned
 returnedEntry
 returns
@@ -17621,7 +17565,6 @@ rfc3339
 rfcencoded
 rgb
 riIterator
-riak
 right
 rightChar
 rightHash
@@ -17803,6 +17746,7 @@ searchGetvDocLog
 searchIndex
 searchParameters
 searchParams
+searchPerUser
 searchProperties
 searchPropertyName
 searchRelChapter
@@ -18009,7 +17953,6 @@ setAlign
 setAllow
 setAllowArbitraryAttributes
 setAllowEmpty
-setAllowMultiples
 setAllowWhiteSpace
 setAlnum
 setAlpha
@@ -18109,7 +18052,6 @@ setBottomDecorationLabels
 setBottomDecorationParams
 setBottomEdge
 setBq
-setBucket
 setBuffered
 setBvbParam
 setBvbParams
@@ -18179,7 +18121,6 @@ setClearRequestParams
 setClickSelect
 setClickableIncrement
 setClient
-setClientID
 setClientLoginToken
 setClientName
 setClientReference
@@ -18262,7 +18203,6 @@ setCurrentBatch
 setCurrentPageNumber
 setCustom
 setDOM
-setDW
 setData
 setDatatype
 setDate
@@ -18875,7 +18815,6 @@ setMultiOptions
 setMultiple
 setMusic
 setMvcSuccessfulActionOnly
-setNVal
 setName
 setNamedDestination
 setNamespace
@@ -19044,7 +18983,6 @@ setQuota
 setQuotaMax
 setQuoteIdentifierSymbol
 setQuoteStyle
-setR
 setRacy
 setRadius
 setRandomName
@@ -19439,7 +19377,6 @@ setVisibility
 setVisible
 setVisibleIncrement
 setVisibleRange
-setW
 setWebContent
 setWebmaster
 setWeek
@@ -19516,7 +19453,6 @@ showUnfinished
 showVersion
 showsForm
 shutdown
-siblings
 sidx
 sigCalled
 sigLength
@@ -19744,7 +19680,6 @@ stdin
 stdout
 stemv
 step
-stepdef
 steps
 stiFile
 stiFileData
@@ -19962,9 +19897,13 @@ suppressExit
 suppressNotFoundWarnings
 suppressQueryParsingExceptions
 survey
+surveyCSV
 surveyId
 surveyMaster
+surveyMasterID
+survey_detail
 survey_id
+surveycsvAction
 surveys
 suspendUser
 swf_dir
@@ -20152,33 +20091,12 @@ testAppControllerDirectoryResource
 testAppControllerFileResource
 testAppDirectoryResource
 testAttrib
-testBinaryStoreAndGet
 testClass
 testControllerResource
-testDelete
-testErlangMapReduce
 testFormResource
-testIsAlive
-testJavascriptArgMapReduce
-testJavascriptBucketMapReduce
-testJavascriptNamedMap
-testJavascriptNamedMapReduce
-testJavascriptSourceMap
-testJavascriptSourceMapReduce
 testLibraryDirectoryResource
 testLibraryResource
-testLinkWalking
-testMapReduceFromObject
-testMissingObject
 testModelResource
-testSetBucketProperties
-testSiblings
-testStoreAndGet
-testStoreAndGetLinks
-test_assert
-test_pass
-test_summary
-test_total
 test_url
 testingEnabled
 testsDirectory
@@ -20287,7 +20205,6 @@ toHeader
 toInteger
 toJson
 toLdif
-toLinkHeader
 toNumber
 toPhp
 toQueryString
@@ -20303,7 +20220,6 @@ toUnicode
 toValue
 toXML
 toXml
-to_array
 to_docs
 tocheck
 today
@@ -20388,7 +20304,6 @@ triggerDigit
 triggerPos
 trns
 trnsData
-truncate
 truncateTables
 truncatedRequestUri
 trunced
@@ -20600,7 +20515,9 @@ useUri
 used
 user
 userAgent
+userAnswerCsv
 userConfig
+userCount
 userData
 userFollowers
 userFriends
@@ -20724,7 +20641,6 @@ varidatorSize
 varidatorUploadError
 vars
 vc
-vclock
 vdoclog
 vector
 vendorID
@@ -20777,7 +20693,6 @@ vos
 vowel
 vowels
 vrfy
-vtag
 w
 wPt
 wantedPart

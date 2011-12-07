@@ -135,3 +135,8 @@ function extract (){
 # bindkey '^;' zaw
 # bindkey '^R' zaw-history
 
+
+# zmv command - http://d.hatena.ne.jp/mollifier/20101227/p1
+autoload -Uz zmv
+alias zmv='noglob zmv -W'
+
