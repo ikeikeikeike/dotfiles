@@ -82,7 +82,7 @@ if v:version > 700
   Bundle 'majutsushi/tagbar'
 endif
 " 保存前差分 表示
-Bundle 'Changed'
+" Bundle 'Changed'
 " vim search auto complete
 Bundle 'SearchComplete'
 " support input
@@ -100,6 +100,8 @@ Bundle 'php-doc'
 Bundle 'pyflakes.vim'
 Bundle 'pep8'
 Bundle 'amitdev/vimpy'
+" Bundle 'project.tar.gz'
+
 
 " Bundle 'vim-ipython'
 
@@ -126,15 +128,26 @@ endif
 
 "カラースキーマを設定
 colorscheme desert
+" set background=light      " 背景色の傾向(カラースキーマがそれに併せて色の明暗を変えてくれる)
+
 
 " ビープ音を鳴らさない
 set vb t_vb=
+
+" File ---------------------------------
+set autoread        " 更新時自動再読込み
+set hidden          " 編集中でも他のファイルを開けるようにする
+
 
 " バックスペースキーで削除できるものを指定
 " indent  : 行頭の空白
 " eol     : 改行
 " start   : 挿入モード開始位置より手前の文字
 set backspace=indent,eol,start
+set formatoptions=lmoq      " 整形オプション，マルチバイト系を追加
+set whichwrap=b,s,h,s,<,>,[,]   " カーソルを行頭、行末で止まらないようにする
+"set clipboard=unnamed,autoselect   " バッファにクリップボードを利用する
+
 
 " " タブページを常に表示
 " set showtabline=2
@@ -174,15 +187,15 @@ set wildmenu " 補完候補を表示する
 
 set history=1000 " コマンド・検索パターンの履歴数
 
-"set number "行番号表示
+set number " 行番号表示
 
-set showmode "モード表示
+set showmode " モード表示
 
-set title "編集中のファイル名を表示
+set title " 編集中のファイル名を表示
 
-set ruler "ルーラーの表示
+set ruler " ルーラーの表示
 
-set showcmd "入力中のコマンドをステータスに表示する
+set showcmd " 入力中のコマンドをステータスに表示する
 
 set showmatch   " ()や{}の対応関係をハイライトする
 "set noshowmatch " ()や{}の対応関係をハイライトしない
@@ -241,7 +254,7 @@ set expandtab    "タブの代わりに空白文字挿入
 
 "set noexpandtab " タブはタブのまま
 
-set ts=2 sw=2 sts=0 "タブは半角2文字分のスペース
+set ts=2 sw=2 sts=0 " タブは半角2文字分のスペース
 
 " softtabstopはTabキー押し下げ時の挿入される空白の量，0の場合はtabstopと同じ，BSにも影響する
 set tabstop=2 shiftwidth=2 softtabstop=0
@@ -271,9 +284,25 @@ setlocal omnifunc=syntaxcomplete#Complete
 
 " autocmd settings
 if has("autocmd")
-  "ファイルタイプの検索を有効にする
+
+  " set filetype
+  autocmd BufNewFile,BufRead *.wsgi set filetype=python
+  autocmd BufNewFile,BufRead *.vimrc set filetype=vim
+  autocmd BufNewFile,BufRead *.vimperatorrc set filetype=vim
+  autocmd BufNewFile,BufRead *.vrapperrc set filetype=vim
+  autocmd BufNewFile,BufRead *.go set filetype=go
+
+  " Enable omni completion.
+  autocmd FileType eruby,html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType ruby setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
+  " ファイルタイプの検索を有効にする
   filetype plugin on
-  "そのファイルタイプにあわせたインデントを利用する
+  " そのファイルタイプにあわせたインデントを利用する
   filetype indent on
   " これらのftではインデントを無効に
   "autocmd FileType php filetype indent off
@@ -281,13 +310,14 @@ if has("autocmd")
   autocmd FileType html :set indentexpr=
   autocmd FileType xhtml :set indentexpr=
 
-  " php, python, ruby, any function
   " ファイルタイプごとに辞書ファイルを指定
-  autocmd FileType vim :set dictionary+=~/.vim/dict/vim_functions.dict
-  autocmd FileType php :set dictionary+=~/.vim/dict/php_functions.dict
+  autocmd FileType vim :set dictionary+=~/.vim/dict/vim.dict
+  autocmd FileType php :set dictionary+=~/.vim/dict/php.dict
+
+  " pydiction.vim
   autocmd FileType python let g:pydiction_location = '~/.vim/dict/pydiction/complete-dict'
 
-  "辞書ファイルを使用する設定に変更
+  " 辞書ファイルを使用する設定に変更
   set complete+=k
 
   " php syntax
@@ -303,16 +333,16 @@ endif
 
 " #######################
 
-set ignorecase "検索文字列が小文字の場合は大文字小文字を区別なく検索する
+set ignorecase " 検索文字列が小文字の場合は大文字小文字を区別なく検索する
 
-set smartcase "検索文字列に大文字が含まれている場合は区別して検索する
+set smartcase " 検索文字列に大文字が含まれている場合は区別して検索する
 
-set wrapscan "検索時に最後まで行ったら最初に戻る
+set wrapscan " 検索時に最後まで行ったら最初に戻る
 
-set noincsearch "検索文字列入力時に順次対象文字列にヒットさせない
+set noincsearch " 検索文字列入力時に順次対象文字列にヒットさせない
 
-"set nohlsearch "検索結果文字列の非ハイライト表示
-set hlsearch "検索結果文字列のハイライトを有効にする
+"set nohlsearch " 検索結果文字列の非ハイライト表示
+set hlsearch " 検索結果文字列のハイライトを有効にする
 
 " ハイライト消去
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
@@ -362,7 +392,7 @@ set splitright
 "set writebackup
 " バックアップをとる場合
 set backup
-"" バックアップをとらない
+" バックアップをとらない
 "set nobackup
 
 " バックアップファイルを作るディレクトリ
@@ -376,9 +406,11 @@ set backupext=.bak
 "set patchmode=.orig
 
 "set encoding=utf8 "menu encoding...
+set fileformats=unix,dos,mac
 set fileencoding=utf8
-:set encoding=utf-8
-:set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+set fileformats=unix,dos,mac
+
 
 " 文字コードの自動認識
 if has('iconv')
@@ -443,7 +475,7 @@ endif
 " ######################################
 let g:NERDCreateDefaultMappings = 0
 let NERDSpaceDelims = 1
-"未対応ファイルタイプのエラーメッセージを表示しない
+" 未対応ファイルタイプのエラーメッセージを表示しない
 let NERDShutUp=1
 nmap <Leader>/ <Plug>NERDCommenterToggle
 vmap <Leader>/ <Plug>NERDCommenterToggle
@@ -522,8 +554,8 @@ endif
 " ######################################
 if v:version > 700
   " file search
-  nnoremap <silent> <C-f> :<C-u>FufFile<CR>
-  inoremap <silent> <C-f> <ESC>:<C-u>FufFile<CR>
+  nnoremap <silent> <C-f> :<C-u>FufFile **<CR>
+  inoremap <silent> <C-f> <ESC>:<C-u>FufFile  **<CR>
   " tag search
   nnoremap <silent> <C-e> :<C-u>FufTag<CR>
   inoremap <silent> <C-e> <ESC>:<C-u>FufTag<CR>
@@ -536,6 +568,7 @@ endif
 
 " ######################################
 if v:version > 700
+
   " 自動で補完候補をポップアップ
   let g:neocomplcache_enable_at_startup = 1
   " 大文字が入力されるまで大文字小文字の区別を無視
@@ -546,6 +579,7 @@ if v:version > 700
   let g:neocomplcache_min_syntax_length = 3
   " C-j snippet
   imap <C-j> <Plug>(neocomplcache_snippets_expand)
+
   " SuperTab like snippets behavior. TABでスニペットを展開
   " imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
   " :NeoComplCacheEditSnippets [filetype]
@@ -557,6 +591,22 @@ if v:version > 700
   let g:neocomplcache_snippets_dir = '~/.vim/snippets'
   " key map
   nnoremap <silent> <Space>es  :<C-u>NeoComplCacheEditSnippets
+
+  " " Define dictionary.
+  let g:neocomplcache_dictionary_filetype_lists = {
+        \'default' : '',
+        \ 'java' : $HOME.'/.vim/dict/java.dict',
+        \ 'cpp' : $HOME.'/.vim/dict/cpp.dict',
+        \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
+        \ 'css' : $HOME.'/.vim/dict/css.dict',
+        \ 'ocaml' : $HOME.'/.vim/dict/ocaml.dict',
+        \ 'perl' : $HOME.'/.vim/dict/perl.dict',
+        \ 'php' : $HOME.'/.vim/dict/php.dict',
+        \ 'ruby' : $HOME.'/.vim/dict/ruby.dict',
+        \ 'python' : $HOME.'/.vim/dict/python.dict',
+        \ 'vim' : $HOME.'/.vim/dict/vim.dict'
+        \ }
+
 endif
 
 " ######################################
@@ -678,6 +728,9 @@ let g:echodoc_enable_at_startup = 1
 " nmap <Leader><F8> :SrcExplToggle<CR>
 
 
+" xdebug
+let g:debuggerMaxDepth = 10
+
 
 " ----------------------------------------------------------------------
 
@@ -693,9 +746,9 @@ let g:echodoc_enable_at_startup = 1
 let g:pep8_map='<leader>8'
 
 " complete with document
- au FileType python set omnifunc=pythoncomplete#Complete
- let g:SuperTabDefaultCompletionType = "context"
- set completeopt=menuone,longest,preview
+au FileType python set omnifunc=pythoncomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+set completeopt=menuone,longest,preview
 
 " TaskList
 map <Leader>T :TaskList<CR>
@@ -725,10 +778,28 @@ if 'VIRTUAL_ENV' in os.environ:
     execfile(activate_this, dict(__file__=activate_this))
 EOF
 
-" ----------------------------------------------------------------------
+" ######################################
 
-" php xdebug
+" project.vim
 
-" ----------------------------------------------------------------------
-let g:debuggerMaxDepth = 10
+" ######################################
+" python django, https://code.djangoproject.com/wiki/UsingVimWithDjango
+" Django Project=/Users/ikeda/.virtualenvs/mw_py27/backend/ CD=. filter="[^_]*.py" {
+ " settings.py
+ " urls.py
+ " apps=apps {
+  " Polls=polls {
+   " views.py
+   " models.py
+  " }
+  " ToDo=todo {
+   " views.py
+   " models.py
+  " }
+ " media=mediaDir {
+  " images=imagesDir {
+  " }
+ " }
+" }
+
 

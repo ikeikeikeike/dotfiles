@@ -57,7 +57,7 @@ def main(path=""):
     """
     rm_tags('./tags')
 
-    exclude_option = ("--languages=python "
+    exclude_option = ("--languages=python --python-kinds=-i-v "
             "--exclude=test_* "
             "--exclude=tests.py "
             "--exclude=test.py "
@@ -69,8 +69,8 @@ def main(path=""):
             "--exclude=*/tests/*")
     run_command("ctags -R    %s %s" % (exclude_option, get_args()))
     # run_command("ctags -R -a %s %s" % (exclude_option, os.path.join(get_python_lib(), "../")))
-    run_command("ctags -R -a --languages=python ~/.virtualenvs/__builtin__27/builtins/__builtin__.py")
-    run_command("ctags -R -a --languages=python ~/.virtualenvs/__builtin__27/builtins/__builtin_exceptions__.py")
+    run_command("ctags -R -a --languages=python --python-kinds=-i-v ~/.virtualenvs/__builtin__27/builtins/__builtin__.py")
+    run_command("ctags -R -a --languages=python --python-kinds=-i-v ~/.virtualenvs/__builtin__27/builtins/__builtin_exceptions__.py")
 
     if path:
         run_command("ctags -R -a %s %s" % (exclude_option, path))

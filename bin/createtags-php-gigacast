@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+cd /var/www/php/gc/php/source/libraries
+createtags-php .
+
+cd /var/www/php/gc/php/source/chat_server
+createtags-php .
+
+cd /var/www/php/gc/php/source/master_server
+createtags-php .
+

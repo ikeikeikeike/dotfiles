@@ -2003,6 +2003,7 @@ CustomerId
 CustomerReviews
 DS
 Date
+DbConnect
 DefOrientation
 DefPageFormat
 Default_ErrorController
@@ -2114,6 +2115,7 @@ LW_MASTER_FTP_USER
 LW_MASTER_GIGACAST_HOME_DIR
 LW_MASTER_SERVER_HOST
 LW_MODULE_HTTPS
+LW_MySQL_ADAPTER
 LW_MySQL_DB
 LW_MySQL_HOST
 LW_MySQL_PASSWD
@@ -5068,6 +5070,9 @@ __isset
 __sequence_time
 __sequence_xml
 __set
+__setClassOptions
+__setConfigs
+__setConfigsOptions
 __setJoinTable__
 __sleep
 __strage_instance
@@ -5558,12 +5563,15 @@ _classReflection
 _classResources
 _classRowCondition
 _classRowConditionResult
+_class_options
+_class_options_init
 _classes
 _classesToLoad
 _classmap
 _classname
 _classpath
 _clean
+_cleanConfigs
 _cleanData
 _cleanDocComment
 _cleanMagicQuotesInValues
@@ -5644,6 +5652,10 @@ _config
 _configCallbacks
 _configFilepath
 _configOptions
+_configs
+_configs_init
+_configs_options
+_configs_options_init
 _configureViaDSN
 _conjunctionScore
 _conjunctions
@@ -11168,6 +11180,8 @@ dname
 doAction
 doChangeStatus
 doDeleteDocuments
+doGetList
+doGetStatusMonitor
 doGetinit
 doGetpushServerInit
 doLogin
@@ -11391,6 +11405,7 @@ enableTranslation
 enableView
 enable_action
 enabled
+enabledAutoloader
 enabledFilter
 enabled_flg
 enc
@@ -13909,6 +13924,7 @@ getStatusCode
 getStatusDescription
 getStatusList
 getStatusMessage
+getStatusMonitor
 getStdin
 getStopper
 getStorage
@@ -14309,7 +14325,6 @@ groupGetWeeklyAlbumChartList
 groupGetWeeklyArtistChartList
 groupGetWeeklyChartList
 groupGetWeeklyTrackChartList
-groupID
 groupId
 groupList
 groupName
@@ -15460,7 +15475,6 @@ lwDebugView
 lwDelhyphen
 lwDelspace
 lwDuplicateCheck
-lwErrorShutdown
 lwFRreplace
 lwFileDumper
 lwGeneral
@@ -17541,6 +17555,7 @@ returnType
 returnUserIds
 returnValue
 return_choices
+return_type
 return_vals
 returned
 returnedEntry
@@ -19484,6 +19499,7 @@ simply
 sin
 singleInstance
 singleRequest
+singleton
 singular
 singularType
 singulartype
@@ -20033,6 +20049,7 @@ tempLimit
 tempLine
 tempOffset
 tempOrder
+tempPass
 tempPrimaryKey
 tempTable
 tempWhere

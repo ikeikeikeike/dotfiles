@@ -13,11 +13,11 @@ pip install distribute
 # ipython
 #pip install ipython
 
-# debug
-pip install pudb debug ipdb djang-pudebug
-
 # django
 # pip install django
+
+# debug
+pip install pudb debug ipdb django-pudebug
 
 # image library
 pip install PIL
@@ -38,3 +38,5 @@ pip install Werkzeug
 
 # peformance, analysis
 pip install pyflakes pep8 reimport pylint clonedigger
+
+

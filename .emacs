@@ -10,32 +10,32 @@
 ;; load-pathを追加
 (setq load-path (append
                  '("/Applications/Emacs.app/Contents/Resources/site-lisp"
-		   "/Applications/MacPorts/Emacs.app/Contents/Resources/site-lisp"
-		   "~/.emacs.d/elisp"
-		   "~/.emacs.d/auto-install"
-		   "~/.emacs.d/init"
-		   "~/.emacs.d/navi2ch"
-		   "~/.emacs.d/haskell-mode-2.8.0"
-		   "~/.emacs.d/geben"
-		   "/opt/local/share/emacs/site-lisp"
-		   "/opt/local/share/emacs/site-lisp/howm"
-		   "/usr/local/Cellar/erlang/R14B03/lib/erlang/lib/tools-2.6.6.4/emacs"
-		   )
+       "/Applications/MacPorts/Emacs.app/Contents/Resources/site-lisp"
+       "~/.emacs.d/elisp"
+       "~/.emacs.d/auto-install"
+       "~/.emacs.d/init"
+       "~/.emacs.d/navi2ch"
+       "~/.emacs.d/haskell-mode-2.8.0"
+       "~/.emacs.d/geben"
+       "/opt/local/share/emacs/site-lisp"
+       "/opt/local/share/emacs/site-lisp/howm"
+       "/usr/local/Cellar/erlang/R14B03/lib/erlang/lib/tools-2.6.6.4/emacs"
+       )
                  load-path))
 
 (setq exec-path (append
                  '("/opt/local/bin"
-		   "/opt/local/sbin"
+       "/opt/local/sbin"
                    "/usr/bin"
-		   "/bin"
+       "/bin"
                    "/usr/sbin"
-		   "/sbin"
-		   "/usr/local/bin"
-		   "/usr/local/sbin"
+       "/sbin"
+       "/usr/local/bin"
+       "/usr/local/sbin"
                    "/usr/X11/bin"
-		   "/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin"
-		   "/usr/local/Cellar/erlang/R14B03/bin"
-		   )
+       "/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin"
+       "/usr/local/Cellar/erlang/R14B03/bin"
+       )
                  exec-path))
 
 ;; 言語を日本語にする
@@ -274,13 +274,13 @@
 
 
 ;; erlang mode
-(setq erlang-root-dir "/usr/local/Cellar/erlang/R14B03")
-(require 'erlang-start)
-(add-hook 'erlang-mode-hook 'auto-complete-mode)
-             (when (require 'auto-complete nil t)
-;;               (make-variable-buffer-local 'ac-sources)
-;;               (add-to-list 'ac-sources 'ac-source-php-completion)
-               (auto-complete-mode t))
+; (setq erlang-root-dir "/usr/local/Cellar/erlang/R14B04")
+; (require 'erlang-start)
+; (add-hook 'erlang-mode-hook 'auto-complete-mode)
+             ; (when (require 'auto-complete nil t)
+; ;;               (make-variable-buffer-local 'ac-sources)
+; ;;               (add-to-list 'ac-sources 'ac-source-php-completion)
+               ; (auto-complete-mode t))
 
 
 ;; haskell-mode

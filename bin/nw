@@ -19,3 +19,4 @@ case "$@" in
 esac
 
 tmux rename-window "`basename $@`"
+
