@@ -556,6 +556,8 @@ if v:version > 700
   " file search
   nnoremap <silent> <C-f> :<C-u>FufFile **<CR>
   inoremap <silent> <C-f> <ESC>:<C-u>FufFile  **<CR>
+  nnoremap <silent> <Leader>f :<C-u>FufFile $VIRTUAL_ENV_PYTHON_LIB/python*/site-packages/**<CR>
+  inoremap <silent> <Leader>f <ESC>:<C-u>FufFile $VIRTUAL_ENV_PYTHON_LIB/python*/site-packages/**<CR>
   " tag search
   nnoremap <silent> <C-e> :<C-u>FufTag<CR>
   inoremap <silent> <C-e> <ESC>:<C-u>FufTag<CR>
@@ -741,6 +743,8 @@ let g:debuggerMaxDepth = 10
 
 " pyflakes
 "let g:pyflakes_use_quickfix=0
+highlight SpellBad ctermbg=darkred
+
 
 " pep8
 let g:pep8_map='<leader>8'
@@ -777,6 +781,38 @@ if 'VIRTUAL_ENV' in os.environ:
     activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
     execfile(activate_this, dict(__file__=activate_this))
 EOF
+
+
+" function GetSitePackages()
+  " let path = ""
+  " python << EOM
+" """
+" virtualenv path
+" """
+" import os
+" import sys
+" import commands
+" from distutils.sysconfig import get_python_lib
+
+" def get_virtualenv_python_lib():
+    " """like a get_python_lib()"""
+    " #if isinstance(sys.version_info, tuple):
+    " #  version = "%s.%s" % (sys.version_info[0], sys.version_info[1])
+    " #else:
+    " #  version = "%s.%s" % (sys.version_info.major, sys.version_info.minor)
+    " v = commands.getoutput('%s/bin/python -V' % os.environ["VIRTUAL_ENV"])
+    " v = v.split()[1].split('.')
+    " version = "%s.%s" % (v[0], v[1])
+    " return "%s/lib/python%s/site-packages" % (os.environ["VIRTUAL_ENV"], version)
+
+" vim.command('let path = "%s"' % get_virtualenv_python_lib())
+" commands.getoutput('export get_virtualenv_python_lib=%s' % get_virtualenv_python_lib())
+" EOM
+  " return path
+" endfunction
+
+" call GetSitePackages()
+
 
 " ######################################
 

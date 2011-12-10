@@ -125,6 +125,7 @@ export PIP_RESPECT_VIRTUALENV=true
 # Tell pip to create its virtualenvs in $WORKON_HOME.
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PYTHONSTARTUP=$HOME/.pythonrc.py
+export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 
 # mysettings
 source $HOME/.adds_zshenv 2> /dev/null
