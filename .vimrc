@@ -87,6 +87,8 @@ endif
 Bundle 'SearchComplete'
 " support input
 " Bundle 'kana/vim-smartchr'
+" tree view
+Bundle "scrooloose/nerdtree"
 
 " ##############
 " help, doc
@@ -159,6 +161,35 @@ set whichwrap=b,s,h,s,<,>,[,]   " カーソルを行頭、行末で止まらな�
 " --------------------
 nnoremap <leader>ccc :<C-u>cclose<CR>
 nnoremap <leader>cco :<C-u>copen<CR>
+
+" --------------------
+" move
+" --------------------
+" jkを直感的に
+nnoremap <silent> j gj
+nnoremap <silent> gj j
+nnoremap <silent> k gk
+nnoremap <silent> gk k
+nnoremap <silent> $ g$
+nnoremap <silent> g$ $
+vnoremap <silent> j gj
+vnoremap <silent> gj j
+vnoremap <silent> k gk
+vnoremap <silent> gk k
+vnoremap <silent> $ g$
+vnoremap <silent> g$ $
+
+
+" --------------------
+" color
+" --------------------
+" 256色モード
+" if stridx($TERM, "xterm-256color") >= 0
+  " set t_Co=256
+" else
+  " set t_Co=16
+" endif
+
 
 "#######################
 

@@ -8,10 +8,12 @@
 "setlocal number
 setlocal softtabstop=4
 setlocal shiftwidth=4
-setlocal textwidth=100
+setlocal textwidth=90
+setlocal colorcolumn=89
 setlocal smarttab
 setlocal expandtab
 setlocal nosmartindent
+
 set list
 " set listchars=tab:>-,extends:<,trail:-,eol:<
 set listchars=tab:>-,extends:<,trail:-

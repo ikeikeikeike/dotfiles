@@ -2170,12 +2170,16 @@ LW_TABLE_SURVEY_RESULT_
 LW_TABLE_TEACHER
 LW_TABLE_TEACHER_2_CLIENT
 LW_TABLE_USER
+LW_TABLE_USER_ACCESS_LOG
+LW_TABLE_USER_STATUS
 LW_TABLE_VDOC_LOG
 LW_TBL_ENQUETE
 LW_TBL_ENQUETE_CHOICE
 LW_TBL_ENQUETE_RESULT
 LW_TBL_ENQUETE_TEMPLATE
 LW_TBL_ENQUETE_TEMPLATE_CHOICE
+LW_TBL_USER_ACCESS_LOG
+LW_TBL_USER_STATUS
 LW_TMP_DIR
 LW_URL_SUFFIX
 Language
@@ -6471,6 +6475,7 @@ _getJQueryUiLibraryPath
 _getKeyIdentifier
 _getLetter
 _getLifetime
+_getList
 _getLocalRelativePath
 _getLocalizedQuestion
 _getLocalizedToken
@@ -6547,6 +6552,7 @@ _getSlideShowsByType
 _getSmdMethods
 _getSoap
 _getStackTrace
+_getStatusMonitor
 _getStorageClient
 _getStrippedXsdType
 _getTable
@@ -10003,6 +10009,7 @@ charset
 charsets
 chatData
 chatDirector
+chatText
 chat_enabled
 chats
 chdir
@@ -11180,8 +11187,6 @@ dname
 doAction
 doChangeStatus
 doDeleteDocuments
-doGetList
-doGetStatusMonitor
 doGetinit
 doGetpushServerInit
 doLogin
@@ -13153,6 +13158,7 @@ getLastBuildDate
 getLastError
 getLastErrorCode
 getLastFreeObject
+getLastID
 getLastLog
 getLastMethod
 getLastName
@@ -14790,6 +14796,7 @@ insertEntry
 insertEvent
 insertGbaseItem
 insertGroup
+insertID
 insertMember
 insertNickname
 insertOwner
@@ -15780,6 +15787,7 @@ mid
 midTerm
 middleCharacter
 milli
+milliTs
 millisec
 mime
 mimeEnd
@@ -15826,6 +15834,7 @@ modifiedDate
 modifiers
 modifiersString
 modifyAttribute
+modifyChatText
 module
 moduleBootstrap
 moduleContextFilterIterator
