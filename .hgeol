@@ -1,0 +1,8 @@
+[patterns]
+**.java = LF
+**.jsp = LF
+**.tag = LF
+**.xml = LF
+**.py = LF
+**.ini = LF
+

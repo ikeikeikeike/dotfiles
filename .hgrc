@@ -3,8 +3,8 @@ username=ikeikeikeike <jp.ne.co.jp@gmail.com>
 merge=internal:merge
 ssh=ssh -C
 editor=vim '+set filetype=hg-commit'
+ignore=~/.hgignore_global
 
-ignore=/Users/ikeda/.hgignore_global
 [extensions]
 hgext.mq=
 hgext.convert=
@@ -12,6 +12,10 @@ color=
 graphlog=
 rebase=
 hgext.extdiff=
+info=~/bin/info.py
+flow=~/bin/hgflow.py
+eol=
+fetch =
 
 [alias]
 glog=glog --color=always
@@ -23,6 +27,7 @@ mode=ansi
 
 [hooks]
 update.clean=find . -name \*.pyc -or -name \*.orig | xargs rm -f
+
 [merge-tools]
 sourcetreemerge.gui=False
 sourcetreebulkmerge.gui=False
@@ -47,3 +52,5 @@ cmd.sourcetreediff=opendiff
 opts.sourcetreediff=
 cmd.p4diff=p4merge
 opts.p4diff=
+
+

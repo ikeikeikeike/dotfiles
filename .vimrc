@@ -131,6 +131,8 @@ endif
 "カラースキーマを設定
 colorscheme desert
 " set background=light      " 背景色の傾向(カラースキーマがそれに併せて色の明暗を変えてくれる)
+" set background=dark
+
 
 
 " ビープ音を鳴らさない
@@ -299,7 +301,7 @@ if has('autocmd')
 endif
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
-" □とか○の文字があってもカーソル位置がずれないようにする
+" □ とか○ の文字があってもカーソル位置がずれないようにする
 if exists('&ambiwidth')
   set ambiwidth=double
 endif
