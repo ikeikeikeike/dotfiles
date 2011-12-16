@@ -99,7 +99,9 @@ Bundle 'Python-Documentation'
 Bundle 'php-doc'
 
 " python
-Bundle 'pyflakes.vim'
+if ! &diff
+  Bundle 'pyflakes.vim'
+endif
 Bundle 'pep8'
 Bundle 'amitdev/vimpy'
 " Bundle 'project.tar.gz'
@@ -118,9 +120,11 @@ Bundle 'ack.vim'
 Bundle 'grep.vim'
 Bundle 'thinca/vim-qfreplace'
 
+" session
 if v:version > 700
-  " session
-  Bundle 'session.vim'
+  if ! &diff
+    Bundle 'session.vim'
+  endif
 endif
 " Bundle 'sessionman.vim'
 
@@ -497,6 +501,16 @@ set backupext=.bak
 "set patchmode=.orig
 
 
+" ######################################
+
+" vimdiff
+
+" ######################################
+if &diff
+  colorscheme colorer
+endif
+
+
 " ---------------------------------------
 
 " plugin
@@ -806,6 +820,8 @@ else
   let Tlist_WinWidth = 40          " max window size.
 endif
 
+if ! &diff
+
 " Add  the  virtualenv's   site-packages  to  vim path
 py << EOF
 import os.path
@@ -818,6 +834,7 @@ if 'VIRTUAL_ENV' in os.environ:
     execfile(activate_this, dict(__file__=activate_this))
 EOF
 
+endif
 
 " function GetSitePackages()
   " let path = ""

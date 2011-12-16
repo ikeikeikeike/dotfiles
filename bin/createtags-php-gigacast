@@ -1,11 +1,14 @@
 #!/usr/bin/env zsh
 
 cd /var/www/php/gc/php/source/libraries
+rm ./tags
 createtags-php .
 
 cd /var/www/php/gc/php/source/chat_server
+rm ./tags
 createtags-php .
 
 cd /var/www/php/gc/php/source/master_server
+rm ./tags
 createtags-php .
 
