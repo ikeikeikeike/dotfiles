@@ -1,9 +1,10 @@
 [ui]
 username=ikeikeikeike <jp.ne.co.jp@gmail.com>
-merge=internal:merge
 ssh=ssh -C
 editor=vim '+set filetype=hg-commit'
 ignore=~/.hgignore_global
+merge = vimdiff
+# merge=internal:merge
 
 [extensions]
 hgext.mq=
@@ -47,10 +48,15 @@ p4.gui=True
 p4.args=$base $local $other $output
 p4.binary=False
 
+vimdiff.executable = vim
+vimdiff.args = -d $base $local $output $other +close +close
+
 [extdiff]
 cmd.sourcetreediff=opendiff
 opts.sourcetreediff=
 cmd.p4diff=p4merge
 opts.p4diff=
+cmd.vimdiff=vimdiff
+opts.vimdiff=
 
 

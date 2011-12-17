@@ -120,6 +120,9 @@ Bundle 'ack.vim'
 Bundle 'grep.vim'
 Bundle 'thinca/vim-qfreplace'
 
+" diff
+Bundle 'DirDiff.vim'
+
 " session
 if v:version > 700
   if ! &diff
@@ -127,6 +130,8 @@ if v:version > 700
   endif
 endif
 " Bundle 'sessionman.vim'
+
+
 
 "----------------------------------------------------
 " 基本的な設定
@@ -820,9 +825,10 @@ else
   let Tlist_WinWidth = 40          " max window size.
 endif
 
-if ! &diff
 
 " Add  the  virtualenv's   site-packages  to  vim path
+if ! &diff
+
 py << EOF
 import os.path
 import sys
@@ -835,6 +841,7 @@ if 'VIRTUAL_ENV' in os.environ:
 EOF
 
 endif
+
 
 " function GetSitePackages()
   " let path = ""
