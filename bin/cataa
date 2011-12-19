@@ -126,7 +126,7 @@ done
 
 show_cat_2 20 $h
 cursor 20 $(( $h + 13 ))
-echo "cat はきちんと concat として使いましょう"
+echo "お前がそう思うんならそうなんだろう お前ん中ではな"
 sleep 4
 clr
 exit_screen

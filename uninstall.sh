@@ -11,6 +11,7 @@ do
      [ $i = .gitconfig ] ||
      [ $i = .gitignore ]; then
     continue
+  elif [ -L $HOME/$i ]; then
+    \rm $HOME/$i
   fi
-  \rm $HOME/$i
 done

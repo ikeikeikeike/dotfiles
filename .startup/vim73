@@ -1,0 +1,16 @@
+#!/bin/sh
+
+mkdir ~/git
+cd ~/git
+git clone git://github.com/splhack/macvim.git
+cd macvim
+./configure -prefix=$HOME -enable-pythoninterp --with-features=huge --enable-cscope --enable-perlinterp --enable-multibyte
+make
+make install
+
+echo
+echo
+echo
+echo
+echo 'Note: please installed python hashlib module.'
+

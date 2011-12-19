@@ -35,7 +35,10 @@ def get_args():
 
 def get_virtualenv_python_lib():
     """like a get_python_lib()"""
-    version = "%s.%s" % (sys.version_info.major, sys.version_info.minor)
+    if isinstance(sys.version_info, tuple):
+        version = "%s.%s" % (sys.version_info[0], sys.version_info[1])
+    else:
+        version = "%s.%s" % (sys.version_info.major, sys.version_info.minor)
     return "%s/lib/python%s/site-packages" % (os.environ["VIRTUAL_ENV"], version)
 
 def run_command(command):

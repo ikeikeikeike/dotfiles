@@ -71,9 +71,9 @@ if v:version > 700
 endif
 " Todo tasklist
 Bundle 'TaskList.vim'
-" source viewer for tags
+" " source viewer for tags
 " Bundle 'Source-Explorer-srcexpl.vim'
-" easytags
+" " easytags
 " Bundle 'xolox/vim-easytags'
 " taglist
 Bundle 'taglist.vim'
@@ -81,14 +81,16 @@ if v:version > 700
   " tagbar
   Bundle 'majutsushi/tagbar'
 endif
-" 保存前差分 表示
+" " 保存前差分 表示
 " Bundle 'Changed'
 " vim search auto complete
 Bundle 'SearchComplete'
-" support input
+" " support input
 " Bundle 'kana/vim-smartchr'
 " tree view
 Bundle "scrooloose/nerdtree"
+""" indentations
+Bundle "lukaszb/vim-web-indent"
 
 " ##############
 " help, doc
@@ -99,7 +101,9 @@ Bundle 'Python-Documentation'
 Bundle 'php-doc'
 
 " python
-Bundle 'pyflakes.vim'
+if ! &diff
+  Bundle 'pyflakes.vim'
+endif
 Bundle 'pep8'
 Bundle 'amitdev/vimpy'
 " Bundle 'project.tar.gz'
@@ -118,11 +122,18 @@ Bundle 'ack.vim'
 Bundle 'grep.vim'
 Bundle 'thinca/vim-qfreplace'
 
+" diff
+Bundle 'DirDiff.vim'
+
+" session
 if v:version > 700
-  " session
-  Bundle 'session.vim'
+  if ! &diff
+    Bundle 'session.vim'
+  endif
 endif
 " Bundle 'sessionman.vim'
+
+
 
 "----------------------------------------------------
 " 基本的な設定
@@ -497,6 +508,16 @@ set backupext=.bak
 "set patchmode=.orig
 
 
+" ######################################
+
+" vimdiff
+
+" ######################################
+if &diff
+  colorscheme colorer
+endif
+
+
 " ---------------------------------------
 
 " plugin
@@ -781,7 +802,6 @@ let g:debuggerMaxDepth = 10
 "let g:pyflakes_use_quickfix=0
 highlight SpellBad ctermbg=darkred
 
-
 " pep8
 let g:pep8_map='<leader>8'
 
@@ -806,7 +826,10 @@ else
   let Tlist_WinWidth = 40          " max window size.
 endif
 
+
 " Add  the  virtualenv's   site-packages  to  vim path
+if ! &diff
+
 py << EOF
 import os.path
 import sys
@@ -817,6 +840,8 @@ if 'VIRTUAL_ENV' in os.environ:
     activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
     execfile(activate_this, dict(__file__=activate_this))
 EOF
+
+endif
 
 
 " function GetSitePackages()

@@ -19,7 +19,7 @@ END{
         }
     }
 }'
-echo "移動したい番号を選んでください。"
+echo -n "select number: "
 read newdir
 # 入力値に1をプラスし、その終了ステータスを判定する。
 expr 1 + $newdir >/dev/null 2>&1
