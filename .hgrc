@@ -56,7 +56,38 @@ cmd.sourcetreediff=opendiff
 opts.sourcetreediff=
 cmd.p4diff=p4merge
 opts.p4diff=
-cmd.vimdiff=vimdiff
-opts.vimdiff=
 
+# add new command that runs GNU diff(1) in 'context diff' mode
+cmd.cdiff = gdiff
+opts.cdiff = -Nprc5
+
+# similarly, a command that runs GNU diff(1) in 'side-by-side' mode
+cmd.ydiff = gdiff
+opts.ydiff = -Npry
+
+# add new command called vdiff, runs kdiff3
+cmd.vdiff = kdiff3
+
+# add new command called meld, runs meld (no need to name twice)
+cmd.meld =
+
+# add new command called vimdiff, runs vimdiff with DirDiff plugin
+#(see http://www.vim.org/scripts/script.php?script_id=102)
+# Non english user, be sure to put "let g:DirDiffDynamicDiffText = 1" in
+# your .vimrc
+cmd.vimdiff = vim
+opts.vimdiff = -f '+next' '+execute "DirDiff" argv(0) argv(1)'
+
+# add new command called ediff, runs emacs diff
+cmd.ediff = sh
+opts.ediff = -c 'if [ -d $0 ]; then emacs --eval "(ediff-directories \"$0\" \"$1\" \"\")"; else emacs --eval "(ediff-files \"$0\" \"$1\")"; fi'
+
+
+# add new command to run ImageMagick compare (image diff).  Does not work on directories.
+
+# note:  could subsitute ImageMagick's "display" call instead of "gqview" for
+# greater portability, but gqview is nicer
+
+cmd.imdiff = sh
+opts.imdiff = -c 'compare $0 $1 compared.png; gqview compared.png'
 

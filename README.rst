@@ -16,11 +16,9 @@ vim 7.3
 ::
 
   # installed vim 7.3
-  ~/.startup/vim73
-  # install vundle.git
+  sh ~/.startup/vim73
   git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-  # bundle install
-  vim -c "BundleInstall"
+  vim -c "BundleInstall" # Error Note: git config --global http.sslVerify false; mkdir -p ~/.vim_plugins/vim_session
 
 
 Uninstall
