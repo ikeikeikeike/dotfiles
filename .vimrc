@@ -71,9 +71,9 @@ if v:version > 700
 endif
 " Todo tasklist
 Bundle 'TaskList.vim'
-" source viewer for tags
+" " source viewer for tags
 " Bundle 'Source-Explorer-srcexpl.vim'
-" easytags
+" " easytags
 " Bundle 'xolox/vim-easytags'
 " taglist
 Bundle 'taglist.vim'
@@ -81,14 +81,16 @@ if v:version > 700
   " tagbar
   Bundle 'majutsushi/tagbar'
 endif
-" 保存前差分 表示
+" " 保存前差分 表示
 " Bundle 'Changed'
 " vim search auto complete
 Bundle 'SearchComplete'
-" support input
+" " support input
 " Bundle 'kana/vim-smartchr'
 " tree view
 Bundle "scrooloose/nerdtree"
+""" indentations
+Bundle "lukaszb/vim-web-indent"
 
 " ##############
 " help, doc
@@ -799,7 +801,6 @@ let g:debuggerMaxDepth = 10
 " pyflakes
 "let g:pyflakes_use_quickfix=0
 highlight SpellBad ctermbg=darkred
-
 
 " pep8
 let g:pep8_map='<leader>8'

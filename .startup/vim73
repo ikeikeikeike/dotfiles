@@ -8,5 +8,9 @@ cd macvim
 make
 make install
 
-echo 'please installed python hashlib module.'
+echo
+echo
+echo
+echo
+echo 'Note: please installed python hashlib module.'
 

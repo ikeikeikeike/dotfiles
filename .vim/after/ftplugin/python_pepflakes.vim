@@ -9,6 +9,10 @@
 "
 " not discription.
 
-let g:pyflakes_use_quickfix = 1
+" " flakes
+" let g:pyflakes_use_quickfix = 1
+
+" " pep8
+" let g:pep8_map='<leader>8'
 
 
