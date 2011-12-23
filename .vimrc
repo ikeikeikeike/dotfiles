@@ -161,7 +161,7 @@ set hidden          " 編集中でも他のファイルを開けるようにす�
 set backspace=indent,eol,start
 set formatoptions=lmoq      " 整形オプション，マルチバイト系を追加
 set whichwrap=b,s,h,s,<,>,[,]   " カーソルを行頭、行末で止まらないようにする
-"set clipboard=unnamed,autoselect   " バッファにクリップボードを利用する
+set clipboard=unnamed,autoselect   " バッファにクリップボードを利用する [use fakeclip, reattach-to-user-namespace]
 
 
 " " タブページを常に表示
@@ -350,7 +350,7 @@ set autoindent   " 自動でインデント
 
 set smartindent  " 新しい行を開始したときに、新しい行のインデントを現在行と同じ量にする。
 
-set cindent      " Cプログラムファイルの自動インデントを始める
+" set cindent      " Cプログラムファイルの自動インデントを始める
 
 set expandtab    "タブの代わりに空白文字挿入
 
@@ -399,8 +399,8 @@ if has("autocmd")
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType ruby setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+  " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 
   " ファイルタイプの検索を有効にする
   filetype plugin on
@@ -409,8 +409,9 @@ if has("autocmd")
   " これらのftではインデントを無効に
   "autocmd FileType php filetype indent off
 
-  autocmd FileType html :set indentexpr=
-  autocmd FileType xhtml :set indentexpr=
+  " 無効
+  " autocmd FileType html :set indentexpr=
+  " autocmd FileType xhtml :set indentexpr=
 
   " ファイルタイプごとに辞書ファイルを指定
   autocmd FileType vim :set dictionary+=~/.vim/dict/vim.dict
@@ -684,7 +685,7 @@ endif
 " for darwin settings
 let Grep_Xargs_Path = "/opt/local/bin/gxargs"
 " ignore settings
-let Grep_Skip_Dirs = '.svn .hg .git .idea'
+let Grep_Skip_Dirs = '.svn .hg .git .idea .settings'
 let Grep_Skip_Files = '*.bak *~'
 " :Gb <args> でGrepBufferする
 command! -nargs=1 Gb :GrepBuffer <args>

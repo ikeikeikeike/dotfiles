@@ -1,33 +1,5 @@
 #!/usr/bin/env zsh
 
-if [ $ARCHI = darwin ]; then
-  # growlnotify exevute  30 second later
-  local COMMAND=""
-  local COMMAND_TIME=""
-  precmd() {
-    if [ "$COMMAND_TIME" -ne "0" ] ; then
-      local d=`date +%s`
-      d=`expr $d - $COMMAND_TIME`
-      if [ "$d" -ge "30" ] ; then
-         COMMAND="$COMMAND "
-         growlnotify -t "${${(s: :)COMMAND}[1]}" -m "$COMMAND"
-      fi
-    fi
-    COMMAND="0"
-    COMMAND_TIME="0"
-
-    # prompt vcs_info
-    psvar=()
-    LANG=en_US.UTF-8 vcs_info
-    psvar[1]=$vcs_info_msg_0_
-  }
-
-  preexec () {
-    COMMAND="${1}"
-    COMMAND_TIME=`date +%s`
-  }
-fi
-
 # functionの設定
 function history-all { history -E 1 }
 
@@ -65,28 +37,6 @@ source $HOME/.zsh_extend/emacs/isemacs.sh
 
 # cdhist
 # source $HOME/.zsh_extend/cdhist/cdhist.sh
-
-# history
-zshaddhistory() {
-    local line=${1%%$'\n'}
-    local cmd=${line%% *}
-
-    # 以下の条件をすべて満たすものだけをヒストリに追加する
-    # 追加したくないコマンドを列挙する
-    # この場合、以下のいずれかを満たすコマンドラインがヒストリに追加されなくなる。
-    # * 4文字以下である
-    # * コマンド名の部分が l, ls, la, ll のいずれかである
-    # * コマンド名の部分が c, cd のいずれかである
-    # * コマンド名の部分が m, man のいずれかである
-
-    [[ ${#line} -ge 5
-        && ${cmd} != (l|l[sal])
-        && ${cmd} != (c|cd)
-        && ${cmd} != (sl)
-# && ${cmd} != (gd)
-        && ${cmd} != (m|man)
-    ]]
-}
 
 # Colorful
 export_grep_color(){
@@ -134,7 +84,6 @@ function extract (){
 # source $HOME/.zsh_extend/zaw/zaw.zsh 2> /dev/null
 # bindkey '^;' zaw
 # bindkey '^R' zaw-history
-
 
 # zmv command - http://d.hatena.ne.jp/mollifier/20101227/p1
 autoload -Uz zmv

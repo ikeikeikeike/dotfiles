@@ -30,6 +30,7 @@ alias py=python
 alias screen='screen -U'
 alias la='ls -alt'
 alias vi='vim'
+alias clvim="rm -rf ~/.vim_plugins/vim_session/*; vim "
 alias less='less -MX'
 alias grep='grep -i --color=always '
 alias cp='cp -iv'

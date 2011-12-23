@@ -57,6 +57,7 @@ opts.sourcetreediff=
 cmd.p4diff=p4merge
 opts.p4diff=
 
+#### web site
 # add new command that runs GNU diff(1) in 'context diff' mode
 cmd.cdiff = gdiff
 opts.cdiff = -Nprc5
