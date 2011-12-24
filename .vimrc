@@ -28,19 +28,23 @@ endif
 " ~~~~~~~~~~~~
 " general
 " ~~~~~~~~~~~~
-" reference
-Bundle 'thinca/vim-ref'
 " yank and clipboard
 Bundle 'kana/vim-fakeclip'
 
 " buffer
 " Bundle 'minibufexpl.vim'
 
+" auto complete
+Bundle 'ujihisa/neco-look'
+
 " color
 Bundle 'Color-Sampler-Pack'
 
 " sudo
 Bundle 'sudo.vim'
+
+" background for windows?
+" Bundle 'Shougo/vimproc'
 
 " ~~~~~~~~~~~~
 " move
@@ -66,38 +70,48 @@ if v:version > 700
   " yankring
   Bundle 'YankRing.vim'
   Bundle 'm4i/YankRingSync'
+
   " auto complete
   Bundle 'Shougo/neocomplcache'
 endif
+
 " Todo tasklist
 Bundle 'TaskList.vim'
+
 " " source viewer for tags
 " Bundle 'Source-Explorer-srcexpl.vim'
+
 " " easytags
 " Bundle 'xolox/vim-easytags'
+
 " taglist
 Bundle 'taglist.vim'
+
 if v:version > 700
   " tagbar
   Bundle 'majutsushi/tagbar'
 endif
+
 " " 保存前差分 表示
 " Bundle 'Changed'
+
 " vim search auto complete
 Bundle 'SearchComplete'
+
 " " support input
 " Bundle 'kana/vim-smartchr'
+
 " tree view
 Bundle "scrooloose/nerdtree"
-""" indentations
+
+" indentations
 Bundle "lukaszb/vim-web-indent"
 
 " ##############
 " help, doc
+Bundle 'thinca/vim-ref'
 Bundle 'ref.vim'
 Bundle 'Shougo/echodoc'
-Bundle 'pydoc.vim'
-Bundle 'Python-Documentation'
 Bundle 'php-doc'
 
 " python
@@ -134,6 +148,10 @@ endif
 " Bundle 'sessionman.vim'
 
 
+" ~~~~~~~
+" funny
+" ~~~~~~~
+Bundle 'koron/nyancat-vim'
 
 "----------------------------------------------------
 " 基本的な設定

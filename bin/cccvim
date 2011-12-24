@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+expect -c "
+set timeout 1
+log_user 0
+spawn rm -rf ~/.vim_plugins/vim_session/*
+expect \"zsh: sure you want to delete all the files in /Users/ikeda/.vim_plugins/vim_session \[yn\]?\"
+send y\n
+"
+
+echo "vim $@"
+vim $@
