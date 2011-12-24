@@ -16,7 +16,10 @@ hgext.extdiff=
 info=~/bin/info.py
 flow=~/bin/hgflow.py
 eol=
-fetch =
+fetch=
+transplant=
+mq=
+record=
 
 [alias]
 glog=glog --color=always

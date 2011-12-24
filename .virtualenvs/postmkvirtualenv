@@ -17,7 +17,16 @@ pip install distribute
 pip install django
 
 # debug
+pip install Werkzeug
+
+# debug
 pip install pudb debug ipdb django-pudebug
+
+# TEST
+pip install nose nose-pudb django-nose
+
+# CI
+pip install django-jenkins
 
 # image library
 pip install PIL
@@ -25,14 +34,8 @@ pip install PIL
 # document
 pip install Sphinx
 
-# debug
-pip install Werkzeug
-
 # deployed
 pip install South Fabric
-
-# CI
-django-jenkins
 
 # django extra
 pip install django-debug-toolbar

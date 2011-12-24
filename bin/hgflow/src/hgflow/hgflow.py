@@ -7,7 +7,7 @@
 
 import os
 import ConfigParser
-            
+
 
 from mercurial import commands
 from mercurial import hg
@@ -43,17 +43,17 @@ class HgFlow(object):
             self.releasePrefix = config.get(BASIC_SECTION, SECNAME_RELEASE_PREFIX)
             self.hotfixPrefix = config.get(BASIC_SECTION, SECNAME_HOTFIX_PREFIX)
             self.versionTagPrefix = config.get(BASIC_SECTION, SECNAME_VERSION_TAG_PREFIX)
-            
+
         #self.output(self.rootDir, '\n', self.cfgFile, '\n', self.inited, '\n')
 
     def output(self, *args):
         for v in args:
             self.ui.write(v)
-            
+
     def outputln(self, *args):
         args = args + ('\n',)
         self.output(*args)
-        
+
 
     def input(self, msg):
         self.output(msg)
@@ -99,7 +99,7 @@ class HgFlow(object):
         if not from_branch is None:
             #first update to from_branch
             commands.update(self.ui, self.repo, from_branch)
-            
+
         commands.branch(self.ui, self.repo, branch_name)
         commands.commit(self.ui, self.repo, message = message)
 
@@ -113,7 +113,7 @@ class HgFlow(object):
 
         ctx = self.repo[None]
         current_branch = str(ctx.branch())
-        
+
 
         if len(branches) > 1:
             #more than one brnach, give a warn
@@ -140,7 +140,7 @@ class HgFlow(object):
 
         text = self.input(_('Branch name for production release : [default] '))
         if text: publish_branch = text
-        
+
         text = self.input(_('Branch name for "next release" development : [develop] '))
         if text: develop_branch = text
 
@@ -156,7 +156,7 @@ class HgFlow(object):
         if text: version_tag_prefix = text
 
         #check existing branch
-        
+
         import ConfigParser
         config = ConfigParser.RawConfigParser()
 
@@ -170,16 +170,16 @@ class HgFlow(object):
 
         with open(self.cfgFile, 'wb') as configfile:
             config.write(configfile)
-        
+
         commands.add(self.ui, self.repo, self.cfgFile)
-        commands.commit(self.ui, self.repo, self.cfgFile, message="hg flow init, add .hgflow file")
+        commands.commit(self.ui, self.repo, self.cfgFile, message="operation init, add .hgflow file")
 
         if not publish_branch in branches:
             #create publish_branch
-            self._createBranch(publish_branch, 'hg flow init, add branch %s' % (publish_branch, ))
+            self._createBranch(publish_branch, 'operation init, add branch %s' % (publish_branch, ))
 
         if not develop_branch in branches:
-            self._createBranch(develop_branch, 'hg flow init, add branch %s' % (develop_branch, ))
+            self._createBranch(develop_branch, 'operation init, add branch %s' % (develop_branch, ))
 
     def _startBranch(self, target_branch, branch_type):
         branches = self._getBranches()
@@ -187,7 +187,7 @@ class HgFlow(object):
             self.outputln(_('Already has branch named `%s`' % (target_branch, )))
             return
 
-        self._createBranch(target_branch, 'hg flow, add %s branch `%s`.' % (branch_type, target_branch, ), 'develop')
+        self._createBranch(target_branch, 'operation, add %s branch `%s`.' % (branch_type, target_branch, ), 'develop')
 
     def _findBranch(self, target_branch, name):
         branches = self._getBranches()
@@ -210,7 +210,7 @@ class HgFlow(object):
         def _feature_func(action, name, target_branch, tag_name):
             if 'start' == action:
                 self._startBranch(target_branch, 'feature')
-            
+
             elif 'finish' == action:
                 '''finish this feature.
                 1, Check develop branch version and current feature
@@ -220,15 +220,15 @@ class HgFlow(object):
                 '''
 
                 if not self._findBranch(target_branch, name):
-                    return 
+                    return
 
                 commands.update(self.ui, self.repo, target_branch)
-                commands.commit(self.ui, self.repo, close_branch=True, message='hg flow, close feature %s' % (name,))
+                commands.commit(self.ui, self.repo, close_branch=True, message='operation, close feature %s' % (name,))
 
                 commands.update(self.ui, self.repo, self.developBranch)
                 commands.merge(self.ui, self.repo, target_branch)
-                #commands.commit(self.ui, self.repo, message='hg flow, merge feature `%s` to develop branch `%s`' % (target_branch, self.developBranch))
-                commands.commit(self.ui, self.repo, message='hg flow, merge release `%s` to develop branch `%s`' % (name, self.developBranch))
+                #commands.commit(self.ui, self.repo, message='operation, merge feature `%s` to develop branch `%s`' % (target_branch, self.developBranch))
+                commands.commit(self.ui, self.repo, message='operation, merge release `%s` to develop branch `%s`' % (name, self.developBranch))
                 #self.outputln(_('WARNING: No automatic commit after merge from feature `%s`, you should resolve the confict (if any) then commit manually.' % (name,)))
 
             elif 'change' == action:
@@ -246,7 +246,7 @@ class HgFlow(object):
     def _hgflow_func_base(self, args, opts, prefix, func):
         if not self._checkInited():
             return
-            
+
         if len(args) < 2:
             self.outputln(_('Please give a full command.'))
             return
@@ -329,7 +329,7 @@ class HgFlow(object):
                 self.outputln(_('Please give a valid action.'))
 
         self._hgflow_func_base(args, opts, self.hotfixPrefix, _hotfix_func)
-                
+
     def _mergeIntoPublishBranch(self, target_branch, name, source_tag_name = None):
         commands.update(self.ui, self.repo, target_branch)
 
@@ -339,8 +339,8 @@ class HgFlow(object):
             commands.tag(self.ui, self.repo, tag_name, rev=source_tag_name)
         else:
             commands.tag(self.ui, self.repo, tag_name)
-        
-        commands.commit(self.ui, self.repo, close_branch=True, message='hg flow, close release %s' % (target_branch,))
+
+        commands.commit(self.ui, self.repo, close_branch=True, message='operation, close release %s' % (target_branch,))
         commands.update(self.ui, self.repo, self.publishBranch)
 
         self.outputln('close target_branch')
@@ -350,9 +350,9 @@ class HgFlow(object):
             commands.merge(self.ui, self.repo, source_tag_name)
         else:
             commands.merge(self.ui, self.repo, target_branch)
-        commands.commit(self.ui, self.repo, message='hg flow, merge release `%s` to publish branch `%s`' % (name, self.publishBranch))
+        commands.commit(self.ui, self.repo, message='operation, merge release `%s` to publish branch `%s`' % (name, self.publishBranch))
         self.outputln('merge source_tag_name into publish branch')
-        
+
         '''
         tag_name = '%s%s' % (self.versionTagPrefix, name)
         commands.tag(self.ui, self.repo, tag_name)
@@ -362,7 +362,7 @@ class HgFlow(object):
         #merge it into develop branch, there should be many confilct code
         commands.update(self.ui, self.repo, self.developBranch)
         commands.merge(self.ui, self.repo, target_branch)
-        commands.commit(self.ui, self.repo, message='hg flow, merge release `%s` to develop branch `%s`' % (name, self.developBranch))
+        commands.commit(self.ui, self.repo, message='operation, merge release `%s` to develop branch `%s`' % (name, self.developBranch))
 
         #self.outputln(_('WARNING: No automatic commit after merge from release `%s`, you should resolve the confict (if any) then commit manually' % (name, )))
 

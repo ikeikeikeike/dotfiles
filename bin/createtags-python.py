@@ -66,6 +66,7 @@ def main(args):
     :rtype: void
     :return: void
     """
+
     rm_tags('./tags')
 
     exclude_option = ("--languages=python --python-kinds=-i-v "
@@ -110,6 +111,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
     # print(repr(args))
     # print(args.path)
-    import pudebug
+    # import pudebug
     main(args)
 
