@@ -37,8 +37,9 @@ Bundle 'kana/vim-fakeclip'
 " auto complete
 Bundle 'ujihisa/neco-look'
 
-" color
+" color & theme
 Bundle 'Color-Sampler-Pack'
+Bundle 'ChrisKempson/Vim-Tomorrow-Theme'
 
 " sudo
 Bundle 'sudo.vim'
@@ -55,16 +56,9 @@ if v:version > 700
   Bundle 'FuzzyFinder'
 endif
 
-" ~~~~~~~~~~~~
-" languages
-" ~~~~~~~~~~~~
-" Bundle 'javascript.vim'
-" Bundle 'sql.vim'
-" Bundle 'SQLComplete.vim'
-Bundle 'sql.vim--Fishburn-syntax'
 
 " ~~~~~~~~~~~~
-" programings
+" programmings
 " ~~~~~~~~~~~~
 if v:version > 700
   " yankring
@@ -98,21 +92,25 @@ endif
 " vim search auto complete
 Bundle 'SearchComplete'
 
-" " support input
-" Bundle 'kana/vim-smartchr'
-
 " tree view
 Bundle "scrooloose/nerdtree"
 
-" indentations
-Bundle "lukaszb/vim-web-indent"
-
-" ##############
+" ~~~~~~~~~~
 " help, doc
+" ~~~~~~~~~~
 Bundle 'thinca/vim-ref'
 Bundle 'ref.vim'
 Bundle 'Shougo/echodoc'
 Bundle 'php-doc'
+
+" ~~~~~~~~~~~~
+" languages
+" ~~~~~~~~~~~~
+" sql
+Bundle 'sql.vim--Fishburn-syntax'
+
+" html & javascript indentations
+Bundle "lukaszb/vim-web-indent"
 
 " python
 if ! &diff
@@ -121,7 +119,6 @@ endif
 Bundle 'pep8'
 Bundle 'amitdev/vimpy'
 " Bundle 'project.tar.gz'
-
 
 " Bundle 'vim-ipython'
 
@@ -147,6 +144,12 @@ if v:version > 700
 endif
 " Bundle 'sessionman.vim'
 
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" support input , text-object
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Bundle 'kana/vim-smartchr'
+Bundle 'tpope/vim-surround'
+Bundle 'vim-scripts/AutoClose'
 
 " ~~~~~~~
 " funny
@@ -158,7 +161,10 @@ Bundle 'koron/nyancat-vim'
 "----------------------------------------------------
 
 "カラースキーマを設定
-colorscheme desert
+" colorscheme anotherdark
+" colorscheme adaryn
+" colorscheme asu1dark
+colorscheme breeze
 " set background=light      " 背景色の傾向(カラースキーマがそれに併せて色の明暗を変えてくれる)
 " set background=dark
 
@@ -243,7 +249,7 @@ augroup END
 :hi clear CursorLine
 :hi CursorLine gui=underline
 highlight CursorLine ctermbg=black guibg=black
-
+" highlight CursorLine term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow
 
 set wildmenu " 補完候補を表示する
 
@@ -693,6 +699,46 @@ endif
 
 " ######################################
 
+" 演算子の間に空白を入れる
+" inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
+" inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
+" inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
+" inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
+" inoremap <buffer><expr> / smartchr#one_of(' / ', '// ', '/')
+" *はポインタで使うので、空白はいれない
+" inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
+" inoremap <buffer><expr> % smartchr#one_of(' % ', '%')
+inoremap <buffer><expr> <Bar> smartchr#one_of(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
+inoremap <buffer><expr> , smartchr#one_of(', ', ',')
+" 3項演算子の場合は、後ろのみ空白を入れる
+inoremap <buffer><expr> ? smartchr#one_of('? ', '?')
+inoremap <buffer><expr> : smartchr#one_of(': ', '::', ':')
+
+" =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
+" 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
+inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
+        \ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
+        \ : smartchr#one_of(' = ', ' == ', '=')
+
+" 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
+inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
+inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
+" 「->」は入力しづらいので、..で置換え
+inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
+" 行先頭での@入力で、プリプロセス命令文を入力
+inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
+
+inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' "': '"'
+" if文直後の(は自動で間に空白を入れる
+inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
+
+
+" ######################################
+
+" surround.vim  (ds, cs, ys, vs)
+
+" ######################################
+
 
 
 " ######################################
@@ -830,7 +876,7 @@ let g:SuperTabDefaultCompletionType = "context"
 set completeopt=menuone,longest,preview
 
 " TaskList
-map <Leader>T :TaskList<CR>
+nmap <Leader>T :TaskList<CR>
 
 " tag list plugins
 if v:version > 700
@@ -918,4 +964,192 @@ endif
  " }
 " }
 
+
+
+" ######################################
+
+" auto highlight
+
+" ######################################
+" call AutoHighlightToggle()
+
+let ColorRoller = {}
+
+" let ColorRoller.colors = [
+" \ 'Solarized',
+" \ 'adaryn',
+" \ 'adrian',
+" \ 'aiseered',
+" \ 'almost-default',
+" \ 'anotherdark',
+" \ 'aqua',
+" \ 'astronaut',
+" \ 'asu1dark',
+" \ 'autumn',
+" \ 'autumn2',
+" \ 'autumnleaf',
+" \ 'baycomb',
+" \ 'bclear',
+" \ 'biogoo',
+" \ 'blacksea',
+" \ 'bluegreen',
+" \ 'borland',
+" \ 'breeze',
+" \ 'brookstream',
+" \ 'buttercream',
+" \ 'calmar256-dark',
+" \ 'calmar256-light',
+" \ 'camo',
+" \ 'candy',
+" \ 'candycode',
+" \ 'chela_light',
+" \ 'chocolateliquor',
+" \ 'clarity',
+" \ 'cleanphp',
+" \ 'colorer',
+" \ 'dante',
+" \ 'darkZ',
+" \ 'darkblue2',
+" \ 'darkbone',
+" \ 'darkslategray',
+" \ 'darkspectrum',
+" \ 'dawn',
+" \ 'denim',
+" \ 'desert256',
+" \ 'desertEx',
+" \ 'dusk',
+" \ 'dw_blue',
+" \ 'dw_cyan',
+" \ 'dw_green',
+" \ 'dw_orange',
+" \ 'dw_purple',
+" \ 'dw_red',
+" \ 'dw_yellow',
+" \ 'earendel',
+" \ 'eclipse',
+" \ 'ekvoli',
+" \ 'fine_blue',
+" \ 'fine_blue2',
+" \ 'fnaqevan',
+" \ 'fog',
+" \ 'freya',
+" \ 'fruit',
+" \ 'fruity',
+" \ 'golden',
+" \ 'guardian',
+" \ 'habilight',
+" \ 'herald',
+" \ 'impact',
+" \ 'inkpot',
+" \ 'ironman',
+" \ 'jammy',
+" \ 'jellybeans',
+" \ 'kellys',
+" \ 'leo',
+" \ 'lettuce',
+" \ 'lucius',
+" \ 'manxome',
+" \ 'marklar',
+" \ 'maroloccio',
+" \ 'martin_krischik',
+" \ 'matrix',
+" \ 'molokai',
+" \ 'moria',
+" \ 'moss',
+" \ 'motus',
+" \ 'mustang',
+" \ 'navajo-night',
+" \ 'navajo',
+" \ 'neon',
+" \ 'neverness',
+" \ 'night',
+" \ 'nightshimmer',
+" \ 'no_quarter',
+" \ 'northland',
+" \ 'nuvola',
+" \ 'oceanblack',
+" \ 'oceandeep',
+" \ 'oceanlight',
+" \ 'olive',
+" \ 'papayawhip',
+" \ 'peaksea',
+" \ 'print_bw',
+" \ 'pyte',
+" \ 'railscasts',
+" \ 'railscasts2',
+" \ 'rdark',
+" \ 'relaxedgreen',
+" \ 'robinhood',
+" \ 'rootwater',
+" \ 'satori',
+" \ 'sea',
+" \ 'settlemyer',
+" \ 'sienna',
+" \ 'silent',
+" \ 'simpleandfriendly',
+" \ 'softblue',
+" \ 'soso',
+" \ 'spring',
+" \ 'summerfruit256',
+" \ 'synic',
+" \ 'tabula',
+" \ 'tango',
+" \ 'tango2',
+" \ 'taqua',
+" \ 'tcsoft',
+" \ 'tir_black',
+" \ 'tolerable',
+" \ 'torte',
+" \ 'twilight',
+" \ 'two2tango',
+" \ 'vc',
+" \ 'vibrantink',
+" \ 'vividchalk',
+" \ 'vylight',
+" \ 'winter',
+" \ 'wombat',
+" \ 'wombat256',
+" \ 'wood',
+" \ 'wuye',
+" \ 'xemacs',
+" \ 'xoria256',
+" \ 'zenburn',
+" \ 'zmrok',
+      " \ ]
+
+
+let ColorRoller.colors = [
+\ 'mine',
+\ 'breeze',
+\ 'ChocolateLiquor',
+\ 'Tomorrow-Night-Bright',
+\ 'adaryn',
+\ 'anotherdark',
+\ 'asu1dark',
+      \ ]
+
+
+function! ColorRoller.change()
+  let color = get(self.colors, 0)
+  " tabpagecolorscheme を使用している場合は↓の "colorscheme" を "Tcolorscheme" に変える。
+  silent exe "colorscheme " . color
+  redraw
+  echo self.colors
+endfunction
+
+function! ColorRoller.roll()
+  let item = remove(self.colors, 0)
+  call insert(self.colors, item, len(self.colors))
+  call self.change()
+endfunction
+
+function! ColorRoller.unroll()
+  let item = remove(self.colors, -1)
+  call insert(self.colors, item, 0)
+  call self.change()
+endfunction
+
+nnoremap <silent><Down>   :<C-u>call ColorRoller.roll()<CR>
+nnoremap <silent><Up>     :<C-u>call ColorRoller.unroll()<CR>
+" nnoremap <silent><Leader><f9> :<C-u>call ColorRoller.roll()<CR>
 

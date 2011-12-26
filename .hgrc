@@ -7,6 +7,7 @@ merge = vimdiff
 # merge=internal:merge
 
 [extensions]
+hgext.eol=
 hgext.mq=
 hgext.convert=
 color=
@@ -31,6 +32,7 @@ mode=ansi
 
 [hooks]
 update.clean=find . -name \*.pyc -or -name \*.orig | xargs rm -f
+precommit.freeze = pip freeze | sed "/-e .*$/d" | diff - requirements/base.txt
 
 [merge-tools]
 sourcetreemerge.gui=False
