@@ -12,6 +12,8 @@ do
      [ $i = .gitignore ]; then
     continue
   elif [ -L $HOME/$i ]; then
+    sleep 0.1
+    echo "\rm $HOME/$i"
     \rm $HOME/$i
   fi
 done

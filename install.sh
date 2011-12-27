@@ -12,5 +12,7 @@ do
      [ $i = .gitignore ]; then
     continue
   fi
+  sleep 0.1
+  echo "\ln -s `pwd`/$i $HOME/$i"
   \ln -s `pwd`/$i $HOME/$i
 done
