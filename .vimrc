@@ -747,7 +747,9 @@ endif
 
 " ######################################
 " for darwin settings
-let Grep_Xargs_Path = "/opt/local/bin/gxargs"
+if has('mac')
+  let Grep_Xargs_Path = "/opt/local/bin/gxargs"
+endif
 " ignore settings
 let Grep_Skip_Dirs = '.svn .hg .git .idea .settings'
 let Grep_Skip_Files = '*.bak *~'
