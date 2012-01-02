@@ -9,7 +9,7 @@
 setlocal softtabstop=4
 setlocal shiftwidth=4
 setlocal textwidth=90
-if v:version > 700
+if v:version > 702
   setlocal colorcolumn=89
 endif
 setlocal smarttab

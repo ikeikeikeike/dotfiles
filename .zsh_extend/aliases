@@ -4,10 +4,10 @@
 if [ $ARCHI = darwin ]; then
   alias emacs='open -a /Applications/Emacs.app'
   #alias emacs_sudo='sudo open -a /Applications/MacPorts/Emacs.app'
-  alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/Vim "$@"'
-  alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/Vim "$@"'
-  alias mvi='env LANG=ja_JP.UTF-8 /Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/MacVim "$@"'
-  alias mvim='env LANG=ja_JP.UTF-8 /Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/MacVim "$@"'
+  alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+  alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+  alias mvi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/MacVim "$@"'
+  alias mvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/MacVim "$@"'
   alias ls='ls -FGh'
   alias updatedb=' sudo LC_ALL=C gupdatedb --prunepaths="/tmp /var/tmp /.Spotlight-V100 /.fseventsd /Volumes/MobileBackups /Volumes/Volume /.MobileBackups" '
   alias locate='glocate -i '
@@ -30,6 +30,7 @@ alias py=python
 alias screen='screen -U'
 alias la='ls -alt'
 alias vi='vim'
+alias clvim="setopt rm_star_silent; rm -rf ~/.vim_plugins/vim_session/*; unsetopt rm_star_silent; vim "
 alias less='less -MX'
 alias grep='grep -i --color=always '
 alias cp='cp -iv'
@@ -40,6 +41,10 @@ alias cdd='gd'
 alias cdhistory='gd'
 alias which='which -a'
 alias pb='tmux-pbcopy'
+
+# -g
+alias -g L="| $PAGER"
+alias -g G="| grep"
 
 
 # rsync

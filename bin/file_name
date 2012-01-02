@@ -1,0 +1,6 @@
+spawn telnet pro3
+pro3: nodename nor servname provided, or not known
+send: spawn id exp8 not open
+    while executing
+"send "tanaka\r""
+    (file "./test.expect" line 6)

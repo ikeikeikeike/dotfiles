@@ -23,6 +23,14 @@ else
   export DISTRIBUTE="dummy"
 fi
 
+# ahawwwwwwwww
+if [ ! $reattach_to_user_namespace ] && [ $ARCHI = darwin ]; then
+  export reattach_to_user_namespace=1
+  echo "reattach-to-user-namespace -l zsh"
+  echo "Note!! Error in Hidden. Error in Hidden."
+  reattach-to-user-namespace -l zsh 2> /dev/null
+fi
+
 # HOST
 if [ -x /bin/hostname ]; then
   export HOST=`hostname`
@@ -58,7 +66,7 @@ if [ $ARCHI = darwin ]; then
   export CPLUS_INCLUDE_PATH=/opt/local/include
   export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
   # default editor
-  export EDITOR=/Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/Vim
+  export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
   # @see python_select
   export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
 fi

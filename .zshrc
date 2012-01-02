@@ -83,6 +83,9 @@ local BG_BLUE=$'%{\e[0;44m%}'
 #エイリアスも補完対象に設定
 setopt complete_aliases
 
+# 複数の zsh を同時に使う時など history ファイルに上書きせず追加する
+setopt append_history
+
 # share history
 setopt share_history
 
@@ -91,6 +94,9 @@ limit coredumpsize 102400
 
 ## 出力の文字列末尾に改行コードが無い場合でも表示
 unsetopt promptcr
+
+## コピペの時rpromptを非表示する
+setopt transient_rprompt
 
 ## 色を使う
 setopt prompt_subst
@@ -117,6 +123,7 @@ setopt print_eight_bit
 setopt hist_ignore_dups
 
 ## cd 時に自動で push
+setopt auto_pushd
 setopt autopushd
 
 ## 同じディレクトリを pushd しない
@@ -154,6 +161,30 @@ setopt correct
 
 # 辞書順ではなく数値順でソート
 setopt numeric_glob_sort
+
+# rm * などの際、本当に全てのファイルを消して良いかの確認しないようになる
+#setopt rm_star_silent
+
+# rm_star_silent の逆で、10 秒間反応しなくなり、頭を冷ます時間が与えられる
+#setopt rm_star_wait
+
+# for, repeat, select, if, function などで簡略文法が使えるようになる
+#setopt short_loops
+
+# デフォルトの複数行コマンドライン編集ではなく、１行編集モードになる
+#setopt single_line_zle
+
+# コマンドラインがどのように展開され実行されたかを表示するようになる debug時にね
+# setopt xtrace
+
+# 戻り値が 0 以外の場合終了コードを表示する
+setopt print_exit_value
+
+# zsh の開始・終了時刻をヒストリファイルに書き込む
+#setopt extended_history
+
+# コマンドライン全てのスペルチェックをする
+#setopt correct_all
 
 ## cd conf
 # カレントディレクトリ中にサブディレクトリが無い場合に cd が検索するディレクトリのリスト
@@ -194,32 +225,42 @@ zstyle ':completion:*:options' description 'yes'
 # したがって，すべての マッチ種別を別々に表示させたいなら以下のようにする
 zstyle ':completion:*' group-name ''
 
+
+
+#####  functions   #####
+
+
 # functions
 source $HOME/.zsh_extend/funcs
 
-# vcs_info
-autoload -Uz add-zsh-hook
-autoload -Uz vcs_info
+# pre functions
+source $HOME/.zsh_extend/prefuncs
 
-zstyle ':vcs_info:*' enable git svn hg bzr
-zstyle ':vcs_info:*' formats '%s-[%b] ~/%S'
-zstyle ':vcs_info:*' actionformats '%s-[%b|%a]'
-zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
-zstyle ':vcs_info:bzr:*' use-simple true
 
-function _update_vcs_info_msg() {
-    psvar=()
-    LANG=en_US.UTF-8 vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-}
-add-zsh-hook precmd _update_vcs_info_msg 2> /dev/null
+#####  prompt
+
 
 ## prompt
 PROMPT=$'\n'$GREEN'${USER}@${HOST}'$CYAN'(${ARCHI}-${DISTRIBUTE}) '$YELLOW'%~ '$'\n'$DEFAULT'%(!.#.$) '
-RPROMPT=%1v%2v%f${DEFAULT}
-# RPROMPT=${BG_BLUE}%1v%2v%f${DEFAULT}
+# RPROMPT=%1v%2v%f${DEFAULT}
+RPROMPT=${CYAN}%1v%2v%f${DEFAULT}
+
+
+
+#####  pre attaches
+
 
 if [ "${TMUX}" != "" ] ; then
   tmux pipe-pane 'cat >> ~/.tmux/`date +%Y-%m-%d`_#S:#I.#P.log'
 fi
+
+# if [ "$TERM" = "screen" ]; then
+  # preexec() {
+    # # see [zsh-workers:13180]
+    # # http://www.zsh.org/mla/workers/2000/msg03993.html
+    # emulate -L zsh
+    # local -a cmd; cmd=(${(z)2})
+    # echo -n "^[k$cmd[1]:t^[\\"
+  # }
+# fi
 

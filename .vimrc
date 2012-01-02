@@ -28,19 +28,24 @@ endif
 " ~~~~~~~~~~~~
 " general
 " ~~~~~~~~~~~~
-" reference
-Bundle 'thinca/vim-ref'
 " yank and clipboard
 Bundle 'kana/vim-fakeclip'
 
 " buffer
 " Bundle 'minibufexpl.vim'
 
-" color
+" auto complete
+Bundle 'ujihisa/neco-look'
+
+" color & theme
 Bundle 'Color-Sampler-Pack'
+Bundle 'ChrisKempson/Vim-Tomorrow-Theme'
 
 " sudo
 Bundle 'sudo.vim'
+
+" background for windows?
+" Bundle 'Shougo/vimproc'
 
 " ~~~~~~~~~~~~
 " move
@@ -51,54 +56,61 @@ if v:version > 700
   Bundle 'FuzzyFinder'
 endif
 
-" ~~~~~~~~~~~~
-" languages
-" ~~~~~~~~~~~~
-" Bundle 'javascript.vim'
-" Bundle 'sql.vim'
-" Bundle 'SQLComplete.vim'
-Bundle 'sql.vim--Fishburn-syntax'
 
 " ~~~~~~~~~~~~
-" programings
+" programmings
 " ~~~~~~~~~~~~
 if v:version > 700
   " yankring
   Bundle 'YankRing.vim'
   Bundle 'm4i/YankRingSync'
+
   " auto complete
   Bundle 'Shougo/neocomplcache'
 endif
+
 " Todo tasklist
 Bundle 'TaskList.vim'
+
 " " source viewer for tags
 " Bundle 'Source-Explorer-srcexpl.vim'
+
 " " easytags
 " Bundle 'xolox/vim-easytags'
+
 " taglist
 Bundle 'taglist.vim'
+
 if v:version > 700
   " tagbar
   Bundle 'majutsushi/tagbar'
 endif
+
 " " 保存前差分 表示
 " Bundle 'Changed'
+
 " vim search auto complete
 Bundle 'SearchComplete'
-" " support input
-" Bundle 'kana/vim-smartchr'
+
 " tree view
 Bundle "scrooloose/nerdtree"
-""" indentations
-Bundle "lukaszb/vim-web-indent"
 
-" ##############
+" ~~~~~~~~~~
 " help, doc
+" ~~~~~~~~~~
+Bundle 'thinca/vim-ref'
 Bundle 'ref.vim'
 Bundle 'Shougo/echodoc'
-Bundle 'pydoc.vim'
-Bundle 'Python-Documentation'
 Bundle 'php-doc'
+
+" ~~~~~~~~~~~~
+" languages
+" ~~~~~~~~~~~~
+" sql
+Bundle 'sql.vim--Fishburn-syntax'
+
+" html & javascript indentations
+Bundle "lukaszb/vim-web-indent"
 
 " python
 if ! &diff
@@ -107,7 +119,6 @@ endif
 Bundle 'pep8'
 Bundle 'amitdev/vimpy'
 " Bundle 'project.tar.gz'
-
 
 " Bundle 'vim-ipython'
 
@@ -133,14 +144,27 @@ if v:version > 700
 endif
 " Bundle 'sessionman.vim'
 
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" support input , text-object
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" Bundle 'kana/vim-smartchr'
+Bundle 'tpope/vim-surround'
+" Bundle 'vim-scripts/AutoClose'
 
+" ~~~~~~~
+" funny
+" ~~~~~~~
+Bundle 'koron/nyancat-vim'
 
 "----------------------------------------------------
 " 基本的な設定
 "----------------------------------------------------
 
 "カラースキーマを設定
-colorscheme desert
+" colorscheme anotherdark
+" colorscheme adaryn
+" colorscheme asu1dark
+colorscheme breeze
 " set background=light      " 背景色の傾向(カラースキーマがそれに併せて色の明暗を変えてくれる)
 " set background=dark
 
@@ -161,7 +185,7 @@ set hidden          " 編集中でも他のファイルを開けるようにす�
 set backspace=indent,eol,start
 set formatoptions=lmoq      " 整形オプション，マルチバイト系を追加
 set whichwrap=b,s,h,s,<,>,[,]   " カーソルを行頭、行末で止まらないようにする
-"set clipboard=unnamed,autoselect   " バッファにクリップボードを利用する
+set clipboard=unnamed,autoselect   " バッファにクリップボードを利用する [use fakeclip, reattach-to-user-namespace]
 
 
 " " タブページを常に表示
@@ -225,7 +249,7 @@ augroup END
 :hi clear CursorLine
 :hi CursorLine gui=underline
 highlight CursorLine ctermbg=black guibg=black
-
+" highlight CursorLine term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow
 
 set wildmenu " 補完候補を表示する
 
@@ -350,7 +374,7 @@ set autoindent   " 自動でインデント
 
 set smartindent  " 新しい行を開始したときに、新しい行のインデントを現在行と同じ量にする。
 
-set cindent      " Cプログラムファイルの自動インデントを始める
+" set cindent      " Cプログラムファイルの自動インデントを始める
 
 set expandtab    "タブの代わりに空白文字挿入
 
@@ -399,8 +423,8 @@ if has("autocmd")
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType ruby setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+  " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 
   " ファイルタイプの検索を有効にする
   filetype plugin on
@@ -409,8 +433,9 @@ if has("autocmd")
   " これらのftではインデントを無効に
   "autocmd FileType php filetype indent off
 
-  autocmd FileType html :set indentexpr=
-  autocmd FileType xhtml :set indentexpr=
+  " 無効
+  " autocmd FileType html :set indentexpr=
+  " autocmd FileType xhtml :set indentexpr=
 
   " ファイルタイプごとに辞書ファイルを指定
   autocmd FileType vim :set dictionary+=~/.vim/dict/vim.dict
@@ -615,6 +640,8 @@ if v:version > 700
   inoremap <silent> <C-f> <ESC>:<C-u>FufFile  **<CR>
   nnoremap <silent> <Leader>f :<C-u>FufFile $VIRTUAL_ENV_PYTHON_LIB/python*/site-packages/**<CR>
   inoremap <silent> <Leader>f <ESC>:<C-u>FufFile $VIRTUAL_ENV_PYTHON_LIB/python*/site-packages/**<CR>
+  nnoremap <silent> <Leader><S-f> :<C-u>FufFile $PYTHON_LIB/python*/site-packages/**<CR>
+  inoremap <silent> <Leader><S-f> <ESC>:<C-u>FufFile $PYTHON_LIB/python*/site-packages/**<CR>
   " tag search
   nnoremap <silent> <C-e> :<C-u>FufTag<CR>
   inoremap <silent> <C-e> <ESC>:<C-u>FufTag<CR>
@@ -674,6 +701,47 @@ endif
 
 " ######################################
 
+" 演算子の間に空白を入れる
+" inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
+" inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
+" inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
+" inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
+" inoremap <buffer><expr> / smartchr#one_of(' / ', '// ', '/')
+" *はポインタで使うので、空白はいれない
+" inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
+" inoremap <buffer><expr> % smartchr#one_of(' % ', '%')
+" inoremap <buffer><expr> <Bar> smartchr#one_of(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
+" inoremap <buffer><expr> , smartchr#one_of(', ', ',')
+" " 3項演算子の場合は、後ろのみ空白を入れる
+" inoremap <buffer><expr> ? smartchr#one_of('? ', '?')
+" inoremap <buffer><expr> : smartchr#one_of(': ', '::', ':')
+
+" " =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
+" " 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
+" inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
+        " \ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
+        " \ : smartchr#one_of(' = ', ' == ', '=')
+
+" " 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
+" inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
+" inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
+" " 「->」は入力しづらいので、..で置換え
+" inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
+" " 行先頭での@入力で、プリプロセス命令文を入力
+" inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
+
+" inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' "': '"'
+" " if文直後の(は自動で間に空白を入れる
+" inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
+
+
+" ######################################
+
+" surround.vim  (ds, cs, ys, vs)
+" http://d.hatena.ne.jp/secondlife/20061225/1167032528
+
+" ######################################
+
 
 
 " ######################################
@@ -682,9 +750,11 @@ endif
 
 " ######################################
 " for darwin settings
-let Grep_Xargs_Path = "/opt/local/bin/gxargs"
+if has('mac')
+  let Grep_Xargs_Path = "/opt/local/bin/gxargs"
+endif
 " ignore settings
-let Grep_Skip_Dirs = '.svn .hg .git .idea'
+let Grep_Skip_Dirs = '.svn .hg .git .idea .settings'
 let Grep_Skip_Files = '*.bak *~'
 " :Gb <args> でGrepBufferする
 command! -nargs=1 Gb :GrepBuffer <args>
@@ -811,7 +881,7 @@ let g:SuperTabDefaultCompletionType = "context"
 set completeopt=menuone,longest,preview
 
 " TaskList
-map <Leader>T :TaskList<CR>
+nmap <Leader>T :TaskList<CR>
 
 " tag list plugins
 if v:version > 700
@@ -899,4 +969,191 @@ endif
  " }
 " }
 
+
+
+" ######################################
+
+" auto highlight
+
+" ######################################
+" call AutoHighlightToggle()
+
+let ColorRoller = {}
+
+" let ColorRoller.colors = [
+" \ 'Solarized',
+" \ 'adaryn',
+" \ 'adrian',
+" \ 'aiseered',
+" \ 'almost-default',
+" \ 'anotherdark',
+" \ 'aqua',
+" \ 'astronaut',
+" \ 'asu1dark',
+" \ 'autumn',
+" \ 'autumn2',
+" \ 'autumnleaf',
+" \ 'baycomb',
+" \ 'bclear',
+" \ 'biogoo',
+" \ 'blacksea',
+" \ 'bluegreen',
+" \ 'borland',
+" \ 'breeze',
+" \ 'brookstream',
+" \ 'buttercream',
+" \ 'calmar256-dark',
+" \ 'calmar256-light',
+" \ 'camo',
+" \ 'candy',
+" \ 'candycode',
+" \ 'chela_light',
+" \ 'chocolateliquor',
+" \ 'clarity',
+" \ 'cleanphp',
+" \ 'colorer',
+" \ 'dante',
+" \ 'darkZ',
+" \ 'darkblue2',
+" \ 'darkbone',
+" \ 'darkslategray',
+" \ 'darkspectrum',
+" \ 'dawn',
+" \ 'denim',
+" \ 'desert256',
+" \ 'desertEx',
+" \ 'dusk',
+" \ 'dw_blue',
+" \ 'dw_cyan',
+" \ 'dw_green',
+" \ 'dw_orange',
+" \ 'dw_purple',
+" \ 'dw_red',
+" \ 'dw_yellow',
+" \ 'earendel',
+" \ 'eclipse',
+" \ 'ekvoli',
+" \ 'fine_blue',
+" \ 'fine_blue2',
+" \ 'fnaqevan',
+" \ 'fog',
+" \ 'freya',
+" \ 'fruit',
+" \ 'fruity',
+" \ 'golden',
+" \ 'guardian',
+" \ 'habilight',
+" \ 'herald',
+" \ 'impact',
+" \ 'inkpot',
+" \ 'ironman',
+" \ 'jammy',
+" \ 'jellybeans',
+" \ 'kellys',
+" \ 'leo',
+" \ 'lettuce',
+" \ 'lucius',
+" \ 'manxome',
+" \ 'marklar',
+" \ 'maroloccio',
+" \ 'martin_krischik',
+" \ 'matrix',
+" \ 'molokai',
+" \ 'moria',
+" \ 'moss',
+" \ 'motus',
+" \ 'mustang',
+" \ 'navajo-night',
+" \ 'navajo',
+" \ 'neon',
+" \ 'neverness',
+" \ 'night',
+" \ 'nightshimmer',
+" \ 'no_quarter',
+" \ 'northland',
+" \ 'nuvola',
+" \ 'oceanblack',
+" \ 'oceandeep',
+" \ 'oceanlight',
+" \ 'olive',
+" \ 'papayawhip',
+" \ 'peaksea',
+" \ 'print_bw',
+" \ 'pyte',
+" \ 'railscasts',
+" \ 'railscasts2',
+" \ 'rdark',
+" \ 'relaxedgreen',
+" \ 'robinhood',
+" \ 'rootwater',
+" \ 'satori',
+" \ 'sea',
+" \ 'settlemyer',
+" \ 'sienna',
+" \ 'silent',
+" \ 'simpleandfriendly',
+" \ 'softblue',
+" \ 'soso',
+" \ 'spring',
+" \ 'summerfruit256',
+" \ 'synic',
+" \ 'tabula',
+" \ 'tango',
+" \ 'tango2',
+" \ 'taqua',
+" \ 'tcsoft',
+" \ 'tir_black',
+" \ 'tolerable',
+" \ 'torte',
+" \ 'twilight',
+" \ 'two2tango',
+" \ 'vc',
+" \ 'vibrantink',
+" \ 'vividchalk',
+" \ 'vylight',
+" \ 'winter',
+" \ 'wombat',
+" \ 'wombat256',
+" \ 'wood',
+" \ 'wuye',
+" \ 'xemacs',
+" \ 'xoria256',
+" \ 'zenburn',
+" \ 'zmrok',
+      " \ ]
+
+
+let ColorRoller.colors = [
+\ 'breeze',
+\ 'ChocolateLiquor',
+\ 'Tomorrow-Night-Bright',
+\ 'adaryn',
+\ 'anotherdark',
+\ 'asu1dark',
+      \ ]
+
+
+function! ColorRoller.change()
+  let color = get(self.colors, 0)
+  " tabpagecolorscheme を使用している場合は↓の "colorscheme" を "Tcolorscheme" に変える。
+  silent exe "colorscheme " . color
+  redraw
+  echo self.colors
+endfunction
+
+function! ColorRoller.roll()
+  let item = remove(self.colors, 0)
+  call insert(self.colors, item, len(self.colors))
+  call self.change()
+endfunction
+
+function! ColorRoller.unroll()
+  let item = remove(self.colors, -1)
+  call insert(self.colors, item, 0)
+  call self.change()
+endfunction
+
+nnoremap <silent><Down>   :<C-u>call ColorRoller.roll()<CR>
+nnoremap <silent><Up>     :<C-u>call ColorRoller.unroll()<CR>
+" nnoremap <silent><Leader><f9> :<C-u>call ColorRoller.roll()<CR>
 

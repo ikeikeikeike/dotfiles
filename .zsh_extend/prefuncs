@@ -1,0 +1,80 @@
+#!/usr/bin/env zsh
+
+# growl
+if [ $ARCHI = darwin ]; then
+  # growlnotify exevute  30 second later
+  local COMMAND=""
+  local COMMAND_TIME=""
+  precmd() {
+    if [ "$COMMAND_TIME" -ne "0" ] ; then
+      local d=`date +%s`
+      d=`expr $d - $COMMAND_TIME`
+      if [ "$d" -ge "30" ] ; then
+         COMMAND="$COMMAND "
+         growlnotify -t "${${(s: :)COMMAND}[1]}" -m "$COMMAND"
+      fi
+    fi
+    COMMAND="0"
+    COMMAND_TIME="0"
+
+    # prompt vcs_info
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    psvar[1]=$vcs_info_msg_0_
+  }
+
+  preexec () {
+    COMMAND="${1}"
+    COMMAND_TIME=`date +%s`
+  }
+fi
+
+# history
+zshaddhistory() {
+    local line=${1%%$'\n'}
+    local cmd=${line%% *}
+
+    # 以下の条件をすべて満たすものだけをヒストリに追加する
+    # 追加したくないコマンドを列挙する
+    # この場合、以下のいずれかを満たすコマンドラインがヒストリに追加されなくなる。
+    # * 4文字以下である
+    # * コマンド名の部分が l, ls, la, ll のいずれかである
+    # * コマンド名の部分が c, cd のいずれかである
+    # * コマンド名の部分が m, man のいずれかである
+
+    [[ ${#line} -ge 5
+        && ${cmd} != (l|l[sal])
+        && ${cmd} != (c|cd)
+        && ${cmd} != (sl)
+# && ${cmd} != (gd)
+        && ${cmd} != (m|man)
+    ]]
+}
+
+
+# vcs_info
+autoload -Uz add-zsh-hook
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:*' enable git svn hg bzr
+zstyle ':vcs_info:*' formats '%s-[%b] ~/%S'
+zstyle ':vcs_info:*' actionformats '%s-[%b|%a]'
+zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
+zstyle ':vcs_info:bzr:*' use-simple true
+
+function _update_vcs_info_msg() {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+add-zsh-hook precmd _update_vcs_info_msg 2> /dev/null
+
+
+# http://www.quark.kj.yamagata-u.ac.jp/~hiroki/zsh/zsh.cgi
+# tmuxと連携させて．
+# tmuxの環境変数を設定
+function chpwd(){
+    [ $TMUX ] && tmux setenv TMUXPWD_$(tmux display -p "#I") $PWD
+}
+
+
