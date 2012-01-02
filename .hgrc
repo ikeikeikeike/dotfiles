@@ -32,7 +32,7 @@ mode=ansi
 
 [hooks]
 update.clean=find . -name \*.pyc -or -name \*.orig | xargs rm -f
-precommit.freeze = pip freeze | sed "/-e .*$/d" | diff - requirements/base.txt
+precommit.freeze = pip freeze | sed "/-e .*$/d" | diff - requirements.txt
 
 [merge-tools]
 sourcetreemerge.gui=False
