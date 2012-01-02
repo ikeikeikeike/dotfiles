@@ -83,6 +83,7 @@ def main(args):
     # run_command("ctags -R -a %s %s" % (exclude_option, os.path.join(get_python_lib(), "../")))
     run_command("ctags -R -a --languages=python --python-kinds=-i-v ~/.virtualenvs/__builtin__27/builtins/__builtin__.py")
     run_command("ctags -R -a --languages=python --python-kinds=-i-v ~/.virtualenvs/__builtin__27/builtins/__builtin_exceptions__.py")
+    run_command("ctags -R -a --languages=python --python-kinds=-i-v ~/.virtualenvs/__builtin__27/builtins/__future__.py")
 
     if args.no_virtualenv is False or args.all:
         vpath = get_virtualenv_python_lib()

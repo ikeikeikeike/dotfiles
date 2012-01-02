@@ -66,7 +66,7 @@ if [ $ARCHI = darwin ]; then
   export CPLUS_INCLUDE_PATH=/opt/local/include
   export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
   # default editor
-  export EDITOR=/Applications/MacVim-7_3-53/MacVim.app/Contents/MacOS/Vim
+  export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
   # @see python_select
   export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
 fi
