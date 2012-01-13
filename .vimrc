@@ -95,6 +95,9 @@ Bundle 'SearchComplete'
 " tree view
 Bundle "scrooloose/nerdtree"
 
+" which-func-mode
+Bundle "tyru/current-func-info.vim"
+
 " ~~~~~~~~~~
 " help, doc
 " ~~~~~~~~~~
@@ -114,6 +117,9 @@ Bundle "lukaszb/vim-web-indent"
 
 " python
 if ! &diff
+  " has pyflakes
+  " Bundle 'mitechie/pyflakes-pathogen'
+  " has not pyflakes
   Bundle 'pyflakes.vim'
 endif
 Bundle 'pep8'
@@ -271,7 +277,8 @@ set showmatch   " ()や{}の対応関係をハイライトする
 set laststatus=2 " ステータスラインを常に表示
 
 " ステータスライン文字コード表示
-set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)%m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}
+" set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)\ %{cfi#format(\"[%s()]\",\ \"[no\ function]\")}\ %m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}
+" let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} %m%=%{strftime("%Y/%m/%d %H:%M")}'
 
 set scrolloff=5  " スクロール時に余分に表示する行数，画面の行数より大きくするとカーソルが常に画面中央にくるようになる
 
@@ -869,7 +876,7 @@ let g:debuggerMaxDepth = 10
 " ----------------------------------------------------------------------
 
 " pyflakes
-"let g:pyflakes_use_quickfix=0
+let g:pyflakes_use_quickfix=0
 highlight SpellBad ctermbg=darkred
 
 " pep8
@@ -900,6 +907,8 @@ endif
 " Add  the  virtualenv's   site-packages  to  vim path
 if ! &diff
 
+let g:pythonworkon = "System"
+
 py << EOF
 import os.path
 import sys
@@ -909,6 +918,7 @@ if 'VIRTUAL_ENV' in os.environ:
     sys.path.insert(0, project_base_dir)
     activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
     execfile(activate_this, dict(__file__=activate_this))
+    vim.command("let g:pythonworkon = '%s'" % os.path.basename(project_base_dir))
 EOF
 
 endif
@@ -1156,4 +1166,15 @@ endfunction
 nnoremap <silent><Down>   :<C-u>call ColorRoller.roll()<CR>
 nnoremap <silent><Up>     :<C-u>call ColorRoller.unroll()<CR>
 " nnoremap <silent><Leader><f9> :<C-u>call ColorRoller.roll()<CR>
+
+
+" --------------------------------
+"
+" 最後に書かざるえなかったもの
+"
+" --------------------------------
+
+" ステータスライン文字コード表示
+" set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)\ %{cfi#format(\"[%s()]\",\ \"[no\ function]\")}\ %m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}
+let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
 
