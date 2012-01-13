@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+# django
+pip install django
+
+# debut
+pip install django-pudebug
+
+# test
+pip install django-nose
+
+# CI
+pip install django-jenkins
+
+# django extra
+pip install django-debug-toolbar
+pip install django-extensions
+
+

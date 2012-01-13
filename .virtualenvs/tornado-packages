@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+
+# tornado
+pip install tornado
+
+# database and storage
+pip install asyncmongo
+pip install redis
+
+# rabbit mq
+pip install pika
+
+# daemon admin
+pip install supervisor
+
+
+#pip install tamqplib
+#pip install tpyzmq
+#pip install tpyzmq-static
+

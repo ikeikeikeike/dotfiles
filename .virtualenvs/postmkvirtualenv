@@ -13,9 +13,6 @@ pip install distribute
 # ipython
 pip install ipython
 
-# django
-pip install django
-
 # debug
 pip install Werkzeug
 
@@ -23,10 +20,7 @@ pip install Werkzeug
 pip install pudb debug ipdb django-pudebug
 
 # TEST
-pip install nose nose-pudb django-nose
-
-# CI
-pip install django-jenkins
+pip install nose nose-pudb
 
 # image library
 pip install PIL
@@ -37,16 +31,13 @@ pip install Sphinx
 # deployed
 pip install South Fabric
 
-# django extra
-pip install django-debug-toolbar
-pip install django-extensions
-
 # datastorage
 pip install MySQL-python
 pip install pysqlite
 
 # peformance, analysis
-pip install pyflakes pep8 reimport pylint clonedigger
+pip install pyflakes pep8 reimport pylint
+# pip install clonedigger
 
 
 #  ******************************************************************************
@@ -66,5 +57,13 @@ pip install pyflakes pep8 reimport pylint clonedigger
 # ipython readline
 easy_install readline
 
+echo <<_EOF_
 
+more packages, install to ::
+
+    $ ~/.virtualenvs/django-packages
+    $ ~/.virtualenvs/tornado-packages
+    $ ~/.virtualenvs/flask-packages
+
+_EOF_
 

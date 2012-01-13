@@ -1,8 +1,46 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-===================================
 simple simple*2 createtags-python
+===================================
+github: https://github.com/ikeikeikeike/home/tree/develop/bin
+
+.. code-block:: bash
+
+**Usage**
+
+add packages (default django) ::
+
+    $ createtags-python -p django ipdb pudb IPython celery
+
+not include the virtualenv ::
+
+    $ createtags-python --no-virtualenv
+
+createtags-python script produce more command function.
+
+Help ::
+
+    $ createtags-python --help
+    usage: createtags-python [-h] [-a] [-p PACKAGES [PACKAGES ...]]
+                             [--no-virtualenv] [-v]
+                             [path]
+
+    ctags util for virtualenv.
+
+    positional arguments:
+      path                  project path.
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -a, --all             all in packages. ignore all options.
+      -p PACKAGES [PACKAGES ...], --packages PACKAGES [PACKAGES ...]
+                            give packages name. default is a `django` package.
+      --no-virtualenv       not include the virtualenv.
+      -v, --version         show program's version number and exit
+
+:copyright: Tatsuo Ikeda
+:license: None
 ===================================
 :create_date:  2011-12-04T23:23:21
 """
@@ -110,8 +148,5 @@ if __name__ == '__main__':
     parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + __version__)
 
     args = parser.parse_args()
-    # print(repr(args))
-    # print(args.path)
-    # import pudebug
     main(args)
 

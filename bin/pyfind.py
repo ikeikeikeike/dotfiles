@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-===================================
 pyfind
+===================================
+github: https://github.com/ikeikeikeike/home/tree/develop/bin
 
 run command::
 
@@ -25,7 +26,7 @@ class Error(EnvironmentError):
     pass
 
 def findtree_gen(pattern):
-    """ generator findtree
+    """ generate findtree
     """
     find_pattern = re.compile(pattern)
     finder = []
@@ -70,6 +71,7 @@ def findtree_gen(pattern):
 
 
 if __name__ == '__main__':
+
     usage = "usage: %prog [options] [args [args ...]]"
     p = optparse.OptionParser(usage=usage, version="%prog " +  __version__)
     # no options
