@@ -16,7 +16,7 @@ class ArgsError(Exception):
     pass
 
 
-def process_django():
+def process_django(packages):
 
     import settings
     from django.core.management import setup_environ
@@ -41,40 +41,49 @@ def process_django():
     "django.utils",
     ]
 
-
-    # packages
+    # install packages
     args.extend([a for a in settings.INSTALLED_APPS if not ptn.search(a)])
     # models
     args.extend([m.__module__ for m in get_models() if not ptn.search(m.__module__)])
+
+    if packages:
+        args.extend(packages)
 
     # clean
     _cl_args = list(set(args))
     _cl_args.sort()
     cl_args = _cl_args
 
-    print " ".join(cl_args)
+    print(" ".join(cl_args))
 
-def process_flask():
-    pass
+def process_flask(packages):
+    print("flask werkzeug %s " % " ".join(packages))
 
-def process_tornado():
-    pass
+def process_tornado(packages):
+    print("tornado %s " % " ".join(packages))
+
+def process_normal(packages):
+    print(" ".join(packages))
 
 def main(args):
     """main"""
     if args.django:
-        process_django()
+        process_django(args.packages)
     elif args.flask:
-        process_flask()
+        process_flask(args.packages)
     elif args.tornado:
-        process_tornado()
+        process_tornado(args.packages)
+    elif args.normal:
+        process_normal(args.packages)
     else:
         raise ArgsError('Input Arguments or Options.')
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="ctags util for virtualenv.")
-    parser.add_argument('path', nargs='?', default='.',
-            help='project path.')
+    parser = argparse.ArgumentParser(description="pydiction.py util")
+    parser.add_argument('packages', nargs='+', default=[],
+            help='parse packages.')
+    parser.add_argument('-n', '--normal', action='store_true',
+            help='No additional packages.')
     parser.add_argument('-d', '--django', action='store_true',
             help='django packages and project packages.')
     parser.add_argument('-f', '--flask', action='store_true',
@@ -84,5 +93,6 @@ if __name__ == '__main__':
     parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + __version__)
 
     args = parser.parse_args()
+
     main(args)
 

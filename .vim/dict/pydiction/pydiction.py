@@ -1,15 +1,10 @@
 #!/usr/bin/env python
 # Last modified: July 23rd, 2009
-
-import settings
-from django.core.management import setup_environ
-setup_environ(settings)
-
 """
 
 pydiction.py 1.2 by Ryan Kulla (rkulla AT gmail DOT com).
 
-Description: Creates a Vim dictionary of Python module attributes for Vim's 
+Description: Creates a Vim dictionary of Python module attributes for Vim's
              completion feature.  The created dictionary file is used by
              the Vim ftplugin "python_pydiction.vim".
 
@@ -18,8 +13,8 @@ Example: The following will append all the "time" and "math" modules'
          attributes to a file, in the current directory, called "pydiction"
          with and without the "time." and "math." prefix:
              $ python pydiction.py time math
-         To print the output just to stdout, instead of appending to the file, 
-         supply the -v option: 
+         To print the output just to stdout, instead of appending to the file,
+         supply the -v option:
              $ python pydiction.py -v time math
 
 License: BSD.
@@ -30,6 +25,12 @@ __author__ = "Ryan Kulla (rkulla AT gmail DOT com)"
 __version__ = "1.2"
 __copyright__ = "Copyright (c) 2003-2009 Ryan Kulla"
 
+try:
+    import settings
+    from django.core.management import setup_environ
+    setup_environ(settings)
+except ImportError:
+    pass
 
 import os
 import sys
@@ -78,7 +79,7 @@ def write_dictionary(module_name):
 
     mod_attrs = dir(imported_module)
 
-    # Generate fully-qualified module names: 
+    # Generate fully-qualified module names:
     write_to.write('\n--- import %s ---\n' % module_name)
     for mod_attr in mod_attrs:
         if callable(getattr(imported_module, mod_attr)):
@@ -98,7 +99,7 @@ def write_dictionary(module_name):
         # Get the "import" part of the module. E.g., 'expat'
         # if the module name was 'xml.parsers.expat'
         second_part = module_name[module_name.rfind('.') + 1:]
-        write_to.write('\n--- from %s import %s ---\n' % 
+        write_to.write('\n--- from %s import %s ---\n' %
                        (first_part, second_part))
         for mod_attr in mod_attrs:
             if callable(getattr(imported_module, mod_attr)):
@@ -107,7 +108,7 @@ def write_dictionary(module_name):
                 format = prefix_on
             write_to.write(format % (second_part, mod_attr) + '\n')
 
-    # Generate non-fully-qualified module names: 
+    # Generate non-fully-qualified module names:
     write_to.write('\n--- from %s import * ---\n' % module_name)
     for mod_attr in mod_attrs:
         if callable(getattr(imported_module, mod_attr)):
@@ -131,7 +132,7 @@ def remove_duplicates(seq, keep=()):
 
     Remove duplicates from a sequence while perserving order.
 
-    The optional tuple argument "keep" can be given to specificy 
+    The optional tuple argument "keep" can be given to specificy
     each string you don't want to be removed as a duplicate.
     """
     seq2 = []
@@ -148,7 +149,7 @@ def remove_duplicates(seq, keep=()):
 
 def get_yesno(msg="[Y/n]?"):
     """
-    
+
     Returns True if user inputs 'n', 'Y', "yes", "Yes"...
     Returns False if user inputs 'n', 'N', "no", "No"...
     If they enter an invalid option it tells them so and asks again.
@@ -218,7 +219,7 @@ def main(write_to):
 
     # Delete the original file:
     os.unlink(PYDICTION_DICT)
-    
+
     # Recreate the file, this time it won't have any duplicates lines:
     f = open(PYDICTION_DICT, 'w')
     for attr in file_lines:
@@ -234,7 +235,7 @@ if __name__ == '__main__':
         sys.exit("You need a Python 2.x version of at least Python 2.3")
 
     if len(sys.argv) <= 1:
-        sys.exit("%s requires at least one argument. None given." % 
+        sys.exit("%s requires at least one argument. None given." %
                   sys.argv[0])
 
     if '-v' in sys.argv:
@@ -257,7 +258,7 @@ if __name__ == '__main__':
             if len(sys.argv) < 2:
                 # Check if there's still enough command-line arguments:
                 sys.exit("Nothing new to do. Aborting.")
-            
+
             if os.path.exists(PYDICTION_DICT_BACKUP):
                 answer = get_yesno('Overwrite existing backup "%s" [Y/n]? ' % \
                                     PYDICTION_DICT_BACKUP)

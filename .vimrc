@@ -47,6 +47,10 @@ Bundle 'sudo.vim'
 " background for windows?
 " Bundle 'Shougo/vimproc'
 
+" undo
+Bundle 'Gundo'
+
+
 " ~~~~~~~~~~~~
 " move
 " ~~~~~~~~~~~~
@@ -72,10 +76,12 @@ endif
 " Todo tasklist
 Bundle 'TaskList.vim'
 
-" " source viewer for tags
-" Bundle 'Source-Explorer-srcexpl.vim'
+" source viewer for tags
+Bundle 'Source-Explorer-srcexpl.vim'
+Bundle 'trinity.vim'
 
-" " easytags
+
+" easytags
 " Bundle 'xolox/vim-easytags'
 
 " taglist
@@ -97,6 +103,18 @@ Bundle "scrooloose/nerdtree"
 
 " which-func-mode
 Bundle "tyru/current-func-info.vim"
+
+" indent
+Bundle 'nathanaelkane/vim-indent-guides'
+
+" vimshell
+Bundle 'Shougo/vimshell'
+
+" vimproc
+Bundle 'Shougo/vimproc'
+
+" error
+Bundle 'errormarker.vim'
 
 " ~~~~~~~~~~
 " help, doc
@@ -454,10 +472,6 @@ if has("autocmd")
   " 辞書ファイルを使用する設定に変更
   set complete+=k
 
-  " php syntax
-  autocmd filetype php :set makeprg=php\ -l\ %
-  autocmd filetype php :set errorformat=%m\ in\ %f\ on\ line\ %l
-
 endif
 
 
@@ -708,38 +722,6 @@ endif
 
 " ######################################
 
-" 演算子の間に空白を入れる
-" inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
-" inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
-" inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
-" inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
-" inoremap <buffer><expr> / smartchr#one_of(' / ', '// ', '/')
-" *はポインタで使うので、空白はいれない
-" inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
-" inoremap <buffer><expr> % smartchr#one_of(' % ', '%')
-" inoremap <buffer><expr> <Bar> smartchr#one_of(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
-" inoremap <buffer><expr> , smartchr#one_of(', ', ',')
-" " 3項演算子の場合は、後ろのみ空白を入れる
-" inoremap <buffer><expr> ? smartchr#one_of('? ', '?')
-" inoremap <buffer><expr> : smartchr#one_of(': ', '::', ':')
-
-" " =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
-" " 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
-" inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
-        " \ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
-        " \ : smartchr#one_of(' = ', ' == ', '=')
-
-" " 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
-" inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
-" inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
-" " 「->」は入力しづらいので、..で置換え
-" inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
-" " 行先頭での@入力で、プリプロセス命令文を入力
-" inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
-
-" inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' "': '"'
-" " if文直後の(は自動で間に空白を入れる
-" inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
 
 
 " ######################################
@@ -850,6 +832,7 @@ let g:echodoc_enable_at_startup = 1
 
 " srcexl
 " link: http://d.hatena.ne.jp/guyon/20080409/1207737955
+" link: http://d.hatena.ne.jp/guyon/20120114/1326549125
 
 " ######################################
 " "自動でプレビューを表示する。TODO:うざくなってきたら手動にする。またはソースを追う時だけ自動に変更する。
@@ -863,6 +846,7 @@ let g:echodoc_enable_at_startup = 1
 " let g:SrcExpl_GoBackMapKey  = '<C-b>'
 " nmap <Leader><F8> :SrcExplToggle<CR>
 
+" :TrinityToggleAll
 
 " xdebug
 let g:debuggerMaxDepth = 10
@@ -924,248 +908,63 @@ EOF
 endif
 
 
-" function GetSitePackages()
-  " let path = ""
-  " python << EOM
-" """
-" virtualenv path
-" """
-" import os
-" import sys
-" import commands
-" from distutils.sysconfig import get_python_lib
+" ######################################
 
-" def get_virtualenv_python_lib():
-    " """like a get_python_lib()"""
-    " #if isinstance(sys.version_info, tuple):
-    " #  version = "%s.%s" % (sys.version_info[0], sys.version_info[1])
-    " #else:
-    " #  version = "%s.%s" % (sys.version_info.major, sys.version_info.minor)
-    " v = commands.getoutput('%s/bin/python -V' % os.environ["VIRTUAL_ENV"])
-    " v = v.split()[1].split('.')
-    " version = "%s.%s" % (v[0], v[1])
-    " return "%s/lib/python%s/site-packages" % (os.environ["VIRTUAL_ENV"], version)
+" vim-indent-guides
 
-" vim.command('let path = "%s"' % get_virtualenv_python_lib())
-" commands.getoutput('export get_virtualenv_python_lib=%s' % get_virtualenv_python_lib())
-" EOM
-  " return path
-" endfunction
+" ######################################
+" let g:indent_guides_enable_on_vim_startup " gvim only  - vim立ち上げ時に自動的にvim-indent-guidesをオンにする -
+" autocmd FileType python,php,ruby,scala IndentGuidesEnable " use terminal
 
-" call GetSitePackages()
+" let g:indent_guides_auto_colors = 1
+" let g:indent_guides_color_change_percent = 10
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=black guibg=black ctermbg=6 " インデントの色
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey guibg=darkgrey ctermbg=0 " 二段階目のインデントの色
+let g:indent_guides_guide_size = 1 " インデントの色付け幅
 
 
 " ######################################
 
-" project.vim
+" undo
 
 " ######################################
-" python django, https://code.djangoproject.com/wiki/UsingVimWithDjango
-" Django Project=/Users/ikeda/.virtualenvs/mw_py27/backend/ CD=. filter="[^_]*.py" {
- " settings.py
- " urls.py
- " apps=apps {
-  " Polls=polls {
-   " views.py
-   " models.py
-  " }
-  " ToDo=todo {
-   " views.py
-   " models.py
-  " }
- " media=mediaDir {
-  " images=imagesDir {
-  " }
- " }
-" }
+if has('persistent_undo')
+    set undodir=~/.vimundo
+    set undofile
+endif
 
 
+" -----------------------
 
-" ######################################
+" errormarker.vim
+" quickfix auto start
+" error compiler
 
-" auto highlight
+" -----------------------
+autocmd QuickfixCmdPost make,grep,vimgrep,grepadd cw
 
-" ######################################
-" call AutoHighlightToggle()
+" php syntax
+autocmd filetype php :set makeprg=php\ -l\ %
+autocmd filetype php :set errorformat=%m\ in\ %f\ on\ line\ %l
+" ruby
+autocmd FileType perl,cgi :compiler perl
 
-let ColorRoller = {}
+let g:errormarker_errortext = '!!'
+let g:errormarker_warningtext = '??'
+let g:errormarker_errorgroup = 'Error'
+let g:errormarker_warninggroup = 'Todo'
+if !exists('g:flymake_enabled')
+   let g:flymake_enabled = 1
+   autocmd BufWritePost *.php,*.rb,*.pl,*.pm,*.t silent make! | redraw!
+endif
+if has('win32') || has('win64')
+   let g:errormarker_erroricon = expand('~/.vim/signs/err.bmp')
+   let g:errormarker_warningicon = expand('~/.vim/signs/warn.bmp')
+else
+   let g:errormarker_erroricon = expand('~/.vim/signs/err.bmp')
+   let g:errormarker_warningicon = expand('~/.vim/signs/err.png')
+endif
 
-" let ColorRoller.colors = [
-" \ 'Solarized',
-" \ 'adaryn',
-" \ 'adrian',
-" \ 'aiseered',
-" \ 'almost-default',
-" \ 'anotherdark',
-" \ 'aqua',
-" \ 'astronaut',
-" \ 'asu1dark',
-" \ 'autumn',
-" \ 'autumn2',
-" \ 'autumnleaf',
-" \ 'baycomb',
-" \ 'bclear',
-" \ 'biogoo',
-" \ 'blacksea',
-" \ 'bluegreen',
-" \ 'borland',
-" \ 'breeze',
-" \ 'brookstream',
-" \ 'buttercream',
-" \ 'calmar256-dark',
-" \ 'calmar256-light',
-" \ 'camo',
-" \ 'candy',
-" \ 'candycode',
-" \ 'chela_light',
-" \ 'chocolateliquor',
-" \ 'clarity',
-" \ 'cleanphp',
-" \ 'colorer',
-" \ 'dante',
-" \ 'darkZ',
-" \ 'darkblue2',
-" \ 'darkbone',
-" \ 'darkslategray',
-" \ 'darkspectrum',
-" \ 'dawn',
-" \ 'denim',
-" \ 'desert256',
-" \ 'desertEx',
-" \ 'dusk',
-" \ 'dw_blue',
-" \ 'dw_cyan',
-" \ 'dw_green',
-" \ 'dw_orange',
-" \ 'dw_purple',
-" \ 'dw_red',
-" \ 'dw_yellow',
-" \ 'earendel',
-" \ 'eclipse',
-" \ 'ekvoli',
-" \ 'fine_blue',
-" \ 'fine_blue2',
-" \ 'fnaqevan',
-" \ 'fog',
-" \ 'freya',
-" \ 'fruit',
-" \ 'fruity',
-" \ 'golden',
-" \ 'guardian',
-" \ 'habilight',
-" \ 'herald',
-" \ 'impact',
-" \ 'inkpot',
-" \ 'ironman',
-" \ 'jammy',
-" \ 'jellybeans',
-" \ 'kellys',
-" \ 'leo',
-" \ 'lettuce',
-" \ 'lucius',
-" \ 'manxome',
-" \ 'marklar',
-" \ 'maroloccio',
-" \ 'martin_krischik',
-" \ 'matrix',
-" \ 'molokai',
-" \ 'moria',
-" \ 'moss',
-" \ 'motus',
-" \ 'mustang',
-" \ 'navajo-night',
-" \ 'navajo',
-" \ 'neon',
-" \ 'neverness',
-" \ 'night',
-" \ 'nightshimmer',
-" \ 'no_quarter',
-" \ 'northland',
-" \ 'nuvola',
-" \ 'oceanblack',
-" \ 'oceandeep',
-" \ 'oceanlight',
-" \ 'olive',
-" \ 'papayawhip',
-" \ 'peaksea',
-" \ 'print_bw',
-" \ 'pyte',
-" \ 'railscasts',
-" \ 'railscasts2',
-" \ 'rdark',
-" \ 'relaxedgreen',
-" \ 'robinhood',
-" \ 'rootwater',
-" \ 'satori',
-" \ 'sea',
-" \ 'settlemyer',
-" \ 'sienna',
-" \ 'silent',
-" \ 'simpleandfriendly',
-" \ 'softblue',
-" \ 'soso',
-" \ 'spring',
-" \ 'summerfruit256',
-" \ 'synic',
-" \ 'tabula',
-" \ 'tango',
-" \ 'tango2',
-" \ 'taqua',
-" \ 'tcsoft',
-" \ 'tir_black',
-" \ 'tolerable',
-" \ 'torte',
-" \ 'twilight',
-" \ 'two2tango',
-" \ 'vc',
-" \ 'vibrantink',
-" \ 'vividchalk',
-" \ 'vylight',
-" \ 'winter',
-" \ 'wombat',
-" \ 'wombat256',
-" \ 'wood',
-" \ 'wuye',
-" \ 'xemacs',
-" \ 'xoria256',
-" \ 'zenburn',
-" \ 'zmrok',
-      " \ ]
-
-
-let ColorRoller.colors = [
-\ 'breeze',
-\ 'ChocolateLiquor',
-\ 'Tomorrow-Night-Bright',
-\ 'adaryn',
-\ 'anotherdark',
-\ 'asu1dark',
-      \ ]
-
-
-function! ColorRoller.change()
-  let color = get(self.colors, 0)
-  " tabpagecolorscheme を使用している場合は↓の "colorscheme" を "Tcolorscheme" に変える。
-  silent exe "colorscheme " . color
-  redraw
-  echo self.colors
-endfunction
-
-function! ColorRoller.roll()
-  let item = remove(self.colors, 0)
-  call insert(self.colors, item, len(self.colors))
-  call self.change()
-endfunction
-
-function! ColorRoller.unroll()
-  let item = remove(self.colors, -1)
-  call insert(self.colors, item, 0)
-  call self.change()
-endfunction
-
-nnoremap <silent><Down>   :<C-u>call ColorRoller.roll()<CR>
-nnoremap <silent><Up>     :<C-u>call ColorRoller.unroll()<CR>
-" nnoremap <silent><Leader><f9> :<C-u>call ColorRoller.roll()<CR>
 
 
 " --------------------------------
