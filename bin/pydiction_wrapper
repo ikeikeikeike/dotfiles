@@ -1,1 +1,53 @@
-pydiction_wrapper.py
+#!/bin/sh
+
+
+function usage()
+{
+  python pydiction_wrapper.py -h
+}
+
+function initial()
+{
+  ln -s ~/.vim/dict/pydiction/complete-dict .
+  cp `\which pydiction_wrapper.py` .
+  cp `\which pydiction.py` .
+}
+
+function exit_()
+{
+  rm complete-dict
+  rm complete-dict.last
+  rm pydiction_wrapper.py
+  rm pydiction.py
+  exit $1
+}
+
+initial
+
+while [ "$1" != "" ]; do
+    PARAM=`echo $1 | awk -F= '{print $1}'`
+    VALUE=`echo $1 | awk -F= '{print $2}'`
+    case $PARAM in
+        -h | --help)
+            usage
+            exit_
+            ;;
+        -v | --version)
+            python pydiction_wrapper.py $PARAM
+            exit_
+            ;;
+        -*)
+            python pydiction.py `python pydiction_wrapper.py $@`
+            exit_
+            ;;
+        *)
+            echo "ERROR: unknown parameter \"$PARAM\""
+            usage
+            exit_ 1
+            ;;
+    esac
+shift
+done
+
+exit_
+

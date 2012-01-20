@@ -1,1 +1,1 @@
-../.vim/dict/pydiction/pydiction_wrapper.py
+pydiction/pydiction_wrapper.py
