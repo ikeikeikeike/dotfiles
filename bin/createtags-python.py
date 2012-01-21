@@ -9,9 +9,13 @@ github: https://github.com/ikeikeikeike/home/tree/develop/bin
 
 **Usage**
 
-add packages (default django) ::
+add virtualenv packages (default django) ::
 
     $ createtags-python -p django ipdb pudb IPython celery
+
+add standard packages ::
+
+    $ createtags-python -s SocketServer commands
 
 not include the virtualenv ::
 
@@ -133,6 +137,12 @@ def main(args):
         rm_tags("%s/tags" % vpath)
         os.symlink("%s/tags" % os.getcwd(), "%s/tags" % vpath)
 
+    if args.standard_packages:
+        vpath = get_python_lib(standard_lib=True)
+        for package in args.standard_packages:
+            run_command("ctags -R -a %s %s%s" % (exclude_option, os.path.join(vpath, package), '*'))
+        rm_tags("%s/tags" % vpath)
+        os.symlink("%s/tags" % os.getcwd(), "%s/tags" % vpath)
 
 if __name__ == '__main__':
 
@@ -140,9 +150,11 @@ if __name__ == '__main__':
     parser.add_argument('path', nargs='?', default='.',
             help='project path.')
     parser.add_argument('-a', '--all', action="store_true",
-            help='all in packages. ignore all options.')
+            help='all in virtualenv packages. ignore all options.')
     parser.add_argument('-p', '--packages', nargs='+', default=['django'],
             help='give packages name. default is a `django` package.')
+    parser.add_argument('-s', '--standard-packages', nargs='+', default=[],
+            help='give packages name. for the standard library.')
     parser.add_argument('--no-virtualenv', action='store_true',
             help='not include the virtualenv.')
     parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + __version__)

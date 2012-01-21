@@ -102,11 +102,11 @@ endfunction
 " keymaps
 "--------
 " deploy window
-map <silent> <Leader>r :call Rsync_gigacast_local_dev()<cr>
+" map <silent> <Leader>r :call Rsync_gigacast_local_dev()<cr>
 map <silent> <Leader>c :call Nwpwd()<cr>
 " tags
-nnoremap <silent> <C-c>c :<C-u>MyTagsClass<Space>
-nnoremap <silent> <C-c>m :<C-u>MyTagsClassMember<Space>
-nnoremap <silent> <C-c>f :<C-u>MyTagsFunction<Space>
+" nnoremap <silent> <C-c>c :<C-u>MyTagsClass<Space>
+" nnoremap <silent> <C-c>m :<C-u>MyTagsClassMember<Space>
+" nnoremap <silent> <C-c>f :<C-u>MyTagsFunction<Space>
 
 
