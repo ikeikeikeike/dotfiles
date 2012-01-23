@@ -1,11 +1,13 @@
+
+" viとの互換性をとらない(vimの独自拡張機能を使う為)
+set nocompatible
+
 " ------------
 "
 "   vundle
 "
 " ------------
 
-" viとの互換性をとらない(vimの独自拡張機能を使う為)
-set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
@@ -450,13 +452,7 @@ if has("autocmd")
     autocmd BufNewFile,BufRead *.vrapperrc set filetype=vim
     autocmd BufNewFile,BufRead *.go set filetype=go
 
-    " Enable omni completion.
-    autocmd FileType eruby,html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType ruby setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-    " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 
     " ファイルタイプの検索を有効にする
     filetype plugin on
@@ -736,6 +732,67 @@ if v:version > 700
     endif
     let g:neocomplcache_same_filetype_lists['asc'] = 'javascript'
     let g:neocomplcache_same_filetype_lists['twig'] = 'html'
+
+    " "インクルードパスの指定
+    let g:neocomplcache_include_paths = {
+            \ 'cpp'  : '.,/usr/include/c++/4.2.1,/opt/local/include,/usr/include',
+            \ 'c'    : '.,/usr/include',
+            \ 'ruby' : '.,$HOME/.rvm/rubies/**/lib/ruby/1.8/',
+            \ 'perl' : '.,/System/Library/Perl,/Users/rhayasd/programs',
+            \ }
+
+    "インクルード文のパターンを指定
+    let g:neocomplcache_include_patterns = {
+            \ 'php' : '^\s*require_once',
+            \ 'cpp' : '^\s*#\s*include',
+            \ 'ruby' : '^\s*require',
+            \ 'perl' : '^\s*use',
+            \ }
+
+    "インクルード先のファイル名の解析パターン
+    let g:neocomplcache_include_exprs = {
+            \ 'ruby' : "substitute(substitute(v:fname,'::','/','g'),'$','.rb','')"
+            \ }
+
+    " Enable omni completion.
+    autocmd FileType eruby,html,markdown set omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+    autocmd FileType c set omnifunc=ccomplete#Complete
+    autocmd FileType ruby set omnifunc=rubycomplete#Complete
+    autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplcache_omni_patterns')
+        let g:neocomplcache_omni_patterns = {}
+    endif
+    " let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+    " let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    " let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+    " let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
+
+    """"""""""""""""""""""""""""""""""""""""""""
+    " neocomplecache-clang "
+    """"""""""""""""""""""""""""""""""""""""""""
+    " {{{
+    " libclangを使う
+    let g:neocomplcache_clang_use_library = 1
+    " ライブラリへのパス
+    let g:neocomplcache_clang_library_path = '/Developer/usr/clang-ide/lib'
+    " clangへのパス
+    let g:neocomplcache_clang_executable_path = '/usr/bin'
+    " let g:neocomplcache_clang_auto_options = ''
+    " clangのコマンドオプション
+    let g:neocomplcache_clang_user_options =
+        \'-I /usr/include/c++/4.2.1 '.
+        \'-I /usr/include '.
+        \'-I /opt/local/include/boost '
+        " \'-I /usr/local/Cellar/gcc/4.6.2/gcc/include '.
+        " \'-I /usr/local/Cellar/boost/1.48.0/include '
+    " }}}
 
 endif
 
