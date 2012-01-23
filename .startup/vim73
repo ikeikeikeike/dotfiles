@@ -8,9 +8,13 @@ cd macvim
 make
 make install
 
+echo "example:: next command"
 echo
+echo "git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle"
 echo
-echo 'git clone git://github.com/gmarik/vundle.git'
+echo "vim -c 'BundleInstall'"
 echo
-echo 'Note: please installed python hashlib module.'
+echo "cd ~/.vim/bundle/vimproc/ && make -f make_gcc.mak"
+echo
+echo "Note: please installed python hashlib module."
 
