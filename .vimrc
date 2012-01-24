@@ -46,9 +46,6 @@ Bundle 'ChrisKempson/Vim-Tomorrow-Theme'
 " sudo
 Bundle 'sudo.vim'
 
-" background for windows?
-" Bundle 'Shougo/vimproc'
-
 " undo
 Bundle 'Gundo'
 
