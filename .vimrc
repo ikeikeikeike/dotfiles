@@ -686,6 +686,10 @@ if v:version > 700
     let g:neocomplcache_min_syntax_length = 3
     " C-j snippet
     imap <C-j> <Plug>(neocomplcache_snippets_expand)
+    " キー入力時にキーワード補完を行う入力数を制御する
+    let g:neocomplcache_auto_completion_start_length = 5
+    " ポップアップメニューで表示される候補の数を制御する
+    let g:neocomplcache_max_list = 10
 
     " SuperTab like snippets behavior. TABでスニペットを展開
     " imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
