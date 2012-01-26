@@ -689,7 +689,9 @@ if v:version > 700
     " キー入力時にキーワード補完を行う入力数を制御する
     let g:neocomplcache_auto_completion_start_length = 5
     " ポップアップメニューで表示される候補の数を制御する
-    let g:neocomplcache_max_list = 10
+    let g:neocomplcache_max_list = 30
+    " 自動補完 無効 手動: <C-x><C-u>
+    " g:neocomplcache_disable_auto_complete = 1
 
     " SuperTab like snippets behavior. TABでスニペットを展開
     " imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
