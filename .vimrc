@@ -167,11 +167,11 @@ Bundle 'thinca/vim-qfreplace'
 Bundle 'DirDiff.vim'
 
 " session
-if v:version > 700
-    if ! &diff
-        Bundle 'session.vim'
-    endif
-endif
+" if v:version > 700
+    " if ! &diff
+        " Bundle 'session.vim'
+    " endif
+" endif
 " Bundle 'sessionman.vim'
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -434,9 +434,9 @@ setlocal omnifunc=syntaxcomplete#Complete
 " highlight PmenuSel gui=bold ctermbg=gray ctermfg=lightgreen
 " highlight PmenuSbar ctermbg=darkgray
 " highlight PmenuThumb ctermbg=lightgray
-" highlight Pmenu ctermbg=8 guibg=#606060
+highlight Pmenu ctermbg=8 guibg=#606060
 " highlight PmenuSel ctermbg=12 guibg=SlateBlue
-" highlight PmenuSbar ctermbg=0 guibg=#404040
+highlight PmenuSbar ctermbg=0 guibg=#404040
 " highlight PmenuThumb ctermbg=0 guibg=Red
 
 " autocmd settings
@@ -676,8 +676,8 @@ endif
 " ######################################
 if v:version > 700
 
-    " 自動で補完候補をポップアップ
-    " let g:neocomplcache_enable_at_startup = 1
+    " 自動で有効
+    let g:neocomplcache_enable_at_startup = 1
     " 大文字が入力されるまで大文字小文字の区別を無視
     let g:neocomplcache_enable_smart_case = 1
     " _ 区切りの補完を有効化します。
