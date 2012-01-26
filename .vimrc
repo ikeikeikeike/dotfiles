@@ -689,7 +689,7 @@ if v:version > 700
     " キー入力時にキーワード補完を行う入力数を制御する
     let g:neocomplcache_auto_completion_start_length = 5
     " ポップアップメニューで表示される候補の数を制御する
-    let g:neocomplcache_max_list = 30
+    let g:neocomplcache_max_list = 50
     " 自動補完 無効 手動: <C-x><C-u>
     " g:neocomplcache_disable_auto_complete = 1
 
