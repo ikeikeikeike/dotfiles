@@ -1,6 +1,4 @@
 
-ログインシェルはbashでtmux,screen起動後はzshに切り替えて使用しています。
-
 Install
 ::
 
