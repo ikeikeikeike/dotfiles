@@ -677,7 +677,7 @@ endif
 if v:version > 700
 
     " 自動で補完候補をポップアップ
-    let g:neocomplcache_enable_at_startup = 1
+    " let g:neocomplcache_enable_at_startup = 1
     " 大文字が入力されるまで大文字小文字の区別を無視
     let g:neocomplcache_enable_smart_case = 1
     " _ 区切りの補完を有効化します。

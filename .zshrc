@@ -245,7 +245,8 @@ PROMPT=$'\n'$GREEN'${USER}@${HOST}'$CYAN'(${ARCHI}-${DISTRIBUTE}) '$YELLOW'%~ '$
 # RPROMPT=%1v%2v%f${DEFAULT}
 RPROMPT=${CYAN}%1v%2v%f${DEFAULT}
 
-
+# mysql
+export MYSQL_PS1="(\u@\h) [\d]> "
 
 #####  pre attaches
 
