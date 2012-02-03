@@ -27,7 +27,8 @@ Help ::
 
     $ createtags-python --help
     usage: createtags-python [-h] [-a] [-p PACKAGES [PACKAGES ...]]
-                             [--no-virtualenv] [-v]
+                             [-s STANDARD_PACKAGES [STANDARD_PACKAGES ...]]
+                             [--no-virtualenv] [--allow-testcode] [-v]
                              [path]
 
     ctags util for virtualenv.
@@ -37,10 +38,13 @@ Help ::
 
     optional arguments:
       -h, --help            show this help message and exit
-      -a, --all             all in packages. ignore all options.
+      -a, --all             all in virtualenv packages. ignore all options.
       -p PACKAGES [PACKAGES ...], --packages PACKAGES [PACKAGES ...]
                             give packages name. default is a `django` package.
+      -s STANDARD_PACKAGES [STANDARD_PACKAGES ...], --standard-packages STANDARD_PACKAGES [STANDARD_PACKAGES ...]
+                            give packages name. for the standard library.
       --no-virtualenv       not include the virtualenv.
+      --allow-testcode      include the test code.
       -v, --version         show program's version number and exit
 
 :copyright: Tatsuo Ikeda
@@ -48,7 +52,7 @@ Help ::
 ===================================
 :create_date:  2011-12-04T23:23:21
 """
-__version__ = '0.2'
+__version__ = '0.3'
 
 import os
 import sys
@@ -111,16 +115,18 @@ def main(args):
 
     rm_tags('./tags')
 
-    exclude_option = ("--languages=python --python-kinds=-i-v "
-            "--exclude=test_* "
-            "--exclude=tests.py "
-            "--exclude=test.py "
-            "--exclude=*/IPython/* "
-            "--exclude=*/unittest/* "
-            "--exclude=*/testing/* "
-            "--exclude=*/testsuite/* "
-            "--exclude=*/test/* "
-            "--exclude=*/tests/*")
+    exclude_option = "--languages=python --python-kinds=-i-v "
+    if not args.allow_testcode:
+            exclude_option += \
+                    "--exclude=test_* " \
+                    "--exclude=tests.py " \
+                    "--exclude=test.py " \
+                    "--exclude=*/IPython/* " \
+                    "--exclude=*/unittest/* " \
+                    "--exclude=*/testing/* " \
+                    "--exclude=*/testsuite/* " \
+                    "--exclude=*/test/* " \
+                    "--exclude=*/tests/*"
     run_command("ctags -R    %s %s" % (exclude_option, args.path))
     # run_command("ctags -R -a %s %s" % (exclude_option, os.path.join(get_python_lib(), "../")))
     run_command("ctags -R -a --languages=python --python-kinds=-i-v ~/.virtualenvs/__builtin__27/builtins/__builtin__.py")
@@ -157,6 +163,8 @@ if __name__ == '__main__':
             help='give packages name. for the standard library.')
     parser.add_argument('--no-virtualenv', action='store_true',
             help='not include the virtualenv.')
+    parser.add_argument('--allow-testcode', action='store_true',
+            help='include the test code.')
     parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + __version__)
 
     args = parser.parse_args()

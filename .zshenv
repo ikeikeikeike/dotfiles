@@ -106,6 +106,7 @@ export PATH=$REBEL_HOME/bin:$PATH
 export PLAY_HOME=/opt/local/share/java/play-1.2.3
 export PATH=$PLAY_HOME:$PATH
 
+# node /opt/local/bin
 
 ### python ###
 export PATH=$PYTHON_HOME/bin:$PATH

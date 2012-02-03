@@ -25,13 +25,13 @@ function ssh_tmux(){
 }
 
 # tmux screen 判別
-if [ x$TERM = xscreen ]; then
+# if [ x$TERM = xscreen ]; then
     if [ -e $TMUX ]; then
         alias ssh=ssh_screen
     else
         alias ssh=ssh_tmux
     fi
-fi
+# fi
 
 source $HOME/.zsh_extend/emacs/isemacs.sh
 

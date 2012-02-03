@@ -255,7 +255,7 @@ if [ "${TMUX}" != "" ] ; then
   tmux pipe-pane 'cat >> ~/.tmux/`date +%Y-%m-%d`_#S:#I.#P.log'
 fi
 
-# if [ "$TERM" = "screen" ]; then
+# if [ "$TERM" = "xterm-color" ]; then
   # preexec() {
     # # see [zsh-workers:13180]
     # # http://www.zsh.org/mla/workers/2000/msg03993.html

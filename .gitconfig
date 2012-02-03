@@ -11,6 +11,10 @@
   excludesfile = /Users/ikeda/.gitignore
   pager = LESS=-R less
   autoCRLF = false
+[alias]
+  st = status
+  ci = commit
+  co = checkout
 [merge]
   keepBackup = false;
   tool = p4merge

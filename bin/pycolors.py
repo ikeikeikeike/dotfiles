@@ -64,8 +64,11 @@ class Bcolors(object):
     ENDC_COLOR = '\033[0m'
 
     def __init__(self):
+        # dict
         self._colors = dict()
+        # yield
         self._color_keys = None
+        # enabled colors
         self.enabled()
 
     def _get_colors(self):
