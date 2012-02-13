@@ -63,8 +63,9 @@ if [ $ARCHI = darwin ]; then
   export LIBRARY_PATH=/opt/local/lib
   export LD_LIBRARY_PATH=/opt/local/lib
   export C_INCLUDE_PATH=/opt/local/include
-  export CPLUS_INCLUDE_PATH=/opt/local/include
+  export CPLUS_INCLUDE_PATH=/opt/local/include:$HOME/include
   export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
+  export BOOST_ROOT=$HOME/include/boost:/opt/local/include/boost:$BOOST_ROOT
   # default editor
   export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
   # @see python_select

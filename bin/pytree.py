@@ -44,7 +44,8 @@ def tree_lines_(path, is_last=True):
 
     lines = [branch_str + basename(path)]
     if isdir(path):
-        entries = nexts(path)
+        entries = Next().ls(path)
+        # entries = nexts(path)
         entries.sort(key=methodcaller("lower"))
         for i, entry in enumerate(entries):
             is_last_entry = i == len(entries) - 1
@@ -59,7 +60,8 @@ def tree_lines(path):
     lines = []
     lines.append(path)
     lines.append("|")
-    entries = nexts(path)
+    entries = Next().ls(path)
+    # entries = nexts(path)
     entries.sort(key=methodcaller("lower"))
     for i, entry in enumerate(entries):
         is_last_entry = i == len(entries) - 1
@@ -100,6 +102,34 @@ def nexts_gen(stdinlines=False):
 
     return nexts
 
+
+class Next(object):
+
+    def _basesearch(self, path):
+        ptn = re.compile(path)
+        return [l for l in self.lines if ptn.search(l)]
+
+    def _indexlist(self, lists, index):
+        s = set()
+        for l in lists:
+            try:
+                s.add(l.split('/')[index])
+            except IndexError:
+                pass
+        return list(s)
+
+    @classmethod
+    def gen(cls, stdinlines=False):
+        cls.lines = [unicode(c.rstrip(), 'utf8') for c in sys.stdin] if stdinlines else []
+        cls.stdinlines = stdinlines
+
+    def ls(self, path):
+        if self.stdinlines is False:
+            return os.listdir(path)
+        else:
+            clpath = path.rstrip('/')
+            return self._indexlist(self._basesearch(clpath), len(clpath.split('/')))
+
 def main(root):
     print()
     print_lines(tree_lines(root))
@@ -111,10 +141,12 @@ if "__main__" == __name__:
             root = sys.argv[1]
         else:
             root = dirname(sys.argv[1])
-        nexts = nexts_gen(False)
+        # nexts = nexts_gen(False)
+        Next.gen(False)
     else:
         root = sys.stdin.readline().rstrip()
-        nexts = nexts_gen(True)
+        # nexts = nexts_gen(True)
+        Next.gen(True)
 
     main(unicode(root, 'utf8'))
 
