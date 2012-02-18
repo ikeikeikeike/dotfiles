@@ -70,7 +70,7 @@ if v:version > 700
 
     " auto complete
     Bundle 'Shougo/neocomplcache'
-    " vim search auto complete
+    Bundle 'Shougo/neocomplcache-snippets-complete'
     Bundle "Shougo/neocomplcache-clang"
 
 endif
