@@ -26,5 +26,6 @@ expr 1 + $newdir >/dev/null 2>&1
 case $? in
     0 | 1 )var=`dirs -v -l |grep -w $newdir |awk '{printf("%s\n",$2)}'`
         cd $var;;
-    * ) echo " 数字以外が入力されました >$newdir" ;;
+    * ) echo " Please enter a number > $newdir" ;;
 esac
+

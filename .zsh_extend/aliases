@@ -35,17 +35,18 @@ alias less='less -MX'
 alias grep='grep -i --color=always '
 alias cp='cp -iv'
 alias mv='mv -iv'
+alias which='which -a'
+alias pb='tmux-pbcopy'
+# cd
+alias ...="../../"
+function - { cd -; }
 alias gd='source $HOME/.zsh_extend/gd/gd.sh'
 alias cdh='gd'
 alias cdd='gd'
 alias cdhistory='gd'
-alias which='which -a'
-alias pb='tmux-pbcopy'
-
 # -g
 alias -g L="| $PAGER"
 alias -g G="| grep"
-
 
 # rsync
 alias rsync_gigacast_dev='source $HOME/script/shell/rsync_gigacast_dev'

@@ -82,7 +82,6 @@ Bundle 'TaskList.vim'
 Bundle 'Source-Explorer-srcexpl.vim'
 Bundle 'trinity.vim'
 
-
 " easytags
 " Bundle 'xolox/vim-easytags'
 
@@ -402,6 +401,9 @@ else
     set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags,./../../../../../../tags,./../../../../../../../tags,./../../../../../../../../tags,./../../../../../../../../../tags,./../../../../../../../../../../tags,./../../../../../../../../../../../tags,./../../../../../../../../../../../tags
 endif
 
+"----------------------------------------------------
+" ctags
+"----------------------------------------------------
 " keymap (replace unite-tag)
 nnoremap <C-]>    g<C-]>
 
