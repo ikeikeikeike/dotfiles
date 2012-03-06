@@ -69,7 +69,8 @@ if [ $ARCHI = darwin ]; then
   # default editor
   export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
   # @see python_select
-  export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
+  [[ -s $HOME/.pythonbrew/etc/bashrc ]] || export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
+  [[ -s $HOME/.pythonbrew/etc/bashrc ]] && export PYTHON_HOME=`cat ~/.pythonbrew/etc/current | sed -e 's@PATH_PYTHONBREW_CURRENT="@@g' | sed -e 's@/bin"@@g'`
 fi
 if [ $ARCHI = linux ]; then
   # encode
@@ -110,6 +111,9 @@ export PATH=$PLAY_HOME:$PATH
 # node /opt/local/bin
 
 ### python ###
+# if pythonbrew
+[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
+# path
 export PATH=$PYTHON_HOME/bin:$PATH
 export MANPATH=$PYTHON_HOME/share/man:$MANPATH
 
