@@ -16,5 +16,10 @@ echo "vim -c 'BundleInstall'"
 echo
 echo "cd ~/.vim/bundle/vimproc/ && make -f make_gcc.mak"
 echo
+echo "mkdir -p ~/.vim_plugins/vim_session"
+echo
+echo "wget 'https://raw.github.com/taku-o/downloads/master/DirDiff/DirDiff_mb.vim'; mv DirDiff_mb.vim ~/.vim/bundle/DirDiff.vim/plugin/DirDiff.vim"
+echo
 echo "Note: please installed python hashlib module."
+echo "Note: please installed ctags."
 
