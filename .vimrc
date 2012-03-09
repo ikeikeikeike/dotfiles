@@ -192,6 +192,8 @@ Bundle 'tpope/vim-surround'
 " funny
 " ~~~~~~~
 Bundle 'koron/nyancat-vim'
+" Bundle 'mattn/vdbi-vim'
+" Bundle 'mattn/webapi-vim'
 
 "----------------------------------------------------
 " 基本的な設定

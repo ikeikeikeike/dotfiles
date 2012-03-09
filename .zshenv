@@ -94,7 +94,6 @@ export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case -R '
 export LESSOPEN='| src-hilite-lesspipe.sh %s'
 
 # ruby
-#[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
 
 # java
