@@ -42,6 +42,7 @@ Bundle 'ujihisa/neco-look'
 " color & theme
 Bundle 'Color-Sampler-Pack'
 Bundle 'ChrisKempson/Vim-Tomorrow-Theme'
+Bundle 'nginx.vim'
 
 " sudo
 Bundle 'sudo.vim'
@@ -152,7 +153,7 @@ Bundle 'amitdev/vimpy'
 " Bundle 'vim-ipython'
 
 " php
-Bundle 'justinrainbow/php-xdebug.vim'
+" Bundle 'justinrainbow/php-xdebug.vim'
 
 " coffee script
 Bundle "kchmck/vim-coffee-script"
@@ -203,7 +204,8 @@ Bundle 'koron/nyancat-vim'
 " colorscheme anotherdark
 " colorscheme adaryn
 " colorscheme asu1dark
-colorscheme breeze
+colorscheme wombat256
+" colorscheme breeze
 " set background=light      " 背景色の傾向(カラースキーマがそれに併せて色の明暗を変えてくれる)
 " set background=dark
 
@@ -446,7 +448,8 @@ setlocal omnifunc=syntaxcomplete#Complete
 " highlight PmenuSel gui=bold ctermbg=gray ctermfg=lightgreen
 " highlight PmenuSbar ctermbg=darkgray
 " highlight PmenuThumb ctermbg=lightgray
-highlight Pmenu ctermbg=8 guibg=#606060
+" highlight Pmenu ctermbg=8 guibg=#606060
+highlight Pmenu term=reverse ctermbg=235 guibg=#2d2d2d
 " highlight PmenuSel ctermbg=12 guibg=SlateBlue
 highlight PmenuSbar ctermbg=0 guibg=#404040
 " highlight PmenuThumb ctermbg=0 guibg=Red
@@ -944,7 +947,7 @@ let g:echodoc_enable_at_startup = 1
 " :TrinityToggleAll
 
 " xdebug
-let g:debuggerMaxDepth = 10
+" let g:debuggerMaxDepth = 10
 
 
 " ----------------------------------------------------------------------
@@ -967,13 +970,15 @@ let g:SuperTabDefaultCompletionType = "context"
 set completeopt=menuone,longest,preview
 
 " TaskList
-nmap <Leader>T :TaskList<CR>
+" nmap <Leader>T :TaskList<CR>
+nnoremap <F6> :TaskList<CR>
 
 " tag list plugins
 if v:version > 700
     " tagbar
     let g:tagbar_usearrows = 1
-    nmap <Leader>ll :TagbarToggle<CR>
+    nnoremap <F7> :TagbarToggle<CR>
+    " nmap <Leader>ll :TagbarToggle<CR>
 else
     " taglist
     let Tlist_Use_Right_Window = 1     " right window.
@@ -1024,9 +1029,19 @@ let g:indent_guides_guide_size = 1 " インデントの色付け幅
 
 " ######################################
 if has('persistent_undo')
-    set undodir=~/.vimundo
+    set undodir=./.vimundo,~/.vimundo
     set undofile
 endif
+
+
+" ######################################
+
+" gundo
+
+" ######################################
+let g:gundo_right = 1
+nnoremap <F8> :GundoToggle<CR>
+
 
 
 " ######################################-----------------------

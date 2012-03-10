@@ -80,12 +80,13 @@ if [ $ARCHI = linux ]; then
 fi
 
 # emacs view setting
-if [ "$SHELL" = "/bin/bash" ];then
-    export TERM=xterm-color
-else
-    export TERM=screen
+# if [ "$SHELL" = "/bin/bash" ];then
     # export TERM=xterm-256color
-fi
+    # # export TERM=xterm-color
+# else
+    # export TERM=screen
+    # # export TERM=xterm-256color
+# fi
 
 # less
 export LESSCHARSET=utf-8
@@ -103,9 +104,11 @@ alias java='java -Dfile.encoding=UTF-8'
 # scala
 export REBEL_HOME=/usr/local/share/jrebel
 export PATH=$REBEL_HOME/bin:$PATH
-
 export PLAY_HOME=/opt/local/share/java/play-1.2.3
 export PATH=$PLAY_HOME:$PATH
+
+# perl
+[[ -s $HOME/perl5/perlbrew/bin/perlbrew ]] && source $HOME/perl5/perlbrew/bin/perlbrew
 
 # node /opt/local/bin
 
