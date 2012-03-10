@@ -25,13 +25,13 @@ function ssh_tmux(){
 }
 
 # tmux screen 判別
-if [ x$TERM = xscreen ]; then
+# if [ x$TERM = xscreen ]; then
     if [ -e $TMUX ]; then
         alias ssh=ssh_screen
     else
         alias ssh=ssh_tmux
     fi
-fi
+# fi
 
 source $HOME/.zsh_extend/emacs/isemacs.sh
 
@@ -79,6 +79,18 @@ function extract (){
   fi
 }
 
+function pcolor() {
+    for ((f = 0; f < 255; f++)); do
+        printf "\e[38;5;%dm %3d*■\e[m" $f $f
+        if [[ $f%8 -eq 7 ]] then
+            printf "\n"
+        fi
+    done
+    echo
+    echo
+    [[ -s $HOME/bin/256colors2.pl ]] && 256colors2.pl
+    echo
+}
 
 # anything.el like zaw.
 # source $HOME/.zsh_extend/zaw/zaw.zsh 2> /dev/null

@@ -1,6 +1,3 @@
-[user]
-  name = ikeikeikeike
-  email = jp.ne.co.jp@gmail.com
 [color]
   ui = auto
   diff = auto
@@ -8,19 +5,28 @@
   branch = auto
   interactive = auto
 [core]
-  excludesfile = /Users/ikeda/.gitignore
+  excludesfile = ~/.gitignore
   pager = LESS=-R less
   autoCRLF = false
+  editor = vim
+[alias]
+  st = status
+  ci = commit
+  co = checkout
 [merge]
+  tool = vimdiff
+;  tool = p4merge
   keepBackup = false;
-  tool = p4merge
 [mergetool "p4merge"]
   cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
   keepTemporaries = false
   trustExitCode = false
   keepBackup = false
 [diff]
-  external = p4diff
+  external = git_diff_wrapper
+;  external = p4diff
+[pager]
+  diff =
 [difftool "sourcetree"]
   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
   path =

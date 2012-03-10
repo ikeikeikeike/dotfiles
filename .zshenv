@@ -63,12 +63,14 @@ if [ $ARCHI = darwin ]; then
   export LIBRARY_PATH=/opt/local/lib
   export LD_LIBRARY_PATH=/opt/local/lib
   export C_INCLUDE_PATH=/opt/local/include
-  export CPLUS_INCLUDE_PATH=/opt/local/include
+  export CPLUS_INCLUDE_PATH=/opt/local/include:$HOME/include
   export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
+  export BOOST_ROOT=$HOME/include/boost:/opt/local/include/boost:$BOOST_ROOT
   # default editor
   export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
   # @see python_select
-  export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
+  [[ -s $HOME/.pythonbrew/etc/bashrc ]] || export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
+  [[ -s $HOME/.pythonbrew/etc/bashrc ]] && export PYTHON_HOME=`cat ~/.pythonbrew/etc/current | sed -e 's@PATH_PYTHONBREW_CURRENT="@@g' | sed -e 's@/bin"@@g'`
 fi
 if [ $ARCHI = linux ]; then
   # encode
@@ -78,12 +80,13 @@ if [ $ARCHI = linux ]; then
 fi
 
 # emacs view setting
-if [ "$SHELL" = "/bin/bash" ];then
-    export TERM=xterm-color
-else
-    export TERM=screen
+# if [ "$SHELL" = "/bin/bash" ];then
     # export TERM=xterm-256color
-fi
+    # # export TERM=xterm-color
+# else
+    # export TERM=screen
+    # # export TERM=xterm-256color
+# fi
 
 # less
 export LESSCHARSET=utf-8
@@ -92,7 +95,6 @@ export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case -R '
 export LESSOPEN='| src-hilite-lesspipe.sh %s'
 
 # ruby
-#[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
 
 # java
@@ -102,12 +104,18 @@ alias java='java -Dfile.encoding=UTF-8'
 # scala
 export REBEL_HOME=/usr/local/share/jrebel
 export PATH=$REBEL_HOME/bin:$PATH
-
 export PLAY_HOME=/opt/local/share/java/play-1.2.3
 export PATH=$PLAY_HOME:$PATH
 
+# perl
+[[ -s $HOME/perl5/perlbrew/bin/perlbrew ]] && source $HOME/perl5/perlbrew/bin/perlbrew
+
+# node /opt/local/bin
 
 ### python ###
+# if pythonbrew
+[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
+# path
 export PATH=$PYTHON_HOME/bin:$PATH
 export MANPATH=$PYTHON_HOME/share/man:$MANPATH
 

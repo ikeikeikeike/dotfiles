@@ -1,0 +1,3 @@
+#!/bin/sh
+
+vimdiff -u NONE -N -c 'syntax on' "$5"  "$2"

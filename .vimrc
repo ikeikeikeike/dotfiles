@@ -1,11 +1,13 @@
+
+" viとの互換性をとらない(vimの独自拡張機能を使う為)
+set nocompatible
+
 " ------------
 "
 "   vundle
 "
 " ------------
 
-" viとの互換性をとらない(vimの独自拡張機能を使う為)
-set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
@@ -40,12 +42,10 @@ Bundle 'ujihisa/neco-look'
 " color & theme
 Bundle 'Color-Sampler-Pack'
 Bundle 'ChrisKempson/Vim-Tomorrow-Theme'
+Bundle 'nginx.vim'
 
 " sudo
 Bundle 'sudo.vim'
-
-" background for windows?
-" Bundle 'Shougo/vimproc'
 
 " undo
 Bundle 'Gundo'
@@ -71,7 +71,7 @@ if v:version > 700
 
     " auto complete
     Bundle 'Shougo/neocomplcache'
-    " vim search auto complete
+    Bundle 'Shougo/neocomplcache-snippets-complete'
     Bundle "Shougo/neocomplcache-clang"
 
 endif
@@ -82,7 +82,6 @@ Bundle 'TaskList.vim'
 " source viewer for tags
 Bundle 'Source-Explorer-srcexpl.vim'
 Bundle 'trinity.vim'
-
 
 " easytags
 " Bundle 'xolox/vim-easytags'
@@ -154,7 +153,15 @@ Bundle 'amitdev/vimpy'
 " Bundle 'vim-ipython'
 
 " php
-Bundle 'justinrainbow/php-xdebug.vim'
+" Bundle 'justinrainbow/php-xdebug.vim'
+
+" coffee script
+Bundle "kchmck/vim-coffee-script"
+Bundle "carlosvillu/coffeScript-VIM-Snippets"
+Bundle "othree/coffee-check.vim"
+" Bundle "shadow.vim"
+
+" -------
 
 " scm
 Bundle 'fugitive.vim'
@@ -168,11 +175,11 @@ Bundle 'thinca/vim-qfreplace'
 Bundle 'DirDiff.vim'
 
 " session
-if v:version > 700
-    if ! &diff
-        Bundle 'session.vim'
-    endif
-endif
+" if v:version > 700
+    " if ! &diff
+        " Bundle 'session.vim'
+    " endif
+" endif
 " Bundle 'sessionman.vim'
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -186,6 +193,8 @@ Bundle 'tpope/vim-surround'
 " funny
 " ~~~~~~~
 Bundle 'koron/nyancat-vim'
+" Bundle 'mattn/vdbi-vim'
+" Bundle 'mattn/webapi-vim'
 
 "----------------------------------------------------
 " 基本的な設定
@@ -195,7 +204,8 @@ Bundle 'koron/nyancat-vim'
 " colorscheme anotherdark
 " colorscheme adaryn
 " colorscheme asu1dark
-colorscheme breeze
+colorscheme wombat256
+" colorscheme breeze
 " set background=light      " 背景色の傾向(カラースキーマがそれに併せて色の明暗を変えてくれる)
 " set background=dark
 
@@ -395,6 +405,9 @@ else
     set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags,./../../../../../../tags,./../../../../../../../tags,./../../../../../../../../tags,./../../../../../../../../../tags,./../../../../../../../../../../tags,./../../../../../../../../../../../tags,./../../../../../../../../../../../tags
 endif
 
+"----------------------------------------------------
+" ctags
+"----------------------------------------------------
 " keymap (replace unite-tag)
 nnoremap <C-]>    g<C-]>
 
@@ -436,8 +449,9 @@ setlocal omnifunc=syntaxcomplete#Complete
 " highlight PmenuSbar ctermbg=darkgray
 " highlight PmenuThumb ctermbg=lightgray
 " highlight Pmenu ctermbg=8 guibg=#606060
+highlight Pmenu term=reverse ctermbg=235 guibg=#2d2d2d
 " highlight PmenuSel ctermbg=12 guibg=SlateBlue
-" highlight PmenuSbar ctermbg=0 guibg=#404040
+highlight PmenuSbar ctermbg=0 guibg=#404040
 " highlight PmenuThumb ctermbg=0 guibg=Red
 
 " autocmd settings
@@ -450,13 +464,7 @@ if has("autocmd")
     autocmd BufNewFile,BufRead *.vrapperrc set filetype=vim
     autocmd BufNewFile,BufRead *.go set filetype=go
 
-    " Enable omni completion.
-    autocmd FileType eruby,html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType ruby setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-    " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 
     " ファイルタイプの検索を有効にする
     filetype plugin on
@@ -683,16 +691,22 @@ endif
 " ######################################
 if v:version > 700
 
-    " 自動で補完候補をポップアップ
+    " 自動で有効
     let g:neocomplcache_enable_at_startup = 1
     " 大文字が入力されるまで大文字小文字の区別を無視
     let g:neocomplcache_enable_smart_case = 1
     " _ 区切りの補完を有効化します。
     let g:neocomplcache_enable_underbar_completion = 1
     " シンタックスをキャッシュするときの最小文字長を3文字 default 4
-    let g:neocomplcache_min_syntax_length = 3
+    let g:neocomplcache_min_syntax_length = 4
     " C-j snippet
     imap <C-j> <Plug>(neocomplcache_snippets_expand)
+    " キー入力時にキーワード補完を行う入力数を制御する
+    let g:neocomplcache_auto_completion_start_length = 4
+    " ポップアップメニューで表示される候補の数を制御する
+    let g:neocomplcache_max_list = 50
+    " 自動補完 無効 手動: <C-x><C-u>
+    " g:neocomplcache_disable_auto_complete = 1
 
     " SuperTab like snippets behavior. TABでスニペットを展開
     " imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -736,6 +750,67 @@ if v:version > 700
     endif
     let g:neocomplcache_same_filetype_lists['asc'] = 'javascript'
     let g:neocomplcache_same_filetype_lists['twig'] = 'html'
+
+    " "インクルードパスの指定
+    let g:neocomplcache_include_paths = {
+            \ 'cpp'  : '.,/usr/include/c++/4.2.1,/opt/local/include,/usr/include',
+            \ 'c'    : '.,/usr/include',
+            \ 'ruby' : '.,$HOME/.rvm/rubies/**/lib/ruby/1.8/',
+            \ 'perl' : '.,/System/Library/Perl,/Users/rhayasd/programs',
+            \ }
+
+    "インクルード文のパターンを指定
+    let g:neocomplcache_include_patterns = {
+            \ 'php' : '^\s*require_once',
+            \ 'cpp' : '^\s*#\s*include',
+            \ 'ruby' : '^\s*require',
+            \ 'perl' : '^\s*use',
+            \ }
+
+    "インクルード先のファイル名の解析パターン
+    let g:neocomplcache_include_exprs = {
+            \ 'ruby' : "substitute(substitute(v:fname,'::','/','g'),'$','.rb','')"
+            \ }
+
+    " Enable omni completion.
+    autocmd FileType eruby,html,markdown set omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+    autocmd FileType c set omnifunc=ccomplete#Complete
+    autocmd FileType ruby set omnifunc=rubycomplete#Complete
+    autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplcache_omni_patterns')
+        let g:neocomplcache_omni_patterns = {}
+    endif
+    " let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+    " let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    " let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+    " let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
+
+    """"""""""""""""""""""""""""""""""""""""""""
+    " neocomplecache-clang "
+    """"""""""""""""""""""""""""""""""""""""""""
+    " {{{
+    " libclangを使う
+    let g:neocomplcache_clang_use_library = 1
+    " ライブラリへのパス
+    let g:neocomplcache_clang_library_path = '/Developer/usr/clang-ide/lib'
+    " clangへのパス
+    let g:neocomplcache_clang_executable_path = '/usr/bin'
+    " let g:neocomplcache_clang_auto_options = ''
+    " clangのコマンドオプション
+    let g:neocomplcache_clang_user_options =
+        \'-I /usr/include/c++/4.2.1 '.
+        \'-I /usr/include '.
+        \'-I /opt/local/include/boost '
+        " \'-I /usr/local/Cellar/gcc/4.6.2/gcc/include '.
+        " \'-I /usr/local/Cellar/boost/1.48.0/include '
+    " }}}
 
 endif
 
@@ -872,7 +947,7 @@ let g:echodoc_enable_at_startup = 1
 " :TrinityToggleAll
 
 " xdebug
-let g:debuggerMaxDepth = 10
+" let g:debuggerMaxDepth = 10
 
 
 " ----------------------------------------------------------------------
@@ -895,13 +970,15 @@ let g:SuperTabDefaultCompletionType = "context"
 set completeopt=menuone,longest,preview
 
 " TaskList
-nmap <Leader>T :TaskList<CR>
+" nmap <Leader>T :TaskList<CR>
+nnoremap <F6> :TaskList<CR>
 
 " tag list plugins
 if v:version > 700
     " tagbar
     let g:tagbar_usearrows = 1
-    nmap <Leader>ll :TagbarToggle<CR>
+    nnoremap <F7> :TagbarToggle<CR>
+    " nmap <Leader>ll :TagbarToggle<CR>
 else
     " taglist
     let Tlist_Use_Right_Window = 1     " right window.
@@ -952,9 +1029,19 @@ let g:indent_guides_guide_size = 1 " インデントの色付け幅
 
 " ######################################
 if has('persistent_undo')
-    set undodir=~/.vimundo
+    set undodir=./.vimundo,~/.vimundo
     set undofile
 endif
+
+
+" ######################################
+
+" gundo
+
+" ######################################
+let g:gundo_right = 1
+nnoremap <F8> :GundoToggle<CR>
+
 
 
 " ######################################-----------------------

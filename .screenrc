@@ -1,5 +1,7 @@
 #defc1 off
 
+term "screen-256color"
+
 # スタートメッセージ
 startup_message off
 
@@ -31,4 +33,4 @@ deflog on
 
 #defkanji utf-8
 #encoding utf-8
-#defencoding utf-8 
+#defencoding utf-8

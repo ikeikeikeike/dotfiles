@@ -193,10 +193,16 @@ setopt print_exit_value
 zstyle ':completion:*:cd:*' tag-order local-directories path-directories
 #cd は親ディレクトリからカレントディレクトリを選択しないので表示させないようにする (例: cd ../<TAB>):
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
+
 #LS_COLORSを設定しておく
-export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-#ファイル補完候補に色を付ける
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+if [ -f ~/.dir_colors ]; then
+    eval $(dircolors -b ~/.dir_colors)
+    #ファイル補完候補に色を付ける
+    zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+else
+    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+fi
 
 ## auto complete conf
 # 補完候補を ←↓↑→ でも選択出来るようにする
@@ -245,7 +251,8 @@ PROMPT=$'\n'$GREEN'${USER}@${HOST}'$CYAN'(${ARCHI}-${DISTRIBUTE}) '$YELLOW'%~ '$
 # RPROMPT=%1v%2v%f${DEFAULT}
 RPROMPT=${CYAN}%1v%2v%f${DEFAULT}
 
-
+# mysql
+export MYSQL_PS1="(\u@\h) [\d] \v - \r:\m\P \n\c> "
 
 #####  pre attaches
 
@@ -254,7 +261,7 @@ if [ "${TMUX}" != "" ] ; then
   tmux pipe-pane 'cat >> ~/.tmux/`date +%Y-%m-%d`_#S:#I.#P.log'
 fi
 
-# if [ "$TERM" = "screen" ]; then
+# if [ "$TERM" = "xterm-color" ]; then
   # preexec() {
     # # see [zsh-workers:13180]
     # # http://www.zsh.org/mla/workers/2000/msg03993.html
