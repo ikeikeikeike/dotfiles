@@ -1,5 +1,7 @@
 import os
+import datetime
 HISTORYFILE = os.path.expanduser('~/.pythonhistory')
+WRITEHISTORYFILE = os.path.expanduser('~/.mypython/logs/pythonwritehistory_%s.py' % datetime.datetime.now().strftime("%Y%m%d_%H%M%S"))
 try:
   import rlcompleter, readline
   readline.parse_and_bind("tab: complete")
@@ -10,7 +12,10 @@ try:
   try:
     f = open(HISTORYFILE, "a")
     f.close()
+    f = open(WRITEHISTORYFILE, "a")
+    f.close()
     readline.read_history_file(HISTORYFILE)
+    readline.write_history_file(WRITEHISTORYFILE)
   except IOError:
     pass
   try:
@@ -20,4 +25,3 @@ try:
     pass
 except:
   pass
-
