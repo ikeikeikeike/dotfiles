@@ -1,0 +1,1 @@
+/Users/ikeikeikeike/lib/rsense-0.3/etc/rsense.vim
