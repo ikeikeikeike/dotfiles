@@ -79,6 +79,12 @@ function extract (){
   fi
 }
 
+function rvm_use() {
+    rvm use $@
+    sleep 0.1
+    ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
+}
+
 function pcolor() {
     for ((f = 0; f < 255; f++)); do
         printf "\e[38;5;%dm %3d*■\e[m" $f $f

@@ -154,6 +154,7 @@ Bundle 'amitdev/vimpy'
 " ruby
 Bundle 'astashov/vim-ruby-debugger'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-rails'
 
 " php
 " Bundle 'justinrainbow/php-xdebug.vim'
