@@ -74,7 +74,7 @@ add-zsh-hook precmd _update_vcs_info_msg 2> /dev/null
 # tmuxと連携させて．
 # tmuxの環境変数を設定
 function chpwd(){
-    [ $TMUX ] && tmux setenv TMUXPWD_$(tmux display -p "#I") $PWD
+    [ $TMUX ] && tmux -2 setenv TMUXPWD_$(tmux -2 display -p "#I") $PWD
 }
 
 
