@@ -8,7 +8,6 @@ do
      [ $i = install.sh ] ||
      [ $i = uninstall.sh ] ||
      [ $i = .git ] ||
-     [ $i = .gitconfig ] ||
      [ $i = .gitignore ]; then
     continue
   fi
