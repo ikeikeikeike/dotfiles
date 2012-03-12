@@ -20,7 +20,7 @@ pip install Werkzeug
 pip install pudb debug ipdb django-pudebug
 
 # TEST
-pip install nose nose-pudb
+pip install nose nose-pudb mock tox pytest
 
 # image library
 pip install PIL
