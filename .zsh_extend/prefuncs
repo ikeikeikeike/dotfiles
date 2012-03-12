@@ -11,7 +11,7 @@ if [ $ARCHI = darwin ]; then
       d=`expr $d - $COMMAND_TIME`
       if [ "$d" -ge "30" ] ; then
          COMMAND="$COMMAND "
-         growlnotify -t "${${(s: :)COMMAND}[1]}" -m "$COMMAND"
+         growlnotify -t "${${(s: :)COMMAND}[1]}" -m "$COMMAND" 2> /dev/null
       fi
     fi
     COMMAND="0"
