@@ -153,6 +153,7 @@ Bundle 'amitdev/vimpy'
 
 " ruby
 Bundle 'astashov/vim-ruby-debugger'
+Bundle 'vim-ruby/vim-ruby'
 
 " php
 " Bundle 'justinrainbow/php-xdebug.vim'
@@ -757,7 +758,7 @@ if v:version > 700
     let g:neocomplcache_include_paths = {
             \ 'cpp'  : '.,/usr/include/c++/4.2.1,/opt/local/include,/usr/include',
             \ 'c'    : '.,/usr/include',
-            \ 'ruby' : '.,$HOME/.rvm/rubies/**/lib/ruby/1.8/',
+            \ 'ruby' : '.,$HOME/.rvm/rubies/**/lib/ruby/**/',
             \ 'perl' : '.,/System/Library/Perl,/Users/rhayasd/programs',
             \ }
 
