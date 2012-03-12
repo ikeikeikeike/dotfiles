@@ -149,8 +149,10 @@ endif
 Bundle 'pep8'
 Bundle 'amitdev/vimpy'
 " Bundle 'project.tar.gz'
-
 " Bundle 'vim-ipython'
+
+" ruby
+Bundle 'astashov/vim-ruby-debugger'
 
 " php
 " Bundle 'justinrainbow/php-xdebug.vim'
@@ -813,6 +815,15 @@ if v:version > 700
     " }}}
 
 endif
+
+" ######################################
+
+" Rsense
+
+" ######################################
+" $RSENSE_HOME
+let g:rsenseHome = $RSENSE_HOME
+
 
 " ######################################
 

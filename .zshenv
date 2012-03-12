@@ -96,6 +96,7 @@ export LESSOPEN='| src-hilite-lesspipe.sh %s'
 
 # ruby
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
+export RSENSE_HOME=$HOME/lib/rsense-0.3
 
 # java
 alias javac='javac -J-Dfile.encoding=UTF-8'
