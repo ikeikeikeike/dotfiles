@@ -70,7 +70,8 @@ if [ $ARCHI = darwin ]; then
   export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
   # @see python_select
   [[ -s $HOME/.pythonbrew/etc/bashrc ]] || export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
-  [[ -s $HOME/.pythonbrew/etc/bashrc ]] && export PYTHON_HOME=`cat ~/.pythonbrew/etc/current | sed -e 's@PATH_PYTHONBREW_CURRENT="@@g' | sed -e 's@/bin"@@g'`
+  # move $HOME/.zsh_extends/prefuncs
+  # [[ -s $HOME/.pythonbrew/etc/bashrc ]] && export PYTHON_HOME=`cat ~/.pythonbrew/etc/current | sed -e 's@PATH_PYTHONBREW_CURRENT="@@g' | sed -e 's@/bin"@@g'`
 fi
 if [ $ARCHI = linux ]; then
   # encode
@@ -93,6 +94,9 @@ export LESSCHARSET=utf-8
 export PAGER='less'
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case -R '
 export LESSOPEN='| src-hilite-lesspipe.sh %s'
+
+# gsutil
+export PATH=$PATH:$HOME/lib/gsutil
 
 # ruby
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
