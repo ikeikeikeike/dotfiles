@@ -148,6 +148,7 @@ if ! &diff
 endif
 Bundle 'pep8'
 Bundle 'amitdev/vimpy'
+Bundle 'jmcantrell/vim-virtualenv'
 " Bundle 'project.tar.gz'
 " Bundle 'vim-ipython'
 
@@ -1011,7 +1012,6 @@ endif
 if ! &diff
 
 let g:pythonworkon = "System"
-
 py << EOF
 import os.path
 import sys
@@ -1025,6 +1025,9 @@ if 'VIRTUAL_ENV' in os.environ:
 EOF
 
 endif
+
+" vim-virtualenv
+let g:virtualenv_auto_activate = 1
 
 
 " ######################################
@@ -1110,6 +1113,6 @@ endif
 
 " ステータスライン文字コード表示
 " set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)\ %{cfi#format(\"[%s()]\",\ \"[no\ function]\")}\ %m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}
-let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
+let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}-%{VirtualEnvStatusline()}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
 
 
