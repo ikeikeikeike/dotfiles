@@ -72,7 +72,6 @@ if [ $ARCHI = darwin ]; then
   [[ -s $HOME/.pythonbrew/etc/bashrc ]] || export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
   # move $HOME/.zsh_extends/prefuncs
   # [[ -s $HOME/.pythonbrew/etc/bashrc ]] && export PYTHON_HOME=`cat ~/.pythonbrew/etc/current | sed -e 's@PATH_PYTHONBREW_CURRENT="@@g' | sed -e 's@/bin"@@g'`
-  [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
 fi
 if [ $ARCHI = linux ]; then
   # encode
