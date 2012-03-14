@@ -29,6 +29,7 @@ fi
 # general
 alias top='htop'
 alias py=python
+alias rb=ruby
 alias screen='screen -U'
 alias la='ls -alt'
 alias vi='vim'

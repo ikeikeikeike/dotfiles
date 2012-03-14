@@ -1311,3 +1311,6 @@
      (java-mode ("\"" "\"") ("'" "'") ("(" ")") ("[" "]") ("{" (joseph-autopair-newline-indent-insert "}")))
      (sh-mode ("if " (joseph-autopair-newline-indent-insert "fi")) ("begin " (progn (insert " end") (end-of-line))))))))
 
+; 末尾空白
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)

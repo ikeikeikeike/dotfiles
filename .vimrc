@@ -148,7 +148,7 @@ if ! &diff
 endif
 Bundle 'pep8'
 Bundle 'amitdev/vimpy'
-Bundle 'jmcantrell/vim-virtualenv'
+" Bundle 'jmcantrell/vim-virtualenv'
 " Bundle 'project.tar.gz'
 " Bundle 'vim-ipython'
 
