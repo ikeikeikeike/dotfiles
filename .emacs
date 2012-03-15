@@ -17,6 +17,7 @@
        "~/.emacs.d/navi2ch"
        "~/.emacs.d/haskell-mode-2.8.0"
        "~/.emacs.d/geben"
+       "~/.emacs.d/elisp/howm"
        "/opt/local/share/emacs/site-lisp"
        "/opt/local/share/emacs/site-lisp/howm"
        "/usr/local/Cellar/erlang/R14B03/lib/erlang/lib/tools-2.6.6.4/emacs"
