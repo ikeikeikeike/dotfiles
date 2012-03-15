@@ -192,6 +192,7 @@ Bundle 'DirDiff.vim'
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Bundle 'kana/vim-smartchr'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
 " Bundle 'vim-scripts/AutoClose'
 
 " ~~~~~~~
