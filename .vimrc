@@ -160,25 +160,32 @@ Bundle 'tpope/vim-rails'
 " php
 " Bundle 'justinrainbow/php-xdebug.vim'
 
-" coffee script
+" CoffeeScript
 Bundle "kchmck/vim-coffee-script"
 Bundle "carlosvillu/coffeScript-VIM-Snippets"
 Bundle "othree/coffee-check.vim"
 " Bundle "shadow.vim"
 
+" ~~~~~~~~~
+" profiler
+" ~~~~~~~~~
+" Bundle 'mattn/benchvimrc-vim'
+
+
 " -------
 
 " scm
-Bundle 'fugitive.vim'
+" Bundle 'fugitive.vim'
+" Bundle 'Gist.vim'
 
 " grep
 Bundle 'ack.vim'
 Bundle 'grep.vim'
 Bundle 'thinca/vim-qfreplace'
 
-" diff
-Bundle 'DirDiff.vim'
 
+ " diff
+Bundle 'DirDiff.vim'
 " session
 " if v:version > 700
     " if ! &diff
@@ -198,7 +205,7 @@ Bundle 'tpope/vim-repeat'
 " ~~~~~~~
 " funny
 " ~~~~~~~
-Bundle 'koron/nyancat-vim'
+" Bundle 'koron/nyancat-vim'
 " Bundle 'mattn/vdbi-vim'
 " Bundle 'mattn/webapi-vim'
 
@@ -1065,6 +1072,20 @@ endif
 let g:gundo_right = 1
 nnoremap <F8> :GundoToggle<CR>
 
+
+" ######################################
+
+" Gist
+
+" ######################################
+" ファイルタイプを自動で認識して、Gistにポスト
+" let g:gist_detect_filetype = 1
+" githubのuser名
+" let g:github_user  = ''
+" githubのtoken
+" let g:github_token = ''
+" open browser after the post
+" let g:gist_open_browser_after_post = 1
 
 
 " ######################################-----------------------
