@@ -10,8 +10,8 @@ pip install virtualenv virtualenvwrapper
 #
 pip install distribute
 
-# ipython
-pip install ipython
+# interactive shell
+pip install ipython bpython
 
 # debug
 pip install Werkzeug
