@@ -201,6 +201,7 @@ Bundle 'DirDiff.vim'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 " Bundle 'vim-scripts/AutoClose'
+Bundle 'ZenCoding.vim'
 
 " ~~~~~~~
 " funny
