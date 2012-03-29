@@ -17,7 +17,8 @@ pip install ipython bpython
 pip install Werkzeug
 
 # debug
-pip install pudb debug ipdb django-pudebug
+pip install pudb debug ipdb
+pip install django-pudebug
 
 # TEST
 pip install nose nose-pudb mock tox pytest
