@@ -217,7 +217,8 @@ Bundle 'tpope/vim-repeat'
 " colorscheme anotherdark
 " colorscheme adaryn
 " colorscheme asu1dark
-colorscheme wombat256
+" colorscheme wombat256
+colorscheme wuye
 " colorscheme breeze
 " set background=light      " 背景色の傾向(カラースキーマがそれに併せて色の明暗を変えてくれる)
 " set background=dark
