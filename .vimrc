@@ -166,6 +166,10 @@ Bundle "carlosvillu/coffeScript-VIM-Snippets"
 Bundle "othree/coffee-check.vim"
 " Bundle "shadow.vim"
 
+" html5
+Bundle 'html5.vim'
+Bundle 'HTML5-Syntax-File'
+
 " ~~~~~~~~~
 " profiler
 " ~~~~~~~~~
