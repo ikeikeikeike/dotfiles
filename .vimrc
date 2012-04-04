@@ -180,7 +180,7 @@ Bundle 'HTML5-Syntax-File'
 
 " scm
 " Bundle 'fugitive.vim'
-" Bundle 'Gist.vim'
+Bundle 'mattn/gist-vim'
 
 " grep
 Bundle 'ack.vim'
@@ -212,7 +212,11 @@ Bundle 'ZenCoding.vim'
 " ~~~~~~~
 " Bundle 'koron/nyancat-vim'
 " Bundle 'mattn/vdbi-vim'
-" Bundle 'mattn/webapi-vim'
+
+" ~~~~~~~
+" api
+" ~~~~~~~
+Bundle 'mattn/webapi-vim'
 
 "----------------------------------------------------
 " 基本的な設定
@@ -1087,12 +1091,8 @@ nnoremap <F8> :GundoToggle<CR>
 " ######################################
 " ファイルタイプを自動で認識して、Gistにポスト
 " let g:gist_detect_filetype = 1
-" githubのuser名
-" let g:github_user  = ''
-" githubのtoken
-" let g:github_token = ''
 " open browser after the post
-" let g:gist_open_browser_after_post = 1
+let g:gist_open_browser_after_post = 1
 
 
 " ######################################-----------------------

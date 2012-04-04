@@ -151,20 +151,13 @@ def main(args):
         os.symlink("%s/tags" % os.getcwd(), "%s/tags" % vpath)
 
 if __name__ == '__main__':
-
     parser = argparse.ArgumentParser(description="ctags util for virtualenv.")
-    parser.add_argument('path', nargs='?', default='.',
-            help='project path.')
-    parser.add_argument('-a', '--all', action="store_true",
-            help='all in virtualenv packages. ignore all options.')
-    parser.add_argument('-p', '--packages', nargs='+', default=['django'],
-            help='give packages name. default is a `django` package.')
-    parser.add_argument('-s', '--standard-packages', nargs='+', default=[],
-            help='give packages name. for the standard library.')
-    parser.add_argument('--no-virtualenv', action='store_true',
-            help='not include the virtualenv.')
-    parser.add_argument('--allow-testcode', action='store_true',
-            help='include the test code.')
+    parser.add_argument('path', nargs='?', default='.', help='project path.')
+    parser.add_argument('-a', '--all', action="store_true", help='all in virtualenv packages. ignore all options.')
+    parser.add_argument('-p', '--packages', nargs='+', default=['django'], help='give packages name. default is a `django` package.')
+    parser.add_argument('-s', '--standard-packages', nargs='+', default=[], help='give packages name. for the standard library.')
+    parser.add_argument('--no-virtualenv', action='store_true', help='not include the virtualenv.')
+    parser.add_argument('--allow-testcode', action='store_true', help='include the test code.')
     parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + __version__)
 
     args = parser.parse_args()
