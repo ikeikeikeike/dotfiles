@@ -15,19 +15,22 @@ redirecting standard input ::
 
 Help ::
 
-    $ pycolors -h
+    $ pycolors --help
     Usage: pycolors [options] [args [args ...]]
+
 
     Options:
       --version   show program's version number and exit
       -h, --help  show this help message and exit
+      -2          Force pycolors to assume the terminal supports 256 colours.
+      -8          Like -2, but indicates that the terminal supports 88 colours.
 
 :copyright: Tatsuo Ikeda
 :license: None
 :create_date:  2012-01-12T23:43:58
 =========================================
 """
-__version__ = '0.1'
+__version__ = '0.3'
 
 import sys
 import re
@@ -36,127 +39,94 @@ import optparse
 class Bcolors(object):
     """ Bcolors
     """
+    ENDCOLOR = '\033[0m'
+    ENDCOLOR1 = '\033[0;0m'
+    SAFECOLORS = ['\033[91m', '\033[92m', '\033[93m', '\033[94m', '\033[95m', ]
+    COLORS= [
+        '\033[91m', '\033[92m', '\033[93m', '\033[94m', '\033[95m',
+        '\033[45m', '\033[46m', '\033[30m', '\033[31m', '\033[32m', '\033[33m',
+        '\033[34m', '\033[35m', '\033[36m',
+        '\033[1m', '\033[40m', '\033[41m', '\033[42m', '\033[43m', '\033[44m',
+    ]
 
-    #: header
-    HEADER = 'header'
-    #: blue
-    OKBLUE = 'okblue'
-    #: green
-    OKGREEN = 'okgreen'
-    #: warning
-    WARNING = 'warning'
-    #: fail
-    FAIL = 'fail'
-    #: endc
-    ENDC = 'endc'
-
-    #: header color
-    HEADER_COLOR = '\033[95m'
-    #: blue color
-    OKBLUE_COLOR = '\033[94m'
-    #: green color
-    OKGREEN_COLOR = '\033[92m'
-    #: warning color
-    WARNING_COLOR = '\033[93m'
-    #: fail color
-    FAIL_COLOR = '\033[91m'
-    #: end color
-    ENDC_COLOR = '\033[0m'
-
-    Default = '\033[0m'
-
-    Black = '\033[30m'
-    Red = '\033[31m'
-    Green = '\033[32m'
-    Yellow = '\033[33m'
-    Blue = '\033[34m'
-    Magenta = '\033[35m'
-    Cyan = '\033[36m'
-    White = '\033[37m'
-
-    Reset = '\033[0;0m'
-    Bold = '\033[1m'
-    Reverse = '\033[2m'
-
-    Blackbg = '\033[40m'
-    Redbg = '\033[41m'
-    Greenbg = '\033[42m'
-    Yellowbg = '\033[43m'
-    Bluebg = '\033[44m'
-    Magentabg = '\033[45m'
-    Cyanbg = '\033[46m'
-    Whitebg = '\033[47m'
-
-    def __init__(self):
-        # dict
-        self._colors = dict()
-        # yield
-        self._color_keys = None
-        # enabled colors
+    def __init__(self, number=0):
+        self.__colors = self.makecolors(number)
+        self._colors = []
+        self._color = None
         self.enabled()
 
     def _get_colors(self):
         return self._colors
-
-    def _set_colors(self, dct):
-        self._colors.update(dct)
-
+    def _set_colors(self, color):
+        self._colors.append(color)
     colors = property(_get_colors, _set_colors)
+
+    def _nextcolor(self):
+        for i in self.colors:
+            yield i
+
+    def makecolors(self, number=0, colors=list()):
+        if 0 < number:
+            return ["\033[{0}m".format(n) for n in range(1, int(number)+1)]
+        elif colors:
+            return colors
+        else:
+            return self.COLORS
 
     def disable(self):
         if self._colors:
-            self._colors = dict()
+            self._colors = []
 
     def enabled(self):
         if not self._colors:
-            self._colors = {
-                self.HEADER: self.HEADER_COLOR,
-                self.OKBLUE: self.OKBLUE_COLOR,
-                self.OKGREEN: self.OKGREEN_COLOR,
-                self.WARNING: self.WARNING_COLOR,
-                self.FAIL: self.FAIL_COLOR,
-                self.ENDC: self.ENDC_COLOR
-                }
+            self._colors = self.__colors
 
-    def _next_color(self):
-        for i in self.colors.keys():
-            if i != self.ENDC:
-                yield i
-
-    def next_color(self):
-        if not self._color_keys:
-            self._color_keys = self._next_color()
+    def nextcolor(self):
+        if not self._color:
+            self._color = self._nextcolor()
         try:
-            return self._color_keys.next()
+            return self._color.next()
         except StopIteration:
-            self._color_keys = self._next_color()
-            return self.next_color()
+            self._color = self._nextcolor()
+            return self.nextcolor()
 
-    def bc(self, message, coltype=OKGREEN):
+    def bc(self, message, color):
         """ embedding colors """
-        return "%s%s%s" % (self.colors[coltype], message, self.colors[self.ENDC])
+        return "%s%s%s" % (color, message, self.ENDCOLOR)
 
-def main(args):
+def main(args, opts):
 
-    bcolors = Bcolors()
-    ptns = [(re.compile(arg), bcolors.next_color()) for arg in args]
+    if opts.c88:
+        number = 88
+    elif opts.c256:
+        number = 256
+    else:
+        number = 0
+    bcolors = Bcolors(number)
+    # print(repr(bcolors._colors))
 
+    ptns = [(re.compile(arg), bcolors.nextcolor()) for arg in args]
     for stdin in sys.stdin:
         cl_stdin = stdin
         for ptn, color in ptns:
             if ptn.search(cl_stdin):
                 cl_stdin = cl_stdin.replace(
-                        ptn.pattern, bcolors.bc(ptn.pattern, color)
-                        )
+                        ptn.pattern, bcolors.bc(ptn.pattern, color))
         sys.stdout.write(cl_stdin)
 
 if __name__ == '__main__':
-    usage = "usage: %prog [options] [args [args ...]]"
+    usage = \
+"""usage: %prog [options] [args [args ...]]
+"""
     p = optparse.OptionParser(usage=usage, version="%prog " +  __version__)
+    p.add_option("-2", action="store_true", dest="c256", default=False,
+        help="Force pycolors to assume the terminal supports 256 colours.")
+    p.add_option("-8", action="store_true", dest="c88", default=False,
+        help="Like -2, but indicates that the terminal supports 88 colours.")
     # no options
     (opts, args) = p.parse_args()
     if len(args) < 1:
         p.error("set available args.")
 
-    main(args)
+    main(args, opts)
 

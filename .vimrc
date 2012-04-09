@@ -41,7 +41,7 @@ Bundle 'ujihisa/neco-look'
 
 " color & theme
 Bundle 'Color-Sampler-Pack'
-Bundle 'ChrisKempson/Vim-Tomorrow-Theme'
+" Bundle 'ChrisKempson/Vim-Tomorrow-Theme'
 Bundle 'nginx.vim'
 
 " sudo
@@ -148,6 +148,7 @@ if ! &diff
 endif
 Bundle 'pep8'
 Bundle 'amitdev/vimpy'
+Bundle 'vim-scripts/django.vim'
 " Bundle 'jmcantrell/vim-virtualenv'
 " Bundle 'project.tar.gz'
 " Bundle 'vim-ipython'

@@ -98,6 +98,19 @@ function pcolor() {
     echo
 }
 
+
+# http://d.hatena.ne.jp/tototoshi/20120113/1326470543
+function lw() {
+    sed -e 's/</\&lt;/g' |\
+    sed -e 's/>/\&gt;/g' |\
+    sed -e 's/\&/\&amp;/g' |\
+    # sed -e 's/[^:]*/<a href="\0">\0<\/a>/' |\
+    sed -e 's/\([^:]*\)/<a href="\1">\1<\/a>/' |\
+    sed -e 's/$/<br\/>/' |\
+    EDITOR='vim' w3m -T text/html
+}
+
+
 # anything.el like zaw.
 # source $HOME/.zsh_extend/zaw/zaw.zsh 2> /dev/null
 # bindkey '^;' zaw
@@ -106,4 +119,5 @@ function pcolor() {
 # zmv command - http://d.hatena.ne.jp/mollifier/20101227/p1
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
+
 
