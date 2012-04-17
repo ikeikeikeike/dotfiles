@@ -47,7 +47,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
 
 # extra
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$HOME/sbin:$PATH
 export MANPATH=$HOME/share/man:$MANPATH
 
 if [ $ARCHI = darwin ]; then
