@@ -84,7 +84,6 @@ function _set_python_home_pythonbrew() {
 }
 precmd_functions=($precmd_functions _set_python_home_pythonbrew)
 
-
 # function _preexec_1() {
     # [[ -s $HOME/.pythonbrew/etc/bashrc ]] && export PYTHON_HOME=`cat ~/.pythonbrew/etc/current | sed -e 's@PATH_PYTHONBREW_CURRENT="@@g' | sed -e 's@/bin"@@g'`
 # }

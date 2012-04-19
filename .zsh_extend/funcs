@@ -85,6 +85,12 @@ function rvm_use() {
     ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
 }
 
+function nvm_use() {
+    nvm use $@
+    sleep 0.1
+    export NODE_PATH=${NVM_PATH}_modules
+}
+
 function pcolor() {
     for ((f = 0; f < 255; f++)); do
         printf "\e[38;5;%dm %3d*■\e[m" $f $f

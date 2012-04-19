@@ -116,7 +116,11 @@ export PATH=$PLAY_HOME:$PATH
 # perl
 [[ -s $HOME/perl5/perlbrew/bin/perlbrew ]] && source $HOME/perl5/perlbrew/bin/perlbrew
 
-# node /opt/local/bin
+# nodejs
+if [[ -f ~/.nvm/nvm.sh ]]; then
+  source ~/.nvm/nvm.sh
+fi
+
 
 ### python ###
 # if pythonbrew
