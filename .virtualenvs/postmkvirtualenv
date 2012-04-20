@@ -37,7 +37,7 @@ pip install MySQL-python
 pip install pysqlite
 
 # peformance, analysis
-pip install pyflakes pep8 reimport pylint
+pip install pyflakes pep8 reimport pylint flake8
 # pip install clonedigger
 
 

@@ -122,6 +122,12 @@ if [[ -f ~/.nvm/nvm.sh ]]; then
 fi
 
 
+# haskell
+export CABAL_HOME=~/.cabal
+export PATH=$CABAL_HOME/bin:$PATH
+export MANPATH=$CABAL_HOME/share
+
+
 ### python ###
 # if pythonbrew
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc

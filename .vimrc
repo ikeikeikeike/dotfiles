@@ -118,7 +118,8 @@ Bundle 'thinca/vim-quickrun'
 " ~~~~~~~~~
 " error (syntax) check
 " ~~~~~~~~~
-Bundle 'errormarker.vim'
+Bundle "scrooloose/syntastic"
+" Bundle 'errormarker.vim'
 " Javascript
 Bundle 'javaScriptLint.vim'
 
@@ -170,6 +171,12 @@ Bundle "othree/coffee-check.vim"
 " html5
 Bundle 'html5.vim'
 Bundle 'HTML5-Syntax-File'
+
+" Haskell
+Bundle "lukerandall/haskellmode-vim"
+Bundle "ujihisa/neco-ghc"
+Bundle "eagletmt/ghcmod-vim"
+
 
 " ~~~~~~~~~
 " profiler
@@ -854,6 +861,16 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 
 " ######################################
+"
+" Configure browser for haskell_doc.vim
+"
+" ######################################
+let g:haddock_browser = "open"
+let g:haddock_browser_callformat = "%s %s"
+
+
+
+" ######################################
 
 " vim-smartchr
 
@@ -1002,7 +1019,7 @@ let g:pyflakes_use_quickfix=0
 highlight SpellBad ctermbg=darkred
 
 " pep8
-let g:pep8_map='<leader>8'
+" let g:pep8_map='<leader>8'
 
 " complete with document
 au FileType python set omnifunc=pythoncomplete#Complete
@@ -1096,43 +1113,54 @@ nnoremap <F8> :GundoToggle<CR>
 let g:gist_open_browser_after_post = 1
 
 
-" ######################################-----------------------
+
+" ######################################
+
+" syntastic
+
+" ######################################
+" let g:syntastic_enable_signs=1
+" let g:syntastic_auto_loc_list=2
+
+
+
+" ######################################
 
 " errormarker.vim
 " quickfix auto start
 " error compiler
 
-" ######################################-----------------------
-autocmd QuickfixCmdPost make,grep,vimgrep,grepadd cw
+" ######################################
+" autocmd QuickfixCmdPost make,grep,vimgrep,grepadd cw
 
-" ruby
-autocmd FileType ruby :set makeprg=ruby\ -c\ %
-" php
-autocmd filetype php :set makeprg=php\ -l\ %
-autocmd filetype php :set errorformat=%m\ in\ %f\ on\ line\ %l
-" perl
-" autocmd FileType perl,cgi :compiler perl
-" cpp
-autocmd FileType cpp :set makeprg=g++\ -fsyntax-only\ %
-" c
-autocmd FileType c :set makeprg=gcc\ -fsyntax-only\ %
+" " ruby
+" autocmd FileType ruby :set makeprg=ruby\ -c\ %
+" " php
+" autocmd filetype php :set makeprg=php\ -l\ %
+" autocmd filetype php :set errorformat=%m\ in\ %f\ on\ line\ %l
+" " perl
+" " autocmd FileType perl,cgi :compiler perl
+" " cpp
+" autocmd FileType cpp :set makeprg=g++\ -fsyntax-only\ %
+" " c
+" autocmd FileType c :set makeprg=gcc\ -fsyntax-only\ %
 
-" errormarker
-let g:errormarker_errortext = '!!'
-let g:errormarker_warningtext = '??'
-let g:errormarker_errorgroup = 'Error'
-let g:errormarker_warninggroup = 'Todo'
-if !exists('g:flymake_enabled')
-   let g:flymake_enabled = 1
-   autocmd BufWritePost *.cpp,*.h,*.hpp,*.cc,*.c,*.js,*.php,*.rb,*.pl,*.pm,*.t silent make! | redraw!
-endif
-if has('win32') || has('win64')
-   let g:errormarker_erroricon = expand('~/.vim/signs/err.bmp')
-   let g:errormarker_warningicon = expand('~/.vim/signs/warn.bmp')
-else
-   let g:errormarker_erroricon = expand('~/.vim/signs/err.bmp')
-   let g:errormarker_warningicon = expand('~/.vim/signs/err.png')
-endif
+" " errormarker
+" let g:errormarker_errortext = '!!'
+" let g:errormarker_warningtext = '??'
+" let g:errormarker_errorgroup = 'Error'
+" let g:errormarker_warninggroup = 'Todo'
+" if !exists('g:flymake_enabled')
+   " let g:flymake_enabled = 1
+   " autocmd BufWritePost *.cpp,*.h,*.hpp,*.cc,*.c,*.js,*.php,*.rb,*.pl,*.pm,*.t silent make! | redraw!
+" endif
+" if has('win32') || has('win64')
+   " let g:errormarker_erroricon = expand('~/.vim/signs/err.bmp')
+   " let g:errormarker_warningicon = expand('~/.vim/signs/warn.bmp')
+" else
+   " let g:errormarker_erroricon = expand('~/.vim/signs/err.bmp')
+   " let g:errormarker_warningicon = expand('~/.vim/signs/err.png')
+" endif
 
 
 " --------------------------------

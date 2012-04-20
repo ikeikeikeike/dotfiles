@@ -22,4 +22,6 @@ echo "wget 'https://raw.github.com/taku-o/downloads/master/DirDiff/DirDiff_mb.vi
 echo
 echo "Note: please installed python hashlib module."
 echo "Note: please installed ctags."
+echo "Note: syntax errors > http://d.hatena.ne.jp/heavenshell/20120109/1326089510"
+
 
