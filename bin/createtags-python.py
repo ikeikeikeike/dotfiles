@@ -28,6 +28,7 @@ Help ::
     $ createtags-python --help
     usage: createtags-python [-h] [-a] [-p PACKAGES [PACKAGES ...]]
                              [-s STANDARD_PACKAGES [STANDARD_PACKAGES ...]]
+                             [-l STANDARD_LIB [STANDARD_LIB ...]] [-b BASE_PREFIX]
                              [--no-virtualenv] [--allow-testcode] [-v]
                              [path]
 
@@ -43,9 +44,14 @@ Help ::
                             give packages name. default is a `django` package.
       -s STANDARD_PACKAGES [STANDARD_PACKAGES ...], --standard-packages STANDARD_PACKAGES [STANDARD_PACKAGES ...]
                             give packages name. for the standard library.
+      -l STANDARD_LIB [STANDARD_LIB ...], --standard-lib STANDARD_LIB [STANDARD_LIB ...]
+                            give packages name. for the standard library.
+      -b BASE_PREFIX, --base-prefix BASE_PREFIX
+                            package prefix.
       --no-virtualenv       not include the virtualenv.
       --allow-testcode      include the test code.
       -v, --version         show program's version number and exit
+
 
 :copyright: Tatsuo Ikeda
 :license: None
@@ -63,8 +69,14 @@ from distutils.sysconfig import get_python_lib
 def rmtag(path):
     try:
         os.remove(path)
-    except OSError:
-        pass
+    except OSError, e:
+        print e
+
+def symlink(src, dst):
+    try:
+        os.symlink(src, dst)
+    except OSError, e:
+        print e
 
 def getvepath():
     if isinstance(sys.version_info, tuple):
@@ -79,13 +91,17 @@ def aftercmd(exclude):
     runcmd("ctags -R -a %s ~/.virtualenvs/__builtin__27/builtins/__future__.py" % exclude)
     # runcmd("ctags -R -a %s %s" % (exclude_option, os.path.join(get_python_lib(), "../")))
 
-def runcmd(cmd):
+def runcmd(cmd, warning=True):
     print("run::\n   %s" % cmd)
-    print commands.getoutput(cmd)
+    output = commands.getoutput(cmd)
+    print output
+    if output and warning is False:
+        raise IOError(output)
 
 def main(args):
     rmtag('./tags')
 
+    # options
     exclude_option = "--languages=python --python-kinds=-i-v "
     if not args.allow_testcode:
             exclude_option += (
@@ -101,6 +117,7 @@ def main(args):
     runcmd("ctags -R    %s %s" % (exclude_option, args.path))
     aftercmd(exclude_option)
 
+    # virtualenv
     if args.no_virtualenv is False or args.all:
         vpath = getvepath()
         if args.all:
@@ -108,28 +125,37 @@ def main(args):
         else:
             for package in args.packages:
                 runcmd("ctags -R -a %s %s%s" % (exclude_option, os.path.join(vpath, package), '*'))
-
         rmtag("%s/tags" % vpath)
-        os.symlink("%s/tags" % os.getcwd(), "%s/tags" % vpath)
+        symlink("%s/tags" % os.getcwd(), "%s/tags" % vpath)
 
-
+    # standard package
     if args.standard_packages:
-        vpath = get_python_lib(standard_lib=True)
+        path = get_python_lib(prefix=args.base_prefix)
         for package in args.standard_packages:
-            runcmd("ctags -R -a %s %s%s" % (exclude_option, os.path.join(vpath, package), '*'))
+            runcmd("ctags -R -a %s %s%s" % (exclude_option, os.path.join(path, package), '*'))
+        rmtag("%s/tags" % path)
+        symlink("%s/tags" % os.getcwd(), "%s/tags" % path)
 
-        rmtag("%s/tags" % vpath)
-        os.symlink("%s/tags" % os.getcwd(), "%s/tags" % vpath)
+    # standard library
+    if args.standard_lib:
+        path = get_python_lib(standard_lib=True, prefix=args.base_prefix)
+        for package in args.standard_lib:
+            runcmd("ctags -R -a %s %s%s" % (exclude_option, os.path.join(path, package), '*'))
+        rmtag("%s/tags" % path)
+        symlink("%s/tags" % os.getcwd(), "%s/tags" % path)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="ctags util for virtualenv.")
-    parser.add_argument('path', nargs='?', default='.', help='project path.')
-    parser.add_argument('-a', '--all', action="store_true", help='all in virtualenv packages. ignore all options.')
-    parser.add_argument('-p', '--packages', nargs='+', default=['django'], help='give packages name. default is a `django` package.')
-    parser.add_argument('-s', '--standard-packages', nargs='+', default=[], help='give packages name. for the standard library.')
-    parser.add_argument('--no-virtualenv', action='store_true', help='not include the virtualenv.')
-    parser.add_argument('--allow-testcode', action='store_true', help='include the test code.')
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + __version__)
+    parser.add_argument("path", nargs="?", default='.', help="project path.")
+    parser.add_argument("-a", "--all", action="store_true", help="all in virtualenv packages. ignore all options.")
+    parser.add_argument("-p", "--packages", nargs='+', default=["django"], help="give packages name. default is a `django` package.")
+    parser.add_argument("-s", "--standard-packages", nargs="+", default=[], help="give packages name. for the standard library.")
+    parser.add_argument("-l", "--standard-lib", nargs='+', default=[], help="give packages name. for the standard library.")
+    parser.add_argument("-b", "--base-prefix", default="/usr", help="package prefix.")
+    parser.add_argument("--no-virtualenv", action="store_true", help="not include the virtualenv.")
+    parser.add_argument("--allow-testcode", action="store_true", help="include the test code.")
+    parser.add_argument("-v", "--version", action="version", version="%(prog)s " + __version__)
 
     args = parser.parse_args()
     main(args)
