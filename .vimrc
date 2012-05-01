@@ -130,6 +130,8 @@ Bundle 'thinca/vim-ref'
 Bundle 'ref.vim'
 Bundle 'Shougo/echodoc'
 Bundle 'php-doc'
+Bundle 'Modeliner'
+
 
 " ~~~~~~~~~~~~
 " languages
@@ -754,16 +756,20 @@ if v:version > 700
     " " Define dictionary.
     let g:neocomplcache_dictionary_filetype_lists = {
                 \'default' : '',
-                \ 'java' : $HOME.'/.vim/dict/java.dict',
+                \ 'c' : $HOME.'/.vim/dict/c.dict',
                 \ 'cpp' : $HOME.'/.vim/dict/cpp.dict',
+                \ 'java' : $HOME.'/.vim/dict/java.dict',
                 \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
-                \ 'css' : $HOME.'/.vim/dict/css.dict',
+                \ 'lua' : $HOME.'/.vim/dict/lua.dict',
                 \ 'ocaml' : $HOME.'/.vim/dict/ocaml.dict',
+                \ 'scala' : $HOME.'/.vim/dict/scala.dict',
+                \ 'scheme' : $HOME.'/.vim/dict/scheme.dict',
                 \ 'perl' : $HOME.'/.vim/dict/perl.dict',
                 \ 'php' : $HOME.'/.vim/dict/php.dict',
                 \ 'ruby' : $HOME.'/.vim/dict/ruby.dict',
                 \ 'python' : $HOME.'/.vim/dict/python.dict',
-                \ 'vim' : $HOME.'/.vim/dict/vim.dict'
+                \ 'vim' : $HOME.'/.vim/dict/vim.dict',
+                \ 'css' : $HOME.'/.vim/dict/css.dict'
                 \ }
 
 

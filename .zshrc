@@ -181,7 +181,7 @@ setopt numeric_glob_sort
 setopt print_exit_value
 
 # zsh の開始・終了時刻をヒストリファイルに書き込む
-#setopt extended_history
+setopt extended_history
 
 # コマンドライン全てのスペルチェックをする
 #setopt correct_all

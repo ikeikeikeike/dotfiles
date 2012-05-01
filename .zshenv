@@ -106,6 +106,7 @@ export RSENSE_HOME=$HOME/lib/rsense-0.3
 # java
 alias javac='javac -J-Dfile.encoding=UTF-8'
 alias java='java -Dfile.encoding=UTF-8'
+alias jdb='jdb -J-Dfile.encoding=UTF-8'
 
 # scala
 export REBEL_HOME=/usr/local/share/jrebel
