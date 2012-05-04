@@ -358,6 +358,10 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .y 01;38;05;209
 .l 01;38;05;209
 .py 01;38;05;209
+.scala 01;38;05;209
+.js 01;38;05;209
+.coffee 01;38;05;209
+.hs 01;38;05;209
 .rb 01;38;05;209
 .php 01;38;05;209
 .pl 01;38;05;209

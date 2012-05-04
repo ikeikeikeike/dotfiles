@@ -45,6 +45,9 @@ alias cl='clear'
 alias pb='tmux-pbcopy'
 # cd
 alias ...="../../"
+alias ....="../../../"
+alias .....="../../../../"
+alias ......="../../../../../"
 function - { cd -; }
 alias gd='source $HOME/.zsh_extend/gd/gd.sh'
 alias cdh='gd'

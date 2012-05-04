@@ -179,6 +179,9 @@ Bundle "lukerandall/haskellmode-vim"
 Bundle "ujihisa/neco-ghc"
 Bundle "eagletmt/ghcmod-vim"
 
+" Clojure
+Bundle 'VimClojure'
+
 
 " ~~~~~~~~~
 " profiler
@@ -874,6 +877,22 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:haddock_browser = "open"
 let g:haddock_browser_callformat = "%s %s"
 
+
+" ######################################
+"
+" VimClojre
+"
+" ######################################
+" VimClojre
+let vimclojure#HighlightBuiltins = 1
+let vimclojure#ParenRainbow = 1
+let vimclojure#FuzzyIndent = 1
+let vimclojure#HighlightContrib = 1
+let vimclojure#DynamicHighlighting = 1
+
+" Nailgun
+let vimclojure#WantNailgun = 1
+let vimclojure#NailgunClient = "ng"
 
 
 " ######################################

@@ -99,6 +99,10 @@ export LESSOPEN='| src-hilite-lesspipe.sh %s'
 # gsutil
 export PATH=$PATH:$HOME/lib/gsutil
 
+# zsh
+fpath=(~/.zsh-completions $fpath)
+
+
 # ruby
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
 export RSENSE_HOME=$HOME/lib/rsense-0.3
@@ -113,6 +117,7 @@ export REBEL_HOME=/usr/local/share/jrebel
 export PATH=$REBEL_HOME/bin:$PATH
 export PLAY_HOME=/opt/local/share/java/play-1.2.3
 export PATH=$PLAY_HOME:$PATH
+alias sbt='JAVA_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -Xmx512M -Xss2M" sbt'
 
 # perl
 [[ -s $HOME/perl5/perlbrew/bin/perlbrew ]] && source $HOME/perl5/perlbrew/bin/perlbrew
