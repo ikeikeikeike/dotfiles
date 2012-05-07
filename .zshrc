@@ -4,8 +4,8 @@ bindkey -e
 
 # history
 HISTFILE=$HOME/.zsh-history
-HISTSIZE=100000000
-SAVEHIST=100000000
+HISTSIZE=1000000
+SAVEHIST=1000000
 
 # auto complete compile
 autoload -U compinit
