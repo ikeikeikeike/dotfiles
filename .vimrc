@@ -18,7 +18,7 @@ Bundle 'vundle'
 " unites
 if v:version > 700
     " anything like buffer management app.
-    Bundle 'unite.vim'
+    Bundle 'Shougo/unite.vim'
     Bundle 'tsukkee/unite-tag'
     Bundle 'tsukkee/unite-help'
     Bundle 'ujihisa/unite-locate'
