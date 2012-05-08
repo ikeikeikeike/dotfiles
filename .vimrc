@@ -180,7 +180,8 @@ Bundle "ujihisa/neco-ghc"
 Bundle "eagletmt/ghcmod-vim"
 
 " Clojure
-Bundle 'VimClojure'
+" Bundle 'VimClojure'
+Bundle 'vim-scripts/slimv.vim'
 
 
 " ~~~~~~~~~
@@ -884,15 +885,25 @@ let g:haddock_browser_callformat = "%s %s"
 "
 " ######################################
 " VimClojre
-let vimclojure#HighlightBuiltins = 1
-let vimclojure#ParenRainbow = 1
-let vimclojure#FuzzyIndent = 1
-let vimclojure#HighlightContrib = 1
-let vimclojure#DynamicHighlighting = 1
+" let vimclojure#ParenRainbow = 1
+" let vimclojure#FuzzyIndent = 1
+" let vimclojure#HighlightBuiltins = 1
+" let vimclojure#HighlightContrib = 1
+" let vimclojure#DynamicHighlighting = 1
 
-" Nailgun
-let vimclojure#WantNailgun = 1
-let vimclojure#NailgunClient = "ng"
+" " Nailgun
+" let vimclojure#WantNailgun = 1
+" let vimclojure#NailgunClient = "ng"
+
+
+" ######################################
+"
+" slimv
+"
+" ######################################
+let g:lisp_rainbow = 1
+let g:slimv_swank_clojure = "!tmux new-window -d -n swank '/opt/local/bin/lein swank'"
+" let g:slimv_swank_cmd =
 
 
 " ######################################
