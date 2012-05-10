@@ -1211,3 +1211,13 @@ let g:gist_open_browser_after_post = 1
 let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
 
 
+" ----------------
+
+" settings loader　未設定
+
+" ----------------
+for f in split(glob('~/.vim/vimrc/*.vim'), '\n')
+  exe 'source' f
+endfor
+
+
