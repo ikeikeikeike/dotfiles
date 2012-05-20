@@ -43,6 +43,7 @@ alias tmux='tmux -2'
 alias which='which -a'
 alias cl='clear'
 alias pb='tmux-pbcopy'
+alias ec="extract"
 # cd
 alias ...="../../"
 alias ....="../../../"

@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+# mysql
+pip install MySQL-python
+
+# sqlite
+pip install pysqlite
+
+

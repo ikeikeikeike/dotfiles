@@ -226,6 +226,7 @@ Bundle 'ZenCoding.vim'
 " ~~~~~~~
 " Bundle 'koron/nyancat-vim'
 " Bundle 'mattn/vdbi-vim'
+" Bundle "mattn/hahhah-vim"
 
 " ~~~~~~~
 " api
@@ -903,7 +904,7 @@ let g:haddock_browser_callformat = "%s %s"
 " ######################################
 let g:lisp_rainbow = 1
 let g:slimv_swank_clojure = "!tmux new-window -d -n swank '/opt/local/bin/lein swank'"
-" let g:slimv_swank_cmd =
+
 
 
 " ######################################

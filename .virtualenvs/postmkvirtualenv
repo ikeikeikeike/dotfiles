@@ -23,18 +23,11 @@ pip install django-pudebug
 # TEST
 pip install nose nose-pudb mock tox pytest
 
-# image library
-pip install PIL
-
 # document
 pip install Sphinx
 
 # deployed
 pip install South Fabric
-
-# datastorage
-pip install MySQL-python
-pip install pysqlite
 
 # peformance, analysis
 pip install pyflakes pep8 reimport pylint flake8
