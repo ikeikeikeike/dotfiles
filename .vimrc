@@ -150,6 +150,7 @@ if ! &diff
     Bundle 'pyflakes.vim'
 endif
 Bundle 'pep8'
+Bundle 'nvie/vim-flake8'
 Bundle 'amitdev/vimpy'
 Bundle 'vim-scripts/django.vim'
 " Bundle 'jmcantrell/vim-virtualenv'
@@ -1044,16 +1045,49 @@ let g:echodoc_enable_at_startup = 1
 " let g:debuggerMaxDepth = 10
 
 
+" ######################################
+
+" syntastic
+
+" ######################################
+" let g:syntastic_enable_signs=1
+" let g:syntastic_auto_loc_list=2
+" let g:syntastic_mode_map = { 'mode': 'active',
+  " \ 'active_filetypes': ['perl'],
+  " \ 'passive_filetypes': ['python'] }
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_quiet_warnings = 0
+" let g:syntastic_enable_signs = 1
+" let g:syntastic_enable_highlighting = 0
+" let g:syntastic_python_checker_args='--ignore=E501,E302,E231,E261,E201,W402,W293'
+let g:syntastic_python_checker_args='--ignore=E501'
+
+" buffergator
+" let g:buffergator_viewport_split_policy="B"
+
+" ######################################
+
+" flake8
+
+" ######################################
+" ignore errors
+let g:flake8_ignore='E501'
+" let g:flake8_ignore="E501,W293"
+
+
+
 " ----------------------------------------------------------------------
 
 " python
 " @link http://sontek.net/turning-vim-into-a-modern-python-ide
+" add flake8, remove pep8, pyflakes || replaced 2012-05-13T16:08:50 add tatsuo
 
 " ----------------------------------------------------------------------
 
+
 " pyflakes
-let g:pyflakes_use_quickfix=0
-highlight SpellBad ctermbg=darkred
+" let g:pyflakes_use_quickfix=0
+" highlight SpellBad ctermbg=darkred
 
 " pep8
 " let g:pep8_map='<leader>8'
@@ -1151,15 +1185,6 @@ let g:gist_open_browser_after_post = 1
 
 
 
-" ######################################
-
-" syntastic
-
-" ######################################
-" let g:syntastic_enable_signs=1
-" let g:syntastic_auto_loc_list=2
-
-
 
 " ######################################
 
@@ -1210,5 +1235,15 @@ let g:gist_open_browser_after_post = 1
 " set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)\ %{cfi#format(\"[%s()]\",\ \"[no\ function]\")}\ %m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}
 " let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}-%{VirtualEnvStatusline()}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
 let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
+
+
+" ----------------
+
+" settings loader　未設定
+
+" ----------------
+for f in split(glob('~/.vim/vimrc/*.vim'), '\n')
+  exe 'source' f
+endfor
 
 
