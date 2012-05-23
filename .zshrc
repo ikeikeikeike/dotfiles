@@ -122,6 +122,12 @@ setopt print_eight_bit
 ## 直前と同じコマンドをヒストリに追加しない
 setopt hist_ignore_dups
 
+# 重複履歴を保存しない
+setopt histignorealldups histsavenodups
+
+# 先頭にSPACEを入れると履歴を残さない
+# setopt histignorespace
+
 ## cd 時に自動で push
 setopt auto_pushd
 setopt autopushd
@@ -180,8 +186,6 @@ setopt numeric_glob_sort
 # 戻り値が 0 以外の場合終了コードを表示する
 setopt print_exit_value
 
-# zsh の開始・終了時刻をヒストリファイルに書き込む
-setopt extended_history
 
 # コマンドライン全てのスペルチェックをする
 #setopt correct_all

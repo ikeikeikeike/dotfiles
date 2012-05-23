@@ -131,7 +131,7 @@ fi
 # haskell
 export CABAL_HOME=~/.cabal
 export PATH=$CABAL_HOME/bin:$PATH
-export MANPATH=$CABAL_HOME/share
+export MANPATH=$CABAL_HOME/share:$MANPATH
 
 
 ### python ###

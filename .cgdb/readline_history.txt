@@ -1,0 +1,103 @@
+b main
+r
+h
+argc
+print argc
+p argc
+p argv
+argv.bubblesort.c 
+bubblesort.c 
+p bubblesort.c 
+n
+p array
+args
+h
+l
+s
+p i
+p length 
+h
+l
+p i
+n
+p array[i]
+p array.
+p array.C
+p length
+array i
+p array 
+p i
+n
+b printarray
+run
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+p array
+s
+n
+p array
+p j
+s
+p a
+p 
+p b
+p *a
+p *a.
+p *a
+p a.
+p a.
+p *b
+n
+temp
+p temp
+p *a
+n
+p array
+p *array
+p *array.lenth
+p array.lenth
+p array
+p length
+n
+p array
+p *array
+p array[4]
+p array[3]
+p array[44]
+p array[5]
+p array[4]
+p array[3]
+p array[2]
+p array[1]
+p array[0]
+h
+
+data
+p data
+p array
+info b
+whatis array
+whatis *array
+whatis *arrayk
+into stack
+info statck
+info stack
+info thread
+strace
+n
+n
+c
+c
+c
+c
+c
+q
