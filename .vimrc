@@ -488,13 +488,13 @@ setlocal omnifunc=syntaxcomplete#Complete
 " highlight PmenuSbar ctermbg=darkgray
 " highlight PmenuThumb ctermbg=lightgray
 " highlight Pmenu ctermbg=8 guibg=#606060
-" highlight Pmenu term=reverse ctermbg=235 guibg=#2d2d2d
-" highlight Pmenu term=bold ctermfg=12 guifg=SlateBlue
-" highlight PmenuSel ctermbg=12 guibg=SlateBlue
-" highlight PmenuSbar ctermbg=0 guibg=#404040
-" highlight PmenuThumb ctermbg=0 guibg=Red
+highlight Pmenu term=reverse ctermbg=235 guibg=#2d2d2d
+highlight Pmenu term=bold ctermfg=12 guifg=SlateBlue
+highlight PmenuSel ctermbg=12 guibg=SlateBlue
+highlight PmenuSbar ctermbg=0 guibg=#404040
+highlight PmenuThumb ctermbg=0 guibg=Red
 
-highlight Pmenu ctermbg=254 gui=bold
+" highlight Pmenu ctermbg=254 gui=bold
 
 " autocmd settings
 if has("autocmd")
