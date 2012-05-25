@@ -277,3 +277,9 @@ fi
   # }
 # fi
 
+# post zshrc
+if [ -f $HOME/.postzshrc ]; then
+  source $HOME/.postzshrc
+fi
+
+

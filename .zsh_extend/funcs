@@ -79,10 +79,31 @@ function extract (){
   fi
 }
 
+
+function gen_rvm_postzshrc() {
+cat << EOF > $HOME/.rvm_postzshrc 2>&1
+#
+# auto ganerate post zshrc
+#
+rvm_use `echo $RUBY_VERSION`
+EOF
+}
+
+function gen_virtualenvwrapper_postzshrc() {
+cat << EOF > $HOME/.virtualenvwrapper_postzshrc 2>&1
+#
+# auto ganerate post zshrc
+#
+workon `basename $VIRTUAL_ENV`
+EOF
+}
+
 function rvm_use() {
     rvm use $@
     sleep 0.1
     ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
+    # ganegate rc file
+    gen_rvm_postzshrc
 }
 
 function nvm_use() {

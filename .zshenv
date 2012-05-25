@@ -167,3 +167,5 @@ export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 
 # mysettings
 source $HOME/.adds_zshenv 2> /dev/null
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

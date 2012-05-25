@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+
 # alias
 if [ $ARCHI = darwin ]; then
   alias emacs='open -a /Applications/Emacs.app'
@@ -15,6 +16,7 @@ if [ $ARCHI = darwin ]; then
   alias winscp="open $HOME/Library/Application\ Support/MikuInstaller/prefix/default/drive_c/Program\ Files/WinSCP/WinSCP.exe"
   [[ -s $HOME/.pythonbrew/etc/bashrc ]] || alias mysql='mysql5'
   alias dircolors='gdircolors'
+  alias tmux="tmuxx"
 fi
 if [ $ARCHI = freebsd ]; then
   alias ls='ls -FGh'
