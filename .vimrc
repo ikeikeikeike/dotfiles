@@ -150,7 +150,7 @@ if ! &diff
     Bundle 'pyflakes.vim'
 endif
 Bundle 'pep8'
-Bundle 'nvie/vim-flake8'
+" Bundle 'nvie/vim-flake8'
 Bundle 'amitdev/vimpy'
 Bundle 'vim-scripts/django.vim'
 " Bundle 'jmcantrell/vim-virtualenv'
@@ -488,13 +488,22 @@ setlocal omnifunc=syntaxcomplete#Complete
 " highlight PmenuSbar ctermbg=darkgray
 " highlight PmenuThumb ctermbg=lightgray
 " highlight Pmenu ctermbg=8 guibg=#606060
-highlight Pmenu term=reverse ctermbg=235 guibg=#2d2d2d
-highlight Pmenu term=bold ctermfg=12 guifg=SlateBlue
-highlight PmenuSel ctermbg=12 guibg=SlateBlue
-highlight PmenuSbar ctermbg=0 guibg=#404040
-highlight PmenuThumb ctermbg=0 guibg=Red
-
+" highlight Pmenu term=reverse ctermbg=235 guibg=#2d2d2d
+" highlight Pmenu term=bold ctermfg=12 guifg=SlateBlue
+" highlight PmenuSel ctermbg=12 guibg=SlateBlue
+" highlight PmenuSbar ctermbg=0 guibg=#404040
+" highlight PmenuThumb ctermbg=0 guibg=Red
+highlight Pmenu ctermbg=209 gui=bold
 " highlight Pmenu ctermbg=254 gui=bold
+" highlight Pmenu guibg=#003000
+" highlight PmenuSel guibg=#006800
+" highlight PmenuSbar guibg=#001800
+" highlight PmenuThumb guifg=#006000
+
+" hi Pmenu ctermbg=0
+" hi PmenuSel ctermbg=4
+" hi PmenuSbar ctermbg=2
+" hi PmenuThumb ctermfg=3
 
 " autocmd settings
 if has("autocmd")
@@ -626,6 +635,13 @@ endif
 " plugin
 
 " ---------------------------------------
+
+" ######################################
+
+" NERDTree
+
+" ######################################
+let NERDTreeWinPos = "right"
 
 
 " ######################################
