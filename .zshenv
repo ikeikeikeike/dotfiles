@@ -93,7 +93,7 @@ fi
 # less
 export LESSCHARSET=utf-8
 export PAGER='less'
-export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case -R '
+export LESS='--tabs=4 -q --no-init --LONG-PROMPT --ignore-case -R '
 export LESSOPEN='| src-hilite-lesspipe.sh %s'
 
 # gsutil

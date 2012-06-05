@@ -103,6 +103,7 @@ setopt prompt_subst
 
 ## no beep
 setopt nobeep
+setopt nolistbeep
 
 ## 内部コマンド jobs の出力をデフォルトで jobs -l にする
 setopt long_list_jobs

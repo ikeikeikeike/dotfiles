@@ -7,4 +7,5 @@
 # readline 対応のアプリケーションで delete を使った文字の削除が正常に機能するように設定
 "\e[3~": delete-char
 
-
+# beep
+set bell-style none
