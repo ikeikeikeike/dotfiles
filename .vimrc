@@ -493,7 +493,14 @@ setlocal omnifunc=syntaxcomplete#Complete
 " highlight PmenuSel ctermbg=12 guibg=SlateBlue
 " highlight PmenuSbar ctermbg=0 guibg=#404040
 " highlight PmenuThumb ctermbg=0 guibg=Red
-highlight Pmenu ctermbg=209 gui=bold
+
+if has('mac')
+    highlight Pmenu ctermbg=227 gui=bold
+else
+    highlight Pmenu ctermbg=234 gui=bold
+endif
+
+
 " highlight Pmenu ctermbg=254 gui=bold
 " highlight Pmenu guibg=#003000
 " highlight PmenuSel guibg=#006800

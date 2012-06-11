@@ -263,7 +263,7 @@ export MYSQL_PS1="(\u@\h:\p) [\d] \v - \r:\m\P \n\c> "
 
 #####  pre attaches
 
-
+# tmux log format is script cmd.
 if [ "${TMUX}" != "" ] ; then
   tmux pipe-pane 'cat >> ~/.tmux/`date +%Y-%m-%d`_#S:#I.#P.log'
 fi
