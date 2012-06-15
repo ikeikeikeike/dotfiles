@@ -24,8 +24,8 @@ if v:version > 700
     Bundle 'ujihisa/unite-locate'
     Bundle 'heavenshell/unite-zf'
     " Bundle 'Sixeight/unite-grep'
-    Bundle 'ujihisa/unite-colorscheme'
-    Bundle 'unite-font'
+    " Bundle 'ujihisa/unite-colorscheme'
+    " Bundle 'unite-font'
 endif
 " ~~~~~~~~~~~~
 " general
@@ -243,7 +243,8 @@ Bundle 'mattn/webapi-vim'
 " colorscheme adaryn
 " colorscheme asu1dark
 " colorscheme wombat256
-colorscheme wuye
+" colorscheme wuye
+colorscheme jellybeans
 " colorscheme breeze
 " set background=light      " 背景色の傾向(カラースキーマがそれに併せて色の明暗を変えてくれる)
 " set background=dark
