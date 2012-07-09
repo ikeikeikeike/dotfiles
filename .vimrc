@@ -72,7 +72,7 @@ if v:version > 700
     " auto complete
     Bundle 'Shougo/neocomplcache'
     Bundle 'Shougo/neocomplcache-snippets-complete'
-    Bundle "Shougo/neocomplcache-clang"
+    " Bundle "Shougo/neocomplcache-clang"
 
 endif
 
@@ -141,6 +141,7 @@ Bundle 'sql.vim--Fishburn-syntax'
 
 " html & javascript indentations
 Bundle "lukaszb/vim-web-indent"
+Bundle "teramako/jscomplete-vim"
 
 " python
 if ! &diff
@@ -846,7 +847,9 @@ if v:version > 700
     autocmd FileType eruby,html,markdown set omnifunc=htmlcomplete#CompleteTags
     autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
     autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+    """ default javascript complete
     autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+    " autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
     autocmd FileType php set omnifunc=phpcomplete#CompletePHP
     autocmd FileType c set omnifunc=ccomplete#Complete
     autocmd FileType ruby set omnifunc=rubycomplete#Complete
@@ -869,7 +872,7 @@ if v:version > 700
     " libclangを使う
     let g:neocomplcache_clang_use_library = 1
     " ライブラリへのパス
-    let g:neocomplcache_clang_library_path = '/Developer/usr/clang-ide/lib'
+    let g:neocomplcache_clang_library_path = '/usr/lib/clang/3.1'
     " clangへのパス
     let g:neocomplcache_clang_executable_path = '/usr/bin'
     " let g:neocomplcache_clang_auto_options = ''
@@ -940,6 +943,16 @@ let g:slimv_swank_clojure = "!tmux new-window -d -n swank '/opt/local/bin/lein s
 " vim-smartchr
 
 " ######################################
+
+
+
+" ######################################
+
+" jscomplete
+
+" ######################################
+let g:jscomplete_use = ['dom']
+" let g:jscomplete_use = ['dom', 'moz']
 
 
 

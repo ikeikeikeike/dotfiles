@@ -325,6 +325,8 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .tex 00;38;05;193
 .doc 00;38;05;193
 .rst 00;38;05;193
+.md 00;38;05;193
+.in 00;38;05;193
 
 .chm 00;38;05;193
 .css 00;38;05;193
