@@ -635,7 +635,7 @@ set backupext=.bak
 
 " ######################################
 if &diff
-    colorscheme colorer
+    " colorscheme colorer
 endif
 
 
