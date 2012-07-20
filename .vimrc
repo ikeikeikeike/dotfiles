@@ -629,6 +629,16 @@ set backupext=.bak
 "set patchmode=.orig
 
 
+" ------------------
+
+" 縦に連番を入力する :3co
+
+" ------------------
+nnoremap <silent> co :ContinuousNumber <C-a><CR>
+vnoremap <silent> co :ContinuousNumber <C-a><CR>
+command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
+
+
 " ######################################
 
 " vimdiff
@@ -1285,5 +1295,6 @@ let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (
 for f in split(glob('~/.vim/vimrc/*.vim'), '\n')
   exe 'source' f
 endfor
+
 
 
