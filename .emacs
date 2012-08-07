@@ -1,4 +1,3 @@
-
 ;; debuger
 ;;(setq debug-on-error t)
 
@@ -10,32 +9,35 @@
 ;; load-pathを追加
 (setq load-path (append
                  '("/Applications/Emacs.app/Contents/Resources/site-lisp"
-       "/Applications/MacPorts/Emacs.app/Contents/Resources/site-lisp"
-       "~/.emacs.d/elisp"
-       "~/.emacs.d/auto-install"
-       "~/.emacs.d/init"
-       "~/.emacs.d/navi2ch"
-       "~/.emacs.d/haskell-mode-2.8.0"
-       "~/.emacs.d/geben"
-       "/opt/local/share/emacs/site-lisp"
-       "/opt/local/share/emacs/site-lisp/howm"
-       "/usr/local/Cellar/erlang/R14B03/lib/erlang/lib/tools-2.6.6.4/emacs"
-       )
+		   "/Applications/MacPorts/Emacs.app/Contents/Resources/site-lisp"
+		   "~/.emacs.d/elisp"
+		   "~/.emacs.d/auto-install"
+		   "~/.emacs.d/init"
+		   "~/.emacs.d/navi2ch"
+		   "~/.emacs.d/haskell-mode-2.8.0"
+		   "~/.emacs.d/geben"
+		   "~/.emacs.d/elisp/howm"
+		   "/opt/local/share/emacs/site-lisp"
+		   "/opt/local/share/emacs/site-lisp/howm"
+		   "~/.emacs.d/vendor/ensime/elisp"
+		   "~/.emacs.d/vendor/scala-mode"
+		   ;; "/usr/local/Cellar/erlang/R14B03/lib/erlang/lib/tools-2.6.6.4/emacs"
+		   )
                  load-path))
 
 (setq exec-path (append
                  '("/opt/local/bin"
-       "/opt/local/sbin"
+		   "/opt/local/sbin"
                    "/usr/bin"
-       "/bin"
+		   "/bin"
                    "/usr/sbin"
-       "/sbin"
-       "/usr/local/bin"
-       "/usr/local/sbin"
+		   "/sbin"
+		   "/usr/local/bin"
+		   "/usr/local/sbin"
                    "/usr/X11/bin"
-       "/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin"
-       "/usr/local/Cellar/erlang/R14B03/bin"
-       )
+		   "/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin"
+		   ;; "/usr/local/Cellar/erlang/R14B03/bin"
+		   )
                  exec-path))
 
 ;; 言語を日本語にする
@@ -1310,4 +1312,17 @@
      (php-mode ("\"" "\"") ("'" "'") ("(" ")") ("[" "]") ("{" (joseph-autopair-newline-indent-insert "}")))
      (java-mode ("\"" "\"") ("'" "'") ("(" ")") ("[" "]") ("{" (joseph-autopair-newline-indent-insert "}")))
      (sh-mode ("if " (joseph-autopair-newline-indent-insert "fi")) ("begin " (progn (insert " end") (end-of-line))))))))
+
+; 末尾空白
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
+;; scala
+(require 'scala-mode-auto)
+(add-to-list 'auto-mode-alist '("\\.scala$" . scala-mode))
+
+;; scala ensime
+(require 'ensime)
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 

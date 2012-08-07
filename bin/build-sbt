@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if [ $# -ne 1 ] ; then
+    echo "usage: sbtg project_name" 1>&2
+    exit 1
+fi
+
+echo "name := \"$1\"\n" > build.sbt
+echo 'version := "1.0"\n' >> build.sbt
+echo 'scalaVersion := "2.9.2"\n' >> build.sbt
+echo 'libraryDependencies += "org.scalatest" %% "scalatest" % "1.7.1" % "test"\n' >> build.sbt
+echo '/** Console */\ninitialCommands in console := "import org.scalatest.FunSuite"' >> build.sbt
+
+mkdir -p src/main/scala
+mkdir -p src/test/scala
+mkdir src/main/java src/main/resources
+mkdir src/test/java src/test/resources
+sbt "ensime generate"
+sbt "gen-idea"
+touch project/build.properties

@@ -21,3 +21,12 @@ try:
 except:
   pass
 
+
+# import datetime
+# WRITEHISTORYFILE = os.path.expanduser('~/.mypython/logs/pythonwritehistory_%s.py' % (
+    # datetime.datetime.now().strftime("%Y%m%d_%H%M%S"),
+# ))
+# f = open(WRITEHISTORYFILE, "a")
+# f.close()
+# readline.write_history_file(WRITEHISTORYFILE)
+

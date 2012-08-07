@@ -71,7 +71,7 @@ RESET 0 # reset to "normal" color
 DIR 00;34 # directory
 LINK 01;36 # symbolic link. (If you set this to 'target' instead of a
  # numerical value, the color is as for the file pointed to.)
-MULTIHARDLINK 00 # regular file with more than one link
+#MULTIHARDLINK 00 # regular file with more than one link
 FIFO 40;33 # pipe
 SOCK 01;35 # socket
 DOOR 01;35 # door
@@ -325,6 +325,8 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .tex 00;38;05;193
 .doc 00;38;05;193
 .rst 00;38;05;193
+.md 00;38;05;193
+.in 00;38;05;193
 
 .chm 00;38;05;193
 .css 00;38;05;193
@@ -358,6 +360,10 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .y 01;38;05;209
 .l 01;38;05;209
 .py 01;38;05;209
+.scala 01;38;05;209
+.js 01;38;05;209
+.coffee 01;38;05;209
+.hs 01;38;05;209
 .rb 01;38;05;209
 .php 01;38;05;209
 .pl 01;38;05;209

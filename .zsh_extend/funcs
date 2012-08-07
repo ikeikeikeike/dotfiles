@@ -79,6 +79,39 @@ function extract (){
   fi
 }
 
+
+function gen_rvm_postzshrc() {
+cat << EOF > $HOME/.rvm_postzshrc 2>&1
+#
+# auto ganerate post zshrc
+#
+rvm_use `echo $RUBY_VERSION`
+EOF
+}
+
+function gen_virtualenvwrapper_postzshrc() {
+cat << EOF > $HOME/.virtualenvwrapper_postzshrc 2>&1
+#
+# auto ganerate post zshrc
+#
+workon `basename $VIRTUAL_ENV`
+EOF
+}
+
+function rvm_use() {
+    rvm use $@
+    sleep 0.1
+    ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
+    # ganegate rc file
+    gen_rvm_postzshrc
+}
+
+function nvm_use() {
+    nvm use $@
+    sleep 0.1
+    export NODE_PATH=${NVM_PATH}_modules
+}
+
 function pcolor() {
     for ((f = 0; f < 255; f++)); do
         printf "\e[38;5;%dm %3d*■\e[m" $f $f
@@ -92,6 +125,19 @@ function pcolor() {
     echo
 }
 
+
+# http://d.hatena.ne.jp/tototoshi/20120113/1326470543
+function lw() {
+    sed -e 's/</\&lt;/g' |\
+    sed -e 's/>/\&gt;/g' |\
+    sed -e 's/\&/\&amp;/g' |\
+    # sed -e 's/[^:]*/<a href="\0">\0<\/a>/' |\
+    sed -e 's/\([^:]*\)/<a href="\1">\1<\/a>/' |\
+    sed -e 's/$/<br\/>/' |\
+    EDITOR='vim' w3m -T text/html
+}
+
+
 # anything.el like zaw.
 # source $HOME/.zsh_extend/zaw/zaw.zsh 2> /dev/null
 # bindkey '^;' zaw
@@ -100,4 +146,5 @@ function pcolor() {
 # zmv command - http://d.hatena.ne.jp/mollifier/20101227/p1
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
+
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+
 # alias
 if [ $ARCHI = darwin ]; then
   alias emacs='open -a /Applications/Emacs.app'
@@ -13,7 +14,7 @@ if [ $ARCHI = darwin ]; then
   alias updatedb=' sudo LC_ALL=C gupdatedb --prunepaths="/tmp /var/tmp /.Spotlight-V100 /.fseventsd /Volumes/MobileBackups /Volumes/Volume /.MobileBackups" '
   alias locate='glocate -i '
   alias winscp="open $HOME/Library/Application\ Support/MikuInstaller/prefix/default/drive_c/Program\ Files/WinSCP/WinSCP.exe"
-  alias mysql='mysql5'
+  [[ -s $HOME/.pythonbrew/etc/bashrc ]] || alias mysql='mysql5'
   alias dircolors='gdircolors'
 fi
 if [ $ARCHI = freebsd ]; then
@@ -29,19 +30,28 @@ fi
 # general
 alias top='htop'
 alias py=python
+alias rb=ruby
 alias screen='screen -U'
 alias la='ls -alt'
+alias ll='ls -lt'
 alias vi='vim'
 alias clvim="setopt rm_star_silent; rm -rf ~/.vim_plugins/vim_session/*; unsetopt rm_star_silent; vim "
+alias novim="vim -u NONE -U NONE --noplugin "
 alias less='less -MX'
 alias grep='grep -i --color=always '
+alias grepR='grep -inHR --color=always -e '
 alias cp='cp -iv'
 alias mv='mv -iv'
-alias tmux='tmux -2'
+alias tmux='tmux -2 -u'
 alias which='which -a'
+alias cl='clear'
 alias pb='tmux-pbcopy'
+alias ec="extract"
 # cd
 alias ...="../../"
+alias ....="../../../"
+alias .....="../../../../"
+alias ......="../../../../../"
 function - { cd -; }
 alias gd='source $HOME/.zsh_extend/gd/gd.sh'
 alias cdh='gd'

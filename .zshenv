@@ -27,8 +27,9 @@ fi
 if [ ! $reattach_to_user_namespace ] && [ $ARCHI = darwin ]; then
   export reattach_to_user_namespace=1
   echo "reattach-to-user-namespace -l zsh"
-  echo "Note!! Error in Hidden. Error in Hidden."
-  reattach-to-user-namespace -l zsh 2> /dev/null
+  # echo "Note!! Error in Hidden. Error in Hidden."
+  # reattach-to-user-namespace -l zsh 2> /dev/null
+  # $HOME/bin/reattach-to-user-namespace -l zsh 2> /dev/null
 fi
 
 # HOST
@@ -46,7 +47,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
 
 # extra
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$HOME/sbin:$PATH
 export MANPATH=$HOME/share/man:$MANPATH
 
 if [ $ARCHI = darwin ]; then
@@ -70,7 +71,8 @@ if [ $ARCHI = darwin ]; then
   export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
   # @see python_select
   [[ -s $HOME/.pythonbrew/etc/bashrc ]] || export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
-  [[ -s $HOME/.pythonbrew/etc/bashrc ]] && export PYTHON_HOME=`cat ~/.pythonbrew/etc/current | sed -e 's@PATH_PYTHONBREW_CURRENT="@@g' | sed -e 's@/bin"@@g'`
+  # move $HOME/.zsh_extends/prefuncs
+  # [[ -s $HOME/.pythonbrew/etc/bashrc ]] && export PYTHON_HOME=`cat ~/.pythonbrew/etc/current | sed -e 's@PATH_PYTHONBREW_CURRENT="@@g' | sed -e 's@/bin"@@g'`
 fi
 if [ $ARCHI = linux ]; then
   # encode
@@ -91,26 +93,46 @@ fi
 # less
 export LESSCHARSET=utf-8
 export PAGER='less'
-export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case -R '
+export LESS='--tabs=4 -q --no-init --LONG-PROMPT --ignore-case -R '
 export LESSOPEN='| src-hilite-lesspipe.sh %s'
+
+# gsutil
+export PATH=$PATH:$HOME/lib/gsutil
+
+# zsh
+fpath=(~/.zsh-completions $fpath)
+
 
 # ruby
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
+export RSENSE_HOME=$HOME/lib/rsense-0.3
 
 # java
 alias javac='javac -J-Dfile.encoding=UTF-8'
 alias java='java -Dfile.encoding=UTF-8'
+alias jdb='jdb -J-Dfile.encoding=UTF-8'
 
 # scala
 export REBEL_HOME=/usr/local/share/jrebel
 export PATH=$REBEL_HOME/bin:$PATH
 export PLAY_HOME=/opt/local/share/java/play-1.2.3
 export PATH=$PLAY_HOME:$PATH
+alias sbt='JAVA_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -Xmx512M -Xss2M" sbt'
 
 # perl
 [[ -s $HOME/perl5/perlbrew/bin/perlbrew ]] && source $HOME/perl5/perlbrew/bin/perlbrew
 
-# node /opt/local/bin
+# nodejs
+if [[ -f ~/.nvm/nvm.sh ]]; then
+  source ~/.nvm/nvm.sh
+fi
+
+
+# haskell
+export CABAL_HOME=~/.cabal
+export PATH=$CABAL_HOME/bin:$PATH
+export MANPATH=$CABAL_HOME/share:$MANPATH
+
 
 ### python ###
 # if pythonbrew
@@ -145,3 +167,5 @@ export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 
 # mysettings
 source $HOME/.adds_zshenv 2> /dev/null
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

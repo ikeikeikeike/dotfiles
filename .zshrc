@@ -4,8 +4,8 @@ bindkey -e
 
 # history
 HISTFILE=$HOME/.zsh-history
-HISTSIZE=100000000
-SAVEHIST=100000000
+HISTSIZE=1000000
+SAVEHIST=1000000
 
 # auto complete compile
 autoload -U compinit
@@ -103,6 +103,7 @@ setopt prompt_subst
 
 ## no beep
 setopt nobeep
+setopt nolistbeep
 
 ## 内部コマンド jobs の出力をデフォルトで jobs -l にする
 setopt long_list_jobs
@@ -121,6 +122,12 @@ setopt print_eight_bit
 
 ## 直前と同じコマンドをヒストリに追加しない
 setopt hist_ignore_dups
+
+# 重複履歴を保存しない
+setopt histignorealldups histsavenodups
+
+# 先頭にSPACEを入れると履歴を残さない
+# setopt histignorespace
 
 ## cd 時に自動で push
 setopt auto_pushd
@@ -180,8 +187,6 @@ setopt numeric_glob_sort
 # 戻り値が 0 以外の場合終了コードを表示する
 setopt print_exit_value
 
-# zsh の開始・終了時刻をヒストリファイルに書き込む
-#setopt extended_history
 
 # コマンドライン全てのスペルチェックをする
 #setopt correct_all
@@ -231,6 +236,8 @@ zstyle ':completion:*:options' description 'yes'
 # したがって，すべての マッチ種別を別々に表示させたいなら以下のようにする
 zstyle ':completion:*' group-name ''
 
+# コマンドにsudoを付けてもきちんと補完出来るようにする。Ubuntuだと/etc/zsh/zshrcで設定されている。
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin /Users/ikeda/.cabal/bin /opt/local/share/java/play-1.2.3 /usr/local/share/jrebel/bin /opt/local/bin /opt/local/sbin /Developer/usr/bin/ /opt/local/apache2/bin /opt/local/lib/mysql5/bin /Users/ikeda/bin /Users/ikeda/sbin /Users/ikeda/bin /usr/bin /bin /usr/sbin /sbin /usr/local/bin /usr/X11/bin /Library/Frameworks/Python.framework/Versions/2.7/bin /Users/ikeda/bin /Users/ikeda/lib/gsutil /Users/ikeda/.rvm/bin $HOME/bin $HOME/sbin
 
 
 #####  functions   #####
@@ -252,11 +259,11 @@ PROMPT=$'\n'$GREEN'${USER}@${HOST}'$CYAN'(${ARCHI}-${DISTRIBUTE}) '$YELLOW'%~ '$
 RPROMPT=${CYAN}%1v%2v%f${DEFAULT}
 
 # mysql
-export MYSQL_PS1="(\u@\h) [\d] \v - \r:\m\P \n\c> "
+export MYSQL_PS1="(\u@\h:\p) [\d] \v - \r:\m\P \n\c> "
 
 #####  pre attaches
 
-
+# tmux log format is script cmd.
 if [ "${TMUX}" != "" ] ; then
   tmux pipe-pane 'cat >> ~/.tmux/`date +%Y-%m-%d`_#S:#I.#P.log'
 fi
@@ -270,4 +277,10 @@ fi
     # echo -n "^[k$cmd[1]:t^[\\"
   # }
 # fi
+
+# post zshrc
+if [ -f $HOME/.postzshrc ]; then
+  source $HOME/.postzshrc
+fi
+
 
