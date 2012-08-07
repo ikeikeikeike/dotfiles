@@ -283,4 +283,7 @@ if [ -f $HOME/.postzshrc ]; then
   source $HOME/.postzshrc
 fi
 
+# https://github.com/zsh-users/zsh-syntax-highlighting
+# Source the script at the end of ~/.zshrc:
+source ~/.zsh_extend/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
