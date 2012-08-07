@@ -100,6 +100,9 @@ endif
 " tree view
 Bundle "scrooloose/nerdtree"
 
+" comment
+Bundle "scrooloose/nerdcommenter"
+
 " which-func-mode
 Bundle "tyru/current-func-info.vim"
 

@@ -113,7 +113,7 @@ if exists("python_highlight_all") && python_highlight_all != 0
 endif
 
 " Keywords
-syn keyword pythonStatement  self cls
+syn keyword pythonStatement  self cls klass
 syn keyword pythonStatement  break continue del
 syn keyword pythonStatement  exec return as
 syn keyword pythonStatement  pass raise
