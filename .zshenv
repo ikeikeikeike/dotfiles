@@ -101,6 +101,7 @@ export PATH=$PATH:$HOME/lib/gsutil
 
 # zsh
 fpath=(~/.zsh-completions $fpath)
+fpath=(~/.zsh-completions_ext $fpath)
 
 
 # ruby
