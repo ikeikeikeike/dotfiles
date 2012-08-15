@@ -15,3 +15,7 @@ do
   echo "\ln -s `pwd`/$i $HOME/$i"
   \ln -s `pwd`/$i $HOME/$i
 done
+
+git submodule init
+git submodule update
+git submodule foreach git pull origin master

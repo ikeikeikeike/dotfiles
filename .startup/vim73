@@ -1,12 +1,12 @@
 #!/bin/sh
 
-mkdir ~/git
-cd ~/git
-git clone git://github.com/splhack/macvim.git
-cd macvim
-./configure -prefix=$HOME -enable-pythoninterp --with-features=huge --enable-cscope --enable-multibyte
-make
-make install
+# mkdir ~/git
+# cd ~/git
+# git clone git://github.com/splhack/macvim.git
+# cd macvim
+# ./configure -prefix=$HOME -enable-pythoninterp --with-features=huge --enable-cscope --enable-multibyte
+# make
+# make install
 
 echo "example:: next command"
 echo
@@ -14,14 +14,13 @@ echo "git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle"
 echo
 echo "vim -c 'BundleInstall'"
 echo
-echo "cd ~/.vim/bundle/vimproc/ && make -f make_gcc.mak"
-echo
-echo "mkdir -p ~/.vim_plugins/vim_session"
+echo "cd ~/.vim/bundle/vimproc/ && make -f make_unix.mak"
 echo
 echo "wget 'https://raw.github.com/taku-o/downloads/master/DirDiff/DirDiff_mb.vim'; mv DirDiff_mb.vim ~/.vim/bundle/DirDiff.vim/plugin/DirDiff.vim"
 echo
-echo "Note: please installed python hashlib module."
-echo "Note: please installed ctags."
+echo "Note: please installed python hashlib module"
+echo "Note: please installed curl"
+echo "Note: please installed ctags"
 echo "Note: syntax errors > http://d.hatena.ne.jp/heavenshell/20120109/1326089510"
 
-
+git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle; vim -c 'BundleInstall'; cd ~/.vim/bundle/vimproc/ && make -f make_gcc.mak; wget 'https://raw.github.com/taku-o/downloads/master/DirDiff/DirDiff_mb.vim'; mv DirDiff_mb.vim ~/.vim/bundle/DirDiff.vim/plugin/DirDiff.vim

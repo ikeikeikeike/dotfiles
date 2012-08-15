@@ -44,6 +44,9 @@ Bundle 'Color-Sampler-Pack'
 " Bundle 'ChrisKempson/Vim-Tomorrow-Theme'
 Bundle 'nginx.vim'
 
+" () color
+Bundle 'kien/rainbow_parentheses.vim'
+
 " sudo
 Bundle 'sudo.vim'
 
@@ -239,8 +242,10 @@ Bundle 'ZenCoding.vim'
 Bundle 'mattn/webapi-vim'
 
 " ----------------
-
+"
+" *
 " * `setting loader`
+" *
 "
 "   -- general --
 "   - general
@@ -292,6 +297,8 @@ Bundle 'mattn/webapi-vim'
 "   - nerdcommenter
 "   - neocomplecache
 "   - vim-indent-guides
+"   - rainbow_parentheses
+"
 "
 
 " ----------------

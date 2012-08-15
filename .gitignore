@@ -59,3 +59,7 @@ migrations
 # my ignore
 bin/rsync*
 .tmux
+
+
+#### NOTE!!!
+.virtualenvs
