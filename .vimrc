@@ -121,6 +121,12 @@ Bundle 'Shougo/vimproc'
 " quickrun
 Bundle 'thinca/vim-quickrun'
 
+" ~~~~~~~~~~~~~~~~~~
+" write multiselect
+" ~~~~~~~~~~~~~~~~~~
+" Bundle 'multiselect'
+" Bundle 'genutils'
+
 " ~~~~~~~~~
 " error (syntax) check
 " ~~~~~~~~~

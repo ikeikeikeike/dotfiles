@@ -7,6 +7,9 @@ HISTFILE=$HOME/.zsh-history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
+# 5秒以上かかった処理は詳細表示
+REPORTTIME=5
+
 # auto complete compile
 autoload -U compinit
 compinit
