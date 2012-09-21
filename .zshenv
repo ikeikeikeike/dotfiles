@@ -81,6 +81,7 @@ if [ $ARCHI = linux ]; then
   export EDITOR="vim"
 fi
 
+
 # emacs view setting
 # if [ "$SHELL" = "/bin/bash" ];then
     # export TERM=xterm-256color
@@ -165,6 +166,12 @@ export PIP_RESPECT_VIRTUALENV=true
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
+
+# zsh autojump
+export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
+if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
+    . /opt/local/etc/profile.d/autojump.sh
+fi
 
 # mysettings
 source $HOME/.adds_zshenv 2> /dev/null

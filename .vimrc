@@ -73,7 +73,8 @@ if v:version > 700
     Bundle 'm4i/YankRingSync'
 
     " auto complete
-    Bundle 'Shougo/neocomplcache'
+    " Bundle 'Shougo/neocomplcache'
+    Bundle 'neocomplcache'
     Bundle 'Shougo/neocomplcache-snippets-complete'
     " Bundle "Shougo/neocomplcache-clang"
 
