@@ -38,6 +38,7 @@ Bundle 'kana/vim-fakeclip'
 
 " auto complete
 Bundle 'ujihisa/neco-look'
+Bundle 'taichouchou2/vim-rsense'
 
 " color & theme
 Bundle 'Color-Sampler-Pack'
@@ -235,6 +236,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 " Bundle 'vim-scripts/AutoClose'
 Bundle 'ZenCoding.vim'
+Bundle 'tpope/vim-endwise.git'
+
 
 " ~~~~~~~
 " funny

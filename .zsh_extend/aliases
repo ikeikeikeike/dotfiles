@@ -48,11 +48,14 @@ alias which='which -a'
 alias cl='clear'
 alias pb='tmux-pbcopy'
 alias ec="extract"
+alias rtags="ctags -f ~/rtags -R --langmap=RUBY:.rb --sort=yes `rvm gemdir` . "
+
 # cd
 alias ...="../../"
 alias ....="../../../"
 alias .....="../../../../"
 alias ......="../../../../../"
+alias .......="../../../../../../"
 function - { cd -; }
 alias gd='source $HOME/.zsh_extend/gd/gd.sh'
 alias cdh='gd'
