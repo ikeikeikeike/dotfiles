@@ -48,7 +48,6 @@ alias which='which -a'
 alias cl='clear'
 alias pb='tmux-pbcopy'
 alias ec="extract"
-alias rtags="ctags -f ~/rtags -R --langmap=RUBY:.rb --sort=yes `rvm gemdir` . "
 
 # cd
 alias ...="../../"

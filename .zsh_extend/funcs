@@ -85,7 +85,7 @@ cat << EOF > $HOME/.rvm_postzshrc 2>&1
 #
 # auto ganerate post zshrc
 #
-rvm_use `echo $RUBY_VERSION`
+rvm_use `rvm current`
 EOF
 }
 
@@ -148,3 +148,10 @@ autoload -Uz zmv
 alias zmv='noglob zmv -W'
 
 
+# ruby tags
+function rtags() {
+    echo "ctags -f ~/rtags -R --langmap=RUBY:.rb --sort=yes `rvm gemdir` "
+    ctags -f ~/rtags -R --langmap=RUBY:.rb --sort=yes `rvm gemdir`
+    echo "ctags -f ~/rtags -R --langmap=RUBY:.rb --sort=yes . "
+    ctags -a -f ~/rtags -R --langmap=RUBY:.rb --sort=yes .
+}

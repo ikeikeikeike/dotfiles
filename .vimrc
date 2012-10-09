@@ -136,6 +136,9 @@ Bundle "scrooloose/syntastic"
 " Bundle 'errormarker.vim'
 " Javascript
 Bundle 'javaScriptLint.vim'
+" Less
+Bundle 'groenewege/vim-less'
+
 
 " ~~~~~~~~~~
 " help, doc
