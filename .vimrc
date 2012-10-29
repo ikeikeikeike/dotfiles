@@ -287,6 +287,7 @@ Bundle 'mattn/webapi-vim'
 "   - gundo
 "   - ctags
 "   - xdebug
+"   - migemo
 "   - rsense
 "   - srcexl
 "   - flake8

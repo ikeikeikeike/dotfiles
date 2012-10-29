@@ -4,3 +4,6 @@
 [submodule ".zsh_extend/zsh-completions"]
 	path = .zsh_extend/zsh-completions
 	url = git://github.com/zsh-users/zsh-completions.git
+[submodule ".zsh_extend/auto-fu.zsh"]
+	path = .zsh_extend/auto-fu.zsh
+	url = git://github.com/hchbaw/auto-fu.zsh.git
