@@ -86,6 +86,7 @@ cat << EOF > $HOME/.rvm_postzshrc 2>&1
 # auto ganerate post zshrc
 #
 rvm_use `rvm current`
+PS1="(`basename $GEM_HOME`)\$PS1"
 EOF
 }
 
