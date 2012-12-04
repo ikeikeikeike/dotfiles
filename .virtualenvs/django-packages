@@ -3,9 +3,6 @@
 # django
 pip install django
 
-# debut
-pip install django-pudebug
-
 # test
 pip install django-nose
 

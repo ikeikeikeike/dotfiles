@@ -81,6 +81,7 @@ if [ $ARCHI = linux ]; then
   export EDITOR="vim"
 fi
 
+
 # emacs view setting
 # if [ "$SHELL" = "/bin/bash" ];then
     # export TERM=xterm-256color
@@ -101,6 +102,7 @@ export PATH=$PATH:$HOME/lib/gsutil
 
 # zsh
 fpath=(~/.zsh-completions $fpath)
+fpath=(~/.zsh-completions_ext $fpath)
 
 
 # ruby
@@ -115,9 +117,9 @@ alias jdb='jdb -J-Dfile.encoding=UTF-8'
 # scala
 export REBEL_HOME=/usr/local/share/jrebel
 export PATH=$REBEL_HOME/bin:$PATH
-export PLAY_HOME=/opt/local/share/java/play-1.2.3
+export PLAY_HOME=/usr/local/share/play
 export PATH=$PLAY_HOME:$PATH
-alias sbt='JAVA_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -Xmx512M -Xss2M" sbt'
+# alias sbt='JAVA_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -Xmx512M -Xss2M" sbt'
 
 # perl
 [[ -s $HOME/perl5/perlbrew/bin/perlbrew ]] && source $HOME/perl5/perlbrew/bin/perlbrew
@@ -165,7 +167,11 @@ export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 
+# zsh autojump
+export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
+if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
+    . /opt/local/etc/profile.d/autojump.sh
+fi
+
 # mysettings
 source $HOME/.adds_zshenv 2> /dev/null
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

@@ -33,7 +33,6 @@
 --regex-actionscript=/.*\.prototype \.([A-Za-z0-9 ]+)=([ \t]?)function( [ \t]?)*\(/\1/ f,function, functions/
 --regex-actionscript=/^[ \t]*class[ \t]+([A-Za-z0-9_]+)[ \t]*/\1/c,class, classes/
 
-
 --langdef=coffee
 --langmap=coffee:.coffee
 --regex-coffee=/class ([A-Za-z.]+)/\1/c,class/

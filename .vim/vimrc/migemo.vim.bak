@@ -1,0 +1,2 @@
+" migemo割り当て
+noremap  // :<C-u>Migemo<CR>

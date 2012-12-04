@@ -38,11 +38,15 @@ Bundle 'kana/vim-fakeclip'
 
 " auto complete
 Bundle 'ujihisa/neco-look'
+Bundle 'taichouchou2/vim-rsense'
 
 " color & theme
 Bundle 'Color-Sampler-Pack'
 " Bundle 'ChrisKempson/Vim-Tomorrow-Theme'
 Bundle 'nginx.vim'
+
+" () color
+Bundle 'kien/rainbow_parentheses.vim'
 
 " sudo
 Bundle 'sudo.vim'
@@ -70,7 +74,8 @@ if v:version > 700
     Bundle 'm4i/YankRingSync'
 
     " auto complete
-    Bundle 'Shougo/neocomplcache'
+    " Bundle 'Shougo/neocomplcache'
+    Bundle 'neocomplcache'
     Bundle 'Shougo/neocomplcache-snippets-complete'
     " Bundle "Shougo/neocomplcache-clang"
 
@@ -118,6 +123,12 @@ Bundle 'Shougo/vimproc'
 " quickrun
 Bundle 'thinca/vim-quickrun'
 
+" ~~~~~~~~~~~~~~~~~~
+" write multiselect
+" ~~~~~~~~~~~~~~~~~~
+" Bundle 'multiselect'
+" Bundle 'genutils'
+
 " ~~~~~~~~~
 " error (syntax) check
 " ~~~~~~~~~
@@ -125,6 +136,9 @@ Bundle "scrooloose/syntastic"
 " Bundle 'errormarker.vim'
 " Javascript
 Bundle 'javaScriptLint.vim'
+" Less
+Bundle 'groenewege/vim-less'
+
 
 " ~~~~~~~~~~
 " help, doc
@@ -160,6 +174,7 @@ Bundle 'vim-scripts/django.vim'
 " Bundle 'jmcantrell/vim-virtualenv'
 " Bundle 'project.tar.gz'
 " Bundle 'vim-ipython'
+Bundle "davidhalter/jedi-vim"
 
 " ruby
 Bundle 'astashov/vim-ruby-debugger'
@@ -225,6 +240,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 " Bundle 'vim-scripts/AutoClose'
 Bundle 'ZenCoding.vim'
+Bundle 'tpope/vim-endwise.git'
+
 
 " ~~~~~~~
 " funny
@@ -239,8 +256,10 @@ Bundle 'ZenCoding.vim'
 Bundle 'mattn/webapi-vim'
 
 " ----------------
-
+"
+" *
 " * `setting loader`
+" *
 "
 "   -- general --
 "   - general
@@ -260,6 +279,7 @@ Bundle 'mattn/webapi-vim'
 "
 "   -- plugins --
 "   - ref
+"   - tab
 "   - gist
 "   - undo
 "   - grep
@@ -269,6 +289,7 @@ Bundle 'mattn/webapi-vim'
 "   - gundo
 "   - ctags
 "   - xdebug
+"   - migemo
 "   - rsense
 "   - srcexl
 "   - flake8
@@ -292,6 +313,8 @@ Bundle 'mattn/webapi-vim'
 "   - nerdcommenter
 "   - neocomplecache
 "   - vim-indent-guides
+"   - rainbow_parentheses
+"
 "
 
 " ----------------

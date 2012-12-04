@@ -13,5 +13,11 @@ else
     set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags,./../../../../../../tags,./../../../../../../../tags,./../../../../../../../../tags,./../../../../../../../../../tags,./../../../../../../../../../../tags,./../../../../../../../../../../../tags,./../../../../../../../../../../../tags
 endif
 
+if filereadable(expand('~/rtags'))
+  au FileType ruby,eruby,erb setl tags+=~/rtags
+endif
+
 " keymap (replace unite-tag)
 nnoremap <C-]>    g<C-]>
+
+

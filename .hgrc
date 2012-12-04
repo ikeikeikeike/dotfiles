@@ -1,10 +1,14 @@
 [ui]
-username=ikeikeikeike <jp.ne.co.jp@gmail.com>
+username=Tatsuo Ikeda <jp.ne.co.jp@gmail.com>
 ssh=ssh -C
 editor=vim '+set filetype=hg-commit'
 ignore=~/.hgignore_global
 merge = vimdiff
 # merge=internal:merge
+
+# auth
+%include ~/.hgrc.auth
+
 
 [extensions]
 hgext.eol=
@@ -18,6 +22,7 @@ info=~/bin/info.py
 flow=~/bin/hgflow.py
 eol=
 fetch=
+hgshelve=~/bin/hgshelve/hgshelve.py
 transplant=
 mq=
 record=

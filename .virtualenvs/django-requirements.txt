@@ -9,9 +9,6 @@
 # django
 django
 
-# debut
-django-pudebug
-
 # test
 django-nose
 

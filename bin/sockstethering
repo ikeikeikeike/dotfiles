@@ -1,0 +1,6 @@
+#!/bin/sh
+PROXY="10.0.1.13"
+PORT=8888
+networksetup -setsocksfirewallproxystate Wi-Fi on
+ssh -D ${PORT} ${PROXY}
+networksetup -setsocksfirewallproxystate Wi-Fi off

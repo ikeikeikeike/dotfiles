@@ -1,0 +1,42 @@
+snippet     docencode
+abbr        # -*- coding: utf-8 -*-
+prev_word   '^'
+    # -*- coding: utf-8 -*-
+
+snippet     docenv
+abbr        #!/usr/bin/env ruby
+prev_word   '^'
+    #!/usr/bin/env ruby
+
+snippet     docheaders
+abbr        # -*- cordin ... create_date:
+prev_word   '^'
+    # -*- coding: utf-8 -*-
+    """
+    ===========================
+    ${0:file_name}
+    ===========================
+    :create_date: ${1: date_full }
+    """
+
+snippet     debug
+abbr        binding.pry
+prev_word   '^'
+    binding.pry
+
+snippet     debugfull
+abbr        require "pry"\nbinding.pry
+prev_word   '^'
+    require "pry"
+    binding.pry
+
+snippet     idebug
+abbr        debugger
+prev_word   '^'
+    debugger
+
+snippet     idebugfull
+abbr        require "debugger"\ndebugger
+prev_word   '^'
+    require "debugger"
+    debugger

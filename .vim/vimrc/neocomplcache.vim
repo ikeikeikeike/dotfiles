@@ -12,13 +12,13 @@ if v:version > 700
     " _ 区切りの補完を有効化します。
     let g:neocomplcache_enable_underbar_completion = 1
     " シンタックスをキャッシュするときの最小文字長を3文字 default 4
-    let g:neocomplcache_min_syntax_length = 4
+    let g:neocomplcache_min_syntax_length = 3
     " C-j snippet
     imap <C-j> <Plug>(neocomplcache_snippets_expand)
     " キー入力時にキーワード補完を行う入力数を制御する
-    let g:neocomplcache_auto_completion_start_length = 4
+    " let g:neocomplcache_auto_completion_start_length = 4
     " ポップアップメニューで表示される候補の数を制御する
-    let g:neocomplcache_max_list = 50
+    " let g:neocomplcache_max_list = 50
     " 自動補完 無効 手動: <C-x><C-u>
     " g:neocomplcache_disable_auto_complete = 1
 

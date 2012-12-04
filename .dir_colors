@@ -330,10 +330,13 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 
 .chm 00;38;05;193
 .css 00;38;05;193
+.scss 00;38;05;193
+.less 00;38;05;193
 .dsl 00;38;05;193
 .ebuild 00;38;05;193
 .htm 00;38;05;193
 .html 00;38;05;193
+.erb 00;38;05;193
 .odb 00;38;05;193
 .odf 00;38;05;193
 .odg 00;38;05;193
