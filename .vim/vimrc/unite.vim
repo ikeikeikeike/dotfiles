@@ -39,6 +39,10 @@ if v:version > 700
         imap <silent><buffer> <ESC><ESC> <ESC>q
     endfunction
 
+    "" Valiables
+    "最近開いたファイル履歴の保存数
+    let g:unite_source_file_mru_limit = 500
+
     " ######################################
 
     " unite-tag
