@@ -174,6 +174,7 @@ Bundle 'vim-scripts/django.vim'
 " Bundle 'jmcantrell/vim-virtualenv'
 " Bundle 'project.tar.gz'
 " Bundle 'vim-ipython'
+Bundle "davidhalter/jedi-vim"
 
 " ruby
 Bundle 'astashov/vim-ruby-debugger'
@@ -278,6 +279,7 @@ Bundle 'mattn/webapi-vim'
 "
 "   -- plugins --
 "   - ref
+"   - tab
 "   - gist
 "   - undo
 "   - grep

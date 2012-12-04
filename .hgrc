@@ -22,6 +22,7 @@ info=~/bin/info.py
 flow=~/bin/hgflow.py
 eol=
 fetch=
+hgshelve=~/bin/hgshelve/hgshelve.py
 transplant=
 mq=
 record=
