@@ -1,4 +1,4 @@
-
+" -*- coding: utf-8 -*-
 " viとの互換性をとらない(vimの独自拡張機能を使う為)
 set nocompatible
 
@@ -22,7 +22,7 @@ if v:version > 700
     Bundle 'tsukkee/unite-tag'
     Bundle 'tsukkee/unite-help'
     Bundle 'ujihisa/unite-locate'
-    Bundle 'heavenshell/unite-zf'
+    " Bundle 'heavenshell/unite-zf'
     " Bundle 'Sixeight/unite-grep'
     " Bundle 'ujihisa/unite-colorscheme'
     " Bundle 'unite-font'
@@ -74,9 +74,10 @@ if v:version > 700
     Bundle 'm4i/YankRingSync'
 
     " auto complete
-    " Bundle 'Shougo/neocomplcache'
-    Bundle 'neocomplcache'
-    Bundle 'Shougo/neocomplcache-snippets-complete'
+    " Bundle 'neocomplcache'
+    Bundle 'Shougo/neocomplcache'
+    Bundle 'Shougo/neosnippet'
+    Bundle 'Shougo/neocomplcache-rsense'
     " Bundle "Shougo/neocomplcache-clang"
 
 endif
@@ -85,7 +86,7 @@ endif
 Bundle 'TaskList.vim'
 
 " source viewer for tags
-Bundle 'Source-Explorer-srcexpl.vim'
+" Bundle 'Source-Explorer-srcexpl.vim'
 Bundle 'trinity.vim'
 
 " easytags
@@ -136,7 +137,7 @@ Bundle "scrooloose/syntastic"
 " Bundle 'errormarker.vim'
 " Javascript
 Bundle 'javaScriptLint.vim'
-" Less
+" Less (css)
 Bundle 'groenewege/vim-less'
 
 
@@ -177,7 +178,7 @@ Bundle 'vim-scripts/django.vim'
 Bundle "davidhalter/jedi-vim"
 
 " ruby
-Bundle 'astashov/vim-ruby-debugger'
+" Bundle 'astashov/vim-ruby-debugger'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 
@@ -314,6 +315,7 @@ Bundle 'mattn/webapi-vim'
 "   - neocomplecache
 "   - vim-indent-guides
 "   - rainbow_parentheses
+"   - neocomplcache-rsense
 "
 "
 
