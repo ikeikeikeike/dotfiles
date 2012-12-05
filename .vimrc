@@ -38,7 +38,6 @@ Bundle 'kana/vim-fakeclip'
 
 " auto complete
 Bundle 'ujihisa/neco-look'
-Bundle 'taichouchou2/vim-rsense'
 
 " color & theme
 Bundle 'Color-Sampler-Pack'
@@ -77,7 +76,6 @@ if v:version > 700
     " Bundle 'neocomplcache'
     Bundle 'Shougo/neocomplcache'
     Bundle 'Shougo/neosnippet'
-    Bundle 'Shougo/neocomplcache-rsense'
     " Bundle "Shougo/neocomplcache-clang"
 
 endif
@@ -154,14 +152,14 @@ Bundle 'Modeliner'
 " ~~~~~~~~~~~~
 " languages
 " ~~~~~~~~~~~~
-" sql
+" Sql
 Bundle 'sql.vim--Fishburn-syntax'
 
-" html & javascript indentations
+" Html & javascript indentations
 Bundle "lukaszb/vim-web-indent"
 Bundle "teramako/jscomplete-vim"
 
-" python
+" Python
 if ! &diff
     " has pyflakes
     " Bundle 'mitechie/pyflakes-pathogen'
@@ -181,6 +179,8 @@ Bundle "davidhalter/jedi-vim"
 " Bundle 'astashov/vim-ruby-debugger'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
+Bundle 'taichouchou2/vim-rsense'
+Bundle 'Shougo/neocomplcache-rsense'
 
 " php
 " Bundle 'justinrainbow/php-xdebug.vim'
