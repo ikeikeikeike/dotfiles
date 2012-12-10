@@ -300,6 +300,7 @@ Bundle 'mattn/webapi-vim'
 "   - easytags
 "   - 256color
 "   - fakeclip
+"   - jedi-vim
 "   - yankring
 "   - surround
 "   - nerdtree
