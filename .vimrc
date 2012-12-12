@@ -2,65 +2,65 @@
 " viとの互換性をとらない(vimの独自拡張機能を使う為)
 set nocompatible
 
-" ------------
+" ------------------------
 "
-"   vundle
+"   vundle -> neobundle
 "
-" ------------
+" ------------------------
 
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-Bundle 'vundle'
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim
+  call neobundle#rc(expand('~/.vim/bundle/'))
+endif
 
 " unites
 if v:version > 700
     " anything like buffer management app.
-    Bundle 'Shougo/unite.vim'
-    Bundle 'tsukkee/unite-tag'
-    Bundle 'tsukkee/unite-help'
-    Bundle 'ujihisa/unite-locate'
-    " Bundle 'heavenshell/unite-zf'
-    " Bundle 'Sixeight/unite-grep'
-    " Bundle 'ujihisa/unite-colorscheme'
-    " Bundle 'unite-font'
+    NeoBundle 'Shougo/unite.vim'
+    NeoBundle 'tsukkee/unite-tag'
+    NeoBundle 'tsukkee/unite-help'
+    NeoBundle 'ujihisa/unite-locate'
+    " NeoBundle 'heavenshell/unite-zf'
+    " NeoBundle 'Sixeight/unite-grep'
+    " NeoBundle 'ujihisa/unite-colorscheme'
+    " NeoBundle 'unite-font'
 endif
 " ~~~~~~~~~~~~
 " general
 " ~~~~~~~~~~~~
 " yank and clipboard
-Bundle 'kana/vim-fakeclip'
+NeoBundle 'kana/vim-fakeclip'
 
 " buffer
-" Bundle 'minibufexpl.vim'
+" NeoBundle 'minibufexpl.vim'
 
 " auto complete
-Bundle 'ujihisa/neco-look'
+NeoBundle 'ujihisa/neco-look'
 
 " color & theme
-Bundle 'Color-Sampler-Pack'
-" Bundle 'ChrisKempson/Vim-Tomorrow-Theme'
-Bundle 'nginx.vim'
+NeoBundle 'vim-scripts/Colour-Sampler-Pack'
+" NeoBundle 'ChrisKempson/Vim-Tomorrow-Theme'
+NeoBundle 'nginx.vim'
 
 " () color
-Bundle 'kien/rainbow_parentheses.vim'
+NeoBundle 'kien/rainbow_parentheses.vim'
 
 " sudo
-Bundle 'sudo.vim'
+NeoBundle 'sudo.vim'
 
 " undo
-Bundle 'Gundo'
+NeoBundle 'Gundo'
 
 
 " ~~~~~~~~~~~~
 " move
 " ~~~~~~~~~~~~
-" Bundle 'fuzzyjump.vim'
+" NeoBundle 'fuzzyjump.vim'
 if v:version > 700
-    Bundle 'clones/vim-l9'
-    Bundle 'FuzzyFinder'
+    NeoBundle 'clones/vim-l9'
+    NeoBundle 'FuzzyFinder'
 endif
 
 
@@ -69,192 +69,208 @@ endif
 " ~~~~~~~~~~~~
 if v:version > 700
     " yankring
-    Bundle 'YankRing.vim'
-    Bundle 'm4i/YankRingSync'
+    NeoBundle 'YankRing.vim'
+    NeoBundle 'm4i/YankRingSync'
 
     " auto complete
-    " Bundle 'neocomplcache'
-    Bundle 'Shougo/neocomplcache'
-    Bundle 'Shougo/neosnippet'
-    " Bundle "Shougo/neocomplcache-clang"
+    " NeoBundle 'neocomplcache'
+    NeoBundle 'Shougo/neocomplcache'
+    NeoBundle 'Shougo/neosnippet'
+    " NeoBundle "Shougo/neocomplcache-clang"
 
 endif
 
 " Todo tasklist
-Bundle 'TaskList.vim'
+NeoBundle 'TaskList.vim'
 
 " source viewer for tags
-" Bundle 'Source-Explorer-srcexpl.vim'
-Bundle 'trinity.vim'
+" NeoBundle 'Source-Explorer-srcexpl.vim'
+NeoBundle 'trinity.vim'
 
 " easytags
-" Bundle 'xolox/vim-easytags'
+" NeoBundle 'xolox/vim-easytags'
 
 " taglist
-Bundle 'taglist.vim'
+NeoBundle 'taglist.vim'
 
 if v:version > 700
     " tagbar
-    Bundle 'majutsushi/tagbar'
+    NeoBundle 'majutsushi/tagbar'
 endif
 
 " " 保存前差分 表示
-" Bundle 'Changed'
+" NeoBundle 'Changed'
 
 " tree view
-Bundle "scrooloose/nerdtree"
+NeoBundle "scrooloose/nerdtree"
 
 " comment
-Bundle "scrooloose/nerdcommenter"
+NeoBundle "scrooloose/nerdcommenter"
 
 " which-func-mode
-Bundle "tyru/current-func-info.vim"
+NeoBundle "tyru/current-func-info.vim"
 
 " indent
-Bundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
 " vimshell
-" Bundle 'Shougo/vimshell'
+" NeoBundle 'Shougo/vimshell'
 
 " vimproc
-Bundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc', {
+\ 'build' : {
+\     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac_old.mak',
+\     'unix' : 'make -f make_unix.mak',
+\     'linux' : 'make -f make_unix.mak',
+\   },
+\ }
 
 " quickrun
-Bundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-quickrun'
 
 " ~~~~~~~~~~~~~~~~~~
 " write multiselect
 " ~~~~~~~~~~~~~~~~~~
-" Bundle 'multiselect'
-" Bundle 'genutils'
+" NeoBundle 'multiselect'
+" NeoBundle 'genutils'
 
 " ~~~~~~~~~
 " error (syntax) check
 " ~~~~~~~~~
-Bundle "scrooloose/syntastic"
-" Bundle 'errormarker.vim'
+NeoBundle "scrooloose/syntastic"
+" NeoBundle 'errormarker.vim'
 " Javascript
-Bundle 'javaScriptLint.vim'
+NeoBundle 'javaScriptLint.vim'
 " Less (css)
-Bundle 'groenewege/vim-less'
+NeoBundle 'groenewege/vim-less'
 
 
 " ~~~~~~~~~~
 " help, doc
 " ~~~~~~~~~~
-Bundle 'thinca/vim-ref'
-Bundle 'ref.vim'
-Bundle 'Shougo/echodoc'
-Bundle 'php-doc'
-Bundle 'Modeliner'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'ref.vim'
+NeoBundle 'Shougo/echodoc'
+NeoBundle 'php-doc'
+NeoBundle 'Modeliner'
 
 
 " ~~~~~~~~~~~~
 " languages
 " ~~~~~~~~~~~~
 " Sql
-Bundle 'sql.vim--Fishburn-syntax'
+NeoBundle 'sql.vim--Fishburn-syntax'
 
 " Html & javascript indentations
-Bundle "lukaszb/vim-web-indent"
-Bundle "teramako/jscomplete-vim"
+NeoBundle "lukaszb/vim-web-indent"
+NeoBundle "teramako/jscomplete-vim"
 
 " Python
 if ! &diff
     " has pyflakes
-    " Bundle 'mitechie/pyflakes-pathogen'
+    " NeoBundle 'mitechie/pyflakes-pathogen'
     " has not pyflakes
-    Bundle 'pyflakes.vim'
+    NeoBundle 'pyflakes.vim'
 endif
-Bundle 'pep8'
-" Bundle 'nvie/vim-flake8'
-Bundle 'amitdev/vimpy'
-Bundle 'vim-scripts/django.vim'
-" Bundle 'jmcantrell/vim-virtualenv'
-" Bundle 'project.tar.gz'
-" Bundle 'vim-ipython'
-Bundle "davidhalter/jedi-vim"
+NeoBundle 'pep8'
+" NeoBundle 'nvie/vim-flake8'
+NeoBundle 'amitdev/vimpy'
+NeoBundle 'vim-scripts/django.vim'
+" NeoBundle 'jmcantrell/vim-virtualenv'
+" NeoBundle 'project.tar.gz'
+" NeoBundle 'vim-ipython'
+NeoBundle "davidhalter/jedi-vim", {
+\ 'build' : {
+\     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+\     'cygwin' : 'git submodule update --init',
+\     'mac' : 'git submodule update --init',
+\     'unix' : 'git submodule update --init',
+\     'linux' : 'git submodule update --init',
+\   },
+\ }
+
 
 " ruby
-" Bundle 'astashov/vim-ruby-debugger'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-rails'
-Bundle 'taichouchou2/vim-rsense'
-Bundle 'Shougo/neocomplcache-rsense'
+" NeoBundle 'astashov/vim-ruby-debugger'
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'tpope/vim-rails'
+NeoBundle 'taichouchou2/vim-rsense'
+NeoBundle 'Shougo/neocomplcache-rsense'
 
 " php
-" Bundle 'justinrainbow/php-xdebug.vim'
+" NeoBundle 'justinrainbow/php-xdebug.vim'
 
 " CoffeeScript
-Bundle "kchmck/vim-coffee-script"
-Bundle "carlosvillu/coffeScript-VIM-Snippets"
-Bundle "othree/coffee-check.vim"
-" Bundle "shadow.vim"
+NeoBundle "kchmck/vim-coffee-script"
+NeoBundle "othree/coffee-check.vim"
+" NeoBundle "shadow.vim"
 
 " html5
-Bundle 'html5.vim'
-Bundle 'HTML5-Syntax-File'
+NeoBundle 'html5.vim'
+NeoBundle 'HTML5-Syntax-File'
 
 " Haskell
-Bundle "lukerandall/haskellmode-vim"
-Bundle "ujihisa/neco-ghc"
-Bundle "eagletmt/ghcmod-vim"
+NeoBundle "lukerandall/haskellmode-vim"
+NeoBundle "ujihisa/neco-ghc"
+NeoBundle "eagletmt/ghcmod-vim"
 
 " Clojure
-" Bundle 'VimClojure'
-Bundle 'vim-scripts/slimv.vim'
+" NeoBundle 'VimClojure'
+NeoBundle 'vim-scripts/slimv.vim'
 
 
 " ~~~~~~~~~
 " profiler
 " ~~~~~~~~~
-" Bundle 'mattn/benchvimrc-vim'
+" NeoBundle 'mattn/benchvimrc-vim'
 
 
 " -------
 
 " scm
-" Bundle 'fugitive.vim'
-Bundle 'mattn/gist-vim'
+" NeoBundle 'fugitive.vim'
+NeoBundle 'mattn/gist-vim'
 
 " grep
-Bundle 'ack.vim'
-Bundle 'grep.vim'
-Bundle 'thinca/vim-qfreplace'
+NeoBundle 'ack.vim'
+NeoBundle 'grep.vim'
+NeoBundle 'thinca/vim-qfreplace'
 
 
  " diff
-Bundle 'DirDiff.vim'
+NeoBundle 'DirDiff.vim'
 " session
 " if v:version > 700
     " if ! &diff
-        " Bundle 'session.vim'
+        " NeoBundle 'session.vim'
     " endif
 " endif
-" Bundle 'sessionman.vim'
+" NeoBundle 'sessionman.vim'
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " support input , text-object
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-" Bundle 'kana/vim-smartchr'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-repeat'
-" Bundle 'vim-scripts/AutoClose'
-Bundle 'ZenCoding.vim'
-Bundle 'tpope/vim-endwise.git'
+" NeoBundle 'kana/vim-smartchr'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-repeat'
+" NeoBundle 'vim-scripts/AutoClose'
+NeoBundle 'ZenCoding.vim'
+NeoBundle 'tpope/vim-endwise.git'
 
 
 " ~~~~~~~
 " funny
 " ~~~~~~~
-" Bundle 'koron/nyancat-vim'
-" Bundle 'mattn/vdbi-vim'
-" Bundle "mattn/hahhah-vim"
+" NeoBundle 'koron/nyancat-vim'
+" NeoBundle 'mattn/vdbi-vim'
+" NeoBundle "mattn/hahhah-vim"
 
 " ~~~~~~~
 " api
 " ~~~~~~~
-Bundle 'mattn/webapi-vim'
+NeoBundle 'mattn/webapi-vim'
 
 " ----------------
 "
@@ -300,6 +316,7 @@ Bundle 'mattn/webapi-vim'
 "   - easytags
 "   - 256color
 "   - fakeclip
+"   - jedi-vim
 "   - yankring
 "   - surround
 "   - nerdtree
@@ -340,3 +357,4 @@ let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (
 " ステータスライン文字コード表示
 " set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)\ %{cfi#format(\"[%s()]\",\ \"[no\ function]\")}\ %m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}
 " let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} %m%=%{strftime("%Y/%m/%d %H:%M")}'
+
