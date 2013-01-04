@@ -32,7 +32,7 @@ fi
 alias top='htop'
 alias py=python
 alias rb=ruby
-if [ -x `\which rlwrap` ]; then
+if [ -x `which rlwrap` ]; then
   alias coffee="rlwrap coffee"
 fi
 alias screen='screen -U'
@@ -47,7 +47,7 @@ alias grepR='grep -inHR --color=always -e '
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias tmux='tmux -2 -u'
-alias which='which -a'
+alias which='which'
 alias cl='clear'
 alias pb='tmux-pbcopy'
 alias ec="extract"
