@@ -83,7 +83,7 @@ local CYAN=$'%{\e[0;36m%}'
 local BROWN=$'%{\e[0;33m%}'
 local BG_BLUE=$'%{\e[0;44m%}'
 
-#エイリアスも補完対象に設定
+## エイリアスも補完対象に設定
 setopt complete_aliases
 
 # 複数の zsh を同時に使う時など history ファイルに上書きせず追加する
@@ -217,18 +217,18 @@ fi
 zstyle ':completion:*:default' menu select=2
 zstyle ':completion:*' verbose yes
 #
-#_complete
-#普通の補完関数
-#_approximate
-#ミススペルを訂正した上で補完を行う。
-#_match
-#*などのグロブによってコマンドを補完できる(例えばvi* と打つとviとかvimとか補完候補が表示される)
-#_expand
-#グロブや変数の展開を行う。もともとあった展開と比べて、細かい制御が可能
-#_history
-#履歴から補完を行う。_history_complete_wordから使われる
-#_prefix
-#カーソルの位置で補完を行う
+# _complete
+# 普通の補完関数
+# _approximate
+# ミススペルを訂正した上で補完を行う。
+# _match
+# *などのグロブによってコマンドを補完できる(例えばvi* と打つとviとかvimとか補完候補が表示される)
+# _expand
+# グロブや変数の展開を行う。もともとあった展開と比べて、細かい制御が可能
+# _history
+# 履歴から補完を行う。_history_complete_wordから使われる
+# _prefix
+# カーソルの位置で補完を行う
 zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
 zstyle ':completion:*:messages' format $YELLOW'%d'$DEFAULT
 zstyle ':completion:*:warnings' format $RED'No matches for:'$YELLOW' %d'$DEFAULT
@@ -253,18 +253,22 @@ source $HOME/.zsh_extend/funcs
 source $HOME/.zsh_extend/prefuncs
 
 
-#####  prompt
-
-
-## prompt
+### Prompt ###
+#
+#
+# Left prompt
 PROMPT=$'\n'$GREEN'${USER}@${HOST}'$CYAN'(${ARCHI}-${DISTRIBUTE}) '$YELLOW'%~ '$'\n'$DEFAULT'%(!.#.$) '
-# RPROMPT=%1v%2v%f${DEFAULT}
+
+# Right prompt  # RPROMPT=%1v%2v%f${DEFAULT}
 RPROMPT=${CYAN}%1v%2v%f${DEFAULT}
 
-# mysql
+# For MySQL
 export MYSQL_PS1="(\u@\h:\p) [\d] \v - \r:\m\P \n\c> "
 
-#####  pre attaches
+
+##### Pre attaches ###
+#
+#
 
 # tmux log format is script cmd.
 if [ "${TMUX}" != "" ] ; then
@@ -286,85 +290,32 @@ if [ -f $HOME/.postzshrc ]; then
   source $HOME/.postzshrc
 fi
 
+
+### Cmmand line stack ###
+#
+# C-q bind.
+#
+# http://d.hatena.ne.jp/kei_q/20110308/1299594629
+# http://qiita.com/items/1f2c7793944b1f6cc346
+show_buffer_stack() {
+  POSTDISPLAY="
+stack: $LBUFFER"
+  zle push-line-or-edit
+}
+zle -N show_buffer_stack
+setopt noflowcontrol
+bindkey '^Q' show_buffer_stack
+
+
+### Like a Fish shell coloring. ###
+#
 # https://github.com/zsh-users/zsh-syntax-highlighting
 # Source the script at the end of ~/.zshrc:
+#
 source ~/.zsh_extend/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
-#=============================
-# source auto-fu.zsh
-#=============================
-# if is-at-least 4.3.10; then
-    # function () { # precompile
-        # local A
-        # A=~/.zsh_extend/auto-fu.zsh/auto-fu.zsh
-        # [[ -e "${A:r}.zwc" ]] && [[ "$A" -ot "${A:r}.zwc" ]] ||
-        # zsh -c "source $A; auto-fu-zcompile $A ${A:h}" >/dev/null 2>&1
-    # }
-    # source ~/.zsh_extend/auto-fu.zsh/auto-fu.zsh; auto-fu-install 2> /dev/null
-    # function zle-line-init () { auto-fu-init }
-    # zle -N zle-line-init
-    # zstyle ':auto-fu:highlight' input bold
-    # zstyle ':auto-fu:highlight' completion fg=white
-    # zstyle ':auto-fu:var' postdisplay ''
-    # function afu+cancel () {
-        # afu-clearing-maybe
-        # ((afu_in_p == 1)) && { afu_in_p=0; BUFFER="$buffer_cur"; }
-    # }
-    # function bindkey-advice-before () {
-        # local key="$1"
-        # local advice="$2"
-        # local widget="$3"
-        # [[ -z "$widget" ]] && {
-            # local -a bind
-            # bind=(`bindkey -M main "$key"`)
-            # widget=$bind[2]
-        # }
-        # local fun="$advice"
-        # if [[ "$widget" != "undefined-key" ]]; then
-            # local code=${"$(<=(cat <<"EOT"
-                # function $advice-$widget () {
-                    # zle $advice
-                    # zle $widget
-                # }
-                # fun="$advice-$widget"
-# EOT
-            # ))"}
-            # eval "${${${code//\$widget/$widget}//\$key/$key}//\$advice/$advice}"
-        # fi
-        # zle -N "$fun"
-        # bindkey -M afu "$key" "$fun"
-    # }
-    # bindkey-advice-before "^G" afu+cancel
-    # bindkey-advice-before "^[" afu+cancel
-    # bindkey-advice-before "^J" afu+cancel afu+accept-line
-
-    # # delete unambiguous prefix when accepting line
-    # function afu+delete-unambiguous-prefix () {
-        # afu-clearing-maybe
-        # local buf; buf="$BUFFER"
-        # local bufc; bufc="$buffer_cur"
-        # [[ -z "$cursor_new" ]] && cursor_new=-1
-        # [[ "$buf[$cursor_new]" == ' ' ]] && return
-        # [[ "$buf[$cursor_new]" == '/' ]] && return
-        # ((afu_in_p == 1)) && [[ "$buf" != "$bufc" ]] && {
-            # # there are more than one completion candidates
-            # zle afu+complete-word
-            # [[ "$buf" == "$BUFFER" ]] && {
-                # # the completion suffix was an unambiguous prefix
-                # afu_in_p=0; buf="$bufc"
-            # }
-            # BUFFER="$buf"
-            # buffer_cur="$bufc"
-        # }
-    # }
-    # zle -N afu+delete-unambiguous-prefix
-    # function afu-ad-delete-unambiguous-prefix () {
-        # local afufun="$1"
-        # local code; code=$functions[$afufun]
-        # eval "function $afufun () { zle afu+delete-unambiguous-prefix; $code }"
-    # }
-    # afu-ad-delete-unambiguous-prefix afu+accept-line
-    # afu-ad-delete-unambiguous-prefix afu+accept-line-and-down-history
-    # afu-ad-delete-unambiguous-prefix afu+accept-and-hold
-# fi
+### TODO: Next auto-fu.zsh  ###
+#
+# zsh-syntax-highlightingと競合する
+#
