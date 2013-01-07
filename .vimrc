@@ -198,6 +198,7 @@ NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'taichouchou2/vim-rsense'
 NeoBundle 'Shougo/neocomplcache-rsense'
+NeoBundle 'rhysd/unite-ruby-require.vim'
 
 " php
 " NeoBundle 'justinrainbow/php-xdebug.vim'
