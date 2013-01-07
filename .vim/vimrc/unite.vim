@@ -41,7 +41,7 @@ if v:version > 700
 
     "" Valiables
     "最近開いたファイル履歴の保存数
-    let g:unite_source_file_mru_limit = 500
+    let g:unite_source_file_mru_limit = 1000
 
     " ######################################
 

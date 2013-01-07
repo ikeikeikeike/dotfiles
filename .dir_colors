@@ -371,6 +371,8 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .php 01;38;05;209
 .pl 01;38;05;209
 .el 01;38;05;209
+*Makefile 01;38;05;209
+*makefile 01;38;05;209
 
 # base64
 .b64 00;38;05;79

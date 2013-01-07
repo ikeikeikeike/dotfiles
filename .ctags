@@ -36,11 +36,26 @@
 --langdef=coffee
 --langmap=coffee:.coffee
 --regex-coffee=/class ([A-Za-z.]+)/\1/c,class/
---regex-coffee=/^([A-Z][a-z].*)[ \t]*=/\1/n,namespace/
 --regex-coffee=/^[ \t]*([A-Z][a-zA-Z]*)/\1/c,class/
---regex-coffee=/^[ \t]*([A-Za-z]+)[ \t]*=.*->.*$/\1/f,function/
+--regex-coffee=/(^|=[ \t])*class ([A-Za-z]+\.)*([A-Za-z]+)( extends [A-Za-z.]+)?$/\3/c,class/
+--regex-coffee=/^([A-Z][a-z].*)[ \t]*=/\1/n,namespace/
+--regex-coffee=/^[ \t]*([A-Za-z.]+)[ \t]+=.*->.*$/\1/f,function/
+--regex-coffee=/^[ \t]*([A-Za-z.]+)[ \t]+=[^->\n]*$/\1/v,variable/
 --regex-coffee=/^[ \t]*([A-Za-z]+)[ \t]*:.*->.*$/\1/m,method/
+--regex-coffee=/^[ \t]*(@[A-Za-z.]+)[ \t]*\:.*(->|=>).*$/\1/,staticmethod/
 --regex-coffee=/^[ \t]*([ \t][a-z]+)[ \t]*=.*$/\1/v,var/
 --regex-coffee=/^[ \t]*(@[A-Za-z]+)[ \t]*=.*$/\1/i,ivar/
-
-
+--regex-coffee=/^[ \t]*([A-Z0-9_]+)[ \t]*=.*$/\1/,constant/
+--regex-coffee=/^[ \t]*@([A-Za-z.]+)[ \t]+=[^->\n]*$/\1/f,field/
+--regex-coffee=/^[ \t]*@([A-Za-z.]+):[^->\n]*$/\1/f,static field/
+--regex-coffee=/^[ \t]*([A-Za-z.]+):[^->\n]*$/\1/f,field/
+--regex-coffee=/(constructor: \()@([A-Za-z.]+)/\2/f,field/
+--regex-coffee=/(constructor: \()@[A-Za-z.]+(, @([A-Za-z.]+)){1}/\3/f,field/
+--regex-coffee=/(constructor: \()@[A-Za-z.]+(, @([A-Za-z.]+)){2}/\3/f,field/
+--regex-coffee=/(constructor: \()@[A-Za-z.]+(, @([A-Za-z.]+)){3}/\3/f,field/
+--regex-coffee=/(constructor: \()@[A-Za-z.]+(, @([A-Za-z.]+)){4}/\3/f,field/
+--regex-coffee=/(constructor: \()@[A-Za-z.]+(, @([A-Za-z.]+)){5}/\3/f,field/
+--regex-coffee=/(constructor: \()@[A-Za-z.]+(, @([A-Za-z.]+)){6}/\3/f,field/
+--regex-coffee=/(constructor: \()@[A-Za-z.]+(, @([A-Za-z.]+)){7}/\3/f,field/
+--regex-coffee=/(constructor: \()@[A-Za-z.]+(, @([A-Za-z.]+)){8}/\3/f,field/
+--regex-coffee=/(constructor: \()@[A-Za-z.]+(, @([A-Za-z.]+)){9}/\3/f,field/
