@@ -284,6 +284,7 @@ NeoBundle 'mattn/webapi-vim'
 "   -- general --
 "   - general
 "   - general-move
+"   - general-diff
 "   - general-file
 "   - general-backup
 "   - general-search
@@ -355,7 +356,10 @@ endfor
 " ステータスライン文字コード表示
 " set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)\ %{cfi#format(\"[%s()]\",\ \"[no\ function]\")}\ %m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}
 " let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}-%{VirtualEnvStatusline()}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
-let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
+
+if &diff == 0
+    let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
+endif
 
 " ステータスライン文字コード表示
 " set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)\ %{cfi#format(\"[%s()]\",\ \"[no\ function]\")}\ %m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}

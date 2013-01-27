@@ -33,12 +33,8 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[tig "bind"]
+  generic = g move-first-line
+  generic = G move-last-line
 [include]
   path = ~/.gitconfig.local
-[github]
-  token = ca87bea99386ed0c9cff3b7df0c1ec04
-  user = ikeikeikeike
-[user]
-  name = ikeikeikeike
-  email = jp.ne.co.jp@gmail.com
-
