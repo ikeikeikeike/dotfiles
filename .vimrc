@@ -164,8 +164,10 @@ NeoBundle 'Modeliner'
 NeoBundle 'sql.vim--Fishburn-syntax'
 
 " Html & javascript indentations
-NeoBundle "lukaszb/vim-web-indent"
-NeoBundle "teramako/jscomplete-vim"
+NeoBundle 'Simple-Javascript-Indenter' " 1.0.1 A simple javascript indent script, support OOP, jquery
+NeoBundle 'nono/jquery.vim' " Syntax file for jQuery in ViM
+NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'teramako/jscomplete-vim'
 
 " Python
 if ! &diff
@@ -176,7 +178,7 @@ if ! &diff
 endif
 NeoBundle 'pep8'
 " NeoBundle 'nvie/vim-flake8'
-NeoBundle 'amitdev/vimpy'
+" NeoBundle 'amitdev/vimpy'
 NeoBundle 'vim-scripts/django.vim'
 " NeoBundle 'jmcantrell/vim-virtualenv'
 " NeoBundle 'project.tar.gz'
@@ -259,7 +261,7 @@ NeoBundle 'tpope/vim-repeat'
 " NeoBundle 'vim-scripts/AutoClose'
 NeoBundle 'ZenCoding.vim'
 NeoBundle 'tpope/vim-endwise.git'
-
+NeoBundle 'kana/vim-smartinput' " Vim plugin: Provide smart input assistant
 
 " ~~~~~~~
 " funny

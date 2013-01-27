@@ -20,21 +20,11 @@ prev_word   '^'
     """
 
 snippet     debug
-abbr        binding.pry
-prev_word   '^'
-    binding.pry
-
-snippet     debugfull
-abbr        require "pry"\nbinding.pry
-prev_word   '^'
-    require "pry"; binding.pry
-
-snippet     idebug
-abbr        debugger
-prev_word   '^'
-    debugger
-
-snippet     idebugfull
 abbr        require "debugger"\ndebugger
 prev_word   '^'
     require "debugger"; debugger
+
+snippet     pdebug
+abbr        require "pry"\nbinding.pry
+prev_word   '^'
+    require "pry"; binding.pry
