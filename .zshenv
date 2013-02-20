@@ -106,7 +106,13 @@ fpath=(~/.zsh-completions_ext $fpath)
 
 
 # ruby
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
+if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+    # This loads RVM into a shell session.
+    source "$HOME/.rvm/scripts/rvm"
+elif [[ -s /usr/share/ruby-rvm/scripts/rvm ]]; then
+    # This loads RVM into a shell session.
+    source /usr/share/ruby-rvm/scripts/rvm
+fi
 export RSENSE_HOME=$HOME/lib/rsense-0.3
 
 # java
