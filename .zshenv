@@ -104,7 +104,6 @@ export PATH=$PATH:$HOME/lib/gsutil
 fpath=(~/.zsh-completions $fpath)
 fpath=(~/.zsh-completions_ext $fpath)
 
-
 # ruby
 if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
     # This loads RVM into a shell session.
