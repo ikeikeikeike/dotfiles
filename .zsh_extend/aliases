@@ -36,6 +36,7 @@ if [ -x `which rlwrap` ]; then
   alias coffee="rlwrap coffee"
 fi
 alias screen='screen -U'
+alias l='ls'
 alias ll='ls -alt'
 alias la='ls -lt'
 alias vi='vim'

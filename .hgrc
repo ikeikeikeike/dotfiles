@@ -31,6 +31,9 @@ record=
 glog=glog --color=always
 latest=glog -l 5
 diff=diff --color=always
+vid=vimdiff
+vidi=vimdiff
+vidif=vimdiff
 
 [color]
 mode=ansi

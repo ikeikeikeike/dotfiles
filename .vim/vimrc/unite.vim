@@ -41,10 +41,10 @@ if v:version > 700
 
     """ Valiables
     " 最近開いたファイル履歴の保存数
-    let g:unite_source_file_mru_limit = 1000
+    let g:unite_source_file_mru_limit = 500
     " Ignore file
     " let g:unite_source_file_rec_ignore_pattern = '\.pyc$'
-    call unite#custom_source('file_rec', 'ignore_pattern', '\.pyc$')
+    " call unite#custom_source('file_rec', 'ignore_pattern', '\.pyc$')
 
     " ######################################
 
