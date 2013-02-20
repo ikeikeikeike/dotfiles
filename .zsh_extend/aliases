@@ -32,7 +32,7 @@ fi
 alias top='htop'
 alias py=python
 alias rb=ruby
-if [ -x `which rlwrap` ]; then
+if [[ -x `which rlwrap` ]]; then
   alias coffee="rlwrap coffee"
 fi
 alias screen='screen -U'
