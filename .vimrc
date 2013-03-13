@@ -236,7 +236,8 @@ NeoBundle 'vim-scripts/slimv.vim'
 NeoBundle 'mattn/gist-vim'
 
 " grep
-NeoBundle 'ack.vim'
+" NeoBundle 'ack.vim'
+" NeoBundle 'rking/ag.vim'
 NeoBundle 'grep.vim'
 NeoBundle 'thinca/vim-qfreplace'
 
