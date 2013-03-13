@@ -14,7 +14,7 @@ else
 endif
 
 if filereadable(expand('~/rtags'))
-  au FileType ruby,eruby,erb setl tags+=~/rtags
+  au FileType ruby,eruby,erb set tags+=~/rtags
 endif
 
 " keymap (replace unite-tag)
