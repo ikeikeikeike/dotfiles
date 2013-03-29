@@ -33,7 +33,7 @@ pip install South
 
 # peformance, analysis
 pip install pyflakes pep8 reimport pylint flake8
-# pip install clonedigger
+pip install clonedigger
 
 
 #  ******************************************************************************

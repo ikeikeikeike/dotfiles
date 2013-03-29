@@ -22,7 +22,8 @@ if [ $ARCHI = darwin ]; then
   alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
 
   # Trim new lines and copy to clipboard
-  alias c="tr -d '\n' | pbcopy"
+  # alias c="tr -d '\n' | pbcopy"
+  alias c=tmux-pbcopy
 fi
 if [ $ARCHI = freebsd ]; then
   alias ls='ls -FGh'

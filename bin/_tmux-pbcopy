@@ -6,7 +6,6 @@ cat /tmp/.tmux_to_pbcopy | pbcopy
 chmod 777 /tmp/.tmux_to_pbcopy
 
 # 以下はメッセージを表示するだけ。無くてもOK。
-HEAD=`head -1 /tmp/.tmux_to_pbcopy`
-TAIL=`tail -1 /tmp/.tmux_to_pbcopy`
-tmux display-message "Copy:  $HEAD  -  $TAIL"
-
+# HEAD=`head -1 /tmp/.tmux_to_pbcopy`
+# TAIL=`tail -1 /tmp/.tmux_to_pbcopy`
+# tmux display-message "Copy:  $HEAD  -  $TAIL"
