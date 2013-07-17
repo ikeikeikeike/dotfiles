@@ -6,6 +6,7 @@
 
 #
 pip install virtualenv virtualenvwrapper
+pip install pip-tools
 
 #
 pip install distribute
@@ -17,9 +18,11 @@ pip install ipython
 # debug
 pip install Werkzeug
 
+# easy_install -U distribute
+
 # debug
 pip install pudb debug ipdb
-pip install django-pudebug
+# pip install django-pudebug
 
 # TEST
 pip install nose nose-pudb mock tox pytest
@@ -32,8 +35,9 @@ pip install South
 # pip install Fabric
 
 # peformance, analysis
-pip install pyflakes pep8 reimport pylint flake8
-pip install clonedigger
+# pip install pyflakes pep8 reimport pylint
+pip install flake8
+# pip install clonedigger
 
 
 #  ******************************************************************************

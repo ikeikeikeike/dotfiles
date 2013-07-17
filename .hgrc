@@ -26,6 +26,7 @@ hgshelve=~/bin/hgshelve/hgshelve.py
 transplant=
 mq=
 record=
+my_hgext=~/bin/my_hgext.py
 
 [alias]
 glog=glog --color=always

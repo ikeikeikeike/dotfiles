@@ -11,17 +11,30 @@ if v:version > 700
     let g:unite_enable_start_insert = 1
     let g:unite_update_time = 1000
     " shrtcut
-    call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
-    call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
-    call unite#set_substitute_pattern('file', '/\ze[^*]', '/*', 10)
-    call unite#set_substitute_pattern('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
-    call unite#set_substitute_pattern('file', '^@', '\=getcwd()."/*"', 1)
-    call unite#set_substitute_pattern('file', '^\\', '~/*')
-    call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/*"')
-    call unite#set_substitute_pattern('file', '\*\*\+', '*', -1)
-    call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
-    call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
-    call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
+    " call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
+    " call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
+    " call unite#set_substitute_pattern('file', '/\ze[^*]', '/*', 10)
+    " call unite#set_substitute_pattern('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
+    " call unite#set_substitute_pattern('file', '^@', '\=getcwd()."/*"', 1)
+    " call unite#set_substitute_pattern('file', '^\\', '~/*')
+    " call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/*"')
+    " call unite#set_substitute_pattern('file', '\*\*\+', '*', -1)
+    " call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
+    " call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
+    " call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
+    call unite#custom#profile('files', 'substitute_patterns', { 'pattern': '\$\w\+', 'subst': '\=eval(submatch(0))', 'priority': 200, })
+    call unite#custom#profile('files', 'substitute_patterns', { 'pattern': '^@@', 'subst': '\=fnamemodify(expand("#"), ":p:h")."/"', 'priority': 2, })
+    call unite#custom#profile('files', 'substitute_patterns', { 'pattern': '^@', 'subst': '\=getcwd()."/*"', 'priority': 1, })
+    call unite#custom#profile('files', 'substitute_patterns', { 'pattern': '^;r', 'subst': '\=$VIMRUNTIME."/"', 'priority': 1, })
+    "call unite#custom#profile('files', 'substitute_patterns', { 'pattern': '^\~', 'subst': escape($HOME, '\'), 'priority': -2, })
+    call unite#custom#profile('files', 'substitute_patterns', { 'pattern': '\\\@<! ', 'subst': '\\ ', 'priority': -20, })
+    call unite#custom#profile('files', 'substitute_patterns', { 'pattern': '\\ \@!', 'subst': '/', 'priority': -30, })
+    if has('win32') || has('win64')
+        call unite#custom#profile('files', 'substitute_patterns', { 'pattern': '^;p', 'subst': 'C:/Program Files/', 'priority': 1, })
+        call unite#custom#profile('files', 'substitute_patterns', { 'pattern': '^;v', 'subst': '~/vimfiles/', 'priority': 1, })
+    else
+        call unite#custom#profile('files', 'substitute_patterns', { 'pattern': '^;v', 'subst': '~/.vim/', 'priority': 1, })
+    endif
 
     " keymap
     nnoremap <silent> <Leader><C-f> :<C-u>UniteWithBufferDir -vertical -buffer-name=files file<CR>

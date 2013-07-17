@@ -61,11 +61,14 @@ if [ $ARCHI = darwin ]; then
   export MANPATH=/opt/local/man:$MANPATH
   export DISPLAY=:0.0
   # extends
-  export LIBRARY_PATH=/opt/local/lib
-  export LD_LIBRARY_PATH=/opt/local/lib
+
+  # dyld: DYLD_ environment variables being ignored because main executable (/usr/bin/sudo) is setuid or setgid
+  # export LIBRARY_PATH=/opt/local/lib
+  # export LD_LIBRARY_PATH=/opt/local/lib
+  # export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
+
   export C_INCLUDE_PATH=/opt/local/include
   export CPLUS_INCLUDE_PATH=/opt/local/include:$HOME/include
-  export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
   export BOOST_ROOT=$HOME/include/boost:/opt/local/include/boost:$BOOST_ROOT
   # default editor
   export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim

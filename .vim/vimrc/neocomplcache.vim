@@ -14,7 +14,12 @@ if v:version > 700
     " シンタックスをキャッシュするときの最小文字長を3文字 default 4
     let g:neocomplcache_min_syntax_length = 3
     " C-j snippet
-    imap <C-j> <Plug>(neocomplcache_snippets_expand)
+    " imap <C-j> <Plug>(neocomplcache_snippets_expand)
+    imap <C-j> <Plug>(neosnippet_expand_or_jump)
+    smap <C-j> <Plug>(neosnippet_expand_or_jump)
+    imap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
     " キー入力時にキーワード補完を行う入力数を制御する
     " let g:neocomplcache_auto_completion_start_length = 4
     " ポップアップメニューで表示される候補の数を制御する

@@ -1,5 +1,11 @@
 import os
-from ConfigParser import ConfigParser
+import sys
+
+from pudb.py3compat import PY3
+if PY3:
+    from configparser import ConfigParser
+else:
+    from ConfigParser import ConfigParser
 
 # minor LGPL violation: stolen from python-xdg
 
@@ -20,7 +26,7 @@ def get_save_config_path(*resource):
     assert not resource.startswith('/')
     path = os.path.join(xdg_config_home, resource)
     if not os.path.isdir(path):
-        os.makedirs(path, 0700)
+        os.makedirs(path, 448) # 0o700
     return path
 
 # end LGPL violation
@@ -65,14 +71,19 @@ def load_config():
     conf_dict.setdefault("custom_theme", "")
     conf_dict.setdefault("custom_stringifier", "")
 
+    conf_dict.setdefault("wrap_variables", True)
+
     def normalize_bool_inplace(name):
         try:
             if conf_dict[name].lower() in ["0", "false", "off"]:
                 conf_dict[name] = False
+            else:
+                conf_dict[name] = True
         except:
             pass
 
     normalize_bool_inplace("line_numbers")
+    normalize_bool_inplace("wrap_variables")
 
     return conf_dict
 
@@ -85,8 +96,8 @@ def save_config(conf_dict):
     cparser = ConfigParser()
     cparser.add_section(CONF_SECTION)
 
-    for key, val in conf_dict.iteritems():
-        cparser.set(CONF_SECTION, key, val)
+    for key in sorted(conf_dict):
+        cparser.set(CONF_SECTION, key, str(conf_dict[key]))
 
     try:
         outf = open(join(get_save_config_path(),
@@ -120,6 +131,9 @@ def edit_config(ui, conf_dict):
     def _update_stringifier():
         import pudb.var_view
         pudb.var_view.custom_stringifier_dict = {}
+        ui.update_var_view()
+
+    def _update_wrap_variables():
         ui.update_var_view()
 
     def _update_config(check_box, new_state, option_newvalue):
@@ -156,6 +170,10 @@ def edit_config(ui, conf_dict):
 
                 conf_dict.update(stringifier=newvalue)
                 _update_stringifier()
+        elif option == "wrap_variables":
+            new_conf_dict["wrap_variables"] = not check_box.get_state()
+            conf_dict.update(new_conf_dict)
+            _update_wrap_variables()
 
     heading = urwid.Text("This is the preferences screen for PuDB. "
         "Hit Ctrl-P at any time to get back to it.\n\n"
@@ -167,7 +185,7 @@ def edit_config(ui, conf_dict):
                 user_data=("line_numbers", None))
 
     shell_info = urwid.Text("This is the shell that will be used when you hit '!'.\n")
-    shells = ["classic", "ipython"]
+    shells = ["classic", "ipython", "bpython"]
 
     shell_rb_group = []
     shell_rbs = [
@@ -181,9 +199,7 @@ def edit_config(ui, conf_dict):
 
     theme_rb_group = []
     theme_edit = urwid.Edit(edit_text=conf_dict["custom_theme"])
-    theme_edit_list_item = urwid.Padding(
-                urwid.AttrMap(theme_edit, "value"),
-                left=4)
+    theme_edit_list_item = urwid.AttrMap(theme_edit, "value")
     theme_rbs = [
             urwid.RadioButton(theme_rb_group, name,
                 conf_dict["theme"] == name, on_state_change=_update_config,
@@ -220,9 +236,7 @@ def edit_config(ui, conf_dict):
         "this on a per-variable basis by selecting a variable and hitting Enter "
         "or by typing t/s/r.  Note that str and repr will be slower than type "
         "and have the potential to crash PuDB.\n")
-    stringifier_edit_list_item = urwid.Padding(
-            urwid.AttrMap(stringifier_edit, "value"),
-            left=4)
+    stringifier_edit_list_item = urwid.AttrMap(stringifier_edit, "value")
     stringifier_rbs = [
             urwid.RadioButton(stringifier_rb_group, name,
                 conf_dict["stringifier"] == name,
@@ -240,9 +254,17 @@ def edit_config(ui, conf_dict):
                 "The file should contain a function called pudb_stringifier() "
                 "at the module level, which should take a single argument and "
                 "return the desired string form of the object passed to it. "
-                "Note that the variables view will not be updated until you "
-                "close this dialog."),
+                "Note that if you choose a custom stringifier, the variables "
+                "view will not be updated until you close this dialog."),
             ]
+
+    cb_wrap_variables = urwid.CheckBox("Wrap variables",
+            bool(conf_dict["wrap_variables"]), on_state_change=_update_config,
+                user_data=("wrap_variables", None))
+
+    wrap_variables_info = urwid.Text("\nNote that you can change this option on "
+                                     "a per-variable basis by selecting the "
+                                     "variable and pressing 'w'.")
 
     lb_contents =(
             [heading]
@@ -258,7 +280,11 @@ def edit_config(ui, conf_dict):
             + stack_rbs
             + [urwid.AttrMap(urwid.Text("\nVariable Stringifier:\n"), "group head")]
             + [stringifier_info]
-            + stringifier_rbs)
+            + stringifier_rbs
+            + [urwid.AttrMap(urwid.Text("\nWrap Variables:\n"), "group head")]
+            + [cb_wrap_variables]
+            + [wrap_variables_info]
+            )
 
     lb = urwid.ListBox(lb_contents)
 
@@ -333,7 +359,7 @@ def parse_breakpoints(lines):
             arg = arg[colon+1:].lstrip()
             try:
                 lineno = int(arg)
-            except ValueError, msg:
+            except ValueError:
                 continue
         else:
             continue
@@ -347,7 +373,14 @@ def parse_breakpoints(lines):
 
 
 
-def load_breakpoints(dbg):
+def get_breakpoints_file_name():
+    from os.path import join
+    return join(get_save_config_path(), "saved-breakpoints")
+
+
+
+
+def load_breakpoints():
     from os.path import join, isdir
 
     file_names = [
@@ -377,11 +410,10 @@ def save_breakpoints(bp_list):
     :arg bp_list: a list of tuples `(file_name, line)`
     """
 
-    from os.path import join
-    bp_histfile = join(get_save_config_path(), "saved-breakpoints")
-    histfile = open(bp_histfile, 'w')
+    histfile = open(get_breakpoints_file_name(), 'w')
+    bp_list = set([(bp.file, bp.line) for bp in bp_list])
     for bp in bp_list:
-        histfile.write("b %s:%d\n"%(bp.file, bp.line))
+        histfile.write("b %s:%d\n" % (bp[0], bp[1]))
     histfile.close()
 
 # }}}

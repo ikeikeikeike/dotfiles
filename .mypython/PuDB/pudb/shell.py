@@ -5,6 +5,14 @@ except ImportError:
 else:
     HAVE_IPYTHON = True
 
+try:
+    import bpython
+except ImportError:
+    HAVE_BPYTHON = False
+else:
+    HAVE_BPYTHON = True
+
+
 
 # readline wrangling ----------------------------------------------------------
 def setup_readline():
@@ -16,9 +24,17 @@ def setup_readline():
             get_save_config_path(),
             "shell-history")
 
-    if os.access(histfile, os.R_OK):
+    try:
         readline.read_history_file(histfile)
-    atexit.register(readline.write_history_file, histfile)
+        atexit.register(readline.write_history_file, histfile)
+    except Exception:
+        # http://docs.python.org/3/howto/pyporting.html#capturing-the-currently-raised-exception
+        import sys
+        e = sys.exc_info()[1]
+
+        from warnings import warn
+        warn("Error opening readline history file: %s" % e)
+
     readline.parse_and_bind("tab: complete")
 
 
@@ -36,7 +52,7 @@ else:
 class SetPropagatingDict(dict):
     def __init__(self, source_dicts, target_dict):
         dict.__init__(self)
-        for s in source_dicts:
+        for s in source_dicts[::-1]:
             self.update(s)
 
         self.target_dict = target_dict
@@ -67,6 +83,11 @@ def run_classic_shell(locals, globals, first_time):
 
     cons.interact(banner)
 
+def run_bpython_shell(locals, globals, first_time):
+    ns = SetPropagatingDict([locals, globals], locals)
+
+    import bpython.cli
+    bpython.cli.main(locals_=ns)
 
 def run_ipython_shell_v10(locals, globals, first_time):
     '''IPython shell from IPython version 0.10'''
@@ -112,11 +133,22 @@ def run_ipython_shell_v11(locals, globals, first_time):
 
 def _update_ns(shell, locals, globals):
     '''Update the IPython 0.11 namespace at every visit'''
+
     shell.user_ns = locals.copy()
-    shell.user_global_ns = globals
+
+    try:
+        shell.user_global_ns = globals
+    except AttributeError:
+        class DummyMod(object):
+            "A dummy module used for IPython's interactive namespace."
+            pass
+
+        user_module = DummyMod()
+        user_module.__dict__ = globals
+        shell.user_module = user_module
+
     shell.init_user_ns()
     shell.init_completer()
-    return
 
 # Set the proper ipython shell
 if HAVE_IPYTHON and hasattr(IPython, 'Shell'):

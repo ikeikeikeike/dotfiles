@@ -89,13 +89,13 @@ alias cdhistory='gd'
 alias -g L="| $PAGER"
 alias -g G="| grep"
 # alias -s
-alias -s py=python
-alias -s rb=ruby
-alias -s js=node
-alias -s coffee=coffee
-alias -s hs=runhaskell
-alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
-alias -s {gz,tgz,zip,rar,tbz2,lzh,bz2,tbz,Z,7z,lzma,tar,arj,xz}=extract
+# alias -s py=python
+# alias -s rb=ruby
+# alias -s js=node
+# alias -s coffee=coffee
+# alias -s hs=runhaskell
+# alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
+# alias -s {gz,tgz,zip,rar,tbz2,lzh,bz2,tbz,Z,7z,lzma,tar,arj,xz}=extract
 
 # rsync
 alias rsync_gigacast_dev='source $HOME/script/shell/rsync_gigacast_dev'
