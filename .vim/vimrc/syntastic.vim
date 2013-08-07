@@ -13,7 +13,8 @@
 " let g:syntastic_enable_signs = 1
 " let g:syntastic_enable_highlighting = 0
 " let g:syntastic_python_checker_args='--ignore=E501,E302,E231,E261,E201,W402,W293'
-let g:syntastic_python_checker_args='--ignore=E501'
+" let g:syntastic_python_checker_args='--ignore=E501'
+let g:syntastic_python_flake8_args='--ignore=E501'
 
 " buffergator
 " let g:buffergator_viewport_split_policy="B"

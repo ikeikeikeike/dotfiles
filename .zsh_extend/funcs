@@ -86,7 +86,17 @@ cat << EOF > $HOME/.rvm_postzshrc 2>&1
 # auto ganerate post zshrc
 #
 rvm_use `rvm current`
-PS1="(`basename $GEM_HOME`)\$PS1"
+PS1="(`basename $GEM_HOME`@rvm)\$PS1"
+EOF
+}
+
+function gen_rbenv_postzshrc() {
+cat << EOF > $HOME/.rbenv_postzshrc 2>&1
+#
+# auto ganerate post zshrc
+#
+rbenv use `cat ~/.rbenv/version`
+PS1="(`cat ~/.rbenv/version`@rbenv)\$PS1"
 EOF
 }
 
@@ -97,6 +107,14 @@ cat << EOF > $HOME/.virtualenvwrapper_postzshrc 2>&1
 #
 workon `basename $VIRTUAL_ENV`
 EOF
+}
+
+function rbenv_use() {
+    rbenv use $@
+    sleep 0.1
+    rbenv exec ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
+    # ganegate rc file
+    gen_rbenv_postzshrc
 }
 
 function rvm_use() {

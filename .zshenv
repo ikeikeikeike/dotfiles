@@ -61,11 +61,14 @@ if [ $ARCHI = darwin ]; then
   export MANPATH=/opt/local/man:$MANPATH
   export DISPLAY=:0.0
   # extends
-  export LIBRARY_PATH=/opt/local/lib
-  export LD_LIBRARY_PATH=/opt/local/lib
+
+  # dyld: DYLD_ environment variables being ignored because main executable (/usr/bin/sudo) is setuid or setgid
+  # export LIBRARY_PATH=/opt/local/lib
+  # export LD_LIBRARY_PATH=/opt/local/lib
+  # export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
+
   export C_INCLUDE_PATH=/opt/local/include
   export CPLUS_INCLUDE_PATH=/opt/local/include:$HOME/include
-  export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
   export BOOST_ROOT=$HOME/include/boost:/opt/local/include/boost:$BOOST_ROOT
   # default editor
   export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
@@ -104,10 +107,41 @@ export PATH=$PATH:$HOME/lib/gsutil
 fpath=(~/.zsh-completions $fpath)
 fpath=(~/.zsh-completions_ext $fpath)
 
-
 # ruby
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
+if [[ -s "$HOME/.rbenv/bin/rbenv" ]]; then
+
+    # This loads rbenv
+    export RBENV_ROOT=$HOME/.rbenv
+    export PATH="$RBENV_ROOT/bin:$PATH"
+    eval "$(rbenv init -)"
+
+elif [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+
+    # This loads RVM into a shell session.
+    source "$HOME/.rvm/scripts/rvm"
+
+elif [[ -s /usr/share/ruby-rvm/scripts/rvm ]]; then
+
+    # This loads RVM into a shell session.
+    source /usr/share/ruby-rvm/scripts/rvm
+
+fi
 export RSENSE_HOME=$HOME/lib/rsense-0.3
+
+
+# perl
+if [[ -s $HOME/perl5/perlbrew/bin/perlbrew ]]; then
+
+    source $HOME/perl5/perlbrew/bin/perlbrew
+
+elif [[ -s $HOME/.plenv/bin/plenv ]]; then
+
+    export PLENV_ROOT=$HOME/.plenv
+    export PATH=$PLENV_ROOT/bin:$PATH
+    eval "$(plenv init -)"
+
+fi
+
 
 # java
 alias javac='javac -J-Dfile.encoding=UTF-8'
@@ -120,9 +154,6 @@ export PATH=$REBEL_HOME/bin:$PATH
 export PLAY_HOME=/usr/local/share/play
 export PATH=$PLAY_HOME:$PATH
 # alias sbt='JAVA_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -Xmx512M -Xss2M" sbt'
-
-# perl
-[[ -s $HOME/perl5/perlbrew/bin/perlbrew ]] && source $HOME/perl5/perlbrew/bin/perlbrew
 
 # nodejs
 if [[ -f ~/.nvm/nvm.sh ]]; then
@@ -169,8 +200,8 @@ export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 
 # zsh autojump
 export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
-if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
-    . /opt/local/etc/profile.d/autojump.sh
+if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
+    . /opt/local/etc/profile.d/autojump.zsh
 fi
 
 # mysettings

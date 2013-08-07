@@ -164,8 +164,10 @@ NeoBundle 'Modeliner'
 NeoBundle 'sql.vim--Fishburn-syntax'
 
 " Html & javascript indentations
-NeoBundle "lukaszb/vim-web-indent"
-NeoBundle "teramako/jscomplete-vim"
+NeoBundle 'Simple-Javascript-Indenter' " 1.0.1 A simple javascript indent script, support OOP, jquery
+NeoBundle 'nono/jquery.vim' " Syntax file for jQuery in ViM
+NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'teramako/jscomplete-vim'
 
 " Python
 if ! &diff
@@ -176,7 +178,7 @@ if ! &diff
 endif
 NeoBundle 'pep8'
 " NeoBundle 'nvie/vim-flake8'
-NeoBundle 'amitdev/vimpy'
+" NeoBundle 'amitdev/vimpy'
 NeoBundle 'vim-scripts/django.vim'
 " NeoBundle 'jmcantrell/vim-virtualenv'
 " NeoBundle 'project.tar.gz'
@@ -196,7 +198,6 @@ NeoBundle "davidhalter/jedi-vim", {
 " NeoBundle 'astashov/vim-ruby-debugger'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tpope/vim-rails'
-NeoBundle 'taichouchou2/vim-rsense'
 NeoBundle 'Shougo/neocomplcache-rsense'
 NeoBundle 'rhysd/unite-ruby-require.vim'
 
@@ -235,7 +236,8 @@ NeoBundle 'vim-scripts/slimv.vim'
 NeoBundle 'mattn/gist-vim'
 
 " grep
-NeoBundle 'ack.vim'
+" NeoBundle 'ack.vim'
+" NeoBundle 'rking/ag.vim'
 NeoBundle 'grep.vim'
 NeoBundle 'thinca/vim-qfreplace'
 
@@ -259,7 +261,7 @@ NeoBundle 'tpope/vim-repeat'
 " NeoBundle 'vim-scripts/AutoClose'
 NeoBundle 'ZenCoding.vim'
 NeoBundle 'tpope/vim-endwise.git'
-
+NeoBundle 'kana/vim-smartinput' " Vim plugin: Provide smart input assistant
 
 " ~~~~~~~
 " funny
@@ -282,6 +284,7 @@ NeoBundle 'mattn/webapi-vim'
 "   -- general --
 "   - general
 "   - general-move
+"   - general-diff
 "   - general-file
 "   - general-backup
 "   - general-search
@@ -353,9 +356,14 @@ endfor
 " ステータスライン文字コード表示
 " set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)\ %{cfi#format(\"[%s()]\",\ \"[no\ function]\")}\ %m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}
 " let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}-%{VirtualEnvStatusline()}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
-let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
+
+if &diff == 0
+    let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
+endif
 
 " ステータスライン文字コード表示
 " set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)\ %{cfi#format(\"[%s()]\",\ \"[no\ function]\")}\ %m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}
 " let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} %m%=%{strftime("%Y/%m/%d %H:%M")}'
 
+
+" set backupskip=/tmp/*,/private/tmp/*

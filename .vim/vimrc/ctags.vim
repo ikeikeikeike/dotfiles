@@ -14,7 +14,11 @@ else
 endif
 
 if filereadable(expand('~/rtags'))
-  au FileType ruby,eruby,erb setl tags+=~/rtags
+  au FileType ruby,eruby,erb set tags+=~/rtags
+endif
+
+if filereadable(expand('~/ptags'))
+  au FileType php,php3,phtml set tags+=~/ptags
 endif
 
 " keymap (replace unite-tag)

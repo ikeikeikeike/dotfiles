@@ -7,6 +7,13 @@ use_setuptools()
 from setuptools import setup
 from pudb import VERSION
 
+import sys
+py_version_major = sys.version_info[0]
+if py_version_major == 3:
+    PY_VERSION = str(py_version_major)
+else:
+    PY_VERSION = ''
+
 try:
     readme = open("README.rst")
     long_description = str(readme.read())
@@ -20,7 +27,7 @@ setup(name='pudb',
       author='Andreas Kloeckner',
       author_email='inform@tiker.net',
       install_requires=[
-          "urwid>=0.9.9.1",
+          "urwid>=1.1.1",
           "pygments>=1.0",
           ],
       url='http://pypi.python.org/pypi/pudb',
@@ -35,6 +42,7 @@ setup(name='pudb',
           "Operating System :: Unix",
           "Programming Language :: Python",
           "Programming Language :: Python :: 2",
+          "Programming Language :: Python :: 3",
           "Topic :: Software Development",
           "Topic :: Software Development :: Debuggers",
           "Topic :: Software Development :: Quality Assurance",
@@ -43,5 +51,6 @@ setup(name='pudb',
           "Topic :: Terminals",
           "Topic :: Utilities",
           ],
-      packages=["pudb"])
-
+      packages=["pudb"],
+      entry_points={'console_scripts': ['pudb' + PY_VERSION + ' = pudb.run:main'], 'gui_script': []},
+)
