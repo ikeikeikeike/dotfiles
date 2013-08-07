@@ -108,14 +108,40 @@ fpath=(~/.zsh-completions $fpath)
 fpath=(~/.zsh-completions_ext $fpath)
 
 # ruby
-if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+if [[ -s "$HOME/.rbenv/bin/rbenv" ]]; then
+
+    # This loads rbenv
+    export RBENV_ROOT=$HOME/.rbenv
+    export PATH="$RBENV_ROOT/bin:$PATH"
+    eval "$(rbenv init -)"
+
+elif [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+
     # This loads RVM into a shell session.
     source "$HOME/.rvm/scripts/rvm"
+
 elif [[ -s /usr/share/ruby-rvm/scripts/rvm ]]; then
+
     # This loads RVM into a shell session.
     source /usr/share/ruby-rvm/scripts/rvm
+
 fi
 export RSENSE_HOME=$HOME/lib/rsense-0.3
+
+
+# perl
+if [[ -s $HOME/perl5/perlbrew/bin/perlbrew ]]; then
+
+    source $HOME/perl5/perlbrew/bin/perlbrew
+
+elif [[ -s $HOME/.plenv/bin/plenv ]]; then
+
+    export PLENV_ROOT=$HOME/.plenv
+    export PATH=$PLENV_ROOT/bin:$PATH
+    eval "$(plenv init -)"
+
+fi
+
 
 # java
 alias javac='javac -J-Dfile.encoding=UTF-8'
@@ -128,9 +154,6 @@ export PATH=$REBEL_HOME/bin:$PATH
 export PLAY_HOME=/usr/local/share/play
 export PATH=$PLAY_HOME:$PATH
 # alias sbt='JAVA_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -Xmx512M -Xss2M" sbt'
-
-# perl
-[[ -s $HOME/perl5/perlbrew/bin/perlbrew ]] && source $HOME/perl5/perlbrew/bin/perlbrew
 
 # nodejs
 if [[ -f ~/.nvm/nvm.sh ]]; then

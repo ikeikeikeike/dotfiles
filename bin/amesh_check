@@ -1,0 +1,10 @@
+#!/bin/zsh
+HOME=/Users/ikeda
+
+cd $HOME/bin
+
+export PLENV_ROOT=$HOME/.plenv
+export PATH=$PLENV_ROOT/bin:$PATH
+eval "$(plenv init -)"
+
+sudo -u ikeda plenv exec perl /Users/ikeda/bin/amesh_check.pl > /tmp/amesh_check.log 2>&1

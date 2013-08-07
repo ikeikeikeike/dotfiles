@@ -1,18 +1,11 @@
-
-
-
-
-
-
-
-
-
-
-
 # post zshrc
 if [ -f $HOME/.virtualenvwrapper_postzshrc ]; then
   source $HOME/.virtualenvwrapper_postzshrc
 fi
-if [ -f $HOME/.rvm_postzshrc ]; then
+
+if [ -f $HOME/.rbenv_postzshrc ]; then
+  source $HOME/.rbenv_postzshrc
+elif [ -f $HOME/.rvm_postzshrc ]; then
   source $HOME/.rvm_postzshrc
 fi
+
