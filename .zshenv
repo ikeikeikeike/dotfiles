@@ -76,6 +76,10 @@ if [ $ARCHI = darwin ]; then
   [[ -s $HOME/.pythonbrew/etc/bashrc ]] || export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
   # move $HOME/.zsh_extends/prefuncs
   # [[ -s $HOME/.pythonbrew/etc/bashrc ]] && export PYTHON_HOME=`cat ~/.pythonbrew/etc/current | sed -e 's@PATH_PYTHONBREW_CURRENT="@@g' | sed -e 's@/bin"@@g'`
+
+  # make setting
+  export MAKEOPTS="-j3"
+
 fi
 if [ $ARCHI = linux ]; then
   # encode
@@ -103,17 +107,20 @@ export LESSOPEN='| src-hilite-lesspipe.sh %s'
 # gsutil
 export PATH=$PATH:$HOME/lib/gsutil
 
-# zsh
+### zsh
 fpath=(~/.zsh-completions $fpath)
 fpath=(~/.zsh-completions_ext $fpath)
 
-# ruby
+
+### ruby ###
+
 if [[ -s "$HOME/.rbenv/bin/rbenv" ]]; then
 
     # This loads rbenv
     export RBENV_ROOT=$HOME/.rbenv
     export PATH="$RBENV_ROOT/bin:$PATH"
     eval "$(rbenv init -)"
+    export RUBY_EXE=`rbenv which ruby`
 
 elif [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
 
@@ -129,7 +136,8 @@ fi
 export RSENSE_HOME=$HOME/lib/rsense-0.3
 
 
-# perl
+### perl ###
+
 if [[ -s $HOME/perl5/perlbrew/bin/perlbrew ]]; then
 
     source $HOME/perl5/perlbrew/bin/perlbrew
@@ -143,31 +151,38 @@ elif [[ -s $HOME/.plenv/bin/plenv ]]; then
 fi
 
 
-# java
+### java ###
+
 alias javac='javac -J-Dfile.encoding=UTF-8'
 alias java='java -Dfile.encoding=UTF-8'
 alias jdb='jdb -J-Dfile.encoding=UTF-8'
 
-# scala
+
+### scala ###
+
 export REBEL_HOME=/usr/local/share/jrebel
 export PATH=$REBEL_HOME/bin:$PATH
 export PLAY_HOME=/usr/local/share/play
 export PATH=$PLAY_HOME:$PATH
 # alias sbt='JAVA_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -Xmx512M -Xss2M" sbt'
 
-# nodejs
+
+### nodejs ###
+
 if [[ -f ~/.nvm/nvm.sh ]]; then
   source ~/.nvm/nvm.sh
 fi
 
 
-# haskell
+### haskell ###
+
 export CABAL_HOME=~/.cabal
 export PATH=$CABAL_HOME/bin:$PATH
 export MANPATH=$CABAL_HOME/share:$MANPATH
 
 
 ### python ###
+
 # if pythonbrew
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
 # path
@@ -197,6 +212,9 @@ export PIP_RESPECT_VIRTUALENV=true
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
+
+
+### extra ###
 
 # zsh autojump
 export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"

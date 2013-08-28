@@ -53,6 +53,8 @@ NeoBundle 'sudo.vim'
 " undo
 NeoBundle 'Gundo'
 
+" csv
+NeoBundle 'chrisbra/csv.vim'
 
 " ~~~~~~~~~~~~
 " move
@@ -275,6 +277,15 @@ NeoBundle 'kana/vim-smartinput' " Vim plugin: Provide smart input assistant
 " ~~~~~~~
 NeoBundle 'mattn/webapi-vim'
 
+
+"
+" status line
+"
+" NeoBundle 'bling/vim-airline'
+" NeoBundle 'itchyny/lightline.vim'
+
+
+
 " ----------------
 "
 " *
@@ -357,13 +368,19 @@ endfor
 " set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)\ %{cfi#format(\"[%s()]\",\ \"[no\ function]\")}\ %m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}
 " let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}-%{VirtualEnvStatusline()}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
 
-if &diff == 0
-    let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
-endif
-
 " ステータスライン文字コード表示
 " set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}\ \ %l/%L\ (%P)\ %{cfi#format(\"[%s()]\",\ \"[no\ function]\")}\ %m%=%{strftime(\"%Y/%m/%d\ %H:%M\")}
 " let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} %m%=%{strftime("%Y/%m/%d %H:%M")}'
 
+" switch vim-airline
+if &diff == 0
+    let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
+endif
 
+
+" For cron
 " set backupskip=/tmp/*,/private/tmp/*
+
+
+
+

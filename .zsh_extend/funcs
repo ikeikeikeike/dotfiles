@@ -95,7 +95,7 @@ cat << EOF > $HOME/.rbenv_postzshrc 2>&1
 #
 # auto ganerate post zshrc
 #
-rbenv use `cat ~/.rbenv/version`
+rbenv use `cat ~/.rbenv/version` --global
 PS1="(`cat ~/.rbenv/version`@rbenv)\$PS1"
 EOF
 }
@@ -110,7 +110,7 @@ EOF
 }
 
 function rbenv_use() {
-    rbenv use $@
+    rbenv use $@ --global
     sleep 0.1
     rbenv exec ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
     # ganegate rc file
@@ -173,4 +173,30 @@ function rtags() {
     ctags -f ~/rtags -R --langmap=RUBY:.rb --sort=yes `rvm gemdir`
     echo "ctags -f ~/rtags -R --langmap=RUBY:.rb --sort=yes . "
     ctags -a -f ~/rtags -R --langmap=RUBY:.rb --sort=yes .
+}
+
+# Colors
+() {
+
+    function red_color() {
+        local NORMAL=$(tput sgr0)
+        local RED=$(tput setaf 1)
+
+        echo -e "$RED$*$NORMAL"
+    }
+
+    function green_color() {
+        local NORMAL=$(tput sgr0)
+        local GREEN=$(tput setaf 2; tput bold)
+
+        echo -e "$GREEN$*$NORMAL"
+    }
+
+    function yellow_color() {
+        local NORMAL=$(tput sgr0)
+        local YELLOW=$(tput setaf 3)
+
+        echo -e "$YELLOW$*$NORMAL"
+    }
+
 }

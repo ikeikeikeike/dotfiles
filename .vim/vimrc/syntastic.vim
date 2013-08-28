@@ -14,7 +14,13 @@
 " let g:syntastic_enable_highlighting = 0
 " let g:syntastic_python_checker_args='--ignore=E501,E302,E231,E261,E201,W402,W293'
 " let g:syntastic_python_checker_args='--ignore=E501'
+
 let g:syntastic_python_flake8_args='--ignore=E501'
+
+" @see ~/.pylintrc
+let g:syntastic_python_pylint_args='-d C0111 -d C0301 -d C0103 -f parseable -r n -i y'
+
+let g:syntastic_ruby_exec=$RUBY_EXE
 
 " buffergator
 " let g:buffergator_viewport_split_policy="B"
