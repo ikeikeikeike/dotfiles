@@ -77,6 +77,11 @@ if [ $ARCHI = darwin ]; then
   # move $HOME/.zsh_extends/prefuncs
   # [[ -s $HOME/.pythonbrew/etc/bashrc ]] && export PYTHON_HOME=`cat ~/.pythonbrew/etc/current | sed -e 's@PATH_PYTHONBREW_CURRENT="@@g' | sed -e 's@/bin"@@g'`
 
+  export PATH=/Users/ikeda/bin/Sencha/Cmd/3.1.2.342:$PATH
+  export SENCHA_CMD_3_0_0="/Users/ikeda/bin/Sencha/Cmd/3.1.2.342"
+
+  [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
   # make setting
   export MAKEOPTS="-j3"
 

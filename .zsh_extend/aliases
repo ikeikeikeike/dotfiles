@@ -23,7 +23,8 @@ if [ $ARCHI = darwin ]; then
 
   # Trim new lines and copy to clipboard
   # alias c="tr -d '\n' | pbcopy"
-  alias c=tmux-pbcopy
+  # alias c=tmux-pbcopy
+  alias v='vagrant'
 fi
 if [ $ARCHI = freebsd ]; then
   alias ls='ls -FGh'

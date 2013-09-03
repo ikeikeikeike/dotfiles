@@ -224,6 +224,9 @@ NeoBundle "eagletmt/ghcmod-vim"
 " NeoBundle 'VimClojure'
 NeoBundle 'vim-scripts/slimv.vim'
 
+" golang
+NeoBundle 'Blackrush/vim-gocode'
+
 
 " ~~~~~~~~~
 " profiler
