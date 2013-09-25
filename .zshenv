@@ -85,6 +85,9 @@ if [ $ARCHI = darwin ]; then
   # make setting
   export MAKEOPTS="-j3"
 
+  # TODO: bugfux
+  unset DYLD_LIBRARY_PATH
+  unset LD_LIBRARY_PATH
 fi
 if [ $ARCHI = linux ]; then
   # encode

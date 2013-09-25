@@ -6,7 +6,6 @@
 
 #
 pip install virtualenv virtualenvwrapper
-pip install pip-tools
 
 #
 pip install distribute

@@ -80,7 +80,6 @@ p array[2]
 p array[1]
 p array[0]
 h
-
 data
 p data
 p array
@@ -101,3 +100,51 @@ c
 c
 c
 q
+n
+help
+files
+running
+data
+help
+c
+d
+d
+d
+s
+a
+a
+a
+a
+g
+e
+t
+quit
+b 17
+r
+l
+quit
+quit
+l
+quit
+l
+quit
+l
+exit
+quit
+b 17
+b 9
+r
+l
+l
+n
+l
+p msg
+msg
+p msg
+bt
+list
+list 10
+info reg
+info b
+quit
+y

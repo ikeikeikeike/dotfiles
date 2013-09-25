@@ -46,9 +46,6 @@ autocmd BufWritePre * :%s/\t/  /ge " 保存時にtabをスペースに変換す�
 
 " nnoremap <C-i>  :<C-u>help<Space> " Ctrl-iでヘルプ
 
-" set clipboard=unnamed,autoselect " yank=clipboard
-" set clipboard+=unnamed
-
 syntax on "カラー表示
 
 " " タブページを常に表示

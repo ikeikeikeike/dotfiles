@@ -54,7 +54,7 @@ NeoBundle 'sudo.vim'
 NeoBundle 'Gundo'
 
 " csv
-NeoBundle 'chrisbra/csv.vim'
+" NeoBundle 'chrisbra/csv.vim'
 
 " ~~~~~~~~~~~~
 " move
@@ -227,6 +227,11 @@ NeoBundle 'vim-scripts/slimv.vim'
 " golang
 NeoBundle 'Blackrush/vim-gocode'
 
+" Haxe
+NeoBundle 'jdonaldson/vaxe'
+
+" typescript
+NeoBundle 'leafgarland/typescript-vim'
 
 " ~~~~~~~~~
 " profiler
