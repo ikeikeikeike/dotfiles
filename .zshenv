@@ -126,7 +126,7 @@ if [[ -s "$HOME/.rbenv/bin/rbenv" ]]; then
 
     # This loads rbenv
     export RBENV_ROOT=$HOME/.rbenv
-    export PATH="$RBENV_ROOT/bin:$PATH"
+    export PATH="$RBENV_ROOT/shims:$RBENV_ROOT/bin:$PATH"
     eval "$(rbenv init -)"
     export RUBY_EXE=`rbenv which ruby`
 
