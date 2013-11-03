@@ -79,6 +79,8 @@ if [ $ARCHI = darwin ]; then
 
   export PATH=/Users/ikeda/bin/Sencha/Cmd/3.1.2.342:$PATH
   export SENCHA_CMD_3_0_0="/Users/ikeda/bin/Sencha/Cmd/3.1.2.342"
+  # export PATH=/Users/ikeda/git/home/bin/Sencha/Cmd/4.0.0.203:$PATH
+  # export SENCHA_CMD_3_0_0="/Users/ikeda/git/home/bin/Sencha/Cmd/4.0.0.203"
 
   [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 

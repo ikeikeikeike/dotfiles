@@ -104,7 +104,9 @@ if has('autocmd')
 endif
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
+
 " □とか○の文字があってもカーソル位置がずれないようにする
+" MacOSXのターミナルとiTerm2と四角記号全角半角問題
 if exists('&ambiwidth')
   set ambiwidth=double
 endif

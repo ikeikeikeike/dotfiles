@@ -95,7 +95,7 @@ cat << EOF > $HOME/.rbenv_postzshrc 2>&1
 #
 # auto ganerate post zshrc
 #
-rbenv use `cat ~/.rbenv/version` --global
+rbenv_use `cat ~/.rbenv/version`
 PS1="(`cat ~/.rbenv/version`@rbenv)\$PS1"
 EOF
 }
@@ -110,7 +110,7 @@ EOF
 }
 
 function rbenv_use() {
-    rbenv use $@ --global
+    rbenv global $@
     sleep 0.1
     rbenv exec ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
     # ganegate rc file
