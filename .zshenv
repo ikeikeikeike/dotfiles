@@ -98,7 +98,6 @@ if [ $ARCHI = linux ]; then
   export EDITOR="vim"
 fi
 
-
 # emacs view setting
 # if [ "$SHELL" = "/bin/bash" ];then
     # export TERM=xterm-256color
@@ -121,7 +120,6 @@ export PATH=$PATH:$HOME/lib/gsutil
 fpath=(~/.zsh-completions $fpath)
 fpath=(~/.zsh-completions_ext $fpath)
 
-
 ### ruby ###
 
 if [[ -s "$HOME/.rbenv/bin/rbenv" ]]; then
@@ -132,19 +130,21 @@ if [[ -s "$HOME/.rbenv/bin/rbenv" ]]; then
     eval "$(rbenv init -)"
     export RUBY_EXE=`rbenv which ruby`
 
+elif [[ -s "/usr/local/bin/rbenv" ]]; then
+
+    export RBENV_ROOT=/usr/local/opt/rbenv
+
 elif [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
 
     # This loads RVM into a shell session.
-    source "$HOME/.rvm/scripts/rvm"
+    # source $HOME/.rvm/scripts/rvm
 
 elif [[ -s /usr/share/ruby-rvm/scripts/rvm ]]; then
 
     # This loads RVM into a shell session.
-    source /usr/share/ruby-rvm/scripts/rvm
 
 fi
 export RSENSE_HOME=$HOME/lib/rsense-0.3
-
 
 ### perl ###
 
@@ -160,13 +160,11 @@ elif [[ -s $HOME/.plenv/bin/plenv ]]; then
 
 fi
 
-
 ### java ###
 
 alias javac='javac -J-Dfile.encoding=UTF-8'
 alias java='java -Dfile.encoding=UTF-8'
 alias jdb='jdb -J-Dfile.encoding=UTF-8'
-
 
 ### scala ###
 
@@ -176,20 +174,17 @@ export PLAY_HOME=/usr/local/share/play
 export PATH=$PLAY_HOME:$PATH
 # alias sbt='JAVA_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -Xmx512M -Xss2M" sbt'
 
-
 ### nodejs ###
 
 if [[ -f ~/.nvm/nvm.sh ]]; then
   source ~/.nvm/nvm.sh
 fi
 
-
 ### haskell ###
 
 export CABAL_HOME=~/.cabal
 export PATH=$CABAL_HOME/bin:$PATH
 export MANPATH=$CABAL_HOME/share:$MANPATH
-
 
 ### python ###
 
@@ -222,7 +217,6 @@ export PIP_RESPECT_VIRTUALENV=true
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
-
 
 ### extra ###
 
