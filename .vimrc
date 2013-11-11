@@ -262,6 +262,9 @@ NeoBundle 'DirDiff.vim'
 " endif
 " NeoBundle 'sessionman.vim'
 
+" Search
+NeoBundle 'osyo-manga/vim-anzu'
+
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " support input , text-object
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -382,7 +385,7 @@ endfor
 
 " not switch vim-airline
 if &diff == 0
-    let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}] %m%=%{strftime("%Y/%m/%d %H:%M")}'
+    let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}] %{anzu#search_status()} %m%=%{strftime("%Y/%m/%d %H:%M")}'
 endif
 
 
