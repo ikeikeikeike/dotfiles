@@ -169,7 +169,7 @@ NeoBundle 'sql.vim--Fishburn-syntax'
 NeoBundle 'Simple-Javascript-Indenter' " 1.0.1 A simple javascript indent script, support OOP, jquery
 NeoBundle 'nono/jquery.vim' " Syntax file for jQuery in ViM
 NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'teramako/jscomplete-vim'
+" NeoBundle 'teramako/jscomplete-vim'
 
 " Python
 if ! &diff
@@ -262,8 +262,9 @@ NeoBundle 'DirDiff.vim'
 " endif
 " NeoBundle 'sessionman.vim'
 
-" Search
+" Search and replace
 NeoBundle 'osyo-manga/vim-anzu'
+NeoBundle 'osyo-manga/vim-over'
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " support input , text-object
@@ -391,7 +392,3 @@ endif
 
 " For cron
 " set backupskip=/tmp/*,/private/tmp/*
-
-
-
-

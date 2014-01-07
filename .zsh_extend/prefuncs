@@ -1,33 +1,33 @@
 #!/usr/bin/env zsh
 
 # growl
-if [ $ARCHI = darwin ]; then
-  # growlnotify exevute  30 second later
-  local COMMAND=""
-  local COMMAND_TIME=""
-  precmd() {
-    if [ "$COMMAND_TIME" -ne "0" ] ; then
-      local d=`date +%s`
-      d=`expr $d - $COMMAND_TIME`
-      if [ "$d" -ge "30" ] ; then
-         COMMAND="$COMMAND "
-         growlnotify -t "${${(s: :)COMMAND}[1]}" -m "$COMMAND" 2> /dev/null
-      fi
-    fi
-    COMMAND="0"
-    COMMAND_TIME="0"
+# if [ $ARCHI = darwin ]; then
+  # # growlnotify exevute  30 second later
+  # local COMMAND=""
+  # local COMMAND_TIME=""
+  # precmd() {
+    # if [ "$COMMAND_TIME" -ne "0" ] ; then
+      # local d=`date +%s`
+      # d=`expr $d - $COMMAND_TIME`
+      # if [ "$d" -ge "30" ] ; then
+         # COMMAND="$COMMAND "
+         # growlnotify -t "${${(s: :)COMMAND}[1]}" -m "$COMMAND" 2> /dev/null
+      # fi
+    # fi
+    # COMMAND="0"
+    # COMMAND_TIME="0"
 
-    # prompt vcs_info
-    psvar=()
-    LANG=en_US.UTF-8 vcs_info
-    psvar[1]=$vcs_info_msg_0_
-  }
+    # # prompt vcs_info
+    # psvar=()
+    # LANG=en_US.UTF-8 vcs_info
+    # psvar[1]=$vcs_info_msg_0_
+  # }
 
-  preexec () {
-    COMMAND="${1}"
-    COMMAND_TIME=`date +%s`
-  }
-fi
+  # preexec () {
+    # COMMAND="${1}"
+    # COMMAND_TIME=`date +%s`
+  # }
+# fi
 
 # history
 zshaddhistory() {

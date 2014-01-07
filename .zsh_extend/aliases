@@ -20,13 +20,14 @@ if [ $ARCHI = darwin ]; then
   alias winscp="open $HOME/Library/Application\ Support/MikuInstaller/prefix/default/drive_c/Program\ Files/WinSCP/WinSCP.exe"
   [[ -s $HOME/.pythonbrew/etc/bashrc ]] || alias mysql='mysql5'
   alias dircolors='gdircolors'
-  alias eog='open -a Preview'
-  alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
+  # alias eog='open -a Preview'
+  # alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
 
   # Trim new lines and copy to clipboard
   # alias c="tr -d '\n' | pbcopy"
   # alias c=tmux-pbcopy
-  alias v='vagrant'
+  # alias v='vagrant'
+  alias b='rbenv exec bundle'
 fi
 if [ $ARCHI = freebsd ]; then
   alias ls='ls -FGh'

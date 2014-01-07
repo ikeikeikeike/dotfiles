@@ -336,6 +336,8 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .ebuild 00;38;05;193
 .htm 00;38;05;193
 .html 00;38;05;193
+.rdf 00;38;05;193
+.rss 00;38;05;193
 .erb 00;38;05;193
 .odb 00;38;05;193
 .odf 00;38;05;193
