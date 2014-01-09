@@ -283,6 +283,8 @@ NeoBundle 'kana/vim-smartinput' " Vim plugin: Provide smart input assistant
 " NeoBundle 'koron/nyancat-vim'
 " NeoBundle 'mattn/vdbi-vim'
 " NeoBundle "mattn/hahhah-vim"
+" NeoBundle 'itchyny/calendar.vim'
+
 
 " ~~~~~~~
 " api
