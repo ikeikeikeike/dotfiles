@@ -13,5 +13,3 @@ if [[ ( $OSTYPE == darwin* ) && ( -x $(which reattach-to-user-namespace 2>/dev/n
 else
   tmux attach || tmux -u2 new-session
 fi
-
-

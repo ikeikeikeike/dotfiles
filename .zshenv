@@ -26,7 +26,7 @@ fi
 # ahawwwwwwwww
 if [ ! $reattach_to_user_namespace ] && [ $ARCHI = darwin ]; then
   export reattach_to_user_namespace=1
-  echo "reattach-to-user-namespace -l zsh"
+  # echo "reattach-to-user-namespace -l zsh"
   # echo "Note!! Error in Hidden. Error in Hidden."
   # reattach-to-user-namespace -l zsh 2> /dev/null
   # $HOME/bin/reattach-to-user-namespace -l zsh 2> /dev/null
