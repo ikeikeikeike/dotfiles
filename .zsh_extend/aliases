@@ -49,6 +49,7 @@ fi
 alias screen='screen -U'
 alias l='ls'
 alias ll='ls -alt'
+alias lll='ls && ls -alt'
 alias la='ls -lt'
 alias vi='vim'
 alias clvim="setopt rm_star_silent; rm -rf ~/.vim_plugins/vim_session/*; unsetopt rm_star_silent; vim "

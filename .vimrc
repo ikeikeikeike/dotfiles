@@ -77,7 +77,8 @@ if v:version > 700
     " auto complete
     " NeoBundle 'neocomplcache'
     NeoBundle 'Shougo/neocomplcache'
-    NeoBundle 'Shougo/neosnippet'
+    NeoBundle "Shougo/neosnippet"
+    NeoBundle "Shougo/neosnippet-snippets"
     " NeoBundle "Shougo/neocomplcache-clang"
 
 endif

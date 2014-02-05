@@ -13,10 +13,12 @@ if v:version > 700
     let g:neocomplcache_enable_underbar_completion = 1
     " シンタックスをキャッシュするときの最小文字長を3文字 default 4
     let g:neocomplcache_min_syntax_length = 3
+
     " C-j snippet
     " imap <C-j> <Plug>(neocomplcache_snippets_expand)
-    imap <C-j> <Plug>(neosnippet_expand_or_jump)
-    smap <C-j> <Plug>(neosnippet_expand_or_jump)
+    imap <C-j>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-j>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-j>     <Plug>(neosnippet_expand_target)
     imap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
     smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
@@ -35,7 +37,9 @@ if v:version > 700
     " ちなみに、プラグインに組み込まれてるスニペットファイルは下記にある。
     " ~/.vim/autoload/neocomplcache/sources/snippets_complete/
     " User snippets の保存ディレクトリ
-    let g:neocomplcache_snippets_dir = '~/.vim/snippets'
+    " let g:neocomplcache_snippets_dir = '~/.vim/snippets'
+    let g:neosnippet#snippets_directory='~/.vim/snippets'
+
     " key map
     nnoremap <silent> <Space>es    :<C-u>NeoComplCacheEditSnippets
 

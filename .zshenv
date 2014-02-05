@@ -162,6 +162,8 @@ fi
 
 ### java ###
 
+export JAVA_HOME="/Library/Internet\ Plug-ins/JavaAppletPlugin.plugin/Contents/Home"
+export JAVA=$JAVA_HOME/bin
 alias javac='javac -J-Dfile.encoding=UTF-8'
 alias java='java -Dfile.encoding=UTF-8'
 alias jdb='jdb -J-Dfile.encoding=UTF-8'
