@@ -19,9 +19,11 @@ endif
 if v:version > 700
     " anything like buffer management app.
     NeoBundle 'Shougo/unite.vim'
+    NeoBundle 'Shougo/neomru.vim'
     NeoBundle 'tsukkee/unite-tag'
     NeoBundle 'tsukkee/unite-help'
     NeoBundle 'ujihisa/unite-locate'
+
     " NeoBundle 'heavenshell/unite-zf'
     " NeoBundle 'Sixeight/unite-grep'
     " NeoBundle 'ujihisa/unite-colorscheme'
@@ -124,7 +126,7 @@ NeoBundle 'Shougo/vimproc', {
 \ 'build' : {
 \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
 \     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac_old.mak',
+\     'mac' : 'make -f make_mac.mak',
 \     'unix' : 'make -f make_unix.mak',
 \     'linux' : 'make -f make_unix.mak',
 \   },
@@ -233,6 +235,9 @@ NeoBundle 'jdonaldson/vaxe'
 
 " typescript
 NeoBundle 'leafgarland/typescript-vim'
+
+" markdown
+NeoBundle 'plasticboy/vim-markdown'
 
 " ~~~~~~~~~
 " profiler

@@ -87,7 +87,7 @@ if [ $ARCHI = darwin ]; then
   # make setting
   export MAKEOPTS="-j3"
 
-  # TODO: bugfux
+  # TODO: bugfix
   unset DYLD_LIBRARY_PATH
   unset LD_LIBRARY_PATH
 fi
@@ -190,8 +190,9 @@ export MANPATH=$CABAL_HOME/share:$MANPATH
 
 ### python ###
 
-# if pythonbrew
-[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
+# if pythonbrew < not use
+#[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
+
 # path
 export PATH=$PYTHON_HOME/bin:$PATH
 export MANPATH=$PYTHON_HOME/share/man:$MANPATH

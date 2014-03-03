@@ -1,0 +1,5 @@
+#!/bin/bash
+VENV_BASE=/Users/ikeda/git/home/.virtualenvs
+
+cd ${VENV_BASE}/crawler_2ch/botdata/${1}
+${VENV_BASE}/crawler_2ch/bin/python ${VENV_BASE}/crawler_2ch/bin/babbler $2 $3 $4 $5 $6 $7 $8 $9 >> ${VENV_BASE}/crawler_2ch/log/babbler-${1}.log 2>&1
