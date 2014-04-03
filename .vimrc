@@ -9,6 +9,7 @@ set nocompatible
 " ------------------------
 
 filetype off
+filetype plugin indent off
 
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
@@ -34,6 +35,7 @@ endif
 " ~~~~~~~~~~~~
 " yank and clipboard
 NeoBundle 'kana/vim-fakeclip'
+" NeoBundle 'wellle/tmux-complete.vim'
 
 " buffer
 " NeoBundle 'minibufexpl.vim'
@@ -77,8 +79,7 @@ if v:version > 700
     NeoBundle 'm4i/YankRingSync'
 
     " auto complete
-    " NeoBundle 'neocomplcache'
-    NeoBundle 'Shougo/neocomplcache'
+    NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
     NeoBundle "Shougo/neosnippet"
     NeoBundle "Shougo/neosnippet-snippets"
     " NeoBundle "Shougo/neocomplcache-clang"
@@ -181,6 +182,7 @@ if ! &diff
     " has not pyflakes
     NeoBundle 'pyflakes.vim'
 endif
+NeoBundle 'fisadev/vim-isort'
 NeoBundle 'pep8'
 " NeoBundle 'nvie/vim-flake8'
 " NeoBundle 'amitdev/vimpy'
@@ -203,7 +205,7 @@ NeoBundle "davidhalter/jedi-vim", {
 " NeoBundle 'astashov/vim-ruby-debugger'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tpope/vim-rails'
-NeoBundle 'Shougo/neocomplcache-rsense'
+" NeoBundle 'Shougo/neocomplcache-rsense'
 NeoBundle 'rhysd/unite-ruby-require.vim'
 
 " php
@@ -229,6 +231,7 @@ NeoBundle 'vim-scripts/slimv.vim'
 
 " golang
 NeoBundle 'Blackrush/vim-gocode'
+" NeoBundle 'fatih/vim-go.git'
 
 " Haxe
 NeoBundle 'jdonaldson/vaxe'
@@ -400,3 +403,7 @@ endif
 
 " For cron
 " set backupskip=/tmp/*,/private/tmp/*
+
+
+filetype plugin indent on
+syntax on

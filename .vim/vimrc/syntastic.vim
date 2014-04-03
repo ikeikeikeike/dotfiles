@@ -23,5 +23,8 @@ let g:syntastic_python_pylint_args='-d C0111 -d C0301 -d C0103 -d R0904 -d W0232
 " let g:syntastic_ruby_exec=$RUBY_EXE
 let g:syntastic_ruby_exec=system('echo -n `rbenv which ruby`')
 
+" for go lang
+" let g:syntastic_go_checkers = ['go', 'golint']
+
 " buffergator
 " let g:buffergator_viewport_split_policy="B"

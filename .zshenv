@@ -113,6 +113,9 @@ export PAGER='less'
 export LESS='--tabs=4 -q --no-init --LONG-PROMPT --ignore-case -R '
 export LESSOPEN='| src-hilite-lesspipe.sh %s'
 
+# Docker
+export DOCKER_HOST=tcp://localhost:4243
+
 # gsutil
 export PATH=$PATH:$HOME/lib/gsutil
 
