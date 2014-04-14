@@ -182,7 +182,6 @@ if ! &diff
     " has not pyflakes
     NeoBundle 'pyflakes.vim'
 endif
-NeoBundle 'fisadev/vim-isort'
 NeoBundle 'pep8'
 " NeoBundle 'nvie/vim-flake8'
 " NeoBundle 'amitdev/vimpy'
