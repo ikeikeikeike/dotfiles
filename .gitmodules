@@ -1,9 +1,9 @@
 [submodule ".zsh_extend/zsh-syntax-highlighting"]
-	path = .zsh_extend/zsh-syntax-highlighting
-	url = git://github.com/zsh-users/zsh-syntax-highlighting.git
+  path = .zsh_extend/zsh-syntax-highlighting
+  url = git://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule ".zsh_extend/zsh-completions"]
-	path = .zsh_extend/zsh-completions
-	url = git://github.com/zsh-users/zsh-completions.git
+  path = .zsh_extend/zsh-completions
+  url = git://github.com/zsh-users/zsh-completions.git
 [submodule ".zsh_extend/auto-fu.zsh"]
-	path = .zsh_extend/auto-fu.zsh
-	url = git://github.com/hchbaw/auto-fu.zsh.git
+  path = .zsh_extend/auto-fu.zsh
+  url = git://github.com/hchbaw/auto-fu.zsh.git

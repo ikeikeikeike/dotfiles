@@ -319,3 +319,9 @@ source ~/.zsh_extend/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #
 # zsh-syntax-highlightingと競合する
 #
+
+
+### zsh-history-substring-search
+#
+# This is a clean-room implementation of the Fish shell's
+# source ~/.zsh_extend/zsh-history-substring-search/zsh-history-substring-search.zsh
