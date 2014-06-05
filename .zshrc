@@ -323,5 +323,7 @@ source ~/.zsh_extend/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ### zsh-history-substring-search
 #
+# https://github.com/zsh-users/zsh-history-substring-search
 # This is a clean-room implementation of the Fish shell's
+#
 # source ~/.zsh_extend/zsh-history-substring-search/zsh-history-substring-search.zsh

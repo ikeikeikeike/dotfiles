@@ -59,6 +59,7 @@ NeoBundle 'Gundo'
 
 " csv
 " NeoBundle 'chrisbra/csv.vim'
+NeoBundle 'rbtnn/rabbit-ui.vim'
 
 " ~~~~~~~~~~~~
 " move

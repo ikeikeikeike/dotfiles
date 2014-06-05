@@ -7,3 +7,6 @@
 [submodule ".zsh_extend/auto-fu.zsh"]
   path = .zsh_extend/auto-fu.zsh
   url = git://github.com/hchbaw/auto-fu.zsh.git
+[submodule ".zsh_extend/zsh-history-substring-search"]
+  path = .zsh_extend/zsh-history-substring-search
+  url = git@github.com:zsh-users/zsh-history-substring-search.git

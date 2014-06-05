@@ -64,6 +64,9 @@ alias which='which'
 alias cl='clear'
 alias pb='tmux-pbcopy'
 alias ec="extract"
+alias vimbundle-clean="vim +NeoBundleClean +qall"
+alias vimbundle-update="vim +NeoBundleUpdate +qall"
+alias vimbundle-install="vim +NeoBundleInstall +qall"
 
 # ROT13-encode text. Works for decoding, too! ;)
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
@@ -72,6 +75,9 @@ alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)' | sed -e 's/inet6* //'"
+
+# ssh
+alias sshtor='\ssh -o "ProxyCommand nc -X 5 -x 127.0.0.1:9050 %h %p" '
 
 # Enhanced WHOIS lookups
 alias whois="whois -h whois-servers.net"
