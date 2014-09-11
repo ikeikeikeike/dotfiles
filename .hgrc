@@ -1,5 +1,5 @@
 [ui]
-username=Tatsuo Ikeda <jp.ne.co.jp@gmail.com>
+username=Tatsuo Ikeda <tatsuo.ikeda@beproud.jp>
 ssh=ssh -C
 editor=vim '+set filetype=hg-commit'
 ignore=~/.hgignore_global
@@ -18,11 +18,12 @@ color=
 graphlog=
 rebase=
 hgext.extdiff=
-info=~/bin/info.py
-flow=~/bin/hgflow.py
+# info=~/bin/info.py
+# flow=~/bin/hgflow.py
 eol=
 fetch=
-hgshelve=~/bin/hgshelve/hgshelve.py
+shelve=
+# hgshelve=~/bin/hgshelve/hgshelve.py
 transplant=
 mq=
 record=

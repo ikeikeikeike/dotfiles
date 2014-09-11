@@ -10,7 +10,9 @@ end
 
 
 ## Alias
-Pry.config.commands.alias_command "lM", "ls -M"
+Pry.config.commands.alias_command "ll", "ls"
+# like the ipython keybind.
+Pry.config.commands.alias_command "??", "show-source"
 # Ever get lost in pryland? try w!
 Pry.config.commands.alias_command 'w', 'whereami'
 # Clear Screen

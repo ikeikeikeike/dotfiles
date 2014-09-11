@@ -123,6 +123,15 @@ export PATH=$PATH:$HOME/lib/gsutil
 fpath=(~/.zsh-completions $fpath)
 fpath=(~/.zsh-completions_ext $fpath)
 
+### PHP ###
+
+if [[ -s "$HOME/.phpenv/bin/phpenv" ]]; then
+    export PATH="$HOME/.phpenv/bin:$PATH"
+    # eval "$(rbenv init - zsh)"
+    # exec $SHELL -l
+fi
+
+
 ### ruby ###
 
 if [[ -s "$HOME/.rbenv/bin/rbenv" ]]; then
@@ -190,6 +199,7 @@ fi
 export CABAL_HOME=~/.cabal
 export PATH=$CABAL_HOME/bin:$PATH
 export MANPATH=$CABAL_HOME/share:$MANPATH
+
 
 ### python ###
 

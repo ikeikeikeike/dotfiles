@@ -1,13 +1,11 @@
 " -*- coding: utf-8 -*-
-" viとの互換性をとらない(vimの独自拡張機能を使う為)
-set nocompatible
 
 " ------------------------
 "
 "   vundle -> neobundle
 "
 " ------------------------
-
+set nocompatible
 filetype off
 filetype plugin indent off
 
@@ -200,7 +198,6 @@ NeoBundle "davidhalter/jedi-vim", {
 \   },
 \ }
 
-
 " ruby
 " NeoBundle 'astashov/vim-ruby-debugger'
 NeoBundle 'vim-ruby/vim-ruby'
@@ -217,7 +214,7 @@ NeoBundle "othree/coffee-check.vim"
 " NeoBundle "shadow.vim"
 
 " html5
-NeoBundle 'html5.vim'
+NeoBundle 'othree/html5.vim'
 NeoBundle 'HTML5-Syntax-File'
 
 " Haskell
@@ -285,6 +282,7 @@ NeoBundle 'tpope/vim-repeat'
 NeoBundle 'ZenCoding.vim'
 NeoBundle 'tpope/vim-endwise.git'
 NeoBundle 'kana/vim-smartinput' " Vim plugin: Provide smart input assistant
+" NeoBundle 'terryma/vim-multiple-cursors'
 
 " ~~~~~~~
 " funny
