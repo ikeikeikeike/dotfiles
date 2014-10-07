@@ -15,9 +15,9 @@
 " let g:pep8_map='<leader>8'
 
 " complete with document
-au FileType python set omnifunc=pythoncomplete#Complete
-let g:SuperTabDefaultCompletionType = "context"
-set completeopt=menuone,longest,preview
+" au FileType python set omnifunc=pythoncomplete#Complete
+" let g:SuperTabDefaultCompletionType = "context"
+" set completeopt=menuone,longest,preview
 
 " TaskList
 " nmap <Leader>T :TaskList<CR>
@@ -57,4 +57,4 @@ EOF
 endif
 
 " vim-virtualenv
-let g:virtualenv_auto_activate = 1
+" let g:virtualenv_auto_activate = 1

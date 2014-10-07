@@ -10,7 +10,7 @@ set sessionoptions+=resize
 " 横幅 
 " set columns=160 
 " コマンドラインの高さ
-set cmdheight=1
+set cmdheight=2
 " プレビューウィンドウの高さ
 set previewheight=5
 " 横分割したら新しいウィンドウは下に  

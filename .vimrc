@@ -181,13 +181,14 @@ if ! &diff
     " has not pyflakes
     NeoBundle 'pyflakes.vim'
 endif
-NeoBundle 'pep8'
 " NeoBundle 'nvie/vim-flake8'
 " NeoBundle 'amitdev/vimpy'
-NeoBundle 'vim-scripts/django.vim'
 " NeoBundle 'jmcantrell/vim-virtualenv'
 " NeoBundle 'project.tar.gz'
 " NeoBundle 'vim-ipython'
+NeoBundle 'pep8'
+NeoBundle 'vim-scripts/django.vim'
+
 NeoBundle "davidhalter/jedi-vim", {
 \ 'build' : {
 \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
@@ -203,7 +204,7 @@ NeoBundle "davidhalter/jedi-vim", {
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tpope/vim-rails'
 " NeoBundle 'Shougo/neocomplcache-rsense'
-NeoBundle 'rhysd/unite-ruby-require.vim'
+" NeoBundle 'rhysd/unite-ruby-require.vim'
 
 " php
 " NeoBundle 'justinrainbow/php-xdebug.vim'
