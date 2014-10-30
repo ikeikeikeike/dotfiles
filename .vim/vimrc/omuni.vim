@@ -62,9 +62,6 @@ if has("autocmd")
     autocmd FileType vim :set dictionary+=~/.vim/dict/vim.dict
     autocmd FileType php :set dictionary+=~/.vim/dict/php.dict
 
-    " pydiction.vim
-    " autocmd FileType python let g:pydiction_location = '~/.vim/dict/pydiction/complete-dict'
-
     " 辞書ファイルを使用する設定に変更
     set complete+=k
 
