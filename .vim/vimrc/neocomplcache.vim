@@ -30,7 +30,6 @@ if v:version > 700
                     \ 'perl' : $HOME.'/.vim/dict/perl.dict',
                     \ 'php' : $HOME.'/.vim/dict/php.dict',
                     \ 'ruby' : $HOME.'/.vim/dict/ruby.dict',
-                    \ 'python' : $HOME.'/.vim/dict/python.dict',
                     \ 'vim' : $HOME.'/.vim/dict/vim.dict',
                     \ 'css' : $HOME.'/.vim/dict/css.dict'
                     \ }
@@ -43,7 +42,6 @@ if v:version > 700
         if !exists('g:neocomplete#delimiter_patterns')
           let g:neocomplete#delimiter_patterns = {}
         endif
-        " let g:neocomplete_delimiter_patterns['python'] = ['.']
         let g:neocomplete#delimiter_patterns['ruby'] = ['.']
         let g:neocomplete#delimiter_patterns['php'] = ['->', '::', '\']
 
@@ -113,7 +111,6 @@ if v:version > 700
                     \ 'perl' : $HOME.'/.vim/dict/perl.dict',
                     \ 'php' : $HOME.'/.vim/dict/php.dict',
                     \ 'ruby' : $HOME.'/.vim/dict/ruby.dict',
-                    \ 'python' : $HOME.'/.vim/dict/python.dict',
                     \ 'vim' : $HOME.'/.vim/dict/vim.dict',
                     \ 'css' : $HOME.'/.vim/dict/css.dict'
                     \ }
@@ -122,7 +119,6 @@ if v:version > 700
         if !exists('g:neocomplcache_delimiter_patterns')
           let g:neocomplcache_delimiter_patterns = {}
         endif
-        " let g:neocomplcache_delimiter_patterns['python'] = ['.']
         " let g:neocomplcache_delimiter_patterns['ruby'] = ['.']
         let g:neocomplcache_delimiter_patterns['php'] = ['->', '::', '\']
 
@@ -176,6 +172,9 @@ if v:version > 700
     autocmd FileType php set omnifunc=phpcomplete#CompletePHP
     autocmd FileType c set omnifunc=ccomplete#Complete
     autocmd FileType ruby set omnifunc=rubycomplete#Complete
-    autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+    "
+    " Disable to python
+    autocmd FileType python silent! :NeoCompleteDisable
 
 endif
