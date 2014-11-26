@@ -82,8 +82,6 @@ if [ $ARCHI = darwin ]; then
   # export PATH=/Users/ikeda/git/home/bin/Sencha/Cmd/4.0.0.203:$PATH
   # export SENCHA_CMD_3_0_0="/Users/ikeda/git/home/bin/Sencha/Cmd/4.0.0.203"
 
-  [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-
   # make setting
   export MAKEOPTS="-j3"
 
@@ -199,6 +197,10 @@ fi
 export CABAL_HOME=~/.cabal
 export PATH=$CABAL_HOME/bin:$PATH
 export MANPATH=$CABAL_HOME/share:$MANPATH
+
+
+### golang ###
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 
 ### python ###

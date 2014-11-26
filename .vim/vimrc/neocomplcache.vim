@@ -174,7 +174,8 @@ if v:version > 700
     autocmd FileType ruby set omnifunc=rubycomplete#Complete
 
     "
-    " Disable to python
+    " Disable to python,go
     autocmd FileType python silent! :NeoCompleteDisable
+    autocmd FileType go silent! :NeoCompleteDisable
 
 endif

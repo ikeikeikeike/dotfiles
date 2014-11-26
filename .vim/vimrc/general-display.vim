@@ -40,9 +40,10 @@ set laststatus=2 " ステータスラインを常に表示
 
 set scrolloff=5  " スクロール時に余分に表示する行数，画面の行数より大きくするとカーソルが常に画面中央にくるようになる
 
-autocmd BufWritePre * :%s/\s\+$//ge " 保存時に行末の空白を除去する
-
-autocmd BufWritePre * :%s/\t/  /ge " 保存時にtabをスペースに変換する
+autocmd FileType python,ruby,javascript,coffee,cofeescript,php autocmd BufWritePre * :%s/\s\+$//ge " 保存時に行末の空白を除去する
+autocmd FileType python,ruby,javascript,coffee,cofeescript,php autocmd BufWritePre * :%s/\t/  /ge " 保存時にtabをスペースに変換する
+" autocmd BufWritePre * :%s/\s\+$//ge " 保存時に行末の空白を除去する
+" autocmd BufWritePre * :%s/\t/  /ge " 保存時にtabをスペースに変換する
 
 " nnoremap <C-i>  :<C-u>help<Space> " Ctrl-iでヘルプ
 

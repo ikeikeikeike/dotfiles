@@ -228,8 +228,9 @@ NeoBundle "eagletmt/ghcmod-vim"
 NeoBundle 'vim-scripts/slimv.vim'
 
 " golang
-NeoBundle 'Blackrush/vim-gocode'
-" NeoBundle 'fatih/vim-go.git'
+NeoBundle 'fatih/vim-go.git'
+NeoBundle 'dgryski/vim-godef'
+NeoBundle 'vim-jp/vim-go-extra'
 
 " Haxe
 NeoBundle 'jdonaldson/vaxe'
