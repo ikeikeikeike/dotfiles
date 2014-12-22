@@ -148,3 +148,358 @@ info reg
 info b
 quit
 y
+help
+b 14
+r
+b 20
+c
+run
+n
+p f
+$cap f
+$cap(f)
+$len(f)
+p $len(f)
+p $cap(f)
+n
+pretty
+p pretty
+p pretty(f.Channels))
+pretty(f.Channels))
+p f.Channels)
+p f.Channels
+p &f.Channels
+p $cap(&f.Channels)
+p $cap(f.Channels)
+p pretty(f.Channels)
+print pretty(f.Channels)
+print(pretty(f.Channels))
+print(pretty))
+print(pretty)
+print(pretty())
+pretty(f)
+info pretty
+info pretty
+info f
+info f.Channels
+p f.Channels
+p &f.Channels
+info &f.Channels
+info f.Channels
+info locals 
+info ch
+info variables 
+info sources
+whatis variable
+whatis f
+whatis f.Channels
+whatis iface
+iface f.Channels
+info f.Channels
+p f.Channels
+p f.Channels[0]
+p f.Channels[1]
+p f.Channels@1
+p &f.Channels@1
+p &f.Channels
+p &f.Channels->array[0]
+p f.Channels->array[0]
+p $len(f.Channels)
+iface f.Channels
+iface f
+p f
+p &f
+p *f
+p f
+p f->Channels
+p f->Channels
+p *f->Channels
+p &f->Channels
+p f.Channels 
+p f.Channels.array 
+p f.Channels.array[0] 
+p &f.Channels.array[0] 
+p &&f.Channels.array[0] 
+p *f.Channels.array[0] 
+p f.Channels.array[0] 
+p f.Channels->array[0] 
+p f.Channels.array[0] 
+p f.Channels.array
+p f.Channels
+p &f.Channels
+p &f.Channels->array
+p &f.Channels.array
+p &f.Channels.array[0]
+p &f.Channels.array[1]
+p &f.Channels.array
+p &f.Channels.len
+p &f.Channels.cap
+p $len(&f.Channels)
+p &$len(&f.Channels)
+p &$cap(&f.Channels)
+p &$cap(&f.Channels).main
+p &f.Channels
+p var0
+print var0
+show print pretty
+set print pretty on
+p f
+p f.Channels 
+p &f.Channels 
+p &f.Channels.array 
+p &f.Channels.array[0] 
+show print union 
+show print array-indexes 
+show print array
+set print array on
+p &f.Channels.array[0] 
+p &f.Channels.array
+p &f.Channels
+show print array-indexes 
+set print array-indexes on
+set print array on
+p &f.Channels
+print &f.Channels.array
+print &f.Channels
+print e(f)
+b 14 
+r
+p "github.com/k0kubun/pp"
+p "github.com/k0kubun/pp"
+p "github.com/k0kubun/pp"
+p "github.com/k0kubun/pp"
+p "github.com/k0kubun/pp"
+p "github.com/k0kubun/pp".Print
+p "github.com/k0kubun/pp".Print(pretty)
+b 20
+c
+b 25
+c
+r
+"github.com/k0kubun/pp".Print(f)
+p "github.com/k0kubun/pp".Print(f)
+set unwindonsignal
+p "github.com/k0kubun/pp".Print(f)
+"github.com/k0kubun/pp".Print(f)
+ p f
+n
+c
+quit
+set print address on
+n
+n
+show print address 
+p f
+p f.Channels 
+p &f.Channels 
+f
+set print array
+f
+f.Channels 
+p f.Channels 
+p &f.Channels 
+set print pretty on
+f
+f.Channels 
+p f.Channels 
+p &f.Channels 
+p &f.Channels.array 
+&f.Channels.array 
+f.Channels.array 
+p &f.Channels.array 
+p &f.Channels.array[0] 
+p &f.Channels.array@0
+p &f.Channels.array@1
+p &f.Channels.array[0] 
+set prettyprint on
+set pretty print on
+set print pretty on
+set array-max 100
+set array max 100
+set print elements 0
+p &f.Channels.array[0] 
+p &f.Channels.array
+f.Channels.array
+f.
+f
+p &f.Channels
+p f.Channels
+set print address
+set print address on
+f
+set print addr off
+f
+set print object
+set print object on
+f
+set print addr on
+set print pretty on
+f
+p f
+p f.Channels 
+p &f.Channels 
+pretty
+p &f.Channels  
+p pretty
+$ps
+p pretty 
+p $ps
+p 
+p $fp
+p $sp
+show print pretty
+call pretty
+call pretty(f)
+call pretty f.Channels 
+call pp.Println
+call 
+call pretty
+call pretty()
+call pretty(1)
+call pretty, 1
+call pretty 1
+call pretty, 2
+call pretty, 3
+call pretty, f.Channels 
+call pretty, f.Channels 
+call pretty f.Channels 
+where 
+bt
+p ptr
+p f.Channels 
+p f.Channels[0]
+p &f.Channels[0]
+p *f.Channels[0]
+call println(1)
+call pretty 
+call pretty(1)
+call pretty("")
+cal
+cal
+cal
+cal rint
+cal rint
+call print
+call int
+call rint
+call print printf("hello world")
+print printf("hello world")
+print printf("hello world")
+print printf("hello world")
+ p pow(3,2)
+ p pow(3,2)
+ p pow(3,2)
+ p pow(3,2)
+ p pow(3,3)
+ p ((double(*)())pow)(2.,2.)
+ p ((double(*)())pow)(2,2)
+ p ((double(*)())pow)(2.,2.)
+ print ((double(*)())pow)(2.,2.)
+ print ((func a(*)())pow)(2.,2.)
+call pow(3,2)
+help call
+si
+c
+quit
+quit
+call sprintf($a, "Hello %d", 12345*12345*12345)
+call sprintf($a, "Hello %d", 12345*12345*12345)()
+ptype f
+ptype f.Channels 
+ptype f.Channels.array 
+ptype f.Channels.array.Author 
+ptype &f.Channels.array.Author 
+ptype &f.Channels.array[0].Author 
+ptype &f.Channels.array.Author 
+p &f.Channels.array.Author 
+p f.Channels.array.Author 
+range
+call range
+call f
+call f.Channels 
+call &f.Channels 
+call pretty
+call(pretty)
+call(pretty())
+quit
+y
+:q
+quit
+quit
+quit
+quit
+quit
+show configuration
+quit
+show warranty
+quit
+define print_matrix
+quit
+end
+define print_matrix
+y
+end
+quit
+run
+quit
+l
+l
+l main
+l main.main
+b 12
+c
+run
+quit
+y
+:q
+l main.main
+b 12
+r
+r
+n
+c
+c
+c
+c
+p f
+p err
+p urls
+p f.Channels
+quit
+y
+quit
+:q
+quit
+quit
+quit
+p pretty
+n
+p urls
+p urls[0]
+p urls.array 
+p urls.array[0] 
+p urls.array[1] 
+p urls.array[12 
+p urls.array[1] 
+p urls.array[2] 
+p urls.array[3] 
+p urls.array[4] 
+p urls.array[5] 
+p urls.array[6] 
+p urls.array[7] 
+p urls.array[9] 
+p urls.array[10] 
+p urls.array
+p &urls.array
+p urls
+show pretty print on
+set print pretty on
+urls
+p urls
+set print elements 0
+urls
+ p urls
+quit
+y
+quit
+quit

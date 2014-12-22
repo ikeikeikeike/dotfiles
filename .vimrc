@@ -375,8 +375,8 @@ NeoBundle 'mattn/webapi-vim'
 "
 
 " ----------------
-for f in split(glob('~/.vim/vimrc/*.vim'), '\n')
-  exe 'source' f
+for s:f in split(glob('~/.vim/vimrc/*.vim'), '\n')
+  exe 'source' s:f
 endfor
 
 

@@ -77,11 +77,6 @@ if [ $ARCHI = darwin ]; then
   # move $HOME/.zsh_extends/prefuncs
   # [[ -s $HOME/.pythonbrew/etc/bashrc ]] && export PYTHON_HOME=`cat ~/.pythonbrew/etc/current | sed -e 's@PATH_PYTHONBREW_CURRENT="@@g' | sed -e 's@/bin"@@g'`
 
-  export PATH=/Users/ikeda/bin/Sencha/Cmd/3.1.2.342:$PATH
-  export SENCHA_CMD_3_0_0="/Users/ikeda/bin/Sencha/Cmd/3.1.2.342"
-  # export PATH=/Users/ikeda/git/home/bin/Sencha/Cmd/4.0.0.203:$PATH
-  # export SENCHA_CMD_3_0_0="/Users/ikeda/git/home/bin/Sencha/Cmd/4.0.0.203"
-
   # make setting
   export MAKEOPTS="-j3"
 
@@ -246,3 +241,7 @@ fi
 
 # mysettings
 source $HOME/.adds_zshenv 2> /dev/null
+
+export ODBCINI=/etc/odbc.ini
+export ODBCSYSINI=/etc
+export FREETDSCONF=/etc/freetds.conf

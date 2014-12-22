@@ -20,6 +20,7 @@ if [ $ARCHI = darwin ]; then
   alias winscp="open $HOME/Library/Application\ Support/MikuInstaller/prefix/default/drive_c/Program\ Files/WinSCP/WinSCP.exe"
   [[ -s $HOME/.pythonbrew/etc/bashrc ]] || alias mysql='mysql5'
   alias dircolors='gdircolors'
+  alias gdb='ggdb'
   # alias eog='open -a Preview'
   # alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
 
@@ -50,6 +51,9 @@ alias screen='screen -U'
 alias l='ls'
 alias ll='ls -alt'
 alias lll='ls && ls -alt'
+alias llll='tree -ahsgupDF  -L 2 && lll'
+alias lllll='tree -ahsgupDF  -L 3 && lll'
+alias llllll='tree -ahsgupDF  -L 4 && lll'
 alias la='ls -lt'
 alias vi='vim'
 alias clvim="setopt rm_star_silent; rm -rf ~/.vim_plugins/vim_session/*; unsetopt rm_star_silent; vim "
