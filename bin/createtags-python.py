@@ -62,21 +62,24 @@ __version__ = '0.3'
 
 import os
 import sys
-import commands
 import argparse
+import subprocess
 from distutils.sysconfig import get_python_lib
+
 
 def rmtag(path):
     try:
         os.remove(path)
-    except OSError, e:
-        print e
+    except OSError as e:
+        print(e)
+
 
 def symlink(src, dst):
     try:
         os.symlink(src, dst)
-    except OSError, e:
-        print e
+    except OSError as e:
+        print(e)
+
 
 def getvepath():
     if isinstance(sys.version_info, tuple):
@@ -85,18 +88,21 @@ def getvepath():
         version = "%s.%s" % (sys.version_info.major, sys.version_info.minor)
     return "%s/lib/python%s/site-packages" % (os.environ["VIRTUAL_ENV"], version)
 
+
 def aftercmd(exclude):
     runcmd("ctags -R -a %s ~/.virtualenvs/__builtin__27/builtins/__builtin__.py" % exclude)
     runcmd("ctags -R -a %s ~/.virtualenvs/__builtin__27/builtins/__builtin_exceptions__.py" % exclude)
     runcmd("ctags -R -a %s ~/.virtualenvs/__builtin__27/builtins/__future__.py" % exclude)
     # runcmd("ctags -R -a %s %s" % (exclude_option, os.path.join(get_python_lib(), "../")))
 
+
 def runcmd(cmd, warning=True):
     print("run::\n   %s" % cmd)
-    output = commands.getoutput(cmd)
-    print output
+    output = subprocess.getoutput(cmd)
+    print(output)
     if output and warning is False:
         raise IOError(output)
+
 
 def main(args):
     rmtag('./tags')
@@ -105,15 +111,15 @@ def main(args):
     exclude_option = "--languages=python --python-kinds=-i-v "
     if not args.allow_testcode:
             exclude_option += (
-                    "--exclude=test_* "
-                    "--exclude=tests.py "
-                    "--exclude=test.py "
-                    "--exclude=*/IPython/* "
-                    "--exclude=*/unittest/* "
-                    "--exclude=*/testing/* "
-                    "--exclude=*/testsuite/* "
-                    "--exclude=*/test/* "
-                    "--exclude=*/tests/*")
+                "--exclude=test_* "
+                "--exclude=tests.py "
+                "--exclude=test.py "
+                "--exclude=*/IPython/* "
+                "--exclude=*/unittest/* "
+                "--exclude=*/testing/* "
+                "--exclude=*/testsuite/* "
+                "--exclude=*/test/* "
+                "--exclude=*/tests/*")
     runcmd("ctags -R    %s %s" % (exclude_option, args.path))
     aftercmd(exclude_option)
 
@@ -159,4 +165,3 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     main(args)
-
