@@ -11,7 +11,7 @@ pip install virtualenv virtualenvwrapper
 pip install distribute
 
 # interactive shell
-pip install ipython
+pip install ipython ptpython
 # pip install bpython
 
 # debug
