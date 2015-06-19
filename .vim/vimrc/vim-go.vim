@@ -1,14 +1,7 @@
 "
 " golang
 "
-
-if $GOROOT != ''
-  set rtp+=$GOROOT/misc/vim
-endif
-
-let g:go_bin_path = expand("~/.go/bin")
-
-exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+let g:go_bin_path = expand($GOPATH + "bin")
 
 set completeopt=menu,preview
 
@@ -18,7 +11,7 @@ au FileType go setlocal makeprg=go\ build\ ./... errorformat=%f:%l:\ %m
 """ vim-go
 " let g:go_play_open_browser = 0
 " let g:go_fmt_fail_silently = 1
-let g:go_fmt_autosave = 1  " auto BufWritePre *.go Fmt
+let g:go_fmt_autosave = 0  " auto BufWritePre *.go Fmt
 let g:go_fmt_command = "goimports"
 " let g:go_disable_autoinstall = 1
 

@@ -1,3 +1,4 @@
 #!/bin/bash
-tweaked_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l zsh"'))
+# tweaked_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l zsh"'))
+tweaked_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "tmux rename-window zsh ; reattach-to-user-namespace -l zsh"'))
 tmux -u2 -f <(echo "$tweaked_config") new-session

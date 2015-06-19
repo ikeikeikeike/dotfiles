@@ -166,6 +166,9 @@ setopt auto_param_keys
 ## ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
 setopt auto_param_slash
 
+## zsh auto title concrift with nginx
+DISABLE_AUTO_TITLE=true
+
 ## スペルチェック
 setopt correct
 
@@ -327,3 +330,5 @@ source ~/.zsh_extend/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # This is a clean-room implementation of the Fish shell's
 #
 # source ~/.zsh_extend/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+export PATH="/usr/local/p/versions/python:$PATH"

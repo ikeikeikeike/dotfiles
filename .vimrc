@@ -74,14 +74,14 @@ endif
 " ~~~~~~~~~~~~
 if v:version > 700
     " yankring
-    NeoBundle 'YankRing.vim'
-    NeoBundle 'm4i/YankRingSync'
+    "NeoBundle 'YankRing.vim'
+    "NeoBundle 'm4i/YankRingSync'
+    NeoBundle 'LeafCage/yankround.vim'
 
     " auto complete
-    NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
+    " NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
     NeoBundle "Shougo/neosnippet"
     NeoBundle "Shougo/neosnippet-snippets"
-    " NeoBundle "Shougo/neocomplcache-clang"
 
 endif
 
@@ -107,13 +107,13 @@ endif
 " NeoBundle 'Changed'
 
 " tree view
-NeoBundle "scrooloose/nerdtree"
+NeoBundle 'scrooloose/nerdtree'
 
 " comment
-NeoBundle "scrooloose/nerdcommenter"
+NeoBundle 'scrooloose/nerdcommenter'
 
 " which-func-mode
-NeoBundle "tyru/current-func-info.vim"
+NeoBundle 'tyru/current-func-info.vim'
 
 " indent
 NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -203,7 +203,6 @@ NeoBundle "davidhalter/jedi-vim", {
 " NeoBundle 'astashov/vim-ruby-debugger'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tpope/vim-rails'
-" NeoBundle 'Shougo/neocomplcache-rsense'
 " NeoBundle 'rhysd/unite-ruby-require.vim'
 
 " php
@@ -291,7 +290,7 @@ NeoBundle 'kana/vim-smartinput' " Vim plugin: Provide smart input assistant
 " ~~~~~~~
 " NeoBundle 'koron/nyancat-vim'
 " NeoBundle 'mattn/vdbi-vim'
-" NeoBundle "mattn/hahhah-vim"
+" NeoBundle 'mattn/hahhah-vim'
 " NeoBundle 'itchyny/calendar.vim'
 
 
@@ -367,10 +366,8 @@ NeoBundle 'mattn/webapi-vim'
 "   - yankringsync
 "   - vim-smartchr
 "   - nerdcommenter
-"   - neocomplecache
 "   - vim-indent-guides
 "   - rainbow_parentheses
-"   - neocomplcache-rsense
 "
 "
 
@@ -378,7 +375,6 @@ NeoBundle 'mattn/webapi-vim'
 for s:f in split(glob('~/.vim/vimrc/*.vim'), '\n')
   exe 'source' s:f
 endfor
-
 
 
 " --------------------------------

@@ -9,7 +9,7 @@
 if v:version > 700
 
     let g:unite_enable_start_insert = 1
-    let g:unite_update_time = 1000
+    let g:unite_update_time = 2000
     " shrtcut
     " call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
     " call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
@@ -54,7 +54,7 @@ if v:version > 700
 
     """ Valiables
     " 最近開いたファイル履歴の保存数
-    let g:unite_source_file_mru_limit = 500
+    let g:unite_source_file_mru_limit = 2000
     " Ignore file
     " let g:unite_source_file_rec_ignore_pattern = '\.pyc$'
     " call unite#custom_source('file_rec', 'ignore_pattern', '\.pyc$')

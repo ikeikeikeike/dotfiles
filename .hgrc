@@ -3,7 +3,8 @@ username=Tatsuo Ikeda <tatsuo.ikeda@beproud.jp>
 ssh=ssh -C
 editor=vim '+set filetype=hg-commit'
 ignore=~/.hgignore_global
-merge = vimdiff
+# merge = vimdiff
+merge = internal:merge
 # merge=internal:merge
 
 # auth

@@ -62,8 +62,12 @@ __version__ = '0.3'
 
 import os
 import sys
-import commands
-import subprocess
+try:
+    import commands
+    getoutput = commands.getoutput
+except ImportError:
+    import subprocess
+    getoutput = subprocess.getoutput
 import argparse
 from distutils.sysconfig import get_python_lib
 
@@ -94,10 +98,8 @@ def aftercmd(exclude):
 
 def runcmd(cmd, warning=True):
     print("run::\n   %s" % cmd)
-    try:
-        output = subprocess.getoutput(cmd)
-    except Exception:
-        output = commands.getoutput(cmd)
+    output = getoutput(cmd)
+
     print(output)
     if output and warning is False:
         raise IOError(output)

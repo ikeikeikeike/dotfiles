@@ -23,7 +23,7 @@
   trustExitCode = false
   keepBackup = false
 [diff]
-  external = git_diff_wrapper
+  ; external = git_diff_wrapper
 ;  external = p4diff
 [pager]
   diff =
