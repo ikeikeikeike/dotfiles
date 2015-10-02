@@ -11,7 +11,7 @@ filetype plugin indent off
 
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
-  call neobundle#rc(expand('~/.vim/bundle/'))
+  call neobundle#begin(expand('~/.vim/bundle/'))
 endif
 
 " unites
@@ -306,6 +306,8 @@ NeoBundle 'mattn/webapi-vim'
 " NeoBundle 'bling/vim-airline'
 " NeoBundle 'itchyny/lightline.vim'
 
+
+call neobundle#end()
 
 
 " ----------------

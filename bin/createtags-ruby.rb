@@ -60,11 +60,6 @@ def rmtag(path)
   end
 end
 
-def currentve
-  res = `rvm current`
-  STDOUT.write "\nCurrent RVM ::\n #{res}\n"
-end
-
 def getvepath
   res = `rvm gemdir`
   File.join(res.chomp, "gems")
@@ -76,9 +71,6 @@ def runcmd(cmd)
 end
 
 def main(args)
-
-  # current rvm
-  currentve
 
   # options
   exclude_option = "--languages=ruby " #--ruby-kinds=-i-v "

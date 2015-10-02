@@ -10,6 +10,11 @@ SAVEHIST=1000000
 # 5秒以上かかった処理は詳細表示
 REPORTTIME=5
 
+export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
+if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
+    . /opt/local/etc/profile.d/autojump.zsh
+fi
+
 # auto complete compile
 autoload -U compinit
 compinit
