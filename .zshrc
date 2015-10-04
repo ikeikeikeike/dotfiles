@@ -16,8 +16,7 @@ if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
 fi
 
 # auto complete compile
-autoload -U compinit
-compinit
+autoload -U compinit; compinit
 
 # extra auto complete
 #fpath=($fpath $HOME/.zsh_extend/autocomplete)

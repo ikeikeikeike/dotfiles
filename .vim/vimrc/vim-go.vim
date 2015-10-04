@@ -15,9 +15,14 @@ let g:go_fmt_autosave = 0  " auto BufWritePre *.go Fmt
 let g:go_fmt_command = "goimports"
 " let g:go_disable_autoinstall = 1
 
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
 au FileType go nmap <C-@> <Plug>(go-run)
 au FileType go nmap <C-i> <Plug>(go-doc-browser)
-au FileType go nmap <C-h> <Plug>(go-doc-browser)
 au FileType go nmap <leader>gb <Plug>(go-build)
 
 " au FileType go nmap <Leader>s <Plug>(go-implements)
