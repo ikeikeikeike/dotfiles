@@ -54,7 +54,7 @@ pip install flake8
 #  ******************************************************************************
 
 # ipython readline
-easy_install readline
+pip install readline
 
 echo <<_EOF_
 
