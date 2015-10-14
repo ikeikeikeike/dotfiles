@@ -21,7 +21,7 @@
 
 " TaskList
 " nmap <Leader>T :TaskList<CR>
-nnoremap <F6> :TaskList<CR>
+" nnoremap <F6> :TaskList<CR>
 
 " tag list plugins
 if v:version > 700
@@ -55,6 +55,9 @@ if 'VIRTUAL_ENV' in os.environ:
 EOF
 
 endif
+
+" au FileType python map <leader><C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+" au FileType python map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " vim-virtualenv
 " let g:virtualenv_auto_activate = 1

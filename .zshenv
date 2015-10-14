@@ -43,10 +43,6 @@ export host=`echo $HOST | sed -e 's/\..*//'`
 export MANPATH=/usr/share/man:/usr/X11/man:$MANPATH
 
 # extra
-export PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
-export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
-
-# extra
 export PATH=$HOME/bin:$HOME/sbin:$PATH
 export MANPATH=$HOME/share/man:$MANPATH
 
@@ -61,7 +57,7 @@ if [ $ARCHI = darwin ]; then
   export MANPATH=/opt/local/man:$MANPATH
   export DISPLAY=:0.0
   # extends
-
+  
   # dyld: DYLD_ environment variables being ignored because main executable (/usr/bin/sudo) is setuid or setgid
   # export LIBRARY_PATH=/opt/local/lib
   # export LD_LIBRARY_PATH=/opt/local/lib
