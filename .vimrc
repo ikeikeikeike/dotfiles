@@ -231,6 +231,9 @@ NeoBundle 'fatih/vim-go.git'
 NeoBundle 'dgryski/vim-godef'
 NeoBundle 'vim-jp/vim-go-extra'
 
+" elixir
+NeoBundle 'elixir-lang/vim-elixir'
+
 " Haxe
 NeoBundle 'jdonaldson/vaxe'
 

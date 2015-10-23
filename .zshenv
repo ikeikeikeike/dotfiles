@@ -194,6 +194,10 @@ export MANPATH=$CABAL_HOME/share:$MANPATH
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 
+### Elixir
+[[ -s "$HOME/.exenv/bin" ]] && export PATH="$HOME/.exenv/bin:$PATH"; eval "$(exenv init -)"
+
+
 ### python ###
 
 # if pythonbrew < not use
