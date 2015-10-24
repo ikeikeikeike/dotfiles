@@ -18,7 +18,7 @@ if [ $ARCHI = darwin ]; then
   alias updatedb=' sudo LC_ALL=C gupdatedb --prunepaths="/tmp /var/tmp /.Spotlight-V100 /.fseventsd /Volumes/MobileBackups /Volumes/Volume /.MobileBackups" '
   alias locate='glocate -i '
   alias winscp="open $HOME/Library/Application\ Support/MikuInstaller/prefix/default/drive_c/Program\ Files/WinSCP/WinSCP.exe"
-  [[ -s $HOME/.pythonbrew/etc/bashrc ]] || alias mysql='mysql5'
+  # [[ -s $HOME/.pythonbrew/etc/bashrc ]] || alias mysql='mysql5'
   alias dircolors='gdircolors'
   alias gdb='ggdb'
   # alias eog='open -a Preview'
