@@ -85,18 +85,40 @@ cat << EOF > $HOME/.rvm_postzshrc 2>&1
 #
 # auto ganerate post zshrc
 #
-rvm_use `rvm current`
+(rvm_use `rvm current` &) > /dev/null
 PS1="(`basename $GEM_HOME`@rvm)\$PS1"
 EOF
 }
+
+function gen_exenv_postzshrc() {
+cat << EOF > $HOME/.exenv_postzshrc 2>&1
+#
+# auto ganerate post zshrc
+#
+(exenv_use `cat ~/.exenv/version` &) > /dev/null
+PS1="(`cat ~/.exenv/version`@elixir)\$PS1"
+EOF
+}
+
 
 function gen_rbenv_postzshrc() {
 cat << EOF > $HOME/.rbenv_postzshrc 2>&1
 #
 # auto ganerate post zshrc
 #
-rbenv_use `cat ~/.rbenv/version`
+(rbenv_use `cat ~/.rbenv/version` &) > /dev/null
 PS1="(`cat ~/.rbenv/version`@rbenv)\$PS1"
+EOF
+}
+
+function gen_golang_postzshrc() {
+cat << EOF > $HOME/.golang_postzshrc 2>&1
+#
+# auto ganerate post zshrc
+#
+source /Users/ikeikeikeike/.gvm/environments/default
+(golang_use `echo $gvm_go_name` &) > /dev/null
+PS1="(`echo $gvm_go_name | sed -e 's/go//g'`@go)\$PS1"
 EOF
 }
 
@@ -111,15 +133,22 @@ EOF
 
 function rbenv_use() {
     rbenv global $@
-    sleep 0.1
     rbenv exec ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
-    # ganegate rc file
-    gen_rbenv_postzshrc
+    gen_rbenv_postzshrc  # ganegate rc file
+}
+
+function exenv_use() {
+    exenv global $@
+    gen_exenv_postzshrc  # ganegate rc file
+}
+
+function golang_use() {
+    gvm use $@ > /dev/null 
+    gen_golang_postzshrc  # ganegate rc file
 }
 
 function rvm_use() {
     rvm use $@
-    sleep 0.1
     ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
     # ganegate rc file
     gen_rvm_postzshrc
@@ -127,7 +156,6 @@ function rvm_use() {
 
 function nvm_use() {
     nvm use $@
-    sleep 0.1
     export NODE_PATH=${NVM_PATH}_modules
 }
 

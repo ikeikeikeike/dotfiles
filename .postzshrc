@@ -9,3 +9,10 @@ elif [ -f $HOME/.rvm_postzshrc ]; then
   source $HOME/.rvm_postzshrc
 fi
 
+if [ -f $HOME/.golang_postzshrc ]; then
+  source $HOME/.golang_postzshrc
+fi
+
+if [ -f $HOME/.exenv_postzshrc ]; then
+  source $HOME/.exenv_postzshrc
+fi
