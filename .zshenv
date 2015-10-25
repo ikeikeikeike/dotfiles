@@ -238,7 +238,7 @@ export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
 if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
     . /opt/local/etc/profile.d/autojump.zsh
 fi
-[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+[[ -s $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh ]] && . $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh
 
 # mysettings
 source $HOME/.adds_zshenv 2> /dev/null
