@@ -17,6 +17,9 @@
 
 let g:syntastic_python_flake8_args='--ignore=E501'
 
+let g:syntastic_elixir_checkers = ['elixir']
+let g:syntastic_enable_elixir_checker = 1
+
 " @see ~/.pylintrc
 let g:syntastic_python_pylint_args='-d C0111 -d C0301 -d C0103 -d R0904 -d W0232 -d R0903 -d W0142 -f parseable -r n'
 
