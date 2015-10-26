@@ -371,6 +371,7 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .coffee 01;38;05;209
 .hs 01;38;05;209
 .rb 01;38;05;209
+.ex 01;38;05;209
 .php 01;38;05;209
 .j2 01;38;05;209
 .yml 01;38;05;209
