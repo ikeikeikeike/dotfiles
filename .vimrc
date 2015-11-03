@@ -14,6 +14,10 @@ if has('vim_starting')
   call neobundle#begin(expand('~/.vim/bundle/'))
 endif
 
+if has('vim_starting')
+  set runtimepath+=~/.vim/nobundle/helpex.vim
+endif
+
 " unites
 if v:version > 700
     " anything like buffer management app.
