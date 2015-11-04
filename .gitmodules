@@ -10,3 +10,6 @@
 [submodule ".zsh_extend/zsh-history-substring-search"]
   path = .zsh_extend/zsh-history-substring-search
   url = git@github.com:zsh-users/zsh-history-substring-search.git
+[submodule ".vim/nobundle/helpex.vim"]
+  path = .vim/nobundle/helpex.vim
+  url = git@github.com:sanmiguel/helpex.vim.git
