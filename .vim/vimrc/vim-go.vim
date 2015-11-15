@@ -5,8 +5,8 @@ let g:go_bin_path = expand($GOPATH + "bin")
 
 set completeopt=menu,preview
 
-au FileType go setlocal sw=4 ts=4 sts=4 noet
-au FileType go setlocal makeprg=go\ build\ ./... errorformat=%f:%l:\ %m
+" au FileType go setlocal sw=4 ts=4 sts=4 noet
+" au FileType go setlocal makeprg=go\ build\ ./... errorformat=%f:%l:\ %m
 
 """ vim-go
 " let g:go_play_open_browser = 0
