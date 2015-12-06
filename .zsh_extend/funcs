@@ -119,6 +119,7 @@ cat << EOF > $HOME/.golang_postzshrc 2>&1
 source $HOME/.gvm/environments/default
 (golang_use `echo $gvm_go_name` &) > /dev/null
 PS1="(`echo $gvm_go_name | sed -e 's/go//g'`@go)\$PS1"
+clear
 EOF
 }
 
