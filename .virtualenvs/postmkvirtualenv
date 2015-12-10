@@ -30,7 +30,7 @@ pip install nose nose-pudb mock tox pytest
 # pip install Sphinx
 
 # deployed
-pip install South
+# pip install South
 # pip install Fabric
 
 # peformance, analysis
