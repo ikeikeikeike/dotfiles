@@ -53,3 +53,10 @@ syntax on "カラー表示
 " set showtabline=2
 " " gVimでもテキストベースのタブページを使う
 " set guioptions-=e
+
+" ケツ空白ハイライト
+augroup HighlightTrailingSpaces
+  autocmd!
+  autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
+  autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
+augroup END
