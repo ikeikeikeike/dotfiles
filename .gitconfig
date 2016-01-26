@@ -38,6 +38,5 @@
   generic = G move-last-line
 [include]
   path = ~/.gitconfig.local
-[user]
-  name = Tatsuo Ikeda
-  email = jp.ne.co.jp@gmail.com
+[fetch]
+	prune = true
