@@ -38,3 +38,5 @@
   generic = G move-last-line
 [include]
   path = ~/.gitconfig.local
+[fetch]
+	prune = true

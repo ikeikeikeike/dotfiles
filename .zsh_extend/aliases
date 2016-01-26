@@ -60,7 +60,8 @@ alias clvim="setopt rm_star_silent; rm -rf ~/.vim_plugins/vim_session/*; unsetop
 alias novim="vim -u NONE -U NONE --noplugin "
 alias less='less -MX'
 alias grep='grep -i --color=always '
-alias grepR='grep -inHR --color=always -e '
+alias grepR='\grep -inHR --color=always -e '
+alias uncolorGrepR='\grep -inHR -e '
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias tmux='tmux -2 -u'
