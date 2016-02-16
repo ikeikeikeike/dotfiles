@@ -1,3 +1,5 @@
+# zmodload zsh/zprof
+
 # ARCHI & distribute
 if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
   case "`uname -sr`" in

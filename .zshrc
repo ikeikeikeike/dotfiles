@@ -355,3 +355,7 @@ source ~/.zsh_extend/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # This is a clean-room implementation of the Fish shell's
 #
 # source ~/.zsh_extend/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# if type zprof > /dev/null 2>&1; then
+  # zprof | less
+# fi
