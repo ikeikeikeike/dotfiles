@@ -22,7 +22,12 @@ let g:syntastic_enable_elixir_checker = 1
 " @see ~/.pylintrc
 let g:syntastic_python_python_exec = '/opt/local/bin/python'
 let g:syntastic_python_flake8_args='--ignore=E501'
+let g:syntastic_python_pep8_args='--ignore=E501'
 let g:syntastic_python_pylint_args='-d C0111 -d C0301 -d C0103 -d R0904 -d W0232 -d R0903 -d W0142 -f parseable -r n'
+let g:syntastic_python_checkers = ['pyflakes', 'pep8', 'flake8', 'pylint']
+" let g:syntastic_python_checkers = ['flake8']
+let g:loaded_syntastic_python_pep257_checker = 0
+" let g:loaded_syntastic_python_pydocstyle_checker = 0
 
 " let g:syntastic_ruby_exec=$RUBY_EXE
 let g:syntastic_ruby_exec=system('echo -n `rbenv which ruby`')
