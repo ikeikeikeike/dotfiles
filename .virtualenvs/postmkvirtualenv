@@ -34,8 +34,7 @@ pip install nose nose-pudb mock tox pytest
 # pip install Fabric
 
 # peformance, analysis
-# pip install pyflakes pep8 reimport pylint
-pip install flake8
+pip install pyflakes pep8 pylint flake8 pydocstyle
 # pip install clonedigger
 
 
