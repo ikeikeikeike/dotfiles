@@ -37,6 +37,7 @@ pip install nose nose-pudb mock tox pytest
 pip install pyflakes pep8 pylint flake8 pydocstyle
 # pip install clonedigger
 
+pip install pgcli mycli
 
 #  ******************************************************************************
 #  libedit detected - readline will not be well behaved, including but not limited to:
