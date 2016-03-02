@@ -21,10 +21,11 @@ credential = "ikeda:tatsuo"
 
 // [bool] Enable random URL generation
 // enable_random_url = false
+enable_random_url = true
 
 // [int] Default length of random strings appended to URL
 //       To enable random URL generation, set `true` to `enable_random_url`
-// random_url_length = 8
+random_url_length = 2
 
 // [bool] Enable TLS/SSL
 // enable_tls = false
