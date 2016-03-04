@@ -33,7 +33,7 @@ let g:loaded_syntastic_python_pep257_checker = 0
 let g:syntastic_ruby_exec=system('echo -n `rbenv which ruby`')
 
 " for go lang
-let g:syntastic_go_checkers = ['golint', 'gotype', 'govet', 'go']
+let g:syntastic_go_checkers = ['go', 'govet', 'gotype', 'golint']
 " let g:syntastic_go_checkers = ['go', 'golint']
 
 " buffergator
