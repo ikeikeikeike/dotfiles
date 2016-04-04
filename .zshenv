@@ -51,6 +51,8 @@ export MANPATH=$HOME/share/man:$MANPATH
 if [ $ARCHI = darwin ]; then
   # encode
   export LANG=ja_JP.UTF-8
+  export LC_ALL=ja_JP.UTF-8
+
   # Finished adapting your PATH environment variable for use with MacPorts.
   export PATH=/Developer/usr/bin/:/opt/local/apache2/bin:/opt/local/lib/mysql5/bin:$PATH
   export MANPATH=/Developer/usr/share/man:$MANPATH
@@ -59,7 +61,7 @@ if [ $ARCHI = darwin ]; then
   export MANPATH=/opt/local/man:$MANPATH
   export DISPLAY=:0.0
   # extends
-  
+
   # dyld: DYLD_ environment variables being ignored because main executable (/usr/bin/sudo) is setuid or setgid
   # export LIBRARY_PATH=/opt/local/lib
   # export LD_LIBRARY_PATH=/opt/local/lib
