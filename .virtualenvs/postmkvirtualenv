@@ -24,7 +24,7 @@ pip install pudb debug ipdb
 # pip install django-pudebug
 
 # TEST
-pip install nose nose-pudb mock tox pytest
+pip install mock tox pytest
 
 # document
 # pip install Sphinx
