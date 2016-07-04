@@ -409,9 +409,6 @@ if &diff == 0
     let &statusline='%<%F %{""} %l/%L'
 endif
 
-" For cron
-" set backupskip=/tmp/*,/private/tmp/*
-
 
 filetype plugin indent on
 syntax on
