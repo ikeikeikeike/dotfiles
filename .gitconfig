@@ -40,3 +40,5 @@
   path = ~/.gitconfig.local
 [fetch]
 	prune = true
+[commit]
+	template = /Users/ikeike/.git.commit_template

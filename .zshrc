@@ -102,13 +102,13 @@ setopt append_history
 # share history
 setopt share_history
 
-# 補完時にヒストリを自動的に展開         
+# 補完時にヒストリを自動的に展開
 setopt hist_expand
 
 # 余分な空白は詰めて記録
-setopt hist_reduce_blanks  
+setopt hist_reduce_blanks
 
-# 古いコマンドと同じものは無視 
+# 古いコマンドと同じものは無視
 setopt hist_save_no_dups
 
 # 履歴をインクリメンタルに追加
