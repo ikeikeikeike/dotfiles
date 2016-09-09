@@ -1,44 +1,47 @@
 [color]
-  ui = auto
-  diff = auto
-  status = auto
-  branch = auto
-  interactive = auto
+    ui = auto
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
 [core]
-  excludesfile = /Users/ikeda/.gitignore_global
-  pager = LESS=-R less
-  autoCRLF = false
-  editor = vim
+    excludesfile = /Users/ikeda/.gitignore_global
+    pager = LESS=-R less
+    autoCRLF = false
+    editor = vim
 [alias]
-  st = status
-  ci = commit
-  co = checkout
+    st = status
+    ci = commit
+    co = checkout
+    dsf = "!f() { [ -z \"$GIT_PREFIX\" ] || cd \"$GIT_PREFIX\" && git diff --color \"$@\" | diff-so-fancy  | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '; }; f"
 [merge]
-  tool = vimdiff
-;  tool = p4merge
-  keepBackup = false;
+    tool = vimdiff
+    ; tool = p4merge
+    keepBackup = false;
 [mergetool "p4merge"]
-  cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
-  keepTemporaries = false
-  trustExitCode = false
-  keepBackup = false
+    cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+    keepTemporaries = false
+    trustExitCode = false
+    keepBackup = false
 [diff]
-  ; external = git_diff_wrapper
-;  external = p4diff
+    ; external = git_diff_wrapper
+    ; external = p4diff
 [pager]
-  diff =
+    ; diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
+    ; diff = diff-so-fancy | less --tabs=4 -RFX
+    ; show = diff-so-fancy | less --tabs=4 -RFX
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+    path =
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+    cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+    trustExitCode = true
 [tig "bind"]
-  generic = g move-first-line
-  generic = G move-last-line
+    generic = g move-first-line
+    generic = G move-last-line
 [include]
-  path = ~/.gitconfig.local
+    path = ~/.gitconfig.local
 [fetch]
-	prune = true
+    prune = true
 [commit]
-	template = /Users/ikeike/.git.commit_template
+    template = /Users/ikeike/.git.commit_template
