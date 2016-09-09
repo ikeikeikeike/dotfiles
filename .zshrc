@@ -21,8 +21,9 @@ fi
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
 # auto complete compile
-autoload -U compinit
-compinit
+# autoload -U compinit && compinit
+# fpath=(/opt/local/share/zsh/5.2/functions ${fpath})
+autoload -Uz compinit && compinit -u
 
 # extra auto complete
 #fpath=($fpath $HOME/.zsh_extend/autocomplete)
