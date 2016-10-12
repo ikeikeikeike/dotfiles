@@ -1,7 +1,7 @@
 "
 " golang
 "
-let g:go_bin_path = expand($GOPATH + "bin")
+" let g:go_bin_path = expand($GOPATH + "bin")
 
 set completeopt=menu,preview
 
