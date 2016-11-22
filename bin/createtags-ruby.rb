@@ -73,20 +73,21 @@ end
 def main(args)
 
   # options
-  exclude_option = "--languages=ruby " #--ruby-kinds=-i-v "
-  # if not args.allow_testcode:
-    # exclude_option += (
-      # "--exclude=spectest_* "
-      # "--exclude=tests.py "
-      # "--exclude=test.py "
-      # "--exclude=*/IPython/* "
-      # "--exclude=*/unittest/* "
-      # "--exclude=*/testing/* "
-      # "--exclude=*/testsuite/* "
-      # "--exclude=*/test/* "
-      # "--exclude=*/tests/*")
+  option = '--languages=ruby ' #--ruby-kinds=-i-v "
+  option += %w[
+    --exclude=spectest_*
+    --exclude=tests.rb
+    --exclude=test.rb
+    --exclude=*/unittest/*
+    --exclude=*/testing/*
+    --exclude=*/testsuite/*
+    --exclude=*/test/*
+    --exclude=*/tests/*
+    --exclude=*/examples/*
+    --exclude=*/example/*
+  ].join(' ')
   # current path
-  runcmd("ctags -f ~/rtags -R #{exclude_option} #{args[:path]}")
+  runcmd("ctags -f ~/rtags -R #{option} #{args[:path]}")
 
   # gemdirs
   if args.include?(:spackages) then
