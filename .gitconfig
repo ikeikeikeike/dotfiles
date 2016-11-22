@@ -48,5 +48,3 @@
     prune = true
 [commit]
     template = /Users/ikeike/.git.commit_template
-[pr-release]
-	token = 1eba469b0a71333a6550fd612ecd61d17502aece
