@@ -149,6 +149,7 @@ NeoBundle 'thinca/vim-quickrun'
 " error (syntax) check
 " ~~~~~~~~~
 NeoBundle "scrooloose/syntastic"
+NeoBundle "neomake/neomake"
 " NeoBundle 'errormarker.vim'
 " Javascript
 NeoBundle 'javaScriptLint.vim'
