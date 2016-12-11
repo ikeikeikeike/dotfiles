@@ -76,18 +76,16 @@ endif
 " ~~~~~~~~~~~~
 " programmings
 " ~~~~~~~~~~~~
-if v:version > 700
-    " yankring
-    "NeoBundle 'YankRing.vim'
-    "NeoBundle 'm4i/YankRingSync'
-    NeoBundle 'LeafCage/yankround.vim'
+" yankring
+"NeoBundle 'YankRing.vim'
+"NeoBundle 'm4i/YankRingSync'
+NeoBundle 'LeafCage/yankround.vim'
 
-    " auto complete
-    " NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
-    NeoBundle "Shougo/neosnippet"
-    NeoBundle "Shougo/neosnippet-snippets"
+" auto complete
+" NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
+NeoBundle "Shougo/neosnippet"
+" NeoBundle "Shougo/neosnippet-snippets"
 
-endif
 
 " Todo tasklist
 NeoBundle 'TaskList.vim'
