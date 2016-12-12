@@ -18,20 +18,14 @@ if has('vim_starting')
   set runtimepath+=~/.vim/nobundle/helpex.vim
 endif
 
-" unites
-if v:version > 700
-    " anything like buffer management app.
-    NeoBundle 'Shougo/unite.vim'
-    NeoBundle 'Shougo/neomru.vim'
-    NeoBundle 'tsukkee/unite-tag'
-    NeoBundle 'tsukkee/unite-help'
-    NeoBundle 'ujihisa/unite-locate'
+" Fuzzy file, buffer, mru, tag
+" NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'tsukkee/unite-help'
+NeoBundle 'ujihisa/unite-locate'
 
-    " NeoBundle 'heavenshell/unite-zf'
-    " NeoBundle 'Sixeight/unite-grep'
-    " NeoBundle 'ujihisa/unite-colorscheme'
-    " NeoBundle 'unite-font'
-endif
 " ~~~~~~~~~~~~
 " general
 " ~~~~~~~~~~~~
@@ -66,12 +60,8 @@ NeoBundle 'rbtnn/rabbit-ui.vim'
 " ~~~~~~~~~~~~
 " move
 " ~~~~~~~~~~~~
-" NeoBundle 'fuzzyjump.vim'
-if v:version > 700
-    NeoBundle 'clones/vim-l9'
-    NeoBundle 'FuzzyFinder'
-endif
-
+" Fuzzy file, buffer, mru, tagunites
+NeoBundle 'ctrlpvim/ctrlp.vim'
 
 " ~~~~~~~~~~~~
 " programmings
@@ -164,7 +154,6 @@ NeoBundle 'Shougo/echodoc'
 NeoBundle 'php-doc'
 NeoBundle 'Modeliner'
 
-
 " ~~~~~~~~~~~~
 " languages
 " ~~~~~~~~~~~~
@@ -206,7 +195,6 @@ NeoBundle "davidhalter/jedi-vim", {
 " NeoBundle 'astashov/vim-ruby-debugger'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tpope/vim-rails'
-" NeoBundle 'rhysd/unite-ruby-require.vim'
 
 " php
 " NeoBundle 'justinrainbow/php-xdebug.vim'
@@ -346,7 +334,6 @@ call neobundle#end()
 "   - undo
 "   - grep
 "   - slimv
-"   - unite
 "   - omuni
 "   - gundo
 "   - ctags
@@ -403,6 +390,7 @@ endfor
 " if &diff == 0
     " let &statusline='%<%F %r%h%w%y%{"['.(&fenc!=''?&fenc:&enc).'|'.&ff.']"}  %l/%L (%P) %{cfi#format("[%s()]", "[no function]")} [WORKON=%{pythonworkon}] %{anzu#search_status()} %m%=%{strftime("%Y/%m/%d %H:%M")}'
 " endif
+
 
 if &diff == 0
     let &statusline='%<%F %{""} %l/%L'
