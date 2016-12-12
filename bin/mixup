@@ -1,9 +1,6 @@
 #!/usr/bin/env zsh
 
-# . /usr/local/otp/19.1/activate
-
-# the function
-findfile_parent() {
+findup() {
     FILE=$1
     while [ ! -e "${FILE}" ]; do
         if [ "$(pwd)" = "/" ]; then
@@ -16,16 +13,16 @@ findfile_parent() {
 
 # usage example
 MIX=mix.exs
-CDIR=$(findfile_parent ${MIX})
+PDIR=$(findup ${MIX})
 
-if [ "$@" = "pwd" ]; then
-    echo $CDIR
+if [ "_$@" = "_pwd" ]; then
+    echo $PDIR
     exit 0
 fi
 
-if [ "${CDIR}/${MIX}" != "/${MIX}" ]; then
-    # echo "(cd ${CDIR}; mix $@)"
-    cd ${CDIR}; mix $@
+if [ "${PDIR}/${MIX}" != "/${MIX}" ]; then
+    # echo "(cd ${PDIR}; mix $@)"
+    cd ${PDIR}; mix $@
     exit 0
 fi
 
