@@ -184,7 +184,7 @@ if ! &diff
     " has pyflakes
     " NeoBundle 'mitechie/pyflakes-pathogen'
     " has not pyflakes
-    NeoBundle 'pyflakes.vim'
+    " NeoBundle 'pyflakes.vim'
 endif
 " NeoBundle 'nvie/vim-flake8'
 " NeoBundle 'amitdev/vimpy'
