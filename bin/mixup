@@ -15,7 +15,7 @@ findup() {
 MIX=mix.exs
 PDIR=$(findup ${MIX})
 
-if [ "_$@" = "_pwd" ]; then
+if [ "$1" = "pwd" ]; then
     echo $PDIR
     exit 0
 fi
