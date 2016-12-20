@@ -61,7 +61,7 @@ NeoBundle 'rbtnn/rabbit-ui.vim'
 " move
 " ~~~~~~~~~~~~
 " Fuzzy file, buffer, mru, tagunites
-NeoBundle 'ctrlpvim/ctrlp.vim'
+" NeoBundle 'ctrlpvim/ctrlp.vim'
 
 " ~~~~~~~~~~~~
 " programmings
@@ -73,7 +73,7 @@ NeoBundle 'LeafCage/yankround.vim'
 
 " auto complete
 " NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
-NeoBundle "Shougo/neosnippet"
+" NeoBundle "Shougo/neosnippet"
 " NeoBundle "Shougo/neosnippet-snippets"
 
 
