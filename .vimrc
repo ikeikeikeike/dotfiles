@@ -73,8 +73,8 @@ NeoBundle 'LeafCage/yankround.vim'
 
 " auto complete
 " NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
-" NeoBundle "Shougo/neosnippet"
-" NeoBundle "Shougo/neosnippet-snippets"
+NeoBundle "Shougo/neosnippet"
+NeoBundle "Shougo/neosnippet-snippets"
 
 
 " Todo tasklist

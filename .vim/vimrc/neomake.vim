@@ -1,6 +1,6 @@
 let g:neomake_elixir_mycredo_maker = {
       \ 'exe': 'mixup',
-      \ 'args': ['credo', '--format=flycheck', '--strict'],
+      \ 'args': ['credo', '--format=flycheck'],
       \ 'errorformat':
           \ '%E%f:%l:%c: %m,' .
           \ '%E%f:%l: %m'
