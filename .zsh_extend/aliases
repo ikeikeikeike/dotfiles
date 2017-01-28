@@ -76,6 +76,7 @@ alias novim="vim -u NONE -U NONE --noplugin "
 alias less='less -MX'
 alias grep='grep -i --color=always '
 alias grepR='\grep -inHR --color=always -e '
+alias specifyGrepR='\grep -nHR --color=always -e '
 alias uncolorGrepR='\grep -inHR -e '
 alias cp='cp -iv'
 alias mv='mv -iv'
