@@ -10,6 +10,8 @@ let g:neomake_elixir_mymix_maker = {
       \ 'exe' : 'mixup',
       \ 'args': ['compile', '--warnings-as-errors'],
       \ 'errorformat':
+        \ '%Ewarning: %m,'.
+        \ '%Z%f:%l,'.
         \ '** %s %f:%l: %m,'.
         \ '%f:%l: warning: %m'
       \ }
