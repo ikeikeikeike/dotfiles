@@ -167,7 +167,8 @@ fi
 
 ### java ###
 
-export JAVA_HOME="/Library/Internet\ Plug-ins/JavaAppletPlugin.plugin/Contents/Home"
+# export JAVA_HOME="/Library/Internet\ Plug-ins/JavaAppletPlugin.plugin/Contents/Home"
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export JAVA=$JAVA_HOME/bin
 export STUDIO_JDK=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk
 alias javac='javac -J-Dfile.encoding=UTF-8'

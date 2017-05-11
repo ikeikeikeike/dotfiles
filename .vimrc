@@ -234,6 +234,9 @@ NeoBundle 'leafgarland/typescript-vim'
 " markdown
 NeoBundle 'plasticboy/vim-markdown'
 
+" terraform
+NeoBundle 'hashivim/vim-terraform'
+
 " ~~~~~~~~~
 " profiler
 " ~~~~~~~~~

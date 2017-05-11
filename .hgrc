@@ -28,7 +28,7 @@ shelve=
 transplant=
 mq=
 record=
-my_hgext=~/bin/my_hgext.py
+# my_hgext=~/bin/my_hgext.py
 
 [alias]
 glog=glog --color=always
