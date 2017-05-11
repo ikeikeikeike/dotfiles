@@ -327,7 +327,6 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .rst 00;38;05;193
 .md 00;38;05;193
 .in 00;38;05;193
-
 .chm 00;38;05;193
 .css 00;38;05;193
 .scss 00;38;05;193
@@ -338,10 +337,6 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .html 00;38;05;193
 .rdf 00;38;05;193
 .rss 00;38;05;193
-.erb 00;38;05;193
-.sql 00;38;05;193
-.haml 00;38;05;193
-.eex 00;38;05;193
 .odb 00;38;05;193
 .odf 00;38;05;193
 .odg 00;38;05;193
@@ -353,6 +348,10 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .sgml 00;38;05;193
 .xml 00;38;05;193
 .xsl 00;38;05;193
+.tf 00;38;05;193
+.tfvars 00;38;05;193
+.tf 00;38;05;193
+
 
 # development Files
 .c 01;38;05;209
@@ -388,6 +387,11 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .el 01;38;05;209
 *Makefile 01;38;05;209
 *makefile 01;38;05;209
+.sql 01;38;05;209
+.haml 01;38;05;209
+.eex 01;38;05;209
+.erb 01;38;05;209
+
 
 # base64
 .b64 00;38;05;79
