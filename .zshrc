@@ -7,10 +7,10 @@ export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
 
 # history
 HISTFILE=$HOME/.zsh-history
-HISTSIZE=1000000
-SAVEHIST=1000000
+HISTSIZE=100000
+SAVEHIST=100000
 
-# 5秒以上かかった処理は詳細表示
+# Report show detail a processing if passed over 5 seconds.
 REPORTTIME=5
 
 export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
