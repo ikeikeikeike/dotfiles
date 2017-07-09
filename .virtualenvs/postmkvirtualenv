@@ -8,7 +8,7 @@
 pip install virtualenv virtualenvwrapper
 
 #
-pip install distribute
+# pip install distribute
 
 # interactive shell
 pip install ipython ptpython
@@ -20,7 +20,7 @@ pip install Werkzeug
 # easy_install -U distribute
 
 # debug
-pip install pudb debug ipdb
+pip install pudb ipdb
 # pip install django-pudebug
 
 # TEST
@@ -37,7 +37,9 @@ pip install mock tox pytest
 pip install pyflakes pep8 pylint flake8 pydocstyle
 # pip install clonedigger
 
-pip install pgcli mycli
+pip install pgcli mycli httpie
+
+pip install awscli
 
 #  ******************************************************************************
 #  libedit detected - readline will not be well behaved, including but not limited to:
@@ -55,6 +57,8 @@ pip install pgcli mycli
 
 # ipython readline
 pip install readline
+
+pip install pip -U
 
 echo <<_EOF_
 
