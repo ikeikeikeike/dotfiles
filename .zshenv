@@ -177,13 +177,14 @@ alias jdb='jdb -J-Dfile.encoding=UTF-8'
 
 ### scala ###
 
-export REBEL_HOME=/usr/local/share/jrebel
-export PATH=$REBEL_HOME/bin:$PATH
-export PLAY_HOME=/usr/local/share/play
-export PATH=$PLAY_HOME:$PATH
+# export REBEL_HOME=/usr/local/share/jrebel
+# export PATH=$REBEL_HOME/bin:$PATH
+# export PLAY_HOME=/usr/local/share/play
+# export PATH=$PLAY_HOME:$PATH
 # alias sbt='JAVA_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -Xmx512M -Xss2M" sbt'
+export SBT_OPTS="-Xmx2048m -Xms1024m -Xss128m -Dfile.encoding=UTF8"
 
-### nodejs ###
+## #nodejs ###
 
 if [[ -f ~/.nvm/nvm.sh ]]; then
   source ~/.nvm/nvm.sh
