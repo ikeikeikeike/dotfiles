@@ -47,4 +47,4 @@
 [fetch]
     prune = true
 [commit]
-    template = /Users/ikeike/.git.commit_template
+    template = ~/.git.commit_template

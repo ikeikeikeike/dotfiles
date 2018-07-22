@@ -195,6 +195,7 @@ NeoBundle "davidhalter/jedi-vim", {
 " NeoBundle 'astashov/vim-ruby-debugger'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tpope/vim-rails'
+NeoBundle 'slim-template/vim-slim'
 
 " php
 " NeoBundle 'justinrainbow/php-xdebug.vim'

@@ -229,3 +229,14 @@ function rtags() {
     }
 
 }
+
+[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
+kubectl () {
+    if [[ -z $KUBECTL_COMPLETE ]]
+    then
+        source <($commands[kubectl] completion zsh)
+        KUBECTL_COMPLETE=1
+    fi
+    echo "+ kubectl $@"
+    $commands[kubectl] $*
+}

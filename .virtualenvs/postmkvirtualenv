@@ -17,6 +17,8 @@ pip install ipython ptpython
 # debug
 pip install Werkzeug
 
+pip install awscli
+
 # easy_install -U distribute
 
 # debug

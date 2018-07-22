@@ -22,6 +22,7 @@ if [ $ARCHI = darwin ]; then
   alias dircolors='gdircolors'
   alias gdb='ggdb'
   alias wholediff="diff --new-line-format='+%L' --old-line-format='-%L' --unchanged-line-format=' %L'"
+  alias d='sudo docker'
 
   # alias eog='open -a Preview'
   # alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
@@ -152,4 +153,13 @@ alias -g G="| grep"
 # python
 alias mkvirtualenv="mkvirtualenv --no-site-packages --distribute "
 
+# kube
+alias fzfkubernetesalias="fzf --height 25 --header-lines=1 --reverse --multi --cycle"
+alias -g P='$(kubectl get pods | fzfkubernetesalias | awk "{print \$1}")'
 
+# Like P, global aliases about kubernetes resources
+alias -g  PO='$(kubectl get pods | fzfkubernetesalias | awk "{print \$1}")'
+alias -g  NS='$(kubectl get ns   | fzfkubernetesalias | awk "{print \$1}")'
+alias -g  RS='$(kubectl get rs   | fzfkubernetesalias | awk "{print \$1}")'
+alias -g SVC='$(kubectl get svc  | fzfkubernetesalias | awk "{print \$1}")'
+alias -g ING='$(kubectl get ing  | fzfkubernetesalias | awk "{print \$1}")'
