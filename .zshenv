@@ -54,7 +54,7 @@ if [ $ARCHI = darwin ]; then
   export LC_ALL=ja_JP.UTF-8
 
   # Finished adapting your PATH environment variable for use with MacPorts.
-  export PATH=/Developer/usr/bin/:/opt/local/apache2/bin:/opt/local/lib/mysql5/bin:$PATH
+  export PATH=/Developer/usr/bin:/opt/local/apache2/bin:/opt/local/lib/mysql5/bin:/opt/local/lib/mysql57/bin:$PATH
   export MANPATH=/Developer/usr/share/man:$MANPATH
   # MacPorts Installer addition on 2010-02-14_at_19:14:58: adding an appropriate PATH variable for use with MacPorts.
   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
@@ -181,7 +181,7 @@ alias jdb='jdb -J-Dfile.encoding=UTF-8'
 # export PATH=$REBEL_HOME/bin:$PATH
 # export PLAY_HOME=/usr/local/share/play
 # export PATH=$PLAY_HOME:$PATH
-# alias sbt='JAVA_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -Xmx512M -Xss2M" sbt'
+# alias sbt='JAVA_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=2048M -Xmx2048M -Xmx1024M -Xss128M" sbt'
 export SBT_OPTS="-Xmx2048m -Xms1024m -Xss128m -Dfile.encoding=UTF8"
 
 ## #nodejs ###
@@ -253,3 +253,7 @@ source $HOME/.adds_zshenv 2> /dev/null
 export ODBCINI=/etc/odbc.ini
 export ODBCSYSINI=/etc
 export FREETDSCONF=/etc/freetds.conf
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+export FZF_DEFAULT_OPTS='--height 60% --reverse --border'
