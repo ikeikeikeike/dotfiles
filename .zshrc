@@ -361,4 +361,3 @@ source ~/.zsh_extend/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   # zprof | less
 # fi
 
-
