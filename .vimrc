@@ -179,7 +179,7 @@ endif
 " NeoBundle 'project.tar.gz'
 " NeoBundle 'vim-ipython'
 NeoBundle 'pep8'
-NeoBundle 'vim-scripts/django.vim'
+NeoBundle 'tweekmonster/django-plus.vim'
 NeoBundle 'Glench/Vim-Jinja2-Syntax'
 
 NeoBundle "davidhalter/jedi-vim", {
