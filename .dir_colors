@@ -388,10 +388,10 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 *Makefile 01;38;05;209
 *makefile 01;38;05;209
 .haml 01;38;05;209
+.pebble 01;38;05;209
 .eex 01;38;05;209
 .erb 01;38;05;209
 .slim 01;38;05;209
-.haml 01;38;05;209
 
 
 # base64

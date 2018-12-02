@@ -239,6 +239,12 @@ NeoBundle 'plasticboy/vim-markdown'
 " terraform
 NeoBundle 'hashivim/vim-terraform'
 
+" protobuf
+NeoBundle 'uarun/vim-protobuf'
+
+" makefile
+NeoBundle 'c9s/vim-makefile'
+
 " ~~~~~~~~~
 " profiler
 " ~~~~~~~~~
