@@ -165,15 +165,22 @@ elif [[ -s $HOME/.plenv/bin/plenv ]]; then
 
 fi
 
+
 ### java ###
 
 # export JAVA_HOME="/Library/Internet\ Plug-ins/JavaAppletPlugin.plugin/Contents/Home"
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
-export JAVA=$JAVA_HOME/bin
-export STUDIO_JDK=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk
+# export STUDIO_JDK=$JAVA_HOME
+#
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(/usr/local/bin/jenv init -)"
+
+export JAVA_HOME=`/usr/libexec/java_home -v 11.0`
+export PATH=${JAVA_HOME}/bin:${PATH}
+
 alias javac='javac -J-Dfile.encoding=UTF-8'
 alias java='java -Dfile.encoding=UTF-8'
 alias jdb='jdb -J-Dfile.encoding=UTF-8'
+
 
 ### scala ###
 
@@ -182,7 +189,8 @@ alias jdb='jdb -J-Dfile.encoding=UTF-8'
 # export PLAY_HOME=/usr/local/share/play
 # export PATH=$PLAY_HOME:$PATH
 # alias sbt='JAVA_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=2048M -Xmx2048M -Xmx1024M -Xss128M" sbt'
-export SBT_OPTS="-Xmx2048m -Xms1024m -Xss128m -Dfile.encoding=UTF8"
+# export SBT_OPTS="-Xmx2048m -Xms1024m -Xss128m -Dfile.encoding=UTF8"
+export SBT_OPTS="-Xmx4096m -Xms2048m -Xss256m -Dfile.encoding=UTF8"
 
 ## #nodejs ###
 
