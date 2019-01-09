@@ -7,8 +7,8 @@ export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
 
 # history
 HISTFILE=$HOME/.zsh-history
-HISTSIZE=10000000
-SAVEHIST=10000000
+HISTSIZE=100000000000
+SAVEHIST=1000000
 setopt bang_hist                 # Treat the '!' character specially during expansion.
 setopt extended_history          # Write the history file in the ":start:elapsed;command" format.
 setopt inc_append_history        # Write to the history file immediately, not when the shell exits.
