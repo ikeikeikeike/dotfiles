@@ -174,7 +174,7 @@ fi
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(/usr/local/bin/jenv init -)"
 
-export JAVA_HOME=`/usr/libexec/java_home -v 11.0`
+# export JAVA_HOME=`/usr/libexec/java_home -v 11.0`
 export PATH=${JAVA_HOME}/bin:${PATH}
 
 alias javac='javac -J-Dfile.encoding=UTF-8'
