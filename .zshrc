@@ -5,10 +5,10 @@ bindkey -e
 export PATH=/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
 
-# history
+## History command configuration
 HISTFILE=$HOME/.zsh-history
-HISTSIZE=100000000000
-SAVEHIST=1000000
+HISTSIZE=100000
+SAVEHIST=50000
 setopt bang_hist                 # Treat the '!' character specially during expansion.
 setopt extended_history          # Write the history file in the ":start:elapsed;command" format.
 setopt inc_append_history        # Write to the history file immediately, not when the shell exits.
@@ -160,9 +160,6 @@ setopt auto_list
 
 #日本語ファイル名等8ビットを通す
 setopt print_eight_bit
-
-## 直前と同じコマンドをヒストリに追加しない
-setopt hist_ignore_dups
 
 # ヒストリに追加されるコマンド行が古いものと同じなら古いものを削除
 setopt hist_ignore_all_dups
@@ -376,3 +373,4 @@ source ~/.zsh_extend/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
+
