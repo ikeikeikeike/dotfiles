@@ -154,6 +154,7 @@ alias -g G="| grep"
 alias mkvirtualenv="mkvirtualenv --no-site-packages --distribute "
 
 # kube
+alias kubestats="kubectl get node,po,deploy,sts,svc,job,ing,pv,pvc,configmap,secret,hpa,endpoints -o wide"
 alias fzfkubernetesalias="fzf --height 25 --header-lines=1 --reverse --multi --cycle"
 alias -g P='$(kubectl get pods | fzfkubernetesalias | awk "{print \$1}")'
 
@@ -163,3 +164,4 @@ alias -g  NS='$(kubectl get ns   | fzfkubernetesalias | awk "{print \$1}")'
 alias -g  RS='$(kubectl get rs   | fzfkubernetesalias | awk "{print \$1}")'
 alias -g SVC='$(kubectl get svc  | fzfkubernetesalias | awk "{print \$1}")'
 alias -g ING='$(kubectl get ing  | fzfkubernetesalias | awk "{print \$1}")'
+
