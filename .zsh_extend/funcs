@@ -231,15 +231,15 @@ function rtags() {
 }
 
 [ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
-kubectl () {
-    if [[ -z $KUBECTL_COMPLETE ]]
-    then
-        source <($commands[kubectl] completion zsh)
-        KUBECTL_COMPLETE=1
-    fi
-    echo "+ kubectl $@"
-    $commands[kubectl] $*
-}
+# kubectl () {
+    # if [[ -z $KUBECTL_COMPLETE ]]
+    # then
+        # source <($commands[kubectl] completion zsh)
+        # KUBECTL_COMPLETE=1
+    # fi
+    # echo "+ kubectl $@"
+    # $commands[kubectl] $*
+# }
 
 vimR () {
     echo -n "vim -c ':argdo %s/no-example/just-sample/g | update' **/*.go" > /dev/null
