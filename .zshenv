@@ -45,8 +45,8 @@ export host=`echo $HOST | sed -e 's/\..*//'`
 export MANPATH=/usr/share/man:/usr/X11/man:$MANPATH
 
 # extra
-export PATH=$HOME/bin:$HOME/sbin:$PATH
-export MANPATH=$HOME/share/man:$MANPATH
+export PATH=$PATH:$HOME/bin:$HOME/sbin
+export MANPATH=$MANPATH:$HOME/share/man
 
 if [ $ARCHI = darwin ]; then
   # encode
@@ -76,6 +76,8 @@ if [ $ARCHI = darwin ]; then
   [[ -s $HOME/.pythonbrew/etc/bashrc ]] || export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
   # move $HOME/.zsh_extends/prefuncs
   # [[ -s $HOME/.pythonbrew/etc/bashrc ]] && export PYTHON_HOME=`cat ~/.pythonbrew/etc/current | sed -e 's@PATH_PYTHONBREW_CURRENT="@@g' | sed -e 's@/bin"@@g'`
+
+  export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
   # make setting
   export MAKEOPTS="-j3"
@@ -253,6 +255,9 @@ export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
 if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
     . /opt/local/etc/profile.d/autojump.zsh
 fi
+if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
+    . /opt/local/etc/profile.d/autojump.sh
+fi
 [[ -s $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh ]] && . $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh
 
 # mysettings
@@ -262,12 +267,15 @@ export ODBCINI=/etc/odbc.ini
 export ODBCSYSINI=/etc
 export FREETDSCONF=/etc/freetds.conf
 
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="$PATH:/usr/local/opt/fzf/bin"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
 export FZF_DEFAULT_OPTS='--height 60% --reverse --border'
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="/usr/local/opt/gettext/bin:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud-sdk/path.zsh.inc"; fi
