@@ -48,3 +48,5 @@
     prune = true
 [commit]
     template = ~/.git.commit_template
+[pager]
+	branch = cat
