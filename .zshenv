@@ -67,6 +67,7 @@ if [ $ARCHI = darwin ]; then
   # export LD_LIBRARY_PATH=/opt/local/lib
   # export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
 
+  export PATH="/usr/local/luajit/bin/:$PATH"
   export C_INCLUDE_PATH=/opt/local/include
   export CPLUS_INCLUDE_PATH=/opt/local/include:$HOME/include
   export BOOST_ROOT=$HOME/include/boost:/opt/local/include/boost:$BOOST_ROOT
@@ -168,12 +169,14 @@ fi
 ### java ###
 
 # export JAVA_HOME="/Library/Internet\ Plug-ins/JavaAppletPlugin.plugin/Contents/Home"
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
-export JAVA=$JAVA_HOME/bin
-export STUDIO_JDK=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk
-alias javac='javac -J-Dfile.encoding=UTF-8'
-alias java='java -Dfile.encoding=UTF-8'
-alias jdb='jdb -J-Dfile.encoding=UTF-8'
+if [[ -s "/usr/libexec/java_home" ]]; then
+    export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+    export JAVA=$JAVA_HOME/bin
+    export STUDIO_JDK=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk
+    alias javac='javac -J-Dfile.encoding=UTF-8'
+    alias java='java -Dfile.encoding=UTF-8'
+    alias jdb='jdb -J-Dfile.encoding=UTF-8'
+fi
 
 ### scala ###
 
@@ -198,12 +201,20 @@ export MANPATH=$CABAL_HOME/share:$MANPATH
 
 
 ### golang ###
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+if [[ -s "$HOME/.gvm/scripts/gvm" ]]; then
+    source "$HOME/.gvm/scripts/gvm"
+fi
 
 
 ### Elixir
-[[ -s "$HOME/.exenv/bin" ]] && export PATH="$HOME/.exenv/bin:$PATH"; eval "$(exenv init -)"
+if [[ -s "$HOME/.exenv/bin" ]]; then
+    export PATH="$HOME/.exenv/bin:$PATH"; eval "$(exenv init -)"
+fi
 
+
+if [[ -s ~/.nvm/nvm.sh ]]; then
+      source ~/.nvm/nvm.sh
+fi
 
 ### python ###
 
@@ -245,7 +256,16 @@ export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
 if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
     . /opt/local/etc/profile.d/autojump.zsh
 fi
-[[ -s $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh ]] && . $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh
+
+if [[ -s /usr/local/bin/brew ]]; then
+    if [[ -s $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh ]]; then
+        . $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh
+    fi
+fi
+
+if [[ -s /root/.autojump/etc/profile.d/autojump.sh ]]; then
+    source /root/.autojump/etc/profile.d/autojump.sh
+fi
 
 # mysettings
 source $HOME/.adds_zshenv 2> /dev/null
@@ -253,3 +273,7 @@ source $HOME/.adds_zshenv 2> /dev/null
 export ODBCINI=/etc/odbc.ini
 export ODBCSYSINI=/etc
 export FREETDSCONF=/etc/freetds.conf
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+export FZF_DEFAULT_OPTS='--height 60% --reverse --border'

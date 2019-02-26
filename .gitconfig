@@ -13,7 +13,8 @@
     st = status
     ci = commit
     co = checkout
-    dsf = "!f() { [ -z \"$GIT_PREFIX\" ] || cd \"$GIT_PREFIX\" && git diff --color \"$@\" | diff-so-fancy  | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '; }; f"
+    ; dsf = "!f() { [ -z \"$GIT_PREFIX\" ] || cd \"$GIT_PREFIX\" && git diff --color \"$@\" | diff-so-fancy  | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '; }; f"
+    dsf = diff
     patch = !git --no-pager diff --no-color
 [merge]
     tool = vimdiff
@@ -47,4 +48,7 @@
 [fetch]
     prune = true
 [commit]
-    template = /Users/ikeike/.git.commit_template
+    template = /root/.git.commit_template
+[user]
+	name = ikeikeikeike / Tatsuo Ikeda
+	email = jp.ne.co.jp@gmail.com

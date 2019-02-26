@@ -5,10 +5,35 @@ bindkey -e
 export PATH=/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
 
+
 # history
 HISTFILE=$HOME/.zsh-history
-HISTSIZE=100000
-SAVEHIST=100000
+HISTSIZE=10000000
+SAVEHIST=10000000
+setopt bang_hist                 # Treat the '!' character specially during expansion.
+setopt extended_history          # Write the history file in the ":start:elapsed;command" format.
+setopt inc_append_history        # Write to the history file immediately, not when the shell exits.
+setopt share_history             # Share history between all sessions.
+setopt hist_expire_dups_first    # Expire duplicate entries first when trimming history.
+setopt hist_ignore_dups          # Don't record an entry that was just recorded again.
+setopt hist_ignore_all_dups      # Delete old recorded entry if new entry is a duplicate.
+setopt hist_find_no_dups         # Do not display a line previously found.
+setopt hist_ignore_space         # Don't record an entry starting with a space.
+setopt hist_save_no_dups         # Don't write duplicate entries in the history file.
+setopt hist_reduce_blanks        # Remove superfluous blanks before recording entry.
+setopt hist_verify               # Don't execute immediately upon history expansion.
+setopt hist_beep                 # Beep when accessing nonexistent history.
+# setopt extended_history       # zsh の開始, 終了時刻をヒストリファイルに書き込む
+# setopt share_history          # share history
+# setopt inc_append_history     # 履歴をインクリメンタルに追加
+# setopt append_history         # 複数の zsh を同時に使う時など history ファイルに上書きせず追加する
+# setopt extended_history       # record timestamp of command in HISTFILE
+# setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+# setopt hist_ignore_dups       # ignore duplicated commands history list
+# setopt hist_ignore_space      # ignore commands that start with space
+# setopt hist_verify            # show command with history expansion to user before running it
+# setopt inc_append_history     # add commands to HISTFILE in order of execution
+# setopt share_history          # share command history data
 
 # Report show detail a processing if passed over 5 seconds.
 REPORTTIME=5
@@ -18,7 +43,7 @@ if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
     . /opt/local/etc/profile.d/autojump.zsh
 fi
 
-[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+# [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
 # auto complete compile
 # autoload -U compinit && compinit
@@ -100,20 +125,8 @@ setopt complete_aliases
 # 複数の zsh を同時に使う時など history ファイルに上書きせず追加する
 setopt append_history
 
-# share history
-setopt share_history
-
 # 補完時にヒストリを自動的に展開
 setopt hist_expand
-
-# 余分な空白は詰めて記録
-setopt hist_reduce_blanks
-
-# 古いコマンドと同じものは無視
-setopt hist_save_no_dups
-
-# 履歴をインクリメンタルに追加
-setopt inc_append_history
 
 ## コアダンプサイズを制限
 limit coredumpsize 102400
@@ -146,12 +159,6 @@ setopt auto_list
 #日本語ファイル名等8ビットを通す
 setopt print_eight_bit
 
-## 直前と同じコマンドをヒストリに追加しない
-setopt hist_ignore_dups
-
-# ヒストリに追加されるコマンド行が古いものと同じなら古いものを削除
-setopt hist_ignore_all_dups
-
 # 重複履歴を保存しない
 setopt histignorealldups histsavenodups
 
@@ -170,9 +177,6 @@ setopt mark_dirs
 
 ## TAB で順に補完候補を切り替える
 setopt auto_menu
-
-## zsh の開始, 終了時刻をヒストリファイルに書き込む
-setopt extended_history
 
 ## =command を command のパス名に展開する
 setopt equals
@@ -341,7 +345,7 @@ bindkey '^Q' show_buffer_stack
 # https://github.com/zsh-users/zsh-syntax-highlighting
 # Source the script at the end of ~/.zshrc:
 #
-source ~/.zsh_extend/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source ~/.zsh_extend/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
 ### TODO: Next auto-fu.zsh  ###
@@ -360,3 +364,8 @@ source ~/.zsh_extend/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # if type zprof > /dev/null 2>&1; then
   # zprof | less
 # fi
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+export FZF_DEFAULT_OPTS='--height 60% --reverse --border'
