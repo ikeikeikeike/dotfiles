@@ -1,14 +1,13 @@
+export PATH=/usr/local/opt/coreutils/libexec/gnubin:/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:$PATH:/bin:/sbin:/usr/bin:/usr/sbin
+export MANPATH=$MANPATH:/usr/local/man:/usr/local/share/man:/usr/share/man
 
 # Emacsと同じキー操作を行う
 bindkey -e
 
-export PATH=/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
-export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
-
-## History command configuration
+# history
 HISTFILE=$HOME/.zsh-history
-HISTSIZE=100000
-SAVEHIST=50000
+HISTSIZE=100000000000
+SAVEHIST=100000000000
 setopt bang_hist                 # Treat the '!' character specially during expansion.
 setopt extended_history          # Write the history file in the ":start:elapsed;command" format.
 setopt inc_append_history        # Write to the history file immediately, not when the shell exits.
@@ -278,7 +277,7 @@ zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*' group-name ''
 
 # コマンドにsudoを付けてもきちんと補完出来るようにする。Ubuntuだと/etc/zsh/zshrcで設定されている。
-zstyle ':completion:*:sudo:*' command-path /opt/local/bin /opt/local/sbin /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin /Users/ikeda/.cabal/bin /opt/local/share/java/play-1.2.3 /usr/local/share/jrebel/bin /opt/local/bin /opt/local/sbin /Developer/usr/bin/ /opt/local/apache2/bin /opt/local/lib/mysql5/bin /Users/ikeda/bin /Users/ikeda/sbin /Users/ikeda/bin /usr/bin /bin /usr/sbin /sbin /usr/local/bin /usr/X11/bin /Library/Frameworks/Python.framework/Versions/2.7/bin /Users/ikeda/bin /Users/ikeda/lib/gsutil /Users/ikeda/.rvm/bin $HOME/bin $HOME/sbin
+zstyle ':completion:*:sudo:*' command-path /usr/X11R6/bin /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin /Users/ikeda/.cabal/bin /opt/local/share/java/play-1.2.3 /usr/local/share/jrebel/bin /opt/local/bin /opt/local/sbin /Developer/usr/bin/ /opt/local/apache2/bin /opt/local/lib/mysql5/bin /Users/ikeda/bin /Users/ikeda/sbin /Users/ikeda/bin /usr/bin /bin /usr/sbin /sbin /usr/local/bin /usr/X11/bin /Library/Frameworks/Python.framework/Versions/2.7/bin /Users/ikeda/bin /Users/ikeda/lib/gsutil /Users/ikeda/.rvm/bin $HOME/bin $HOME/sbin /opt/local/bin /opt/local/sbin /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 
 
 #####  functions   #####
