@@ -392,6 +392,9 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .erb 01;38;05;209
 .slim 01;38;05;209
 .haml 01;38;05;209
+.jinja 01;38;05;209
+.jinja2 01;38;05;209
+.j2 01;38;05;209
 
 
 # base64

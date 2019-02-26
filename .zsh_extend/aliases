@@ -12,6 +12,7 @@ if [ $ARCHI = darwin ]; then
   alias mvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/MacVim "$@"'
   alias gvim='env LANG=ja_JP.UTF-8 open -a "/Applications/MacVim.app/Contents/MacOS/MacVim" "$@"'
   alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+  alias d="sudo docker"
   # alias subl='subl -w'
   # alias ls='ls -FGh'
   alias ls='gls -Fh --color=auto'
@@ -37,6 +38,7 @@ if [ $ARCHI = freebsd ]; then
 fi
 if [ $ARCHI = linux ]; then
   alias ls='ls -Fh --color=auto'
+  alias d="sudo docker"
 fi
 if [ $ARCHI = cygwin ]; then
   ;
@@ -46,9 +48,9 @@ fi
 alias top='htop'
 alias py=python
 alias rb=ruby
-if [[ -x `which rlwrap` ]]; then
-  alias coffee="rlwrap coffee"
-fi
+# if [[ -x `which rlwrap` ]]; then
+  # alias coffee="rlwrap coffee"
+# fi
 alias screen='screen -U'
 alias l='ls'
 alias ll='ls -alt'

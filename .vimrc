@@ -161,7 +161,7 @@ NeoBundle 'Modeliner'
 NeoBundle 'sql.vim--Fishburn-syntax'
 
 " Html & javascript indentations
-NeoBundle 'Simple-Javascript-Indenter' " 1.0.1 A simple javascript indent script, support OOP, jquery
+" NeoBundle 'Simple-Javascript-Indenter' " 1.0.1 A simple javascript indent script, support OOP, jquery
 NeoBundle 'nono/jquery.vim' " Syntax file for jQuery in ViM
 NeoBundle 'jelera/vim-javascript-syntax'
 " NeoBundle 'teramako/jscomplete-vim'
@@ -175,11 +175,12 @@ if ! &diff
 endif
 " NeoBundle 'nvie/vim-flake8'
 " NeoBundle 'amitdev/vimpy'
-" NeoBundle 'jmcantrell/vim-virtualenv'
+NeoBundle 'plytophogy/vim-virtualenv'
 " NeoBundle 'project.tar.gz'
 " NeoBundle 'vim-ipython'
 NeoBundle 'pep8'
 NeoBundle 'vim-scripts/django.vim'
+NeoBundle 'Glench/Vim-Jinja2-Syntax'
 
 NeoBundle "davidhalter/jedi-vim", {
 \ 'build' : {
@@ -230,6 +231,8 @@ NeoBundle 'jdonaldson/vaxe'
 
 " typescript
 NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'jason0x43/vim-js-indent'
+" NeoBundle 'Quramy/tsuquyomi'
 
 " markdown
 NeoBundle 'plasticboy/vim-markdown'
