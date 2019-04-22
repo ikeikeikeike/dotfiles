@@ -205,6 +205,7 @@ if [[ -s "$HOME/.gvm/scripts/gvm" ]]; then
     source "$HOME/.gvm/scripts/gvm"
 fi
 
+eval "$(direnv hook zsh)" 2> /dev/null
 
 ### Elixir
 if [[ -s "$HOME/.exenv/bin" ]]; then
