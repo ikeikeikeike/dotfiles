@@ -151,7 +151,18 @@ alias -g G="| grep"
 # alias rsync_gigacast_jikiden='source $HOME/script/shell/rsync_gigacast_jikiden'
 # alias rsync_gigacast_local_dev='source $HOME/script/shell/rsync_gigacast_local_dev'
 
+source ~/.kubectl_aliases
+
 # python
 alias mkvirtualenv="mkvirtualenv --no-site-packages --distribute "
 
+alias fzfkubernetesalias="fzf --height 25 --header-lines=1 --reverse --multi --cycle"
+alias -g P='$(kubectl get pods | fzfkubernetesalias | awk "{print \$1}")'
+
+# Like P, global aliases about kubernetes resources
+alias -g  PO='$(kubectl get pods | fzfkubernetesalias | awk "{print \$1}")'
+alias -g  NS='$(kubectl get ns   | fzfkubernetesalias | awk "{print \$1}")'
+alias -g  RS='$(kubectl get rs   | fzfkubernetesalias | awk "{print \$1}")'
+alias -g SVC='$(kubectl get svc  | fzfkubernetesalias | awk "{print \$1}")'
+alias -g ING='$(kubectl get ing  | fzfkubernetesalias | awk "{print \$1}")'
 
