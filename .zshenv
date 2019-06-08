@@ -25,13 +25,8 @@ else
   export DISTRIBUTE="dummy"
 fi
 
-# ahawwwwwwwww
 if [ ! $reattach_to_user_namespace ] && [ $ARCHI = darwin ]; then
   export reattach_to_user_namespace=1
-  # echo "reattach-to-user-namespace -l zsh"
-  # echo "Note!! Error in Hidden. Error in Hidden."
-  # reattach-to-user-namespace -l zsh 2> /dev/null
-  # $HOME/bin/reattach-to-user-namespace -l zsh 2> /dev/null
 fi
 
 # HOST
@@ -48,47 +43,30 @@ export MANPATH=/usr/share/man:/usr/X11/man:$MANPATH
 export PATH=$HOME/bin:$HOME/sbin:$PATH
 export MANPATH=$HOME/share/man:$MANPATH
 
+
 if [ $ARCHI = darwin ]; then
-  # encode
   export LANG=ja_JP.UTF-8
   export LC_ALL=ja_JP.UTF-8
 
-  # Finished adapting your PATH environment variable for use with MacPorts.
   export PATH=/Developer/usr/bin/:/opt/local/apache2/bin:/opt/local/lib/mysql5/bin:$PATH
   export MANPATH=/Developer/usr/share/man:$MANPATH
-  # MacPorts Installer addition on 2010-02-14_at_19:14:58: adding an appropriate PATH variable for use with MacPorts.
   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
   export MANPATH=/opt/local/man:$MANPATH
   export DISPLAY=:0.0
-  # extends
-
-  # dyld: DYLD_ environment variables being ignored because main executable (/usr/bin/sudo) is setuid or setgid
-  # export LIBRARY_PATH=/opt/local/lib
-  # export LD_LIBRARY_PATH=/opt/local/lib
-  # export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
-
   export PATH="/usr/local/luajit/bin/:$PATH"
   export C_INCLUDE_PATH=/opt/local/include
   export CPLUS_INCLUDE_PATH=/opt/local/include:$HOME/include
   export BOOST_ROOT=$HOME/include/boost:/opt/local/include/boost:$BOOST_ROOT
-  # default editor
   export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-  # @see python_select
   [[ -s $HOME/.pythonbrew/etc/bashrc ]] || export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
-  # move $HOME/.zsh_extends/prefuncs
-  # [[ -s $HOME/.pythonbrew/etc/bashrc ]] && export PYTHON_HOME=`cat ~/.pythonbrew/etc/current | sed -e 's@PATH_PYTHONBREW_CURRENT="@@g' | sed -e 's@/bin"@@g'`
 
-  # make setting
   export MAKEOPTS="-j3"
 
-  # TODO: bugfix
   unset DYLD_LIBRARY_PATH
   unset LD_LIBRARY_PATH
 fi
 if [ $ARCHI = linux ]; then
-  # encode
   export LANG=en_US.UTF-8
-  # default editor
   export EDITOR="vim"
 fi
 
