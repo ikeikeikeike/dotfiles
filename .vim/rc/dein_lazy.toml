@@ -1,6 +1,7 @@
 
 
 
+
 [[plugins]]
 repo = 'sjl/gundo.vim'
 hook_add = '''
@@ -42,40 +43,6 @@ repo = 'Shougo/neomru.vim'
 repo = 'Shougo/neoyank.vim'
 
 
-[[plugins]]
-repo = 'kien/rainbow_parentheses.vim'
-hook_add = '''
-" https://github.com/kien/rainbow_parentheses.vim
-let g:rbpt_colorpairs = [
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['red',         'firebrick3'],
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['brown',       'firebrick3'],
-    \ ['cyan',        'cyan'],
-    \ ['red',         'red'],
-    \ ['Green',       'Green'],
-    \ ['Yellow',      'Yellow'],
-    \ ]
-
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-'''
-
-
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
@@ -86,6 +53,45 @@ let g:airline_theme='angr'
 '''
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
+
+
+
+[[plugins]]
+repo = 'vim-scripts/DirDiff.vim'
+
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+[[plugins]]
+repo = 'tpope/vim-repeat'
+
+
+
+
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
+on_event = 'InsertEnter'
+[[plugins]]
+repo = 'kana/vim-smartinput'
+on_event = 'InsertEnter'
+hook_add = '''
+let g:smartinput_no_default_key_mappings = 1
+'''
+hook_post_source = '''
+" ERB
+call smartinput#map_to_trigger('i', '%', '%', '%')
+call smartinput#define_rule({
+\   'at': '<\%#', 'char': '%', 'input': '%=  %><Left><Left><Left>',
+\   'filetype': ['eruby', 'eelixir'],
+\ })
+call smartinput#define_rule({
+\   'at': '%.*\%#%', 'char': '%', 'input': '',
+\   'filetype': ['eruby', 'eelixir'],
+\ })
+'''
+
+
 
 
 
@@ -125,38 +131,3 @@ repo = 'vim-airline/vim-airline-themes'
 # NeoBundle "neomake/neomake"
 
 
-
-[[plugins]]
-repo = 'vim-scripts/DirDiff.vim'
-
-
-[[plugins]]
-repo = 'tpope/vim-surround'
-[[plugins]]
-repo = 'tpope/vim-repeat'
-
-
-
-
-
-[[plugins]]
-repo = 'tpope/vim-endwise'
-on_event = 'InsertEnter'
-[[plugins]]
-repo = 'kana/vim-smartinput'
-on_event = 'InsertEnter'
-hook_add = '''
-let g:smartinput_no_default_key_mappings = 1
-'''
-hook_post_source = '''
-" ERB
-call smartinput#map_to_trigger('i', '%', '%', '%')
-call smartinput#define_rule({
-\   'at': '<\%#', 'char': '%', 'input': '%=  %><Left><Left><Left>',
-\   'filetype': ['eruby', 'eelixir'],
-\ })
-call smartinput#define_rule({
-\   'at': '%.*\%#%', 'char': '%', 'input': '',
-\   'filetype': ['eruby', 'eelixir'],
-\ })
-'''
