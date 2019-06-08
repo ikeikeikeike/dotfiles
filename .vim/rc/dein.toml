@@ -1,6 +1,4 @@
 
-
-
 #
 # Syntax
 #
@@ -38,5 +36,27 @@ depends = ['context_filetype.vim']
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
+
+
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+depends = ['vim-airline-themes']
+hook_add = '''
+let g:airline#extensions#tabline#enabled = 0
+let g:airline_theme='angr'
+'''
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+
+
+
+[[plugins]]
+repo = 'sjl/gundo.vim'
+hook_add = '''
+let g:gundo_right = 1
+nnoremap <F8> :GundoToggle<CR>
+'''
 
 
