@@ -1,15 +1,5 @@
 
 
-
-
-[[plugins]]
-repo = 'sjl/gundo.vim'
-hook_add = '''
-let g:gundo_right = 1
-nnoremap <F8> :GundoToggle<CR>
-'''
-
-
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 depends = ['neomru.vim', 'neoyank.vim']
@@ -42,17 +32,6 @@ repo = 'Shougo/neomru.vim'
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
 
-
-
-[[plugins]]
-repo = 'vim-airline/vim-airline'
-depends = ['vim-airline-themes']
-hook_add = '''
-let g:airline#extensions#tabline#enabled = 0
-let g:airline_theme='angr'
-'''
-[[plugins]]
-repo = 'vim-airline/vim-airline-themes'
 
 
 
