@@ -231,11 +231,14 @@ export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 ### extra ###
 
 # zsh autojump
-export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
 if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
+    export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
     . /opt/local/etc/profile.d/autojump.zsh
 fi
-
+if [ -f /usr/share/autojump/autojump.zsh ]; then
+    export FPATH="$FPATH:/usr/local/share/zsh/site-functions/"
+    . /usr/share/autojump/autojump.zsh
+fi
 if [[ -s /usr/local/bin/brew ]]; then
     if [[ -s $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh ]]; then
         . $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh

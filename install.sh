@@ -16,6 +16,9 @@ do
   \ln -s `pwd`/$i $HOME/$i
 done
 
+mkdir -p vim ~/.config/nvim
+ln -s `pwd`/init.vim ~/.config/nvim/init.vim
+
 git submodule init
 git submodule update
 git submodule foreach git pull origin master
