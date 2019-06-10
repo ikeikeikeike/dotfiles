@@ -60,3 +60,31 @@ nnoremap <F8> :GundoToggle<CR>
 '''
 
 
+[[plugins]]
+repo = 'w0rp/ale'
+hook_add = '''
+let g:ale_linters = {
+  \ 'python': ['flake8', 'pylint', 'pep8', 'pyflakes'],
+  \ 'go': ['go', 'govet', 'gotype', 'golint'],
+  \ }
+
+let g:ale_fixers = {
+  \ 'python': ['autopep8', 'autoflake', 'black', 'isort'],
+  \ }
+
+
+let g:ale_python_pylint_executable = g:python3_host_prog
+let g:ale_python_pylint_args='-d C0111 -d C0301 -d C0103 -d R0904 -d W0232 -d R0903 -d W0142 -f parseable -r n'
+let g:ale_python_flake8_executable = g:python3_host_prog
+let g:ale_python_flake8_options = '-m flake8 --ignore=E501'
+let g:ale_python_autopep8_executable = g:python3_host_prog
+let g:ale_python_autopep8_options = '-m autopep8'
+let g:ale_python_isort_executable = g:python3_host_prog
+let g:ale_python_isort_options = '-m isort'
+let g:ale_python_black_executable = g:python3_host_prog
+let g:ale_python_black_options = '-m black'
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_save = 1
+"nmap <silent> <Leader>x <Plug>(ale_fix)
+'''
+
