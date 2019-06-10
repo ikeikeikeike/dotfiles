@@ -247,6 +247,10 @@ export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 
+### flutter
+
+export PATH="$PATH:/usr/local/flutter/bin"
+
 ### extra ###
 
 # zsh autojump
@@ -275,6 +279,10 @@ export FZF_DEFAULT_OPTS='--height 60% --reverse --border'
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="/usr/local/opt/gettext/bin:$PATH"
+
+if [ -x "$(command -v direnv)" ]; then
+    eval "$(direnv hook zsh)"
+fi
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud-sdk/path.zsh.inc"; fi
