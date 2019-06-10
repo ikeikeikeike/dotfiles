@@ -6,8 +6,8 @@ bindkey -e
 
 # history
 HISTFILE=$HOME/.zsh-history
-HISTSIZE=100000000000
-SAVEHIST=100000000000
+HISTSIZE=100000
+SAVEHIST=10000000
 setopt bang_hist                 # Treat the '!' character specially during expansion.
 setopt extended_history          # Write the history file in the ":start:elapsed;command" format.
 setopt inc_append_history        # Write to the history file immediately, not when the shell exits.
@@ -370,6 +370,11 @@ source ~/.zsh_extend/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # fi
 
 
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/vault vault
+if [ -f /usr/local/bin/vault ]; then
+  autoload -U +X bashcompinit && bashcompinit
+  complete -o nospace -C /usr/local/bin/vault vault
+fi
 
+# zmv command - http://d.hatena.ne.jp/mollifier/20101227/p1
+# autoload -Uz zmv
+# alias zmv='noglob zmv -W'

@@ -134,7 +134,7 @@ EOF
 
 function rbenv_use() {
     rbenv global $@
-    rbenv exec ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
+    # rbenv exec ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
     gen_rbenv_postzshrc  # ganegate rc file
 }
 
@@ -150,7 +150,7 @@ function golang_use() {
 
 function rvm_use() {
     rvm use $@
-    ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
+    # ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
     # ganegate rc file
     gen_rvm_postzshrc
 }
@@ -190,10 +190,6 @@ function lw() {
 # source $HOME/.zsh_extend/zaw/zaw.zsh 2> /dev/null
 # bindkey '^;' zaw
 # bindkey '^R' zaw-history
-
-# zmv command - http://d.hatena.ne.jp/mollifier/20101227/p1
-autoload -Uz zmv
-alias zmv='noglob zmv -W'
 
 
 # ruby tags
