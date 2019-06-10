@@ -134,8 +134,9 @@
 
 
 --regex-ruby=/^[ 	]*enum[ 	]*([a-zA-Z0-9_]+):/\1/
---regex-ruby=/^[ 	]*validates[ 	]*:([a-zA-Z0-9_]+)/\1/
---regex-ruby=/^[ 	]*delegate[ 	]*:([a-zA-Z0-9_]+)/\1/
+--regex-ruby=/^[ 	]*validates[ 	]*:([a-zA-Z0-9_\?]+)/\1/
+--regex-ruby=/^[ 	]*alias_attribute[ 	]*:([a-zA-Z0-9_\?]+)/\1/
+--regex-ruby=/^[ 	]*delegate[ 	]*:([a-zA-Z0-9_\?]+)/\1/
 --regex-ruby=/.*alias(_method)?[[:space:]]+:([[:alnum:]_=!?]+),?[[:space:]]+:([[:alnum:]_=!]+)/\2/f,function/
 --regex-ruby=/(^|[:;])[ \t]*([A-Z][[:alnum:]_]+) *=/\2/c,class,constant/
 --regex-ruby=/(^|;)[ \t]*(has_many|belongs_to|has_one|has_and_belongs_to_many)\(? *:([[:alnum:]_]+)/\3/f,function,association/
@@ -144,4 +145,3 @@
 --regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2/f,function,aasm_event/
 --regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2!/f,function,aasm_event/
 --regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2?/f,function,aasm_event/
-
