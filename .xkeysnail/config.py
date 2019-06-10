@@ -77,6 +77,7 @@ define_keymap(lambda wm_class: wm_class in ("Gnome-terminal"), {
 
 
 define_keymap(lambda wm_class: wm_class in ("Slack"), {
+    K("M-w"): K("C-w"),
     K("M-a"): K("C-a"),
     K("M-s"): K("C-s"),
     K("M-x"): K("C-x"),
