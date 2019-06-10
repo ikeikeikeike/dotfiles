@@ -1,11 +1,50 @@
 
 [[plugins]]
+repo = 'tpope/vim-rails'
+on_ft = 'ruby'
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+on_ft = 'ruby'
+hook_add = '''
+let g:rubycomplete_rails = 1
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_classes_in_global = 1
+let g:rubycomplete_include_object = 1
+let g:rubycomplete_include_object_space = 1
+'''
+
+
+[[plugins]]
 repo = 'cespare/vim-toml'
 on_ft = 'nginx'
 [[plugins]]
 repo = 'chr4/nginx.vim'
 on_ft = 'nginx'
 
+[[plugins]]
+repo = 'fatih/vim-go.git'
+on_ft = 'go'
+hook_add = '''
+set completeopt=menu,preview
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = "goimports"
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+'''
+[[plugins]]
+repo = 'dgryski/vim-godef'
+on_ft = 'go'
+hook_add = '''
+au FileType go nmap <C-\> <Plug>(go-def-vertical)
+au FileType go nmap <C-]> <Plug>(go-def)
+'''
+[[plugins]]
+repo = 'vim-jp/vim-go-extra'
+on_ft = 'go'
 
 [[plugins]]
 repo = 'vim-scripts/Colour-Sampler-Pack'
@@ -127,6 +166,8 @@ call smartinput#define_rule({
 
 # TODO: Later
 #
+# https://github.com/SirVer/ultisnips
+#
 # [[plugins]]
 # repo = 'Shougo/neosnippet.vim'
 # depends = ['Shougo/neosnippet-snippets']
@@ -155,10 +196,14 @@ call smartinput#define_rule({
 # repo = 'thinca/vim-quickrun'
 
 
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
 
-# TODO: Lster  error (syntax) check
-# NeoBundle "scrooloose/syntastic"
-# NeoBundle "neomake/neomake"
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'tpope/vim-commentary'
 
 
 

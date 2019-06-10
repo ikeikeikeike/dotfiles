@@ -128,7 +128,7 @@ elif [[ -s /usr/share/ruby-rvm/scripts/rvm ]]; then
     # This loads RVM into a shell session.
 
 fi
-export RSENSE_HOME=$HOME/lib/rsense-0.3
+
 
 ### perl ###
 
