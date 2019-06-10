@@ -6,6 +6,7 @@ do
      [ $i = .. ] ||
      [ $i = README ] ||
      [ $i = install.sh ] ||
+     [ $i = init.vim ] ||
      [ $i = uninstall.sh ] ||
      [ $i = .git ] ||
      [ $i = .gitignore ]; then

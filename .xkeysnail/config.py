@@ -69,11 +69,20 @@ define_keymap(lambda wm_class: wm_class in ("Gnome-terminal"), {
     K("M-v"): K("C-Shift-v"),
     K("M-t"): K("C-Shift-t"),
     K("M-w"): K("C-Shift-w"),
-    K("M-f"): K("C-Shift-f"),
+    # K("M-f"): K("C-Shift-f"),
     K("M-g"): K("C-Shift-g"),
     K("M-h"): K("C-Shift-h"),
     K("M-j"): K("C-Shift-j"),
 }, "Gnome-terminal")
+
+
+define_keymap(lambda wm_class: wm_class in ("Slack"), {
+    K("M-a"): K("C-a"),
+    K("M-s"): K("C-s"),
+    K("M-x"): K("C-x"),
+    K("M-c"): K("C-c"),
+    K("M-v"): K("C-v"),
+}, "Slack")
 
 
 define_keymap(lambda wm_class: wm_class not in ("Boostnote", "Emacs", "FocusProxy", "URxvt", "Gnome-terminal"), {
