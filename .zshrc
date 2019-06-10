@@ -1,5 +1,5 @@
 
-# Emacsと同じキー操作を行う
+# use the same Emacs keybind
 bindkey -e
 
 export PATH=/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
@@ -10,30 +10,6 @@ export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
 HISTFILE=$HOME/.zsh-history
 HISTSIZE=10000000
 SAVEHIST=10000000
-setopt bang_hist                 # Treat the '!' character specially during expansion.
-setopt extended_history          # Write the history file in the ":start:elapsed;command" format.
-setopt inc_append_history        # Write to the history file immediately, not when the shell exits.
-setopt share_history             # Share history between all sessions.
-setopt hist_expire_dups_first    # Expire duplicate entries first when trimming history.
-setopt hist_ignore_dups          # Don't record an entry that was just recorded again.
-setopt hist_ignore_all_dups      # Delete old recorded entry if new entry is a duplicate.
-setopt hist_find_no_dups         # Do not display a line previously found.
-setopt hist_ignore_space         # Don't record an entry starting with a space.
-setopt hist_save_no_dups         # Don't write duplicate entries in the history file.
-setopt hist_reduce_blanks        # Remove superfluous blanks before recording entry.
-setopt hist_verify               # Don't execute immediately upon history expansion.
-setopt hist_beep                 # Beep when accessing nonexistent history.
-# setopt extended_history       # zsh の開始, 終了時刻をヒストリファイルに書き込む
-# setopt share_history          # share history
-# setopt inc_append_history     # 履歴をインクリメンタルに追加
-# setopt append_history         # 複数の zsh を同時に使う時など history ファイルに上書きせず追加する
-# setopt extended_history       # record timestamp of command in HISTFILE
-# setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
-# setopt hist_ignore_dups       # ignore duplicated commands history list
-# setopt hist_ignore_space      # ignore commands that start with space
-# setopt hist_verify            # show command with history expansion to user before running it
-# setopt inc_append_history     # add commands to HISTFILE in order of execution
-# setopt share_history          # share command history data
 
 # Report show detail a processing if passed over 5 seconds.
 REPORTTIME=5
@@ -119,126 +95,62 @@ local CYAN=$'%{\e[0;36m%}'
 local BROWN=$'%{\e[0;33m%}'
 local BG_BLUE=$'%{\e[0;44m%}'
 
-## エイリアスも補完対象に設定
-setopt complete_aliases
 
-# 複数の zsh を同時に使う時など history ファイルに上書きせず追加する
-setopt append_history
-
-# 補完時にヒストリを自動的に展開
+setopt bang_hist                 # Treat the '!' character specially during expansion.
+setopt extended_history          # Write the history file in the ":start:elapsed;command" format.
+setopt inc_append_history        # Write to the history file immediately, not when the shell exits.
+setopt share_history             # Share history between all sessions.
+setopt hist_expire_dups_first    # Expire duplicate entries first when trimming history.
+setopt hist_ignore_dups          # Don't record an entry that was just recorded again.
+setopt hist_ignore_all_dups      # Delete old recorded entry if new entry is a duplicate.
+setopt hist_find_no_dups         # Do not display a line previously found.
+setopt hist_ignore_space         # Don't record an entry starting with a space.
+setopt hist_save_no_dups         # Don't write duplicate entries in the history file.
+setopt hist_reduce_blanks        # Remove superfluous blanks before recording entry.
+setopt hist_verify               # Don't execute immediately upon history expansion.
+setopt hist_beep                 # Beep when accessing nonexistent history.
+setopt append_history            # If this is set, zsh sessions will append their history list to the history file
+setopt complete_aliases          # Prevents aliases on the command line from being internally substituted before completion is attempted.
 setopt hist_expand
-
-## コアダンプサイズを制限
-limit coredumpsize 102400
-
-## 出力の文字列末尾に改行コードが無い場合でも表示
-unsetopt promptcr
-
-## コピペの時rpromptを非表示する
 setopt transient_rprompt
-
-## 色を使う
 setopt prompt_subst
-
-## no beep
 setopt nobeep
 setopt nolistbeep
-
-## 内部コマンド jobs の出力をデフォルトで jobs -l にする
 setopt long_list_jobs
-
-## 補完候補一覧でファイルの種別をマーク表示
 setopt list_types
-
-## サスペンド中のプロセスと同じコマンド名を実行した場合はリジューム
 setopt auto_resume
-
-## 補完候補を一覧表示
 setopt auto_list
-
-#日本語ファイル名等8ビットを通す
 setopt print_eight_bit
-
-# 重複履歴を保存しない
 setopt histignorealldups histsavenodups
-
-# 先頭にSPACEを入れると履歴を残さない
 # setopt histignorespace
-
-## cd 時に自動で push
 setopt auto_pushd
 setopt autopushd
-
-## 同じディレクトリを pushd しない
 setopt pushd_ignore_dups
-
-# ファイル名の展開でディレクトリにマッチした場合 末尾に / を付加
 setopt mark_dirs
-
-## TAB で順に補完候補を切り替える
 setopt auto_menu
-
-## =command を command のパス名に展開する
 setopt equals
-
-## TAB で順に補完候補を切り替える
 setopt auto_menu
-
-## --prefix=/usr などの = 以降も補完
 setopt magic_equal_subst
-
-## ディレクトリ名だけで cd
 setopt auto_cd
-
-## カッコの対応などを自動的に補完
 setopt auto_param_keys
-
-## ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
 setopt auto_param_slash
-
-## zsh auto title concrift with nginx
-DISABLE_AUTO_TITLE=true
-
-## スペルチェック
 setopt correct
-
-# 辞書順ではなく数値順でソート
 setopt numeric_glob_sort
-
-# rm * などの際、本当に全てのファイルを消して良いかの確認しないようになる
 #setopt rm_star_silent
-
-# rm_star_silent の逆で、10 秒間反応しなくなり、頭を冷ます時間が与えられる
 #setopt rm_star_wait
-
-# for, repeat, select, if, function などで簡略文法が使えるようになる
 #setopt short_loops
-
-# デフォルトの複数行コマンドライン編集ではなく、１行編集モードになる
 #setopt single_line_zle
-
-# コマンドラインがどのように展開され実行されたかを表示するようになる debug時にね
 # setopt xtrace
-
-# 戻り値が 0 以外の場合終了コードを表示する
 setopt print_exit_value
-
-
-# コマンドライン全てのスペルチェックをする
 #setopt correct_all
-
-## cd conf
-# カレントディレクトリ中にサブディレクトリが無い場合に cd が検索するディレクトリのリスト
-#cdpath=($HOME)
-# カレントディレクトリに候補がない場合のみ cdpath 上のディレクトリを候補に出す
+limit coredumpsize 10240000
+unsetopt promptcr
+DISABLE_AUTO_TITLE=true
 zstyle ':completion:*:cd:*' tag-order local-directories path-directories
-#cd は親ディレクトリからカレントディレクトリを選択しないので表示させないようにする (例: cd ../<TAB>):
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
 
-#LS_COLORSを設定しておく
 if [ -f ~/.dir_colors ]; then
     eval $(dircolors -b ~/.dir_colors)
-    #ファイル補完候補に色を付ける
     zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 else
     export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
@@ -246,33 +158,15 @@ else
 fi
 
 ## auto complete conf
-# 補完候補を ←↓↑→ でも選択出来るようにする
 zstyle ':completion:*:default' menu select=2
 zstyle ':completion:*' verbose yes
-#
-# _complete
-# 普通の補完関数
-# _approximate
-# ミススペルを訂正した上で補完を行う。
-# _match
-# *などのグロブによってコマンドを補完できる(例えばvi* と打つとviとかvimとか補完候補が表示される)
-# _expand
-# グロブや変数の展開を行う。もともとあった展開と比べて、細かい制御が可能
-# _history
-# 履歴から補完を行う。_history_complete_wordから使われる
-# _prefix
-# カーソルの位置で補完を行う
 zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
 zstyle ':completion:*:messages' format $YELLOW'%d'$DEFAULT
 zstyle ':completion:*:warnings' format $RED'No matches for:'$YELLOW' %d'$DEFAULT
 zstyle ':completion:*:descriptions' format $YELLOW'completing %B%d%b'$DEFAULT
 zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
 zstyle ':completion:*:options' description 'yes'
-# グループ名に空文字列を指定すると，マッチ対象のタグ名がグループ名に使われる。
-# したがって，すべての マッチ種別を別々に表示させたいなら以下のようにする
 zstyle ':completion:*' group-name ''
-
-# コマンドにsudoを付けてもきちんと補完出来るようにする。Ubuntuだと/etc/zsh/zshrcで設定されている。
 zstyle ':completion:*:sudo:*' command-path /opt/local/bin /opt/local/sbin /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin /Users/ikeda/.cabal/bin /opt/local/share/java/play-1.2.3 /usr/local/share/jrebel/bin /opt/local/bin /opt/local/sbin /Developer/usr/bin/ /opt/local/apache2/bin /opt/local/lib/mysql5/bin /Users/ikeda/bin /Users/ikeda/sbin /Users/ikeda/bin /usr/bin /bin /usr/sbin /sbin /usr/local/bin /usr/X11/bin /Library/Frameworks/Python.framework/Versions/2.7/bin /Users/ikeda/bin /Users/ikeda/lib/gsutil /Users/ikeda/.rvm/bin $HOME/bin $HOME/sbin
 
 
@@ -350,7 +244,7 @@ bindkey '^Q' show_buffer_stack
 
 ### TODO: Next auto-fu.zsh  ###
 #
-# zsh-syntax-highlightingと競合する
+# confrict zsh-syntax-highlighting
 #
 
 
@@ -366,6 +260,3 @@ bindkey '^Q' show_buffer_stack
 # fi
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
-export FZF_DEFAULT_OPTS='--height 60% --reverse --border'

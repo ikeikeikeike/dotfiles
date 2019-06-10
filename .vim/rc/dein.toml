@@ -1,23 +1,10 @@
 
-#
-# Syntax
-#
-
-
-
 [[plugins]]
 repo = 'cespare/vim-toml'
 on_ft = 'nginx'
 [[plugins]]
 repo = 'chr4/nginx.vim'
 on_ft = 'nginx'
-
-
-
-#
-# Color
-#
-
 
 
 [[plugins]]
@@ -29,9 +16,11 @@ if &diff
 endif
 '''
 
+
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
+
 
 
 [[plugins]]
@@ -69,12 +58,12 @@ let g:ale_linters = {
   \ }
 
 let g:ale_fixers = {
-  \ 'python': ['autopep8', 'autoflake', 'black', 'isort'],
+  \ 'python': ['autopep8', 'black', 'isort'],
   \ }
 
 
 let g:ale_python_pylint_executable = g:python3_host_prog
-let g:ale_python_pylint_args='-d C0111 -d C0301 -d C0103 -d R0904 -d W0232 -d R0903 -d W0142 -f parseable -r n'
+" let g:ale_python_pylint_args XXX: see pylintrc
 let g:ale_python_flake8_executable = g:python3_host_prog
 let g:ale_python_flake8_options = '-m flake8 --ignore=E501'
 let g:ale_python_autopep8_executable = g:python3_host_prog
@@ -87,4 +76,89 @@ let g:ale_fix_on_save = 1
 let g:ale_lint_on_save = 1
 "nmap <silent> <Leader>x <Plug>(ale_fix)
 '''
+
+[[plugins]]
+repo = 'junegunn/fzf'
+rtp = ''
+build = './install --all'
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = ['fzf']
+
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+[[plugins]]
+repo = 'tpope/vim-repeat'
+
+
+
+[[plugins]]
+repo = 'vim-scripts/DirDiff.vim'
+
+
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
+on_event = 'InsertEnter'
+[[plugins]]
+repo = 'kana/vim-smartinput'
+on_event = 'InsertEnter'
+hook_add = '''
+let g:smartinput_no_default_key_mappings = 1
+'''
+hook_post_source = '''
+" ERB
+call smartinput#map_to_trigger('i', '%', '%', '%')
+call smartinput#define_rule({
+\   'at': '<\%#', 'char': '%', 'input': '%=  %><Left><Left><Left>',
+\   'filetype': ['eruby', 'eelixir'],
+\ })
+call smartinput#define_rule({
+\   'at': '%.*\%#%', 'char': '%', 'input': '',
+\   'filetype': ['eruby', 'eelixir'],
+\ })
+'''
+
+
+
+
+
+# TODO: Later
+#
+# [[plugins]]
+# repo = 'Shougo/neosnippet.vim'
+# depends = ['Shougo/neosnippet-snippets']
+# hook_add = '''
+# let g:neosnippet#snippets_directory='~/.vim/snippets'
+# " Plugin key-mappings.
+# imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+# smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+# xmap <C-k>     <Plug>(neosnippet_expand_target)
+# " SuperTab like snippets behavior.
+# smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+# " For conceal markers.
+# if has('conceal')
+#   set conceallevel=2 concealcursor=niv
+# endif
+# '''
+#
+# [[plugins]]
+# repo = 'Shougo/neosnippet-snippets'
+
+
+
+# TODO: Later
+#
+# [[plugins]]
+# repo = 'thinca/vim-quickrun'
+
+
+
+# TODO: Lster  error (syntax) check
+# NeoBundle "scrooloose/syntastic"
+# NeoBundle "neomake/neomake"
+
+
 
