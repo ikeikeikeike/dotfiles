@@ -29,6 +29,10 @@ if dein#load_state('~/.cache/dein')
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 
+  call dein#add('junegunn/fzf', { 'rtp': '', 'build' : './install --all' })
+  call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+
+
   " Direct
   "call dein#add('Shougo/neosnippet.vim')
   "call dein#add('Shougo/neosnippet-snippets')
