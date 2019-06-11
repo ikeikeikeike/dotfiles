@@ -195,6 +195,11 @@ if [[ -s ~/.nvm/nvm.sh ]]; then
       source ~/.nvm/nvm.sh
 fi
 
+
+### Flutter
+export PATH="$PATH:$HOME/.virtualenvs/flutter/sdk/flutter/bin"
+
+
 ### python ###
 
 # if pythonbrew < not use
