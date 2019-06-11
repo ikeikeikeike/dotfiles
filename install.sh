@@ -8,6 +8,7 @@ do
      [ $i = install.sh ] ||
      [ $i = init.vim ] ||
      [ $i = uninstall.sh ] ||
+     [ $i = fusuma ] ||
      [ $i = .git ] ||
      [ $i = .gitignore ]; then
     continue
@@ -19,6 +20,7 @@ done
 
 mkdir -p vim ~/.config/nvim
 ln -s `pwd`/init.vim ~/.config/nvim/init.vim
+ln -s `pwd`/fusuma ~/.config/fusuma
 
 git submodule init
 git submodule update
