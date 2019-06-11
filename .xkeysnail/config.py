@@ -85,8 +85,17 @@ define_keymap(lambda wm_class: wm_class in ("Slack"), {
     K("M-v"): K("C-v"),
 }, "Slack")
 
+define_keymap(lambda wm_class: wm_class in ("jetbrains-studio"), {
+    # K("M-w"): K("C-w"),
+    # K("M-a"): K("C-a"),
+    # K("M-s"): K("C-s"),
+    # K("M-o"): K("C-o"),
+    # K("M-x"): K("C-x"),
+    # K("M-c"): K("C-c"),
+    # K("M-v"): K("C-v"),
+}, "jetbrains-studio")
 
-define_keymap(lambda wm_class: wm_class not in ("Boostnote", "Emacs", "FocusProxy", "URxvt", "Gnome-terminal"), {
+define_keymap(lambda wm_class: wm_class not in ("Boostnote", "Emacs", "FocusProxy", "URxvt", "Gnome-terminal", "jetbrains-studio"), {
     # Cursor
     K("C-b"): with_mark(K("left")),
     K("C-f"): with_mark(K("right")),
