@@ -29,6 +29,7 @@ if [ $ARCHI = linux ]; then
   alias d="sudo docker"
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -selection clipboard -o'
+  alias open="xdg-open"
 fi
 if [ $ARCHI = cygwin ]; then
   ;
