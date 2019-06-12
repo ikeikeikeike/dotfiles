@@ -6,11 +6,10 @@ depends = ['neomru.vim', 'neoyank.vim']
 on_cmd = 'Denite'
 on_event = 'BufRead'
 hook_add = '''
-nnoremap <silent> <Leader><C-f> :<C-u>DeniteBufferDir -split=vertical -vertical-preview -auto-action=preview -direction=topleft file<CR>
-nnoremap <silent> <Leader><C-r> :<C-u>DeniteBufferDir -split=vertical -vertical-preview -auto-action=preview -direction=topleft file/rec<CR>
+nnoremap <silent> <Leader><C-f> :<C-u>DeniteBufferDir -split=vertical -vertical-preview -auto-action=preview -direction=topleft -start-filter file<CR>
+nnoremap <silent> <Leader><C-r> :<C-u>DeniteBufferDir -split=vertical -vertical-preview -auto-action=preview -direction=topleft -start-filter file/rec<CR>
 nnoremap <silent> <Leader>y     :<C-u>Denite          -split=vertical -direction=topleft neoyank<CR>
 nnoremap <silent> <C-b>         :<C-u>Denite          -split=vertical -direction=topleft buffer file_mru<CR>
-
 
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
@@ -31,5 +30,6 @@ call denite#custom#filter('matcher/ignore_globs', 'ignore_globs', ['.git', '.svn
 repo = 'Shougo/neomru.vim'
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
-
-
+hook_add = '''
+let g:neoyank#limit = 500
+'''
