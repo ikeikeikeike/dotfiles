@@ -3,23 +3,26 @@
 # ARCHI & distribute
 if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
   case "`uname -sr`" in
-    FreeBSD*); export ARCHI="freebsd" ;;
-    Linux*);   export ARCHI="linux"   ;;
-    CYGWIN*);  export ARCHI="cygwin"  ;;
-    IRIX*);    export ARCHI="irix"    ;;
-    OSF1*);    export ARCHI="osf1"    ;;
-    Darwin*);  export ARCHI="darwin"  ;;
-    *);        export ARCHI="dummy"   ;;
+    FreeBSD*);    export ARCHI="freebsd" ;;
+    Linux*);      export ARCHI="linux"   ;;
+    CYGWIN*);     export ARCHI="cygwin"  ;;
+    IRIX*);       export ARCHI="irix"    ;;
+    OSF1*);       export ARCHI="osf1"    ;;
+    Darwin*);     export ARCHI="darwin"  ;;
+    *);           export ARCHI="dummy"   ;;
   esac
-  case "`uname -v`" in
-    *-Ubuntu*); export DISTRIBUTE="ubuntu" ;;
-    *);         export DISTRIBUTE="dummy"  ;;
-  esac
-  case "`cat /etc/redhat-release 2> /dev/null`" in
-    *CentOS*); export DISTRIBUTE="centos" ;;
-    *Red*);    export DISTRIBUTE="redhat" ;;
-    *);        export DISTRIBUTE="dummy" ;;
-  esac
+  if [ -x /etc/redhat-release ]; then
+    case "`cat /etc/redhat-release`" in
+      *CentOS*);  export DISTRIBUTE="centos" ;;
+      *Red*);     export DISTRIBUTE="redhat" ;;
+      *);         export DISTRIBUTE="dummy" ;;
+    esac
+  else
+    case "`uname -v`" in
+      *-Ubuntu*); export DISTRIBUTE="ubuntu" ;;
+      *);         export DISTRIBUTE="dummy"  ;;
+    esac
+  fi
 else
   export ARCHI="dummy"
   export DISTRIBUTE="dummy"
