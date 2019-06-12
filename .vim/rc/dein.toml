@@ -118,13 +118,15 @@ let g:ale_lint_on_save = 1
 
 [[plugins]]
 repo = 'junegunn/fzf'
-rtp = ''
 build = './install --all'
 
 [[plugins]]
 repo = 'junegunn/fzf.vim'
-depends = ['fzf']
-
+# depends = ['fzf']
+hook_add = '''
+let g:fzf_layout = { 'left': '~40%' }
+nnoremap <silent> <Leader><C-f> :<C-u>FZF<CR>
+'''
 
 [[plugins]]
 repo = 'tpope/vim-surround'
