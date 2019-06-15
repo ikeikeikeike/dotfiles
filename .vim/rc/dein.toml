@@ -121,11 +121,16 @@ repo = 'junegunn/fzf'
 build = './install --all'
 
 [[plugins]]
+repo = 'zackhsi/fzf-tags'
+depends = ['fzf.vim']
+
+[[plugins]]
 repo = 'junegunn/fzf.vim'
 # depends = ['fzf']
 hook_add = '''
 let g:fzf_layout = { 'left': '~40%' }
 nnoremap <silent> <Leader><C-f> :<C-u>FZF<CR>
+nnoremap <C-]> :<C-u>FZFTags<CR>
 '''
 
 [[plugins]]
@@ -206,6 +211,4 @@ repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'tpope/vim-commentary'
-
-
 
