@@ -16,8 +16,3 @@ endif
 if filereadable(expand('~/ptags'))
   au FileType php,php3,phtml set tags+=~/ptags
 endif
-
-" keymap (replace unite-tag)
-nnoremap <C-]>    g<C-]>
-
-
