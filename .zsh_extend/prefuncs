@@ -34,13 +34,13 @@ zshaddhistory() {
     local line=${1%%$'\n'}
     local cmd=${line%% *}
 
-    # 以下の条件をすべて満たすものだけをヒストリに追加する
-    # 追加したくないコマンドを列挙する
-    # この場合、以下のいずれかを満たすコマンドラインがヒストリに追加されなくなる。
-    # * 4文字以下である
-    # * コマンド名の部分が l, ls, la, ll のいずれかである
-    # * コマンド名の部分が c, cd のいずれかである
-    # * コマンド名の部分が m, man のいずれかである
+    # Adding executed command into history along the following rules.
+    # Enumerate below, these are not wanted to add.
+    #
+    # * Less than 4 characters
+    # * A pert of command is l, ls, la, ll
+    # * A pert of command is c, cd
+    # * A pert of command m, man
 
     [[ ${#line} -ge 5
         && ${cmd} != (l|l[sal])
@@ -71,11 +71,15 @@ add-zsh-hook precmd _update_vcs_info_msg 2> /dev/null
 
 
 # http://www.quark.kj.yamagata-u.ac.jp/~hiroki/zsh/zsh.cgi
-# tmuxと連携させて．
-# tmuxの環境変数を設定
+# environment variable set into tmux
 function chpwd(){
     [ $TMUX ] && tmux -2 setenv TMUXPWD_$(tmux -2 display -p "#I") $PWD
 }
+
+# sette
+#function chpwd(){
+# _reg_pwd_screennum
+#}
 
 
 # precmd
