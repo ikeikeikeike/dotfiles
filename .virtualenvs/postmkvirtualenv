@@ -37,6 +37,7 @@ pip install mock tox pytest
 
 # peformance, analysis
 pip install pyflakes pep8 pylint flake8 pydocstyle
+pip install -U flake8 flake8-import-order autoflake autopep8 black isort
 # pip install clonedigger
 
 pip install pgcli mycli httpie

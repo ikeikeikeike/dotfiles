@@ -13,6 +13,7 @@
     st = status
     ci = commit
     co = checkout
+    ; dsf = "!f() { [ -z \"$GIT_PREFIX\" ] || cd \"$GIT_PREFIX\" && git diff --color \"$@\" | diff-so-fancy  | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '; }; f"
     dsf = diff
     patch = !git --no-pager diff --no-color
 [merge]
@@ -50,3 +51,4 @@
     template = ~/.git.commit_template
 [pager]
 	branch = cat
+    template = ~/.git.commit_template

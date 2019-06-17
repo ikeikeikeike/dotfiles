@@ -3,35 +3,33 @@
 # ARCHI & distribute
 if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
   case "`uname -sr`" in
-    FreeBSD*); export ARCHI="freebsd" ;;
-    Linux*);   export ARCHI="linux"   ;;
-    CYGWIN*);  export ARCHI="cygwin"  ;;
-    IRIX*);    export ARCHI="irix"    ;;
-    OSF1*);    export ARCHI="osf1"    ;;
-    Darwin*);  export ARCHI="darwin"  ;;
-    *);        export ARCHI="dummy"   ;;
+    FreeBSD*);    export ARCHI="freebsd" ;;
+    Linux*);      export ARCHI="linux"   ;;
+    CYGWIN*);     export ARCHI="cygwin"  ;;
+    IRIX*);       export ARCHI="irix"    ;;
+    OSF1*);       export ARCHI="osf1"    ;;
+    Darwin*);     export ARCHI="darwin"  ;;
+    *);           export ARCHI="dummy"   ;;
   esac
-  case "`uname -v`" in
-    *-Ubuntu*); export DISTRIBUTE="ubuntu" ;;
-    *);         export DISTRIBUTE="dummy"  ;;
-  esac
-  case "`cat /etc/redhat-release 2> /dev/null`" in
-    *CentOS*); export DISTRIBUTE="centos" ;;
-    *Red*);    export DISTRIBUTE="redhat" ;;
-    *);        export DISTRIBUTE="dummy" ;;
-  esac
+  if [ -x /etc/redhat-release ]; then
+    case "`cat /etc/redhat-release`" in
+      *CentOS*);  export DISTRIBUTE="centos" ;;
+      *Red*);     export DISTRIBUTE="redhat" ;;
+      *);         export DISTRIBUTE="dummy" ;;
+    esac
+  else
+    case "`uname -v`" in
+      *-Ubuntu*); export DISTRIBUTE="ubuntu" ;;
+      *);         export DISTRIBUTE="dummy"  ;;
+    esac
+  fi
 else
   export ARCHI="dummy"
   export DISTRIBUTE="dummy"
 fi
 
-# ahawwwwwwwww
 if [ ! $reattach_to_user_namespace ] && [ $ARCHI = darwin ]; then
   export reattach_to_user_namespace=1
-  # echo "reattach-to-user-namespace -l zsh"
-  # echo "Note!! Error in Hidden. Error in Hidden."
-  # reattach-to-user-namespace -l zsh 2> /dev/null
-  # $HOME/bin/reattach-to-user-namespace -l zsh 2> /dev/null
 fi
 
 # HOST
@@ -48,48 +46,34 @@ export MANPATH=/usr/share/man:/usr/X11/man:$MANPATH
 export PATH=$PATH:$HOME/bin:$HOME/sbin
 export MANPATH=$MANPATH:$HOME/share/man
 
+
 if [ $ARCHI = darwin ]; then
-  # encode
   export LANG=ja_JP.UTF-8
   export LC_ALL=ja_JP.UTF-8
 
   # Finished adapting your PATH environment variable for use with MacPorts.
   export PATH=/Developer/usr/bin:/opt/local/apache2/bin:/opt/local/lib/mysql5/bin:/opt/local/lib/mysql57/bin:$PATH
   export MANPATH=/Developer/usr/share/man:$MANPATH
-  # MacPorts Installer addition on 2010-02-14_at_19:14:58: adding an appropriate PATH variable for use with MacPorts.
   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
   export MANPATH=/opt/local/man:$MANPATH
   export DISPLAY=:0.0
-  # extends
-
-  # dyld: DYLD_ environment variables being ignored because main executable (/usr/bin/sudo) is setuid or setgid
-  # export LIBRARY_PATH=/opt/local/lib
-  # export LD_LIBRARY_PATH=/opt/local/lib
-  # export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
-
+  export PATH="/usr/local/luajit/bin/:$PATH"
   export C_INCLUDE_PATH=/opt/local/include
   export CPLUS_INCLUDE_PATH=/opt/local/include:$HOME/include
   export BOOST_ROOT=$HOME/include/boost:/opt/local/include/boost:$BOOST_ROOT
-  # default editor
   export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-  # @see python_select
   [[ -s $HOME/.pythonbrew/etc/bashrc ]] || export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
-  # move $HOME/.zsh_extends/prefuncs
-  # [[ -s $HOME/.pythonbrew/etc/bashrc ]] && export PYTHON_HOME=`cat ~/.pythonbrew/etc/current | sed -e 's@PATH_PYTHONBREW_CURRENT="@@g' | sed -e 's@/bin"@@g'`
 
   export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
   # make setting
   export MAKEOPTS="-j3"
 
-  # TODO: bugfix
   unset DYLD_LIBRARY_PATH
   unset LD_LIBRARY_PATH
 fi
 if [ $ARCHI = linux ]; then
-  # encode
   export LANG=en_US.UTF-8
-  # default editor
   export EDITOR="vim"
 fi
 
@@ -182,6 +166,15 @@ alias javac='javac -J-Dfile.encoding=UTF-8'
 alias java='java -Dfile.encoding=UTF-8'
 alias jdb='jdb -J-Dfile.encoding=UTF-8'
 
+if [[ -s "/usr/libexec/java_home" ]]; then
+    export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+    export JAVA=$JAVA_HOME/bin
+    export STUDIO_JDK=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk
+    alias javac='javac -J-Dfile.encoding=UTF-8'
+    alias java='java -Dfile.encoding=UTF-8'
+    alias jdb='jdb -J-Dfile.encoding=UTF-8'
+fi
+
 
 ### scala ###
 
@@ -207,11 +200,25 @@ export MANPATH=$CABAL_HOME/share:$MANPATH
 
 
 ### golang ###
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+if [[ -s "$HOME/.gvm/scripts/gvm" ]]; then
+    source "$HOME/.gvm/scripts/gvm"
+fi
 
+eval "$(direnv hook zsh)" 2> /dev/null
 
 ### Elixir
-[[ -s "$HOME/.exenv/bin" ]] && export PATH="$HOME/.exenv/bin:$PATH"; eval "$(exenv init -)"
+if [[ -s "$HOME/.exenv/bin" ]]; then
+    export PATH="$HOME/.exenv/bin:$PATH"; eval "$(exenv init -)"
+fi
+
+
+if [[ -s ~/.nvm/nvm.sh ]]; then
+      source ~/.nvm/nvm.sh
+fi
+
+
+### Flutter
+export PATH="$PATH:$HOME/.virtualenvs/flutter/sdk/flutter/bin"
 
 
 ### python ###
@@ -254,14 +261,27 @@ export PATH="$PATH:/usr/local/flutter/bin"
 ### extra ###
 
 # zsh autojump
-export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
 if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
+    export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
     . /opt/local/etc/profile.d/autojump.zsh
 fi
 if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
     . /opt/local/etc/profile.d/autojump.sh
 fi
 [[ -s $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh ]] && . $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh
+if [ -f /usr/share/autojump/autojump.zsh ]; then
+    export FPATH="$FPATH:/usr/local/share/zsh/site-functions/"
+    . /usr/share/autojump/autojump.zsh
+fi
+if [[ -s /usr/local/bin/brew ]]; then
+    if [[ -s $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh ]]; then
+        . $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh
+    fi
+fi
+
+if [[ -s /root/.autojump/etc/profile.d/autojump.sh ]]; then
+    source /root/.autojump/etc/profile.d/autojump.sh
+fi
 
 # mysettings
 source $HOME/.adds_zshenv 2> /dev/null
@@ -271,11 +291,6 @@ export ODBCSYSINI=/etc
 export FREETDSCONF=/etc/freetds.conf
 
 export PATH=$HOME/.nodebrew/current/bin:$PATH
-
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH="$PATH:/usr/local/opt/fzf/bin"
-export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
-export FZF_DEFAULT_OPTS='--height 60% --reverse --border'
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="/usr/local/opt/gettext/bin:$PATH"
@@ -289,3 +304,7 @@ if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud
 
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+export FZF_DEFAULT_OPTS='--height 60% --reverse --border'
