@@ -184,15 +184,15 @@ NeoBundle 'tweekmonster/django-plus.vim'
 NeoBundle 'vim-scripts/django.vim'
 NeoBundle 'Glench/Vim-Jinja2-Syntax'
 
-NeoBundle "davidhalter/jedi-vim", {
-\ 'build' : {
-\     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
-\     'cygwin' : 'git submodule update --init',
-\     'mac' : 'git submodule update --init',
-\     'unix' : 'git submodule update --init',
-\     'linux' : 'git submodule update --init',
-\   },
-\ }
+" NeoBundle "davidhalter/jedi-vim", {
+" \ 'build' : {
+" \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+" \     'cygwin' : 'git submodule update --init',
+" \     'mac' : 'git submodule update --init',
+" \     'unix' : 'git submodule update --init',
+" \     'linux' : 'git submodule update --init',
+" \   },
+" \ }
 
 " ruby
 " NeoBundle 'astashov/vim-ruby-debugger'
