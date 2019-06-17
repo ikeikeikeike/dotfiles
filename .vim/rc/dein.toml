@@ -1,3 +1,10 @@
+[[plugins]]
+repo = 'tweekmonster/django-plus.vim'
+on_ft = 'django'
+
+[[plugins]]
+repo = 'vim-scripts/django.vim'
+on_ft = 'django'
 
 [[plugins]]
 repo = 'tpope/vim-rails'
