@@ -6,10 +6,10 @@ depends = ['neomru.vim', 'neoyank.vim']
 on_cmd = 'Denite'
 on_event = 'BufRead'
 hook_add = '''
-" nnoremap <silent> <Leader><C-f> :<C-u>DeniteBufferDir -split=vertical -vertical-preview -auto-action=preview -direction=topleft -start-filter file<CR>
-" nnoremap <silent> <Leader><C-r> :<C-u>DeniteBufferDir -split=vertical -vertical-preview -auto-action=preview -direction=topleft -start-filter file/rec<CR>
-nnoremap <silent> <Leader>y     :<C-u>Denite -split=vertical -direction=topleft neoyank<CR>
-nnoremap <silent> <C-b>         :<C-u>Denite -split=vertical -direction=topleft buffer file_mru<CR>
+" nnoremap <silent> <Leader><C-f> :<C-u>DeniteBufferDir -split=vertical -vertical-preview -auto-action=preview -direction=topleft -winwidth=150 -start-filter file<CR>
+" nnoremap <silent> <Leader><C-r> :<C-u>DeniteBufferDir -split=vertical -vertical-preview -auto-action=preview -direction=topleft -winwidth=150 -start-filter file/rec<CR>
+nnoremap <silent> <Leader>y     :<C-u>Denite -split=vertical -direction=topleft -winwidth=150 neoyank <CR>
+nnoremap <silent> <C-b>         :<C-u>Denite -split=vertical -direction=topleft -winwidth=150 buffer file_mru<CR>
 
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
