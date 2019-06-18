@@ -11,7 +11,7 @@ if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
     Darwin*);     export ARCHI="darwin"  ;;
     *);           export ARCHI="dummy"   ;;
   esac
-  if [ -x /etc/redhat-release ]; then
+  if [ -f /etc/redhat-release ]; then
     case "`cat /etc/redhat-release`" in
       *CentOS*);  export DISTRIBUTE="centos" ;;
       *Red*);     export DISTRIBUTE="redhat" ;;
@@ -256,9 +256,9 @@ export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 
-if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
-  source "${VIRTUAL_ENV}/bin/activate"
-fi
+# if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+#   source "${VIRTUAL_ENV}/bin/activate"
+# fi
 
 ### flutter
 
