@@ -48,7 +48,7 @@
 [fetch]
     prune = true
 [commit]
-    template = /root/.git.commit_template
-[user]
-	name = ikeikeikeike / Tatsuo Ikeda
-	email = jp.ne.co.jp@gmail.com
+    template = ~/.git.commit_template
+[pager]
+	branch = cat
+    template = ~/.git.commit_template

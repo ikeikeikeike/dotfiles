@@ -29,7 +29,7 @@ let g:syntastic_python_checkers = ['pyflakes', 'pep8', 'flake8', 'pylint']
 let g:loaded_syntastic_python_pep257_checker = 0
 " let g:loaded_syntastic_python_pydocstyle_checker = 0
 
-let g:syntastic_shell = "/usr/bin/bash"
+let g:syntastic_shell = "/bin/bash"
 
 " let g:syntastic_ruby_exec=$RUBY_EXE
 let g:syntastic_ruby_exec=system('echo -n `rbenv which ruby`')

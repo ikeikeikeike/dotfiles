@@ -1,0 +1,221 @@
+[[plugins]]
+repo = 'tweekmonster/django-plus.vim'
+on_ft = 'django'
+
+[[plugins]]
+repo = 'vim-scripts/django.vim'
+on_ft = 'django'
+
+[[plugins]]
+repo = 'tpope/vim-rails'
+on_ft = 'ruby'
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+on_ft = 'ruby'
+hook_add = '''
+let g:rubycomplete_rails = 1
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_classes_in_global = 1
+let g:rubycomplete_include_object = 1
+let g:rubycomplete_include_object_space = 1
+'''
+
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'nginx'
+[[plugins]]
+repo = 'chr4/nginx.vim'
+on_ft = 'nginx'
+
+[[plugins]]
+repo = 'fatih/vim-go.git'
+on_ft = 'go'
+hook_add = '''
+set completeopt=menu,preview
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = "goimports"
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+'''
+[[plugins]]
+repo = 'dgryski/vim-godef'
+on_ft = 'go'
+hook_add = '''
+au FileType go nmap <C-\> <Plug>(go-def-vertical)
+au FileType go nmap <C-]> <Plug>(go-def)
+'''
+[[plugins]]
+repo = 'vim-jp/vim-go-extra'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'vim-scripts/Colour-Sampler-Pack'
+hook_add = '''
+colorscheme wuye
+if &diff
+  " colorscheme colorer
+endif
+'''
+
+
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+
+
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+depends = ['vim-airline-themes']
+hook_add = '''
+let g:airline#extensions#tabline#enabled = 0
+let g:airline_theme='angr'
+'''
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+
+
+
+[[plugins]]
+repo = 'sjl/gundo.vim'
+hook_add = '''
+let g:gundo_right = 1
+nnoremap <F8> :GundoToggle<CR>
+'''
+
+
+[[plugins]]
+repo = 'w0rp/ale'
+hook_add = '''
+let g:ale_linters = {
+  \ 'python': ['flake8', 'pylint', 'pep8', 'pyflakes'],
+  \ 'go': ['go', 'govet', 'gotype', 'golint'],
+  \ }
+
+let g:ale_fixers = {
+  \ 'python': ['autopep8', 'black', 'isort'],
+  \ }
+
+
+let g:ale_python_pylint_executable = g:python3_host_prog
+" let g:ale_python_pylint_args XXX: see pylintrc
+let g:ale_python_flake8_executable = g:python3_host_prog
+let g:ale_python_flake8_options = '-m flake8 --ignore=E501'
+let g:ale_python_autopep8_executable = g:python3_host_prog
+let g:ale_python_autopep8_options = '-m autopep8'
+let g:ale_python_isort_executable = g:python3_host_prog
+let g:ale_python_isort_options = '-m isort'
+let g:ale_python_black_executable = g:python3_host_prog
+let g:ale_python_black_options = '-m black'
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_save = 1
+"nmap <silent> <Leader>x <Plug>(ale_fix)
+'''
+
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --all'
+
+[[plugins]]
+repo = 'zackhsi/fzf-tags'
+depends = ['fzf.vim']
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+# depends = ['fzf']
+hook_add = '''
+let g:fzf_layout = { 'left': '~40%' }
+nnoremap <silent> <Leader><C-f> :<C-u>FZF<CR>
+nnoremap <C-]> :<C-u>FZFTags<CR>
+'''
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+[[plugins]]
+repo = 'tpope/vim-repeat'
+
+
+
+[[plugins]]
+repo = 'vim-scripts/DirDiff.vim'
+
+
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
+on_event = 'InsertEnter'
+[[plugins]]
+repo = 'kana/vim-smartinput'
+on_event = 'InsertEnter'
+hook_add = '''
+let g:smartinput_no_default_key_mappings = 1
+'''
+hook_post_source = '''
+" ERB
+call smartinput#map_to_trigger('i', '%', '%', '%')
+call smartinput#define_rule({
+\   'at': '<\%#', 'char': '%', 'input': '%=  %><Left><Left><Left>',
+\   'filetype': ['eruby', 'eelixir'],
+\ })
+call smartinput#define_rule({
+\   'at': '%.*\%#%', 'char': '%', 'input': '',
+\   'filetype': ['eruby', 'eelixir'],
+\ })
+'''
+
+
+
+
+
+# TODO: Later
+#
+# https://github.com/SirVer/ultisnips
+#
+# [[plugins]]
+# repo = 'Shougo/neosnippet.vim'
+# depends = ['Shougo/neosnippet-snippets']
+# hook_add = '''
+# let g:neosnippet#snippets_directory='~/.vim/snippets'
+# " Plugin key-mappings.
+# imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+# smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+# xmap <C-k>     <Plug>(neosnippet_expand_target)
+# " SuperTab like snippets behavior.
+# smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+# " For conceal markers.
+# if has('conceal')
+#   set conceallevel=2 concealcursor=niv
+# endif
+# '''
+#
+# [[plugins]]
+# repo = 'Shougo/neosnippet-snippets'
+
+
+
+# TODO: Later
+#
+# [[plugins]]
+# repo = 'thinca/vim-quickrun'
+
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'tpope/vim-commentary'
+

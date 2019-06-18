@@ -1,0 +1,20 @@
+# 1. Copy this to ~/.config/systemd/user/fusuma.service
+# 2. sudo systemctl enable fusuma
+#
+# Note that you need to set proper $DISPLAY on your environment.
+
+[Unit]
+Description=fusuma
+
+[Service]
+KillMode=process
+ExecStart=/usr/bin/sudo -H /usr/local/bin/fusuma
+ExecStartPre=/usr/bin/xhost +SI:localuser:root
+Type=simple
+Restart=always
+
+# Update DISPLAY to be the same as `echo $DISPLAY` on your graphical terminal.
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=default.target

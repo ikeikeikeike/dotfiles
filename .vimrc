@@ -1,5 +1,6 @@
 " -*- coding: utf-8 -*-
 
+
 " ------------------------
 "
 "   vundle -> neobundle
@@ -181,6 +182,7 @@ NeoBundle 'plytophogy/vim-virtualenv'
 " NeoBundle 'project.tar.gz'
 " NeoBundle 'vim-ipython'
 NeoBundle 'pep8'
+NeoBundle 'tweekmonster/django-plus.vim'
 NeoBundle 'vim-scripts/django.vim'
 NeoBundle 'Glench/Vim-Jinja2-Syntax'
 
@@ -198,6 +200,7 @@ NeoBundle "davidhalter/jedi-vim", {
 " NeoBundle 'astashov/vim-ruby-debugger'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tpope/vim-rails'
+NeoBundle 'slim-template/vim-slim'
 
 " php
 " NeoBundle 'justinrainbow/php-xdebug.vim'
@@ -236,11 +239,14 @@ NeoBundle 'leafgarland/typescript-vim'
 NeoBundle 'jason0x43/vim-js-indent'
 " NeoBundle 'Quramy/tsuquyomi'
 
-" markdown
-NeoBundle 'plasticboy/vim-markdown'
-
 " terraform
 NeoBundle 'hashivim/vim-terraform'
+
+" protobuf
+NeoBundle 'uarun/vim-protobuf'
+
+" makefile
+NeoBundle 'c9s/vim-makefile'
 
 " ~~~~~~~~~
 " profiler
