@@ -12,4 +12,4 @@ brew -v update && brew -v upgrade &
 brew cleanup
 
 # npm
-npm update -g &
+npm update -g && npm upgrade -g &

@@ -1,18 +1,13 @@
 #!/usr/bin/env zsh
 
-# functionの設定
+# history all
 function history-all { history -E 1 }
 
-# status code 0 で実行 調整時に有効
+# when returns status code 0 then execute
 # function TRAPZERR() { echo "exit:$? $@" }
 
-# cdを打ったら自動的にlsを打ってくれる関数
+# cd with ls
 function cd(){ builtin cd $@ && ls && ls -alt; }
-
-# settei wo kaiteinai
-#function chpwd(){
-# _reg_pwd_screennum
-#}
 
 # ssh screen name
 function ssh_screen(){
@@ -24,7 +19,7 @@ function ssh_tmux(){
     tmux new-window -n ${@}${server} "ssh ${@}"
 }
 
-# tmux screen 判別
+# tmux screen recogniation
 # if [ x$TERM = xscreen ]; then
     if [ -e $TMUX ]; then
         alias ssh=ssh_screen
@@ -50,32 +45,32 @@ alias grep1=' export_grep_color "01;32" $1' # green
 alias grep2=' export_grep_color "01;33" $1' # yellow
 alias grep3=' export_grep_color "01;34" $1' # blue
 alias grep4=' export_grep_color "01;35" $1' # purple
-alias grep5=' export_grep_color "01;36" $1' # 水色
+alias grep5=' export_grep_color "01;36" $1' # light blue
 alias grep6=' export_grep_color "01;37" $1' # white
 
 
-# 解凍
+# extract archive
 function extract (){
   if [ -f $1 ] ; then
-      case $1 in
-          *.tar.bz2)   echo "tar xvjf $1"   && tar xvjf $1    ;;
-          *.tar.gz)    echo "tar xvzf $1"   && tar xvzf $1    ;;
-          *.tar.xz)    echo "tar xvJf $1"   && tar xvJf $1    ;;
-          *.bz2)       echo "bunzip2 $1"    && bunzip2 $1     ;;
-          *.rar)       echo "unrar x $1"    && unrar x $1     ;;
-          *.gz)        echo "gunzip $1"     && gunzip $1      ;;
-          *.tar)       echo "tar xvf $1"    && tar xvf $1     ;;
-          *.tbz2)      echo "tar xvjf $1"   && tar xvjf $1    ;;
-          *.tgz)       echo "tar xvzf $1"   && tar xvzf $1    ;;
-          *.zip)       echo "unzip $1"      && unzip $1       ;;
-          *.Z)         echo "uncompress $1" && uncompress $1  ;;
-          *.7z)        echo "7z x $1"       && 7z x $1        ;;
-          *.lzma)      echo "lzma -dv $1"   && lzma -dv $1    ;;
-          *.xz)        echo "xz -dv $1"     && xz -dv $1      ;;
-          *)           echo "don't know how to extract '$1'..." ;;
-      esac
+    case $1 in
+        *.tar.bz2) echo "tar xvjf $1"   && tar xvjf $1      ;;
+        *.tar.gz)  echo "tar xvzf $1"   && tar xvzf $1      ;;
+        *.tar.xz)  echo "tar xvJf $1"   && tar xvJf $1      ;;
+        *.bz2)     echo "bunzip2 $1"    && bunzip2 $1       ;;
+        *.rar)     echo "unrar x $1"    && unrar x $1       ;;
+        *.gz)      echo "gunzip $1"     && gunzip $1        ;;
+        *.tar)     echo "tar xvf $1"    && tar xvf $1       ;;
+        *.tbz2)    echo "tar xvjf $1"   && tar xvjf $1      ;;
+        *.tgz)     echo "tar xvzf $1"   && tar xvzf $1      ;;
+        *.zip)     echo "unzip $1"      && unzip $1         ;;
+        *.Z)       echo "uncompress $1" && uncompress $1    ;;
+        *.7z)      echo "7z x $1"       && 7z x $1          ;;
+        *.lzma)    echo "lzma -dv $1"   && lzma -dv $1      ;;
+        *.xz)      echo "xz -dv $1"     && xz -dv $1        ;;
+        *)         echo "don't know how to extract '$1'..." ;;
+    esac
   else
-      echo "'$1' is not a valid file!"
+    echo "'$1' is not a valid file!"
   fi
 }
 
@@ -134,7 +129,6 @@ EOF
 
 function rbenv_use() {
     rbenv global $@
-    rbenv exec ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
     gen_rbenv_postzshrc  # ganegate rc file
 }
 
@@ -150,7 +144,6 @@ function golang_use() {
 
 function rvm_use() {
     rvm use $@
-    ruby $RSENSE_HOME/etc/config.rb > ~/.rsense
     # ganegate rc file
     gen_rvm_postzshrc
 }
@@ -191,10 +184,6 @@ function lw() {
 # bindkey '^;' zaw
 # bindkey '^R' zaw-history
 
-# zmv command - http://d.hatena.ne.jp/mollifier/20101227/p1
-autoload -Uz zmv
-alias zmv='noglob zmv -W'
-
 
 # ruby tags
 function rtags() {
@@ -229,3 +218,38 @@ function rtags() {
     }
 
 }
+
+[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
+# kubectl () {
+    # if [[ -z $KUBECTL_COMPLETE ]]
+    # then
+        # source <($commands[kubectl] completion zsh)
+        # KUBECTL_COMPLETE=1
+    # fi
+    # echo "+ kubectl $@"
+    # $commands[kubectl] $*
+# }
+
+vimR () {
+    echo -n "vim -c ':argdo %s/no-example/just-sample/g | update' **/*.go" > /dev/null
+    echo -n "vim -c ':argdo %s/no-example/just-sample/gce | update' **/*.go" > /dev/null
+
+    echo "vim -c ':argdo $1 | update' $2"
+    vim -c ":argdo $1 | update" $2
+}
+
+# alias vimGCE vim -c ':argdo %s/local-nginx/simply-nginx/gce | update' *.yaml
+#
+
+if [ $ARCHI = darwin ]; then
+  ;
+fi
+if [ $ARCHI = freebsd ]; then
+  ;
+fi
+if [ $ARCHI = linux ]; then
+  function open() { ls $@ | while read -r file; do xdg-open "$file"; done }
+fi
+if [ $ARCHI = cygwin ]; then
+  ;
+fi
