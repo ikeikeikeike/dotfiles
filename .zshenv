@@ -256,6 +256,10 @@ export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 
+if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+  source "${VIRTUAL_ENV}/bin/activate"
+fi
+
 ### flutter
 
 export PATH="$PATH:/usr/local/flutter/bin"
