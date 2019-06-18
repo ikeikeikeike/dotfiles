@@ -11,7 +11,7 @@ if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
     Darwin*);     export ARCHI="darwin"  ;;
     *);           export ARCHI="dummy"   ;;
   esac
-  if [ -x /etc/redhat-release ]; then
+  if [ -f /etc/redhat-release ]; then
     case "`cat /etc/redhat-release`" in
       *CentOS*);  export DISTRIBUTE="centos" ;;
       *Red*);     export DISTRIBUTE="redhat" ;;
@@ -71,16 +71,8 @@ fi
 if [ $ARCHI = linux ]; then
   export LANG=en_US.UTF-8
   export EDITOR="vim"
+  export MAKEOPTS="-j12"
 fi
-
-# emacs view setting
-# if [ "$SHELL" = "/bin/bash" ];then
-    # export TERM=xterm-256color
-    # # export TERM=xterm-color
-# else
-    # export TERM=screen
-    # # export TERM=xterm-256color
-# fi
 
 # less
 export LESSCHARSET=utf-8
@@ -102,34 +94,19 @@ fpath=(~/.zsh-completions_ext $fpath)
 
 if [[ -s "$HOME/.phpenv/bin/phpenv" ]]; then
     export PATH="$HOME/.phpenv/bin:$PATH"
-    # eval "$(rbenv init - zsh)"
-    # exec $SHELL -l
 fi
 
 
 ### ruby ###
 
 if [[ -s "$HOME/.rbenv/bin/rbenv" ]]; then
-
     # This loads rbenv
     export RBENV_ROOT=$HOME/.rbenv
     export PATH="$RBENV_ROOT/shims:$RBENV_ROOT/bin:$PATH"
     eval "$(rbenv init -)"
     export RUBY_EXE=`rbenv which ruby`
-
 elif [[ -s "/usr/local/bin/rbenv" ]]; then
-
     export RBENV_ROOT=/usr/local/opt/rbenv
-
-elif [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
-
-    # This loads RVM into a shell session.
-    # source $HOME/.rvm/scripts/rvm
-
-elif [[ -s /usr/share/ruby-rvm/scripts/rvm ]]; then
-
-    # This loads RVM into a shell session.
-
 fi
 
 
@@ -194,11 +171,6 @@ if [[ -s "$HOME/.exenv/bin" ]]; then
 fi
 
 
-if [[ -s ~/.nvm/nvm.sh ]]; then
-      source ~/.nvm/nvm.sh
-fi
-
-
 ### Flutter
 export PATH="$PATH:$HOME/.virtualenvs/flutter/sdk/flutter/bin"
 
@@ -218,9 +190,9 @@ export PYTHONIOENCODING=UTF-8
 # Import virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
 # virtualenvwrapper
-#if [ -f `\which virtualenvwrapper.sh 2> /dev/null` ]; then
+if [ -f `\which virtualenvwrapper.sh 2> /dev/null` ]; then
   source virtualenvwrapper.sh 2> /dev/null
-#fi
+fi
 
 ## extra virtualenv
 # require
@@ -264,6 +236,3 @@ export ODBCINI=/etc/odbc.ini
 export ODBCSYSINI=/etc
 export FREETDSCONF=/etc/freetds.conf
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
-export FZF_DEFAULT_OPTS='--height 60% --reverse --border'

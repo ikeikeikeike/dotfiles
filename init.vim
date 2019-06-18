@@ -4,9 +4,13 @@ if &compatible
   set nocompatible
 endif
 
-" Executers
 let g:python_host_prog = '/usr/bin/python'
-let g:python3_host_prog = '/usr/bin/python3'
+" Figure out the system Python for Neovim.
+if exists("$VIRTUAL_ENV")
+  let g:python3_host_prog = expand("$VIRTUAL_ENV/bin/python")
+else
+  let g:python3_host_prog = '/usr/bin/python3'
+endif
 
 " let g:ruby_host_prog = ''
 " let g:node_host_prog = ''
