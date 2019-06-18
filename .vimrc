@@ -18,6 +18,8 @@ if has('vim_starting')
   set runtimepath+=~/.vim/nobundle/helpex.vim
 endif
 
+set encoding=utf-8
+
 " Fuzzy file, buffer, mru, tag
 " NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'Shougo/unite.vim'
