@@ -1,4 +1,6 @@
-
+# begin
+#
+#
 # use the same Emacs keybind
 bindkey -e
 
@@ -14,22 +16,8 @@ SAVEHIST=10000000
 # Report show detail a processing if passed over 5 seconds.
 REPORTTIME=5
 
-export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
-if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
-    . /opt/local/etc/profile.d/autojump.zsh
-fi
-
-# [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
-
 # auto complete compile
-# autoload -U compinit && compinit
-# fpath=(/opt/local/share/zsh/5.2/functions ${fpath})
 autoload -Uz compinit && compinit -u
-
-# extra auto complete
-#fpath=($fpath $HOME/.zsh_extend/autocomplete)
-#autoload -Uz compinit
-#compinit
 
 # alias
 source $HOME/.zsh_extend/aliases
@@ -234,33 +222,38 @@ setopt noflowcontrol
 bindkey '^Q' show_buffer_stack
 
 
-### Like a Fish shell coloring. ###
-#
-# https://github.com/zsh-users/zsh-syntax-highlighting
-# Source the script at the end of ~/.zshrc:
-#
-# source ~/.zsh_extend/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+# export FZF_DEFAULT_OPTS='--height 60% --reverse --border'
 
 
-### TODO: Next auto-fu.zsh  ###
+# zplug
 #
-# confrict zsh-syntax-highlighting
 #
+source ~/.zplug/init.zsh
 
+zplug "zsh-users/zsh-completions"
+# zplug "zsh-users/zsh-history-substring-search", defer:1
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "plugins/git",   from:oh-my-zsh
+zplug "jhawthorn/fzy", as:command, rename-to:fzy, hook-build:"make && sudo make install"
+zplug "b4b4r07/httpstat", as:command, use:'(*).sh', rename-to:'$1'
+zplug "~/.zsh", from:local
+#zplug "dracula/zsh", as:theme
 
-### zsh-history-substring-search
-#
-# https://github.com/zsh-users/zsh-history-substring-search
-# This is a clean-room implementation of the Fish shell's
-#
-# source ~/.zsh_extend/zsh-history-substring-search/zsh-history-substring-search.zsh
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
+fi
 
-# if type zprof > /dev/null 2>&1; then
-  # zprof | less
+# Then, source plugins and add commands to $PATH
+zplug load # --verbose
+
+# if zplug check "zsh-users/zsh-history-substring-search"; then
+#   bindkey -M emacs '^P' history-substring-search-up
+#   bindkey -M emacs '^N' history-substring-search-down
 # fi
-
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
-export FZF_DEFAULT_OPTS='--height 60% --reverse --border'
 

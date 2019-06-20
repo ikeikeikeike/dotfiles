@@ -86,9 +86,11 @@ export DOCKER_HOST=tcp://localhost:4243
 # gsutil
 export PATH=$PATH:$HOME/lib/gsutil
 
+
 ### zsh
-fpath=(~/.zsh-completions $fpath)
+
 fpath=(~/.zsh-completions_ext $fpath)
+
 
 ### PHP ###
 
@@ -224,7 +226,6 @@ if [[ -s /usr/local/bin/brew ]]; then
         . $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh
     fi
 fi
-
 if [[ -s /root/.autojump/etc/profile.d/autojump.sh ]]; then
     source /root/.autojump/etc/profile.d/autojump.sh
 fi
@@ -236,3 +237,16 @@ export ODBCINI=/etc/odbc.ini
 export ODBCSYSINI=/etc
 export FREETDSCONF=/etc/freetds.conf
 
+# zplug: # git clone https://github.com/zplug/zplug $ZPLUG_HOME
+export ZPLUG_HOME=~/.zplug
+
+
+
+
+
+
+
+# end
+#
+#
+#
