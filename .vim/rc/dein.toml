@@ -23,6 +23,18 @@ let g:rubycomplete_include_object_space = 1
 '''
 
 [[plugins]]
+repo = 'elixir-editors/vim-elixir'
+on_ft = 'elixir'
+[[plugins]]
+repo = 'slashmili/alchemist.vim'
+on_ft = 'elixir'
+# https://github.com/slashmili/alchemist.vim/wiki
+#hook_add = '''
+#let g:alchemist_tag_map = '<C-]>'
+#let g:alchemist_tag_stack_map = '<C-T>'
+#```
+
+[[plugins]]
 repo = 'cespare/vim-toml'
 on_ft = 'nginx'
 [[plugins]]

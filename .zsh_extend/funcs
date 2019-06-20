@@ -85,6 +85,17 @@ PS1="(`basename $GEM_HOME`@rvm)\$PS1"
 EOF
 }
 
+function gen_kerl_postzshrc() {
+cat << EOF > $HOME/.kerl_postzshrc 2>&1
+#
+# auto ganerate post zshrc
+#
+kerl_use `cat ~/.kerl/version` > /dev/null
+PS1="(`cat ~/.kerl/version`@erlang)\$PS1"
+EOF
+
+}
+
 function gen_exenv_postzshrc() {
 cat << EOF > $HOME/.exenv_postzshrc 2>&1
 #
@@ -135,6 +146,11 @@ function rbenv_use() {
 function exenv_use() {
     exenv global $@
     gen_exenv_postzshrc  # ganegate rc file
+}
+function kerl_use() {
+    . /home/ikeike/opt/${@}/activate
+    echo -n $@ > ~/.kerl/version
+    gen_kerl_postzshrc  # ganegate rc file
 }
 
 function golang_use() {
