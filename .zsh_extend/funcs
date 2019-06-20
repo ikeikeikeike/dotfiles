@@ -125,6 +125,18 @@ function rtags() {
 
 }
 
+vimR () {
+    echo -n "vim -c ':argdo %s/no-example/just-sample/g | update' **/*.go" > /dev/null
+    echo -n "vim -c ':argdo %s/no-example/just-sample/gce | update' **/*.go" > /dev/null
+
+    echo "vim -c ':argdo $1 | update' $2"
+    vim -c ":argdo $1 | update" $2
+}
+
+sshEX () {
+  echo 'xpanes -s -t -c "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no {}" user@host1 user@host2 user@host3'
+}
+
 
 if [ $ARCHI = darwin ]; then
   ;
