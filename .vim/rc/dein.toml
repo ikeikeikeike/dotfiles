@@ -98,8 +98,6 @@ let g:airline_theme='angr'
 repo = 'vim-airline/vim-airline-themes'
 
 
-
-
 [[plugins]]
 repo = 'sjl/gundo.vim'
 hook_add = '''
@@ -211,11 +209,28 @@ call smartinput#define_rule({
 #   set conceallevel=2 concealcursor=niv
 # endif
 # '''
-#
-# [[plugins]]
-# repo = 'Shougo/neosnippet-snippets'
 
 
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+hook_add = '''
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+let g:neosnippet#snippets_directory='~/.vim/snippets'
+'''
 
 # TODO: Later
 #
