@@ -55,101 +55,6 @@ function extract (){
   fi
 }
 
-
-function gen_rvm_postzshrc() {
-cat << EOF > $HOME/.rvm_postzshrc 2>&1
-#
-# auto ganerate post zshrc
-#
-(rvm_use `rvm current` &) > /dev/null
-PS1="(`basename $GEM_HOME`@rvm)\$PS1"
-EOF
-}
-
-function gen_kerl_postzshrc() {
-cat << EOF > $HOME/.kerl_postzshrc 2>&1
-#
-# auto ganerate post zshrc
-#
-kerl_use `cat ~/.kerl/version` > /dev/null
-PS1="(`cat ~/.kerl/version`@erlang)\$PS1"
-EOF
-
-}
-
-function gen_exenv_postzshrc() {
-cat << EOF > $HOME/.exenv_postzshrc 2>&1
-#
-# auto ganerate post zshrc
-#
-(exenv_use `cat ~/.exenv/version` &) > /dev/null
-PS1="(`cat ~/.exenv/version`@elixir)\$PS1"
-EOF
-}
-
-
-function gen_rbenv_postzshrc() {
-cat << EOF > $HOME/.rbenv_postzshrc 2>&1
-#
-# auto ganerate post zshrc
-#
-(rbenv_use `cat ~/.rbenv/version` &) > /dev/null
-PS1="(`cat ~/.rbenv/version`@rbenv)\$PS1"
-EOF
-}
-
-function gen_golang_postzshrc() {
-cat << EOF > $HOME/.golang_postzshrc 2>&1
-#
-# auto ganerate post zshrc
-#
-source $HOME/.gvm/environments/default
-(golang_use `echo $gvm_go_name` &) > /dev/null
-PS1="(`echo $gvm_go_name | sed -e 's/go//g'`@go)\$PS1"
-clear
-EOF
-}
-
-function gen_virtualenvwrapper_postzshrc() {
-cat << EOF > $HOME/.virtualenvwrapper_postzshrc 2>&1
-#
-# auto ganerate post zshrc
-#
-workon `basename $VIRTUAL_ENV`
-EOF
-}
-
-function rbenv_use() {
-    rbenv global $@
-    gen_rbenv_postzshrc  # ganegate rc file
-}
-
-function exenv_use() {
-    exenv global $@
-    gen_exenv_postzshrc  # ganegate rc file
-}
-function kerl_use() {
-    . /home/ikeike/opt/${@}/activate
-    echo -n $@ > ~/.kerl/version
-    gen_kerl_postzshrc  # ganegate rc file
-}
-
-function golang_use() {
-    (yes | gvm use $@ --default) > /dev/null
-    gen_golang_postzshrc  # ganegate rc file
-}
-
-function rvm_use() {
-    rvm use $@
-    # ganegate rc file
-    gen_rvm_postzshrc
-}
-
-function nvm_use() {
-    nvm use $@
-    export NODE_PATH=${NVM_PATH}_modules
-}
-
 function pcolor() {
     for ((f = 0; f < 255; f++)); do
         printf "\e[38;5;%dm %3d*■\e[m" $f $f
@@ -233,3 +138,102 @@ fi
 if [ $ARCHI = cygwin ]; then
   ;
 fi
+
+
+# env loader
+
+function gen_rvm_postzshrc() {
+cat << EOF > $HOME/.rvm_postzshrc 2>&1
+#
+# auto ganerate post zshrc
+#
+(rvm_use `rvm current` &) > /dev/null
+PS1="(`basename $GEM_HOME`@rvm)\$PS1"
+EOF
+}
+
+function gen_kerl_postzshrc() {
+cat << EOF > $HOME/.kerl_postzshrc 2>&1
+#
+# auto ganerate post zshrc
+#
+kerl_use `cat ~/.kerl/version` > /dev/null
+PS1="(`cat ~/.kerl/version`@erlang)\$PS1"
+EOF
+
+}
+
+function gen_exenv_postzshrc() {
+cat << EOF > $HOME/.exenv_postzshrc 2>&1
+#
+# auto ganerate post zshrc
+#
+(exenv_use `cat ~/.exenv/version` &) > /dev/null
+PS1="(`cat ~/.exenv/version`@elixir)\$PS1"
+EOF
+}
+
+
+function gen_rbenv_postzshrc() {
+cat << EOF > $HOME/.rbenv_postzshrc 2>&1
+#
+# auto ganerate post zshrc
+#
+(rbenv_use `cat ~/.rbenv/version` &) > /dev/null
+PS1="(`cat ~/.rbenv/version`@rbenv)\$PS1"
+EOF
+}
+
+function gen_golang_postzshrc() {
+cat << EOF > $HOME/.golang_postzshrc 2>&1
+#
+# auto ganerate post zshrc
+#
+source $HOME/.gvm/environments/default
+(golang_use `echo $gvm_go_name` &) &> /dev/null
+PS1="(`echo $gvm_go_name | sed -e 's/go//g'`@go)\$PS1"
+clear
+EOF
+}
+
+function gen_virtualenvwrapper_postzshrc() {
+cat << EOF > $HOME/.virtualenvwrapper_postzshrc 2>&1
+#
+# auto ganerate post zshrc
+#
+workon `basename $VIRTUAL_ENV`
+EOF
+}
+
+function rbenv_use() {
+    rbenv global $@
+    gen_rbenv_postzshrc  # ganegate rc file
+}
+
+function exenv_use() {
+    exenv global $@
+    gen_exenv_postzshrc  # ganegate rc file
+}
+function kerl_use() {
+    . /home/ikeike/opt/${@}/activate
+    echo -n $@ > ~/.kerl/version
+    gen_kerl_postzshrc  # ganegate rc file
+}
+
+function golang_use() {
+    (yes | gvm use $@ --default) > /dev/null
+    gen_golang_postzshrc  # ganegate rc file
+}
+
+function rvm_use() {
+    rvm use $@
+    # ganegate rc file
+    gen_rvm_postzshrc
+}
+
+function nvm_use() {
+    nvm use $@
+    export NODE_PATH=${NVM_PATH}_modules
+}
+
+
