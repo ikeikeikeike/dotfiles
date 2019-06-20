@@ -1,4 +1,6 @@
-# zmodload zsh/zprof
+# for debug
+# zmodload zsh/zprof && zprof
+
 
 # ARCHI & distribute
 if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
@@ -73,6 +75,10 @@ if [ $ARCHI = linux ]; then
   export EDITOR="vim"
   export MAKEOPTS="-j12"
 fi
+
+export PATH=/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
+export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
+
 
 # less
 export LESSCHARSET=utf-8
@@ -241,8 +247,10 @@ export FREETDSCONF=/etc/freetds.conf
 export ZPLUG_HOME=~/.zplug
 
 
-
-
+# history
+HISTFILE=$HOME/.zsh-history
+HISTSIZE=10000000
+SAVEHIST=10000000
 
 
 
