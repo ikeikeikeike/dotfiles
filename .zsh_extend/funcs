@@ -9,25 +9,6 @@ function history-all { history -E 1 }
 # cd with ls
 function cd(){ builtin cd $@ && ls && ls -alt; }
 
-# ssh screen name
-function ssh_screen(){
-    server=?${$#}
-    screen -t ${@}${server} ssh ${@}
-}
-function ssh_tmux(){
-    server=?${$#}
-    tmux new-window -n ${@}${server} "ssh ${@}"
-}
-
-# tmux screen recogniation
-# if [ x$TERM = xscreen ]; then
-    if [ -e $TMUX ]; then
-        alias ssh=ssh_screen
-    else
-        alias ssh=ssh_tmux
-    fi
-# fi
-
 source $HOME/.zsh_extend/emacs/isemacs.sh
 
 # cdhist
