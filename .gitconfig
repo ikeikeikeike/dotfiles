@@ -50,5 +50,4 @@
 [commit]
     template = ~/.git.commit_template
 [pager]
-	branch = cat
-    template = ~/.git.commit_template
+	  branch = cat

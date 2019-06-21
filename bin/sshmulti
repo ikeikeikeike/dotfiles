@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+__version__ = '1.0'
+
+import argparse
+import subprocess
+
+
+def main(args):
+    opt = ["ssh", "-o", "StrictHostKeyChecking=no"]
+
+    if args.identity_file:
+        opt.extend(["-i", args.identity_file])
+
+    # more opt
+    # more opt
+    # more opt
+    # more opt
+
+    opt = opt + ["{}"]
+
+    cmd = ["xpanes", "-s", "-t", "-c"] + ["'{}'".format(" ".join(opt))] + args.path
+    subprocess.call(" ".join(map(str, cmd)), shell=True)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="ctags util for virtualenv.")
+    parser.add_argument("path", nargs="+", default=[], help="user@hostname [user@hostname,,,,]")
+    parser.add_argument("-i", "--identity-file", help="identity file")
+    parser.add_argument("-v", "--version", action="version", version="%(prog)s " + __version__)
+
+    main(parser.parse_args())
