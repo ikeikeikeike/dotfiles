@@ -246,6 +246,10 @@ if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
     export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
     . /opt/local/etc/profile.d/autojump.zsh
 fi
+if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
+    export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
+    . /opt/local/etc/profile.d/autojump.sh
+fi
 if [ -f /usr/share/autojump/autojump.zsh ]; then
     export FPATH="$FPATH:/usr/local/share/zsh/site-functions/"
     . /usr/share/autojump/autojump.zsh
