@@ -1,11 +1,13 @@
 [[plugins]]
 repo = 'tweekmonster/django-plus.vim'
 on_ft = 'django'
-
 [[plugins]]
 repo = 'vim-scripts/django.vim'
 on_ft = 'django'
 
+[[plugins]]
+repo = 'slim-template/vim-slim'
+on_ft = 'slim'
 [[plugins]]
 repo = 'tpope/vim-rails'
 on_ft = 'ruby'
@@ -20,6 +22,17 @@ let g:rubycomplete_include_object = 1
 let g:rubycomplete_include_object_space = 1
 '''
 
+[[plugins]]
+repo = 'elixir-editors/vim-elixir'
+on_ft = 'elixir'
+[[plugins]]
+repo = 'slashmili/alchemist.vim'
+on_ft = 'elixir'
+# https://github.com/slashmili/alchemist.vim/wiki
+#hook_add = '''
+#let g:alchemist_tag_map = '<C-]>'
+#let g:alchemist_tag_stack_map = '<C-T>'
+#```
 
 [[plugins]]
 repo = 'cespare/vim-toml'
@@ -83,8 +96,6 @@ let g:airline_theme='angr'
 '''
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
-
-
 
 
 [[plugins]]
@@ -198,11 +209,27 @@ call smartinput#define_rule({
 #   set conceallevel=2 concealcursor=niv
 # endif
 # '''
-#
-# [[plugins]]
-# repo = 'Shougo/neosnippet-snippets'
 
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
 
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+hook_add = '''
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+let g:neosnippet#snippets_directory='~/.vim/snippets'
+'''
 
 # TODO: Later
 #

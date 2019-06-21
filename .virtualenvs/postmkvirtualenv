@@ -43,6 +43,8 @@ pip install -U flake8 flake8-import-order autoflake autopep8 black isort
 pip install pgcli mycli httpie
 
 pip install awscli
+pip install neovim
+
 
 #  ******************************************************************************
 #  libedit detected - readline will not be well behaved, including but not limited to:

@@ -86,7 +86,10 @@ define_keymap(lambda wm_class: wm_class in ("Slack"), {
 }, "Slack")
 
 define_keymap(lambda wm_class: wm_class in ("jetbrains-idea-ce", "jetbrains-studio"), {
-    # K("M-w"): K("C-w"),
+    K("M-f"): K("Super-f"),
+    K("M-w"): K("Super-w"),
+    K("M-e"): K("Super-e"),
+    K("M-SLASH"): K("Super-SLASH"),
     # K("M-a"): K("C-a"),
     # K("M-s"): K("C-s"),
     # K("M-o"): K("C-o"),
