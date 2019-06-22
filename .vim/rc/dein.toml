@@ -1,4 +1,8 @@
 [[plugins]]
+repo = 'dart-lang/dart-vim-plugin'
+on_ft = 'dart'
+
+[[plugins]]
 repo = 'tweekmonster/django-plus.vim'
 on_ft = 'django'
 [[plugins]]

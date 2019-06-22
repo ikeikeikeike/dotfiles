@@ -90,6 +90,7 @@ define_keymap(lambda wm_class: wm_class in ("jetbrains-idea-ce", "jetbrains-stud
     K("M-w"): K("Super-w"),
     K("M-e"): K("Super-e"),
     K("M-SLASH"): K("Super-SLASH"),
+    K("M-Shift-f"): K("Super-Shift-f"),
     # K("M-a"): K("C-a"),
     # K("M-s"): K("C-s"),
     # K("M-o"): K("C-o"),
