@@ -40,7 +40,16 @@ if [ -x /bin/hostname ]; then
 fi;
 export host=`echo $HOST | sed -e 's/\..*//'`
 
-############# path
+
+######## path
+#
+#
+#
+typeset -gx -U PATH
+typeset -gx -U FPATH
+#
+#
+#
 # extra
 export MANPATH=/usr/share/man:/usr/X11/man:$MANPATH
 
@@ -65,7 +74,7 @@ if [ $ARCHI = darwin ]; then
   export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
   [[ -s $HOME/.pythonbrew/etc/bashrc ]] || export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
 
-  export MAKEOPTS="-j3"
+  export MAKEOPTS="-j4"
 
   unset DYLD_LIBRARY_PATH
   unset LD_LIBRARY_PATH
@@ -78,6 +87,24 @@ fi
 
 export PATH=/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
+
+
+# begin cofigures
+#
+#
+# use the same Emacs keybind
+bindkey -e
+limit coredumpsize 10240000
+
+# Report show detail a processing if passed over 5 seconds.
+REPORTTIME=5
+
+# autoload
+autoload -Uz run-help
+autoload -Uz add-zsh-hook
+autoload -Uz colors && colors
+autoload -Uz compinit && compinit -u
+autoload -Uz is-at-least
 
 
 # less
@@ -95,7 +122,7 @@ export PATH=$PATH:$HOME/lib/gsutil
 
 ### zsh
 
-fpath=(~/.zsh-completions_ext $fpath)
+export FPATH=~/.zsh-completions_ext:$FPATH
 
 
 ### PHP ###
@@ -220,11 +247,11 @@ export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 
 # zsh autojump
 if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
-    export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
+    export FPATH="/opt/local/share/zsh/site-functions:$FPATH"
     . /opt/local/etc/profile.d/autojump.zsh
 fi
 if [ -f /usr/share/autojump/autojump.zsh ]; then
-    export FPATH="$FPATH:/usr/local/share/zsh/site-functions/"
+    export FPATH="/usr/local/share/zsh/site-functions:$FPATH"
     . /usr/share/autojump/autojump.zsh
 fi
 if [[ -s /usr/local/bin/brew ]]; then

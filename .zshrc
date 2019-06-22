@@ -1,17 +1,4 @@
 
-# begin
-#
-#
-# use the same Emacs keybind
-bindkey -e
-limit coredumpsize 10240000
-
-# Report show detail a processing if passed over 5 seconds.
-REPORTTIME=5
-
-# auto complete compile
-autoload -Uz compinit && compinit -u
-
 
 if [ -f $HOME/.zsh_extend/aliases ]; then
   source $HOME/.zsh_extend/aliases
