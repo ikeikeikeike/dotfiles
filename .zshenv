@@ -2,7 +2,7 @@
 # zmodload zsh/zprof && zprof
 
 
-# ARCHI & distribute
+# Archi & Distribution
 if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
   case "`uname -sr`" in
     FreeBSD*);    export ARCHI="freebsd" ;;
@@ -62,20 +62,19 @@ if [ $ARCHI = darwin ]; then
   export LANG=ja_JP.UTF-8
   export LC_ALL=ja_JP.UTF-8
 
-  export PATH=/Developer/usr/bin/:/opt/local/apache2/bin:/opt/local/lib/mysql5/bin:$PATH
   export MANPATH=/Developer/usr/share/man:$MANPATH
-  export PATH=/opt/local/bin:/opt/local/sbin:$PATH
   export MANPATH=/opt/local/man:$MANPATH
-  export DISPLAY=:0.0
-  export PATH="/usr/local/luajit/bin/:$PATH"
-  export C_INCLUDE_PATH=/opt/local/include
-  export CPLUS_INCLUDE_PATH=/opt/local/include:$HOME/include
+  export PATH=/Developer/usr/bin/:/opt/local/lib/mysql5/bin:$PATH
+  export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+  export PATH=/usr/local/luajit/bin/:$PATH
   export BOOST_ROOT=$HOME/include/boost:/opt/local/include/boost:$BOOST_ROOT
-  export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-  [[ -s $HOME/.pythonbrew/etc/bashrc ]] || export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
 
+  export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+  export DISPLAY=:0.0
   export MAKEOPTS="-j4"
 
+  export C_INCLUDE_PATH=/opt/local/include:$C_INCLUDE_PATH
+  export CPLUS_INCLUDE_PATH=/opt/local/include:$HOME/include:$CPLUS_INCLUDE_PATH
   unset DYLD_LIBRARY_PATH
   unset LD_LIBRARY_PATH
 fi
