@@ -1,4 +1,9 @@
 [[plugins]]
+repo = 'hashivim/vim-terraform'
+on_ft = 'terraform'
+
+
+[[plugins]]
 repo = 'dart-lang/dart-vim-plugin'
 on_ft = 'dart'
 
