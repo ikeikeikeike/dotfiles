@@ -33,7 +33,7 @@ autocmd FileType typescript,python,ruby,javascript,coffee,cofeescript,php autocm
 " autocmd BufWritePre * :%s/\t/  /ge " Replace tab to space
 
 
-syntax on "カラー表示
+syntax on
 
 " set showtabline=2
 " set guioptions-=e
@@ -44,5 +44,12 @@ augroup HighlightTrailingSpaces
   autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
   autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
 augroup END
+
+
+highlight clear ErrorMsg
+highlight clear Error
+highlight Error	    cterm=bold ctermfg=7 ctermbg=1
+highlight ErrorMsg	cterm=bold ctermfg=7 ctermbg=1
+
 
 

@@ -1,3 +1,9 @@
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+on_ft = ['dart']
+hook_add = '''
+let g:deoplete#enable_at_startup = 1
+'''
 
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
@@ -13,8 +19,10 @@ let g:LanguageClient_serverCommands = {
     \ 'dart': ['dart_language_server'],
     \ }
 
+nnoremap <silent> H :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gd :normal! m'<CR>:call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 '''
 
@@ -148,7 +156,6 @@ let g:ale_fixers = {
   \ 'python': ['autopep8', 'black', 'isort'],
   \ }
 
-
 let g:ale_python_pylint_executable = g:python3_host_prog
 " let g:ale_python_pylint_args XXX: see pylintrc
 let g:ale_python_flake8_executable = g:python3_host_prog
@@ -161,7 +168,7 @@ let g:ale_python_black_executable = g:python3_host_prog
 let g:ale_python_black_options = '-m black'
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_save = 1
-"nmap <silent> <Leader>x <Plug>(ale_fix)
+let g:airline#extensions#ale#enabled = 1
 '''
 
 [[plugins]]
