@@ -205,8 +205,11 @@ if [[ -s "$HOME/.exenv/bin" ]]; then
 fi
 
 
-### Flutter
-export PATH="$PATH:$HOME/.virtualenvs/flutter/sdk/flutter/bin"
+### Dart Flutter
+
+export PATH=$PATH:/usr/lib/dart/bin
+export PATH=$PATH:$HOME/.pub-cache/bin
+export PATH=$PATH:$HOME/.virtualenvs/flutter/sdk/flutter/bin
 
 
 ### python ###
