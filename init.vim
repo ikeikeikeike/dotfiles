@@ -63,6 +63,3 @@ endif
 for s:f in split(glob('~/.vim/rc/*.vim'), '\n')
   exe 'source' s:f
 endfor
-
-
-
