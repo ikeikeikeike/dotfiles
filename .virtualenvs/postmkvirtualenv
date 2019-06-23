@@ -42,6 +42,7 @@ pip install pgcli mycli httpie
 
 pip install awscli
 pip install neovim
+pip install python-language-server
 
 
 #  ******************************************************************************
@@ -72,4 +73,7 @@ more packages, install to ::
     $ ~/.virtualenvs/flask-packages
 
 _EOF_
+
+
+
 

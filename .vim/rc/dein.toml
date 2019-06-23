@@ -1,6 +1,6 @@
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-on_ft = ['dart']
+on_ft = ['dart', 'python', 'ruby']
 hook_add = '''
 let g:deoplete#enable_at_startup = 1
 '''
@@ -9,7 +9,7 @@ let g:deoplete#enable_at_startup = 1
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
-on_ft = ['dart']
+on_ft = ['dart', 'python', 'ruby']
 hook_add = '''
 set hidden  " Required for operations modifying multiple buffers like rename.
 
@@ -17,6 +17,8 @@ set hidden  " Required for operations modifying multiple buffers like rename.
 "
 let g:LanguageClient_serverCommands = {
     \ 'dart': ['dart_language_server'],
+    \ 'python': ['pyls'],
+    \ 'ruby': ['solargraph', 'stdio'],
     \ }
 
 nnoremap <silent> H :call LanguageClient#textDocument_hover()<CR>
