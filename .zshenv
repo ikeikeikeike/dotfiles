@@ -213,16 +213,6 @@ if [[ -s "$HOME/.exenv/bin" ]]; then
 fi
 
 
-if [[ -s ~/.nvm/nvm.sh ]]; then
-      source ~/.nvm/nvm.sh
-fi
-
-
-
-if [[ -s ~/.nvm/nvm.sh ]]; then
-      source ~/.nvm/nvm.sh
-fi
-
 ### python ###
 
 # if pythonbrew < not use
