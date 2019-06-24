@@ -52,3 +52,5 @@
 [pager]
 	  branch = cat
     template = ~/.git.commit_template
+[push]
+	default = simple
