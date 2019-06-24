@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+# Left prompt
+PROMPT=$'\n'$GREEN'${USER}@${HOST}'$CYAN'(${ARCHI}-${DISTRIBUTE}) '$YELLOW'%~ '$'\n'$DEFAULT'%(!.#.$) '
+
+# Right prompt  # RPROMPT=%1v%2v%f${DEFAULT}
+RPROMPT=${CYAN}%1v%2v%f${DEFAULT}
+
+# For MySQL
+export MYSQL_PS1="(\u@\h:\p) [\d] \v - \r:\m\P \n\c> "
+
+

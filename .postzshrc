@@ -16,3 +16,7 @@ fi
 if [ -f $HOME/.exenv_postzshrc ]; then
   source $HOME/.exenv_postzshrc
 fi
+
+if [ -f $HOME/.kerl_postzshrc ]; then
+  source $HOME/.kerl_postzshrc
+fi

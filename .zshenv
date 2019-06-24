@@ -1,6 +1,8 @@
-# zmodload zsh/zprof
+# for debug
+# zmodload zsh/zprof && zprof
 
-# ARCHI & distribute
+
+# Archi & Distribution
 if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
   case "`uname -sr`" in
     FreeBSD*);    export ARCHI="freebsd" ;;
@@ -38,7 +40,16 @@ if [ -x /bin/hostname ]; then
 fi;
 export host=`echo $HOST | sed -e 's/\..*//'`
 
-############# path
+
+######## path
+#
+#
+#
+typeset -gx -U PATH
+typeset -gx -U FPATH
+#
+#
+#
 # extra
 export MANPATH=/usr/share/man:/usr/X11/man:$MANPATH
 
@@ -47,51 +58,57 @@ export PATH=$PATH:$HOME/bin:$HOME/sbin
 export MANPATH=$MANPATH:$HOME/share/man
 
 
+
 if [ $ARCHI = darwin ]; then
   export LANG=ja_JP.UTF-8
   export LC_ALL=ja_JP.UTF-8
 
-  # Finished adapting your PATH environment variable for use with MacPorts.
-  export PATH=/Developer/usr/bin:/opt/local/apache2/bin:/opt/local/lib/mysql5/bin:/opt/local/lib/mysql57/bin:$PATH
   export MANPATH=/Developer/usr/share/man:$MANPATH
-  export PATH=/opt/local/bin:/opt/local/sbin:$PATH
   export MANPATH=/opt/local/man:$MANPATH
-  export DISPLAY=:0.0
-  # extends
-
-  # dyld: DYLD_ environment variables being ignored because main executable (/usr/bin/sudo) is setuid or setgid
-  # export LIBRARY_PATH=/opt/local/lib
-  # export LD_LIBRARY_PATH=/opt/local/lib
-  # export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib
-
-  export PATH="/usr/local/luajit/bin/:$PATH"
-  export C_INCLUDE_PATH=/opt/local/include
-  export CPLUS_INCLUDE_PATH=/opt/local/include:$HOME/include
+  export PATH=/Developer/usr/bin/:/opt/local/lib/mysql5/bin:$PATH
+  export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+  export PATH=/usr/local/luajit/bin/:$PATH
   export BOOST_ROOT=$HOME/include/boost:/opt/local/include/boost:$BOOST_ROOT
   export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-  [[ -s $HOME/.pythonbrew/etc/bashrc ]] || export PYTHON_HOME=/opt/local/Library/Frameworks/Python.framework/Versions/Current
+  export DISPLAY=:0.0
+  export MAKEOPTS="-j4"
 
-  export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-
-  # make setting
-  export MAKEOPTS="-j3"
-
+  export C_INCLUDE_PATH=/opt/local/include:$C_INCLUDE_PATH
+  export CPLUS_INCLUDE_PATH=/opt/local/include:$HOME/include:$CPLUS_INCLUDE_PATH
   unset DYLD_LIBRARY_PATH
   unset LD_LIBRARY_PATH
 fi
 if [ $ARCHI = linux ]; then
   export LANG=en_US.UTF-8
   export EDITOR="vim"
+  export MAKEOPTS="-j12"
+fi
+if [ $DISTRIBUTE = centos ]; then
+  export LC_CTYPE=en_US.UTF-8
+  export LC_ALL=en_US.UTF-8
 fi
 
-# emacs view setting
-# if [ "$SHELL" = "/bin/bash" ];then
-    # export TERM=xterm-256color
-    # # export TERM=xterm-color
-# else
-    # export TERM=screen
-    # # export TERM=xterm-256color
-# fi
+export PATH=/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
+export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
+
+
+# begin cofigures
+#
+#
+# use the same Emacs keybind
+bindkey -e
+limit coredumpsize 10240000
+
+# Report show detail a processing if passed over 5 seconds.
+REPORTTIME=5
+
+# autoload
+autoload -Uz run-help
+autoload -Uz add-zsh-hook
+autoload -Uz colors && colors
+autoload -Uz compinit && compinit -u
+autoload -Uz is-at-least
+
 
 # less
 export LESSCHARSET=utf-8
@@ -105,42 +122,29 @@ export DOCKER_HOST=tcp://localhost:4243
 # gsutil
 export PATH=$PATH:$HOME/lib/gsutil
 
+
 ### zsh
-fpath=(~/.zsh-completions $fpath)
-fpath=(~/.zsh-completions_ext $fpath)
+
+export FPATH=~/.zsh-completions_ext:$FPATH
+
 
 ### PHP ###
 
 if [[ -s "$HOME/.phpenv/bin/phpenv" ]]; then
     export PATH="$HOME/.phpenv/bin:$PATH"
-    # eval "$(rbenv init - zsh)"
-    # exec $SHELL -l
 fi
 
 
 ### ruby ###
 
 if [[ -s "$HOME/.rbenv/bin/rbenv" ]]; then
-
     # This loads rbenv
     export RBENV_ROOT=$HOME/.rbenv
     export PATH="$RBENV_ROOT/shims:$RBENV_ROOT/bin:$PATH"
     eval "$(rbenv init -)"
     export RUBY_EXE=`rbenv which ruby`
-
 elif [[ -s "/usr/local/bin/rbenv" ]]; then
-
     export RBENV_ROOT=/usr/local/opt/rbenv
-
-elif [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
-
-    # This loads RVM into a shell session.
-    # source $HOME/.rvm/scripts/rvm
-
-elif [[ -s /usr/share/ruby-rvm/scripts/rvm ]]; then
-
-    # This loads RVM into a shell session.
-
 fi
 
 ### perl ###
@@ -205,12 +209,17 @@ if [[ -s "$HOME/.gvm/scripts/gvm" ]]; then
     source "$HOME/.gvm/scripts/gvm"
 fi
 
-eval "$(direnv hook zsh)" 2> /dev/null
-
 ### Elixir
 if [[ -s "$HOME/.exenv/bin" ]]; then
     export PATH="$HOME/.exenv/bin:$PATH"; eval "$(exenv init -)"
 fi
+
+
+### Dart Flutter
+
+export PATH=$PATH:/usr/lib/dart/bin
+export PATH=$PATH:$HOME/.pub-cache/bin
+export PATH=$PATH:$HOME/.virtualenvs/flutter/sdk/flutter/bin
 
 
 ### python ###
@@ -228,9 +237,9 @@ export PYTHONIOENCODING=UTF-8
 # Import virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
 # virtualenvwrapper
-#if [ -f `\which virtualenvwrapper.sh 2> /dev/null` ]; then
+if [ -f `\which virtualenvwrapper.sh 2> /dev/null` ]; then
   source virtualenvwrapper.sh 2> /dev/null
-#fi
+fi
 
 ## extra virtualenv
 # require
@@ -258,14 +267,14 @@ export PATH="$PATH:/usr/local/flutter/bin"
 
 # zsh autojump
 if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
-    export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
+    export FPATH="/opt/local/share/zsh/site-functions:$FPATH"
     . /opt/local/etc/profile.d/autojump.zsh
 fi
 if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
     . /opt/local/etc/profile.d/autojump.sh
 fi
 if [ -f /usr/share/autojump/autojump.zsh ]; then
-    export FPATH="$FPATH:/usr/local/share/zsh/site-functions/"
+    export FPATH="/usr/local/share/zsh/site-functions:$FPATH"
     . /usr/share/autojump/autojump.zsh
 fi
 if [[ -s /usr/local/bin/brew ]]; then
@@ -273,7 +282,6 @@ if [[ -s /usr/local/bin/brew ]]; then
         . $(/usr/local/bin/brew --prefix)/etc/profile.d/autojump.sh
     fi
 fi
-
 if [[ -s /root/.autojump/etc/profile.d/autojump.sh ]]; then
     source /root/.autojump/etc/profile.d/autojump.sh
 fi
@@ -285,11 +293,6 @@ export ODBCINI=/etc/odbc.ini
 export ODBCSYSINI=/etc
 export FREETDSCONF=/etc/freetds.conf
 
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="/usr/local/opt/gettext/bin:$PATH"
-
 if [ -x "$(command -v direnv)" ]; then
     eval "$(direnv hook zsh)"
 fi
@@ -299,3 +302,19 @@ if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud
 
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+
+# zplug: # git clone https://github.com/zplug/zplug $ZPLUG_HOME
+export ZPLUG_HOME=~/.zplug
+
+
+# history
+HISTFILE=$HOME/.zsh-history
+HISTSIZE=10000000
+SAVEHIST=10000000
+
+
+
+# end
+#
+#
+#
