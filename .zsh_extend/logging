@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+
+# tmux log format is script cmd. @see tmux.conf
+# if [ "${TMUX}" != "" ] ; then
+#   tmux pipe-pane 'cat >> ~/.tmux/`date +%Y-%m-%d`_#S:#I.#P.log'
+# fi
+
+# if [ "$TERM" = "xterm-color" ]; then
+  # preexec() {
+    # # see [zsh-workers:13180]
+    # # http://www.zsh.org/mla/workers/2000/msg03993.html
+    # emulate -L zsh
+    # local -a cmd; cmd=(${(z)2})
+    # echo -n "^[k$cmd[1]:t^[\\"
+  # }
+# fi
+

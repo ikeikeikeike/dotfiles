@@ -13,8 +13,6 @@ if [ $ARCHI = darwin ]; then
   alias gvim='env LANG=ja_JP.UTF-8 open -a "/Applications/MacVim.app/Contents/MacOS/MacVim" "$@"'
   alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
   alias d="sudo docker"
-  # alias subl='subl -w'
-  # alias ls='ls -FGh'
   alias ls='gls -Fh --color=auto'
   alias updatedb=' sudo LC_ALL=C gupdatedb --prunepaths="/tmp /var/tmp /.Spotlight-V100 /.fseventsd /Volumes/MobileBackups /Volumes/Volume /.MobileBackups" '
   alias locate='glocate -i '
@@ -22,7 +20,6 @@ if [ $ARCHI = darwin ]; then
   alias dircolors='gdircolors'
   alias gdb='ggdb'
   alias wholediff="diff --new-line-format='+%L' --old-line-format='-%L' --unchanged-line-format=' %L'"
-  alias d='sudo docker'
   alias grep='ggrep -i --color=always '
   alias grepR='\ggrep -inHR --color=always -e '
   alias grepRspecify='\ggrep -nHR --color=always -e '
@@ -97,6 +94,7 @@ alias which='which'
 alias cl='clear'
 alias pb='tmux-pbcopy'
 alias ec="extract"
+alias b='rbenv exec bundle'
 alias vimbundle-clean="vim +NeoBundleClean +qall"
 alias vimbundle-update="vim +NeoBundleUpdate +qall"
 alias vimbundle-install="vim +NeoBundleInstall +qall"

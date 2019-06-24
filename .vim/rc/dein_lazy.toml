@@ -1,5 +1,4 @@
 
-
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 depends = ['neomru.vim', 'neoyank.vim']
@@ -28,12 +27,12 @@ function! s:denite_filter_my_settings() abort
   imap <silent><buffer> <C-p> <Esc><C-w>p:call cursor(line('.')-1,0)<CR><C-w>pA
   imap <silent><buffer> <C-c> <Plug>(denite_filter_quit)
 endfunction
-
 '''
 hook_post_source = '''
 call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 call denite#custom#filter('matcher/ignore_globs', 'ignore_globs', ['.git', '.svn', 'node_modules'])
 '''
+
 [[plugins]]
 repo = 'Shougo/neomru.vim'
 [[plugins]]

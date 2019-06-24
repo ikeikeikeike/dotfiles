@@ -1,0 +1,56 @@
+#!/usr/bin/env zsh
+
+
+### Cmmand line stack ###
+#
+# C-q bind.
+#
+# http://d.hatena.ne.jp/kei_q/20110308/1299594629
+# http://qiita.com/items/1f2c7793944b1f6cc346
+show_buffer_stack() {
+  POSTDISPLAY="
+stack: $LBUFFER"
+  zle push-line-or-edit
+}
+zle -N show_buffer_stack
+setopt noflowcontrol
+bindkey '^Q' show_buffer_stack
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+export FZF_DEFAULT_OPTS='--height 60% --reverse --border'
+
+
+# zplug
+#
+#
+source ~/.zplug/init.zsh
+
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting", defer:1
+zplug "zsh-users/zsh-history-substring-search", defer:2
+zplug "plugins/git",   from:oh-my-zsh
+zplug "jhawthorn/fzy", as:command, rename-to:fzy, hook-build:"make && sudo make install"
+zplug "b4b4r07/httpstat", as:command, use:'(*).sh', rename-to:'$1'
+zplug "~/.zsh", from:local
+#zplug "dracula/zsh", as:theme
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load # --verbose
+
+
+if zplug check "zsh-users/zsh-history-substring-search"; then
+  bindkey -M emacs '^P' history-substring-search-up
+  bindkey -M emacs '^N' history-substring-search-down
+fi
+
+
