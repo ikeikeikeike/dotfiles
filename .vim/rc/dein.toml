@@ -254,14 +254,16 @@ let g:neosnippet#snippets_directory='~/.vim/snippets'
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
-[[plugins]]
-repo = 'airblade/vim-gitgutter'
-hook_add = '''
-set updatetime=1
-let g:gitgutter_async=1
-let g:gitgutter_enabled=0  " this is so slow
-let g:gitgutter_log=1
-'''
+#
+# [[plugins]]
+# repo = 'airblade/vim-gitgutter'
+# hook_add = '''
+# set updatetime=1
+# let g:gitgutter_async=1
+# let g:gitgutter_enabled=0  " this is so slow
+# let g:gitgutter_log=0
+# '''
+#
 
 [[plugins]]
 repo = 'tpope/vim-commentary'
