@@ -377,7 +377,6 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .ex 01;38;05;209
 .exs 01;38;05;209
 .php 01;38;05;209
-.j2 01;38;05;209
 .yml 01;38;05;209
 .yaml 01;38;05;209
 .hx 01;38;05;209
@@ -389,13 +388,14 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 *Makefile 01;38;05;209
 *makefile 01;38;05;209
 .haml 01;38;05;209
-.jinja 01;38;05;209
 .pebble 01;38;05;209
 .eex 01;38;05;209
 .erb 01;38;05;209
 .slim 01;38;05;209
 .jinja2 01;38;05;209
 .dart 01;38;05;209
+.jinja 01;38;05;209
+.j2 01;38;05;209
 
 
 # base64

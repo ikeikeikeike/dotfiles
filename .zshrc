@@ -1,7 +1,4 @@
-export PATH=/usr/local/opt/coreutils/libexec/gnubin:/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:$PATH:/bin:/sbin:/usr/bin:/usr/sbin
-export MANPATH=$MANPATH:/usr/local/man:/usr/local/share/man:/usr/share/man
-export PATH=/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
-export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
+
 
 if [ -f $HOME/.zsh_extend/aliases ]; then
   source $HOME/.zsh_extend/aliases
@@ -47,15 +44,14 @@ if [ -f $HOME/.zsh_extend/plugins ]; then
   source $HOME/.zsh_extend/plugins
 fi
 
-if [ -f /usr/local/bin/vault ]; then
-  autoload -U +X bashcompinit && bashcompinit
-  complete -o nospace -C /usr/local/bin/vault vault
-fi
-
 if [ -f $HOME/.postzshrc ]; then
   source $HOME/.postzshrc
 fi
 
+if [ -f /usr/local/bin/vault ]; then
+  autoload -U +X bashcompinit && bashcompinit
+  complete -o nospace -C /usr/local/bin/vault vault
+fi
 
 # for debug
 # if (which zprof > /dev/null) ;then

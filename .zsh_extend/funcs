@@ -227,7 +227,8 @@ function exenv_use() {
     gen_exenv_postzshrc  # ganegate rc file
 }
 function kerl_use() {
-    . /home/ikeike/opt/${@}/activate
+    . ~/opt/${@}/activate
+
     echo -n $@ > ~/.kerl/version
     gen_kerl_postzshrc  # ganegate rc file
 }

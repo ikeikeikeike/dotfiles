@@ -40,7 +40,6 @@ if [ -x /bin/hostname ]; then
 fi;
 export host=`echo $HOST | sed -e 's/\..*//'`
 
-
 ######## path
 #
 #
@@ -50,14 +49,6 @@ typeset -gx -U FPATH
 #
 #
 #
-# extra
-export MANPATH=/usr/share/man:/usr/X11/man:$MANPATH
-
-# extra
-export PATH=$PATH:$HOME/bin:$HOME/sbin
-export MANPATH=$MANPATH:$HOME/share/man
-
-
 
 if [ $ARCHI = darwin ]; then
   export LANG=ja_JP.UTF-8
@@ -70,6 +61,20 @@ if [ $ARCHI = darwin ]; then
   export PATH=/usr/local/luajit/bin/:$PATH
   export BOOST_ROOT=$HOME/include/boost:/opt/local/include/boost:$BOOST_ROOT
   export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+
+  export MANPATH=/usr/share/man:/usr/X11/man:$MANPATH
+  export PATH=$PATH:$HOME/bin:$HOME/sbin
+  export MANPATH=$MANPATH:$HOME/share/man
+  export PATH=/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
+  export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
+  export PATH=/usr/local/opt/coreutils/libexec/gnubin:/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:$PATH:/bin:/sbin:/usr/bin:/usr/sbin
+  export MANPATH=$MANPATH:/usr/local/man:/usr/local/share/man:/usr/share/man
+  export PATH=/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
+  export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
+  export PATH=$HOME/.nodebrew/current/bin:$PATH
+  export PATH=$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH
+  export PATH=/usr/local/opt/gettext/bin:$PATH
+
   export DISPLAY=:0.0
   export MAKEOPTS="-j4"
 
@@ -88,8 +93,8 @@ if [ $DISTRIBUTE = centos ]; then
   export LC_ALL=en_US.UTF-8
 fi
 
-export PATH=/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
-export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
+export PATH=$HOME/bin:$HOME/sbin:/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
+export MANPATH=$HOME/share/man:/usr/local/man:/usr/local/share/man:/usr/X11/man:/usr/share/man:$MANPATH
 
 
 # begin cofigures
@@ -108,7 +113,6 @@ autoload -Uz add-zsh-hook
 autoload -Uz colors && colors
 autoload -Uz compinit && compinit -u
 autoload -Uz is-at-least
-
 
 # less
 export LESSCHARSET=utf-8
@@ -222,6 +226,11 @@ export PATH=$PATH:$HOME/.pub-cache/bin
 export PATH=$PATH:$HOME/.virtualenvs/flutter/sdk/flutter/bin
 
 
+### Flutter
+
+export PATH="$PATH:$HOME/.virtualenvs/flutter/sdk/flutter/bin"
+
+
 ### python ###
 
 # if pythonbrew < not use
@@ -271,6 +280,7 @@ if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
     . /opt/local/etc/profile.d/autojump.zsh
 fi
 if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
+    export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
     . /opt/local/etc/profile.d/autojump.sh
 fi
 if [ -f /usr/share/autojump/autojump.zsh ]; then
@@ -305,7 +315,6 @@ if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google
 
 # zplug: # git clone https://github.com/zplug/zplug $ZPLUG_HOME
 export ZPLUG_HOME=~/.zplug
-
 
 # history
 HISTFILE=$HOME/.zsh-history

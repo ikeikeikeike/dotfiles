@@ -25,6 +25,7 @@ if [ $ARCHI = darwin ]; then
   alias grepRspecify='\ggrep -nHR --color=always -e '
   alias grepRuncolor='\ggrep -inHR -e '
   alias grepRnocolor='\ggrep -inHR -e '
+  alias d='sudo docker'
 
   # alias eog='open -a Preview'
   # alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog

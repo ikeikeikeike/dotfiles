@@ -224,7 +224,6 @@ call smartinput#define_rule({
 \ })
 '''
 
-
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
 
