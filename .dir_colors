@@ -301,6 +301,7 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .mp3 00;38;05;44
 .mpc 00;38;05;44
 .ogg 00;38;05;44
+.webm 00;38;05;44
 .ra 00;38;05;44
 .rg 00;38;05;44
 .tta 00;38;05;44
