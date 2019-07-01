@@ -11,6 +11,18 @@ set expandtab
 set ts=2 sw=2 sts=0
 set tabstop=2 shiftwidth=2 softtabstop=0
 
-if $ARCHI == 'linux'
-  set clipboard+=unnamedplus
+set clipboard+=unnamedplus
+if $ARCHI == 'darwin'
+  let g:clipboard = {
+  \ 'name': 'pbcopy',
+  \ 'copy': {
+  \    '+': 'pbcopy',
+  \    '*': 'pbcopy',
+  \  },
+  \ 'paste': {
+  \    '+': 'pbpaste',
+  \    '*': 'pbpaste',
+  \ },
+  \ 'cache_enabled': 0,
+  \ }
 endif
