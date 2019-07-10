@@ -26,6 +26,7 @@ if [ $ARCHI = darwin ]; then
   alias grepRuncolor='\ggrep -inHR -e '
   alias grepRnocolor='\ggrep -inHR -e '
   alias d='sudo docker'
+  alias less='less -MX'
 
   # alias eog='open -a Preview'
   # alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
@@ -87,7 +88,6 @@ alias la='ls -lt'
 alias vi='vim'
 alias clvim="setopt rm_star_silent; rm -rf ~/.vim_plugins/vim_session/*; unsetopt rm_star_silent; vim "
 alias novim="vim -u NONE -U NONE --noplugin "
-alias less='less -MX'
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias tmux='tmux -2 -u'
