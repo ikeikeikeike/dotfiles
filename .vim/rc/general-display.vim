@@ -50,3 +50,9 @@ augroup END
 " highlight Error	    cterm=bold ctermfg=7 ctermbg=1
 " highlight ErrorMsg	cterm=bold ctermfg=7 ctermbg=1
 
+if &diff
+  colorscheme leo
+  " colorscheme molokai
+endif
+
+
