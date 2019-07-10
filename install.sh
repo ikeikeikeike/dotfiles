@@ -20,6 +20,8 @@ done
 
 mkdir -p vim ~/.config/nvim
 ln -s `pwd`/init.vim ~/.config/nvim/init.vim
+ln -s `pwd`/.vim/plugin ~/.config/nvim/plugin
+ln -s `pwd`/.vim/ftplugin ~/.config/nvim/ftplugin
 ln -s `pwd`/fusuma ~/.config/fusuma
 
 git submodule init
