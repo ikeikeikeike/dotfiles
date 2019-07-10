@@ -175,11 +175,6 @@ repo = 'vim-scripts/Colour-Sampler-Pack'
 # hook_add = '''
 # syntax on
 # colorscheme wuye
-
-# " if &diff
-# "   " colorscheme colorer
-# " else
-# " endif
 # '''
 
 [[plugins]]
