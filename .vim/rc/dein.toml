@@ -5,6 +5,7 @@ hook_add = '''
 let g:deoplete#enable_at_startup = 1
 '''
 
+# https://github.com/neoclide/coc.nvim
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
