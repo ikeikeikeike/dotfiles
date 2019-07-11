@@ -5,7 +5,7 @@ depends = ['neomru.vim', 'neoyank.vim']
 on_cmd = 'Denite'
 on_event = 'BufRead'
 hook_add = '''
-nnoremap <silent> <C-f> :<C-u>DeniteBufferDir -split=vertical -direction=topleft -winwidth=180 -start-filter file<CR>
+" nnoremap <silent> <C-f> :<C-u>DeniteBufferDir -split=vertical -direction=topleft -winwidth=180 -start-filter file<CR>
 " nnoremap <silent> <Leader><C-r> :<C-u>DeniteBufferDir -split=vertical -vertical-preview -auto-action=preview -direction=topleft -winwidth=180 -start-filter file/rec<CR>
 nnoremap <silent> <Leader>y      :<C-u>Denite -split=vertical -direction=topleft -winwidth=180 -start-filter neoyank <CR>
 nnoremap <silent> <C-b>          :<C-u>Denite -split=vertical -direction=topleft -winwidth=180 -start-filter buffer file_mru<CR>

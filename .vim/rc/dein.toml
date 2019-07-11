@@ -5,6 +5,14 @@ hook_add = '''
 let g:deoplete#enable_at_startup = 1
 '''
 
+
+[[plugins]]
+repo = 'justinmk/vim-dirvish'
+hook_add = '''
+nmap <silent> <C-f> <Plug>(dirvish_up)
+" nmap <silent> <C-f> :<C-u>Dirvish<CR>
+'''
+
 # https://github.com/neoclide/coc.nvim
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
