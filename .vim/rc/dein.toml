@@ -168,12 +168,38 @@ repo = 'vim-jp/vim-go-extra'
 on_ft = 'go'
 
 [[plugins]]
+repo = 'sheerun/vim-polyglot'
+
+[[plugins]]
 repo = 'vim-scripts/Colour-Sampler-Pack'
+# hook_add = '''
+# syntax on
+# colorscheme wuye
+# '''
+
+[[plugins]]
+repo = 'joshdick/onedark.vim'
+depends = ['Colour-Sampler-Pack']
 hook_add = '''
-colorscheme wuye
-if &diff
-  " colorscheme colorer
+if (empty($TMUX))
+  if (has("nvim"))
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  if (has("termguicolors"))
+    set termguicolors
+  endif
 endif
+
+if (has("autocmd") && !has("gui_running"))
+  augroup colorset
+    autocmd!
+    let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
+    autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white })
+  augroup END
+endif
+
+syntax on
+colorscheme onedark
 '''
 
 
