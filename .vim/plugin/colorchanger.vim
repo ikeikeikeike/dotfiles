@@ -8,8 +8,8 @@
 let ColorRoller = {}
 
 let ColorRoller.colors = [
+\ 'onedark',
 \ 'wombat256',
-\ 'wuye',
 \ 'breeze',
 \ 'desert256',
 \ 'xoria256',
@@ -145,8 +145,8 @@ let ColorRoller.colors = [
 \ 'winter',
 \ 'calmar256-light',
 \ 'summerfruit256',
-      \ ]
-
+\ 'wuye',
+\ ]
 
 " let ColorRoller.colors = [
 " \ 'breeze',
@@ -160,7 +160,6 @@ let ColorRoller.colors = [
 
 function! ColorRoller.change()
   let color = get(self.colors, 0)
-  " tabpagecolorscheme を使用している場合は↓の "colorscheme" を "Tcolorscheme" に変える。
   silent exe "colorscheme " . color
   redraw
   echo self.colors
