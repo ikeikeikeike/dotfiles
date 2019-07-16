@@ -5,7 +5,7 @@ if &compatible
 endif
 
 " Executers
-let g:python_host_prog = '/opt/local/bin/python'
+let g:python_host_prog = '/usr/bin/python2'
 
 " Figure out the system Python for Neovim.
 if exists("$VIRTUAL_ENV")
