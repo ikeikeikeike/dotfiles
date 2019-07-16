@@ -2,12 +2,13 @@
 "
 
 " set tags
-if has("autochdir")
-    set autochdir
-    set tags=tags;
-else
-    set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags,./../../../../../../tags,./../../../../../../../tags,./../../../../../../../../tags,./../../../../../../../../../tags,./../../../../../../../../../../tags,./../../../../../../../../../../../tags,./../../../../../../../../../../../tags
-endif
+" if has("autochdir")
+"   set autochdir
+"   set tags=tags;
+" else
+  set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags,./../../../../../../tags,./../../../../../../../tags,./../../../../../../../../tags,./../../../../../../../../../tags,./../../../../../../../../../../tags,./../../../../../../../../../../../tags,./../../../../../../../../../../../tags
+" endif
+
 
 if filereadable(expand('~/rtags'))
   au FileType ruby,eruby,erb set tags+=~/rtags
