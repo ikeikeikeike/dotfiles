@@ -180,6 +180,20 @@ on_ft = 'go'
 repo = 'sheerun/vim-polyglot'
 
 [[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+hook_add = '''
+let g:precious_enable_switchers = {
+\	"html" : {
+\		"setfiletype" : 0
+\	},
+\}
+'''
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
 repo = 'vim-scripts/Colour-Sampler-Pack'
 # hook_add = '''
 # syntax on
@@ -212,17 +226,6 @@ endif
 syntax on
 colorscheme onedark
 '''
-
-
-[[plugins]]
-repo = 'osyo-manga/vim-precious'
-depends = ['context_filetype.vim']
-
-
-
-[[plugins]]
-repo = 'Shougo/context_filetype.vim'
-
 
 
 [[plugins]]
