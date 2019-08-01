@@ -192,8 +192,8 @@ fi
 # export PLAY_HOME=/usr/local/share/play
 # export PATH=$PLAY_HOME:$PATH
 # alias sbt='JAVA_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=2048M -Xmx2048M -Xmx1024M -Xss128M" sbt'
-# export SBT_OPTS="-Xmx2048m -Xms1024m -Xss128m -Dfile.encoding=UTF8"
-export SBT_OPTS="-Xmx4096m -Xms2048m -Xss256m -Dfile.encoding=UTF8"
+export SBT_OPTS="-Xmx2048m -Xms512m -Xss128m -Dfile.encoding=UTF8"
+# export SBT_OPTS="-Xmx4096m -Xms2048m -Xss256m -Dfile.encoding=UTF8"
 
 ## #nodejs ###
 
