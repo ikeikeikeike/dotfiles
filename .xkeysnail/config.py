@@ -20,7 +20,7 @@ define_multipurpose_modmap({
     Key.LEFT_META: [Key.MUHENKAN, Key.LEFT_META],
 })
 
-define_keymap(lambda wm_class: wm_class in ("Google-chrome", "albert"), {
+define_keymap(lambda wm_class: wm_class in ("Google-chrome", "FireFox", "albert"), {
     K("M-w"): K("C-w"),
     K("M-r"): K("C-r"),
     K("M-t"): K("C-t"),
@@ -76,7 +76,10 @@ define_keymap(lambda wm_class: wm_class in ("Gnome-terminal"), {
 }, "Gnome-terminal")
 
 
-define_keymap(lambda wm_class: wm_class in ("Slack"), {
+define_keymap(lambda wm_class: wm_class in (
+    "Slack", "Nautilus",
+    "libreoffice-calc", "libreoffice-writer", "libreoffice-impress",
+), {
     K("M-w"): K("C-w"),
     K("M-a"): K("C-a"),
     K("M-s"): K("C-s"),
