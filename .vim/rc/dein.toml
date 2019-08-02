@@ -259,7 +259,7 @@ let g:ale_fixers = {
   \ 'python': ['autopep8', 'black', 'isort'],
   \ }
 
-let g:ale_ruby_rubocop_options = '--except Style/AsciiComments'
+let g:ale_ruby_rubocop_options = '--except Style/AsciiComments,Metrics/LineLength'
 
 let g:ale_python_pylint_executable = g:python3_host_prog
 " let g:ale_python_pylint_args XXX: see pylintrc
