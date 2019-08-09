@@ -57,3 +57,5 @@ fi
 # if (which zprof > /dev/null) ;then
 #   zprof | less
 # fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
