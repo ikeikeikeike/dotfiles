@@ -180,6 +180,20 @@ on_ft = 'go'
 repo = 'sheerun/vim-polyglot'
 
 [[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+hook_add = '''
+let g:precious_enable_switchers = {
+\	"html" : {
+\		"setfiletype" : 0
+\	},
+\}
+'''
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
 repo = 'vim-scripts/Colour-Sampler-Pack'
 # hook_add = '''
 # syntax on
@@ -215,17 +229,6 @@ colorscheme onedark
 
 
 [[plugins]]
-repo = 'osyo-manga/vim-precious'
-depends = ['context_filetype.vim']
-
-
-
-[[plugins]]
-repo = 'Shougo/context_filetype.vim'
-
-
-
-[[plugins]]
 repo = 'vim-airline/vim-airline'
 depends = ['vim-airline-themes']
 hook_add = '''
@@ -256,6 +259,8 @@ let g:ale_fixers = {
   \ 'python': ['autopep8', 'black', 'isort'],
   \ }
 
+let g:ale_ruby_rubocop_options = '--except Style/AsciiComments,Metrics/LineLength'
+
 let g:ale_python_pylint_executable = g:python3_host_prog
 " let g:ale_python_pylint_args XXX: see pylintrc
 let g:ale_python_flake8_executable = g:python3_host_prog
@@ -266,8 +271,10 @@ let g:ale_python_isort_executable = g:python3_host_prog
 let g:ale_python_isort_options = '-m isort'
 let g:ale_python_black_executable = g:python3_host_prog
 let g:ale_python_black_options = '-m black'
+
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_save = 1
+
 let g:airline#extensions#ale#enabled = 1
 '''
 
