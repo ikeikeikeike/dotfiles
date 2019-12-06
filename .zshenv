@@ -192,8 +192,8 @@ fi
 # export PLAY_HOME=/usr/local/share/play
 # export PATH=$PLAY_HOME:$PATH
 # alias sbt='JAVA_OPT="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=2048M -Xmx2048M -Xmx1024M -Xss128M" sbt'
-# export SBT_OPTS="-Xmx2048m -Xms1024m -Xss128m -Dfile.encoding=UTF8"
-export SBT_OPTS="-Xmx4096m -Xms2048m -Xss256m -Dfile.encoding=UTF8"
+export SBT_OPTS="-Xmx2048m -Xms1024m -Xss128m -Dfile.encoding=UTF8"
+# export SBT_OPTS="-Xmx4096m -Xms2048m -Xss256m -Dfile.encoding=UTF8"
 
 ## #nodejs ###
 
@@ -267,6 +267,10 @@ export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 
 export PATH="$PATH:/usr/local/flutter/bin"
 
+### vscode
+
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
 ### extra ###
 
 # zsh autojump
@@ -310,12 +314,6 @@ if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google
 
 # zplug: # git clone https://github.com/zplug/zplug $ZPLUG_HOME
 export ZPLUG_HOME=~/.zplug
-
-# history
-HISTFILE=$HOME/.zsh-history
-HISTSIZE=10000000
-SAVEHIST=10000000
-
 
 
 # end
