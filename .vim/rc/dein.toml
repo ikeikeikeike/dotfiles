@@ -5,6 +5,11 @@ hook_add = '''
 let g:deoplete#enable_at_startup = 1
 '''
 
+[[plugins]]
+repo = 'posva/vim-vue'
+on_ft = ['vue']
+hook_add = '''
+'''
 
 [[plugins]]
 repo = 'justinmk/vim-dirvish'
@@ -18,9 +23,11 @@ nmap <silent> <C-f> <Plug>(dirvish_up)
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
-on_ft = ['dart', 'python', 'ruby']
+on_ft = ['dart', 'python', 'ruby', 'vue', 'ts', 'js', 'tsx', 'jsx']
 hook_add = '''
 set hidden  " Required for operations modifying multiple buffers like rename.
+
+let g:LanguageClient_loggingFile = '/tmp/lc.log'
 
 " https://lsp.readthedocs.io/en/latest
 "
@@ -28,6 +35,11 @@ let g:LanguageClient_serverCommands = {
     \ 'dart': ['dart_language_server'],
     \ 'python': ['pyls'],
     \ 'ruby': ['solargraph', 'stdio'],
+    \ 'vue': ['vls'],
+    \ 'javascript': ['typescript-language-server', '--stdio'],
+    \ 'typescript': ['typescript-language-server', '--stdio'],
+    \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
+    \ 'typescript.tsx': ['typescript-language-server', '--stdio'],
     \ }
 
 nnoremap <silent> H :call LanguageClient#textDocument_hover()<CR>
@@ -185,6 +197,9 @@ depends = ['context_filetype.vim']
 hook_add = '''
 let g:precious_enable_switchers = {
 \	"html" : {
+\		"setfiletype" : 0
+\	},
+\	"vue" : {
 \		"setfiletype" : 0
 \	},
 \}

@@ -59,3 +59,9 @@ fi
 # fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+# history
+HISTFILE=$HOME/.zsh-history
+HISTSIZE=10000000
+SAVEHIST=10000000
