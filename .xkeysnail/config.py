@@ -20,7 +20,7 @@ define_multipurpose_modmap({
     Key.LEFT_META: [Key.MUHENKAN, Key.LEFT_META],
 })
 
-define_keymap(lambda wm_class: wm_class in ("Google-chrome", "FireFox", "albert"), {
+define_keymap(lambda wm_class: wm_class in ("Google-chrome", "Firefox", "albert"), {
     K("M-w"): K("C-w"),
     K("M-r"): K("C-r"),
     K("M-t"): K("C-t"),
@@ -45,7 +45,7 @@ define_keymap(lambda wm_class: wm_class in ("Google-chrome", "FireFox", "albert"
     K("M-Shift-RIGHT"): K("C-Shift-RIGHT"),
 }, "Morden")
 
-define_keymap(lambda wm_class: wm_class in ("Boostnote", "Typora"), {
+define_keymap(lambda wm_class: wm_class in ("Boostnote", "Typora", ""), {
     K("M-LEFT"): K("C-LEFT"),
     K("M-LEFT_BRACE"): K("M-LEFT"),
     K("M-RIGHT"): K("C-RIGHT"),
@@ -135,6 +135,8 @@ define_keymap(lambda wm_class: wm_class not in ignores, {
     K("C-d"): [K("delete"), set_mark(False)],
     # Kill line
     K("C-k"): [K("Shift-end"), K("C-x"), set_mark(False)],
+    # Quit
+    K("M-w"): K("C-w"),
 }, "Otherwise")
 
 
