@@ -54,3 +54,5 @@
     template = ~/.git.commit_template
 [push]
     default = simple
+[url "git@github.com:"]
+	insteadOf = https://github.com/

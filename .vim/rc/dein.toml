@@ -5,6 +5,11 @@ hook_add = '''
 let g:deoplete#enable_at_startup = 1
 '''
 
+[[plugins]]
+repo = 'posva/vim-vue'
+on_ft = ['vue']
+hook_add = '''
+'''
 
 [[plugins]]
 repo = 'justinmk/vim-dirvish'
@@ -18,16 +23,22 @@ nmap <silent> <C-f> <Plug>(dirvish_up)
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
-on_ft = ['dart', 'python', 'ruby']
+on_ft = ['dart', 'python', 'ruby', 'javascript', 'typescript', 'vue']
 hook_add = '''
 set hidden  " Required for operations modifying multiple buffers like rename.
 
 " https://lsp.readthedocs.io/en/latest
+" npm i typescript-language-server -g
 "
 let g:LanguageClient_serverCommands = {
     \ 'dart': ['dart_language_server'],
     \ 'python': ['pyls'],
     \ 'ruby': ['solargraph', 'stdio'],
+    \ 'vue': ['vls'],
+    \ 'javascript': ['typescript-language-server', '--stdio'],
+    \ 'typescript': ['typescript-language-server', '--stdio'],
+    \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
+    \ 'typescript.tsx': ['typescript-language-server', '--stdio'],
     \ }
 
 nnoremap <silent> H :call LanguageClient#textDocument_hover()<CR>
@@ -159,6 +170,8 @@ set completeopt=menu,preview
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = "goimports"
 
+let g:go_def_mode = 'godef'
+
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
@@ -184,7 +197,13 @@ repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
 hook_add = '''
 let g:precious_enable_switchers = {
+\	"markdown" : {
+\		"setfiletype" : 0
+\	},
 \	"html" : {
+\		"setfiletype" : 0
+\	},
+\	"vue" : {
 \		"setfiletype" : 0
 \	},
 \}
