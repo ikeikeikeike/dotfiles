@@ -390,5 +390,5 @@ repo = 'tpope/vim-fugitive'
 #
 
 [[plugins]]
-repo = 'tpope/vim-commentary'
+repo = 'tomtom/tcomment_vim'
 
