@@ -23,13 +23,14 @@ nmap <silent> <C-f> <Plug>(dirvish_up)
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
-on_ft = ['dart', 'python', 'ruby', 'vue', 'ts', 'js', 'tsx', 'jsx']
+on_ft = ['dart', 'python', 'ruby', 'vue', 'ts', 'js', 'tsx', 'jsx', 'javascript', 'typescript']
 hook_add = '''
 set hidden  " Required for operations modifying multiple buffers like rename.
 
 let g:LanguageClient_loggingFile = '/tmp/lc.log'
 
 " https://lsp.readthedocs.io/en/latest
+" npm i typescript-language-server -g
 "
 let g:LanguageClient_serverCommands = {
     \ 'dart': ['dart_language_server'],
@@ -170,6 +171,8 @@ hook_add = '''
 set completeopt=menu,preview
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = "goimports"
+
+let g:go_def_mode = 'godef'
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -389,5 +392,5 @@ repo = 'tpope/vim-fugitive'
 #
 
 [[plugins]]
-repo = 'tpope/vim-commentary'
+repo = 'tomtom/tcomment_vim'
 

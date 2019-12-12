@@ -20,7 +20,7 @@ define_multipurpose_modmap({
     Key.LEFT_META: [Key.MUHENKAN, Key.LEFT_META],
 })
 
-define_keymap(lambda wm_class: wm_class in ("Google-chrome", "albert"), {
+define_keymap(lambda wm_class: wm_class in ("Google-chrome", "Firefox", "albert"), {
     K("M-w"): K("C-w"),
     K("M-r"): K("C-r"),
     K("M-t"): K("C-t"),
@@ -45,22 +45,31 @@ define_keymap(lambda wm_class: wm_class in ("Google-chrome", "albert"), {
     K("M-Shift-RIGHT"): K("C-Shift-RIGHT"),
 }, "Morden")
 
-define_keymap(lambda wm_class: wm_class in ("Boostnote"), {
-    K("M-w"): K("C-w"),
-    K("M-r"): K("C-r"),
-    K("M-t"): K("C-t"),
-    K("M-o"): K("C-o"),
-    K("M-p"): K("C-p"),
+define_keymap(lambda wm_class: wm_class in ("Boostnote", "Typora", ""), {
+    K("M-LEFT"): K("C-LEFT"),
+    K("M-LEFT_BRACE"): K("M-LEFT"),
+    K("M-RIGHT"): K("C-RIGHT"),
+    K("M-RIGHT_BRACE"): K("M-RIGHT"),
+    K("M-Shift-LEFT"): K("C-Shift-LEFT"),
+    K("M-Shift-RIGHT"): K("C-Shift-RIGHT"),
+    K("M-Shift-t"): K("C-Shift-t"),
+    K("M-SLASH"): K("C-SLASH"),
     K("M-a"): K("C-a"),
-    K("M-s"): K("C-s"),
+    K("M-c"): K("C-c"),
     K("M-f"): K("C-f"),
     K("M-g"): K("C-g"),
-    K("M-z"): K("C-z"),
-    K("M-x"): K("C-x"),
-    K("M-c"): K("C-c"),
-    K("M-v"): K("C-v"),
+    K("M-l"): K("C-l"),
     K("M-n"): K("C-n"),
-}, "Boostnote")
+    K("M-o"): K("C-o"),
+    K("M-p"): K("C-p"),
+    K("M-r"): K("C-r"),
+    K("M-s"): K("C-s"),
+    K("M-t"): K("C-t"),
+    K("M-v"): K("C-v"),
+    K("M-w"): K("C-w"),
+    K("M-x"): K("C-x"),
+    K("M-z"): K("C-z"),
+}, "C All of combination keys to Meta")
 
 define_keymap(lambda wm_class: wm_class in ("Gnome-terminal"), {
     K("C-TAB"): K("C-PAGE_DOWN"),
@@ -76,7 +85,10 @@ define_keymap(lambda wm_class: wm_class in ("Gnome-terminal"), {
 }, "Gnome-terminal")
 
 
-define_keymap(lambda wm_class: wm_class in ("Slack"), {
+define_keymap(lambda wm_class: wm_class in (
+    "Slack", "Nautilus",
+    "libreoffice-calc", "libreoffice-writer", "libreoffice-impress",
+), {
     K("M-w"): K("C-w"),
     K("M-a"): K("C-a"),
     K("M-s"): K("C-s"),
@@ -123,6 +135,8 @@ define_keymap(lambda wm_class: wm_class not in ignores, {
     K("C-d"): [K("delete"), set_mark(False)],
     # Kill line
     K("C-k"): [K("Shift-end"), K("C-x"), set_mark(False)],
+    # Quit
+    K("M-w"): K("C-w"),
 }, "Otherwise")
 
 

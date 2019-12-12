@@ -1,0 +1,14 @@
+#!/bin/bash -veu
+
+ctags -R \
+  --exclude=spectest_* \
+  --exclude=tests.* \
+  --exclude=test.* \
+  --exclude=*/unittest/* \
+  --exclude=*/testing/* \
+  --exclude=*/testsuite/* \
+  --exclude=*/test/* \
+  --exclude=*/tests/* \
+  --exclude=*/examples/* \
+  --exclude=*/example/* \
+  $1
