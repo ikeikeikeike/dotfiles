@@ -196,6 +196,9 @@ repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
 hook_add = '''
 let g:precious_enable_switchers = {
+\	"markdown" : {
+\		"setfiletype" : 0
+\	},
 \	"html" : {
 \		"setfiletype" : 0
 \	},
