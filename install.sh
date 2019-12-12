@@ -6,9 +6,10 @@ do
      [ $i = .. ] ||
      [ $i = README ] ||
      [ $i = install.sh ] ||
-     [ $i = init.vim ] ||
      [ $i = uninstall.sh ] ||
      [ $i = fusuma ] ||
+     [ $i = .pycodestyle ] ||
+     [ $i = .init.vim ] ||
      [ $i = .git ] ||
      [ $i = .gitignore ]; then
     continue
@@ -18,7 +19,7 @@ do
   \ln -s `pwd`/$i $HOME/$i
 done
 
-mkdir -p vim ~/.config/nvim
+mkdir -p ~/.config/nvim
 ln -s `pwd`/.init.vim ~/.config/nvim/init.vim
 ln -s `pwd`/.vim/plugin ~/.config/nvim/plugin
 ln -s `pwd`/.vim/ftplugin ~/.config/nvim/ftplugin
