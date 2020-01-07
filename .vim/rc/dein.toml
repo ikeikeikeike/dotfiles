@@ -259,10 +259,10 @@ repo = 'vim-airline/vim-airline-themes'
 
 
 [[plugins]]
-repo = 'sjl/gundo.vim'
+repo = 'simnalamburt/vim-mundo'
 hook_add = '''
-let g:gundo_right = 1
-nnoremap <F8> :GundoToggle<CR>
+let g:mundo_right = 1
+" nnoremap <F8> :GundoToggle<CR>
 '''
 
 
