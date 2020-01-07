@@ -1,0 +1,18 @@
+#!/bin/bash -veu
+
+ctags \
+  -R \
+  --languages=elixir \
+  --exclude=spectest_* \
+  --exclude=tests.exs \
+  --exclude=test.exs \
+  --exclude=test.ex \
+  --exclude=tests.ex \
+  --exclude=*/unittest/* \
+  --exclude=*/testing/* \
+  --exclude=*/testsuite/* \
+  --exclude=*/test/* \
+  --exclude=*/tests/* \
+  --exclude=*/examples/* \
+  --exclude=*/example/* \
+  $1
