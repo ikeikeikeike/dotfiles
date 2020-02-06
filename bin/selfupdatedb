@@ -1,9 +1,6 @@
 #!/bin/sh
 PATH=$PATH:/opt/local/bin:/opt/local/sbn:/usr/local/bin:/usr/local/sbin
 
-# updatedb
-LC_ALL=C sudo gupdatedb --prunepaths="/tmp /var/tmp /.Spotlight-V100 /.fseventsd /Volumes/MobileBackups /Volumes/Volume /.MobileBackups" &
-
 # macports
 sudo port clean --all installed; sudo port -dv selfupdate && sudo port -fdv upgrade outdated && sudo port -vu uninstall &
 
@@ -13,3 +10,8 @@ brew cleanup
 
 # npm
 npm update -g && npm upgrade -g &
+
+# updatedb
+# LC_ALL=C sudo gupdatedb --prunepaths="/tmp /var/tmp /.Spotlight-V100 /.fseventsd /Volumes/MobileBackups /Volumes/Volume /.MobileBackups" &
+# sudo gupdatedb --localpaths='/' &
+sudo /usr/libexec/locate.updatedb &
