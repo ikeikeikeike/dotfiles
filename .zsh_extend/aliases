@@ -14,8 +14,8 @@ if [ $ARCHI = darwin ]; then
   alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
   alias d="sudo docker"
   alias ls='gls -Fh --color=auto'
-  alias updatedb=' sudo LC_ALL=C gupdatedb --prunepaths="/tmp /var/tmp /.Spotlight-V100 /.fseventsd /Volumes/MobileBackups /Volumes/Volume /.MobileBackups" '
-  alias locate='glocate -i '
+  # alias updatedb=' sudo LC_ALL=C gupdatedb --localpaths="/Users" --prunepaths="/tmp /var/tmp /.Spotlight-V100 /.fseventsd /Volumes/MobileBackups /Volumes/Volume /.MobileBackups" '
+  # alias locate='glocate -i '
   alias winscp="open $HOME/Library/Application\ Support/MikuInstaller/prefix/default/drive_c/Program\ Files/WinSCP/WinSCP.exe"
   alias dircolors='gdircolors'
   alias gdb='ggdb'

@@ -10,3 +10,12 @@ function _pip_completion {
 }
 compctl -K _pip_completion pip
 # pip zsh completion end
+
+##
+# Your previous /Users/ikedat/.zprofile file was backed up as /Users/ikedat/.zprofile.macports-saved_2020-02-06_at_14:41:53
+##
+
+# MacPorts Installer addition on 2020-02-06_at_14:41:53: adding an appropriate MANPATH variable for use with MacPorts.
+export MANPATH="/opt/local/share/man:$MANPATH"
+# Finished adapting your MANPATH environment variable for use with MacPorts.
+
