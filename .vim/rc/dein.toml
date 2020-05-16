@@ -5,7 +5,7 @@
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-on_ft = ['dart', 'python', 'ruby']
+on_ft = []
 hook_add = '''
 let g:deoplete#enable_at_startup = 1
 '''
@@ -38,7 +38,7 @@ nmap <silent> <C-f> <Plug>(dirvish_up)
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
-on_ft = ['dart', 'python', 'ruby', 'javascript', 'typescript', 'vue', 'ts', 'js', 'sql']
+on_ft = []
 hook_add = '''
 set hidden  " Required for operations modifying multiple buffers like rename.
 
