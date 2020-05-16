@@ -263,6 +263,10 @@ export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 #   source "${VIRTUAL_ENV}/bin/activate"
 # fi
 
+### kubernetest k8s
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
 ### flutter
 
 export PATH="$PATH:/usr/local/flutter/bin"

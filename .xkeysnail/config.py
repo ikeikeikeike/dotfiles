@@ -20,7 +20,7 @@ define_multipurpose_modmap({
     Key.LEFT_META: [Key.MUHENKAN, Key.LEFT_META],
 })
 
-define_keymap(lambda wm_class: wm_class in ("Google-chrome", "Firefox", "albert"), {
+define_keymap(lambda wm_class: wm_class in ("Google-chrome", "Brave-browser", "Firefox", "albert"), {
     K("M-w"): K("C-w"),
     K("M-r"): K("C-r"),
     K("M-t"): K("C-t"),

@@ -1,3 +1,8 @@
+#
+# TODO: Change the Plug which is better for me
+#
+
+
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 on_ft = ['dart', 'python', 'ruby']
@@ -8,6 +13,16 @@ let g:deoplete#enable_at_startup = 1
 [[plugins]]
 repo = 'posva/vim-vue'
 on_ft = ['vue']
+hook_add = '''
+'''
+
+[[plugins]]
+repo = 'lighttiger2505/sqls.vim'
+hook_add = '''
+'''
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
 hook_add = '''
 '''
 
@@ -23,9 +38,13 @@ nmap <silent> <C-f> <Plug>(dirvish_up)
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
-on_ft = ['dart', 'python', 'ruby', 'javascript', 'typescript', 'vue']
+on_ft = ['dart', 'python', 'ruby', 'javascript', 'typescript', 'vue', 'ts', 'js', 'sql']
 hook_add = '''
 set hidden  " Required for operations modifying multiple buffers like rename.
+
+" let g:LanguageClient_devel = 1 " Use rust debug build
+" let g:LanguageClient_loggingLevel = 'DEBUG' " Use highest logging level
+" let g:LanguageClient_autoStart = 1
 
 " https://lsp.readthedocs.io/en/latest
 " npm i typescript-language-server -g
@@ -35,6 +54,7 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'ruby': ['solargraph', 'stdio'],
     \ 'vue': ['vls'],
+    \ 'sql': ['sqls'],
     \ 'javascript': ['typescript-language-server', '--stdio'],
     \ 'typescript': ['typescript-language-server', '--stdio'],
     \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
@@ -113,6 +133,10 @@ endfunction
 [[plugins]]
 repo = 'hashivim/vim-terraform'
 on_ft = 'terraform'
+hook_add = '''
+let g:terraform_align=1
+let g:terraform_fmt_on_save=1
+'''
 
 
 [[plugins]]
