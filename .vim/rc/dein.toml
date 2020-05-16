@@ -5,14 +5,12 @@
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-on_ft = []
 hook_add = '''
 let g:deoplete#enable_at_startup = 1
 '''
 
 [[plugins]]
-repo = 'posva/vim-vue'
-on_ft = ['vue']
+repo = 'lighttiger2505/deoplete-vim-lsp'
 hook_add = '''
 '''
 
@@ -27,108 +25,22 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'mattn/vim-lsp-settings'
+merged = 0
+hook_add = '''
+'''
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+'''
+
+[[plugins]]
 repo = 'justinmk/vim-dirvish'
 hook_add = '''
 nmap <silent> <C-f> <Plug>(dirvish_up)
 " nmap <silent> <C-f> :<C-u>Dirvish<CR>
 '''
-
-# https://github.com/neoclide/coc.nvim
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-rev = 'next'
-build = 'bash install.sh'
-on_ft = []
-hook_add = '''
-set hidden  " Required for operations modifying multiple buffers like rename.
-
-" let g:LanguageClient_devel = 1 " Use rust debug build
-" let g:LanguageClient_loggingLevel = 'DEBUG' " Use highest logging level
-" let g:LanguageClient_autoStart = 1
-
-" https://lsp.readthedocs.io/en/latest
-" npm i typescript-language-server -g
-"
-let g:LanguageClient_serverCommands = {
-    \ 'dart': ['dart_language_server'],
-    \ 'python': ['pyls'],
-    \ 'ruby': ['solargraph', 'stdio'],
-    \ 'vue': ['vls'],
-    \ 'sql': ['sqls'],
-    \ 'javascript': ['typescript-language-server', '--stdio'],
-    \ 'typescript': ['typescript-language-server', '--stdio'],
-    \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
-    \ 'typescript.tsx': ['typescript-language-server', '--stdio'],
-    \ }
-
-nnoremap <silent> H :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
-let s:lsp_stack = []
-let s:lsp_stack_level = 0
-
-function! MyGoToDefinition(...) abort
-  " Get the current position
-  let l:fname = expand('%:p')
-  let l:line = line(".")
-  let l:col = col(".")
-
-  " Call the original function to jump to the definition
-  let l:result = LanguageClient_runSync('LanguageClient#textDocument_definition', {
-              \ 'handle': v:true,
-              \ })
-
-  " Get the position of definition
-  let l:jump_fname = expand('%:p')
-  let l:jump_line = line(".")
-  let l:jump_col = col(".")
-
-  " If the position is the same as previous, ignore the jump action
-  if l:fname == l:jump_fname && l:line == l:jump_line
-     return
-  endif
-
-  " Remove anything newer than the current position, just like basic
-  " vim tag support
-  if s:lsp_stack_level == 0
-    let s:lsp_stack = []
-  else
-    let s:lsp_stack = s:lsp_stack[0:s:lsp_stack_level-1]
-  endif
-
-  " Push entry into stack
-  let s:lsp_stack_level += 1
-  let l:stack_entry = {'line': l:line, 'col': l:col, 'file': l:fname}
-  call add(s:lsp_stack, l:stack_entry)
-endfunction
-
-function! MyTagStackPop() abort
-  if s:lsp_stack_level == 0
-    echo "lsp stack empty!"
-    return
-  endif
-
-  " Get previous position
-  let l:curr_stack_level = s:lsp_stack_level - 1
-  let l:jump_entry = s:lsp_stack[l:curr_stack_level]
-
-  " Pop stack
-  let s:lsp_stack = s:lsp_stack[0:l:curr_stack_level]
-  let s:lsp_stack_level = s:lsp_stack_level - 1
-
-  " Jump to previous location
-  if &modified
-    exec 'hide edit'  l:jump_entry['file']
-  else
-    exec 'edit' l:jump_entry['file']
-  endif
-
-  call cursor(l:jump_entry['line'], l:jump_entry['col'])
-  normal! zz
-endfunction
-'''
-
 
 [[plugins]]
 repo = 'hashivim/vim-terraform'
@@ -137,7 +49,6 @@ hook_add = '''
 let g:terraform_align=1
 let g:terraform_fmt_on_save=1
 '''
-
 
 [[plugins]]
 repo = 'dart-lang/dart-vim-plugin'
@@ -342,6 +253,12 @@ nnoremap <C-]> :<C-u>FZFTags<CR>
 repo = 'tpope/vim-surround'
 [[plugins]]
 repo = 'tpope/vim-repeat'
+
+[[plugins]]
+repo = 'posva/vim-vue'
+on_ft = ['vue']
+hook_add = '''
+'''
 
 
 
