@@ -33,6 +33,7 @@ hook_add = '''
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
 hook_add = '''
+let g:lsp_virtual_text_enabled = 0
 '''
 
 [[plugins]]
@@ -332,4 +333,47 @@ repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
+
+
+[[plugins]]
+repo = 'svermeulen/vim-easyclip'
+hook_add = '''
+function! s:yank_list()
+  redir => ys
+  silent Yanks
+  redir END
+  return split(ys, '\n')[1:]
+endfunction
+
+function! s:yank_handler(reg)
+  if empty(a:reg)
+    echo "aborted register paste"
+  else
+    let token = split(a:reg, ' ')
+    execute 'Paste' . token[0]
+  endif
+endfunction
+
+command! FZFYank call fzf#run({
+\ 'source': <sid>yank_list(),
+\ 'sink': function('<sid>yank_handler'),
+\ 'options': '-m --prompt="FZFYank> "',
+\ 'down':    '40%'
+\ })
+
+let g:EasyClipShareYanks = 1
+let g:EasyClipYankHistorySize = 500
+let g:EasyClipUseYankDefaults = 0
+let g:EasyClipUseCutDefaults = 0
+let g:EasyClipUsePasteDefaults = 0
+let g:EasyClipEnableBlackHoleRedirect = 0
+let g:EasyClipUsePasteToggleDefaults = 0
+" g:EasyClipUseSubstituteDefaults
+" One exception to the above is substitute, which is 0 by default (ie. disabled)
+
+nnoremap <Leader>y :<C-U>FZFYank<CR>
+
+"nmap <Leader>y :Unite yankround<CR>
+"inoremap <C-Y><C-Y> <C-O>:<C-U>FZFYank<CR>
+'''
 

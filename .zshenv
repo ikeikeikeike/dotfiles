@@ -201,6 +201,8 @@ if [[ -f ~/.nvm/nvm.sh ]]; then
   source ~/.nvm/nvm.sh
 fi
 
+export NODE_OPTIONS="--max-old-space-size=1024 --max_old_space_size=1024"
+
 ### haskell ###
 
 export CABAL_HOME=~/.cabal
