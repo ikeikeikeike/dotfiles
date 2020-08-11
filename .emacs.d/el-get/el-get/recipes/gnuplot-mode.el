@@ -1,1 +1,0 @@
-(:name gnuplot-mode :type http :url "http://cars9.uchicago.edu/~ravel/software/gnuplot-mode/gnuplot-mode.0.6.0.tar.gz")
