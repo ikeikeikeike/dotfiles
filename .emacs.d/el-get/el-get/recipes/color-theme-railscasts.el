@@ -1,1 +1,0 @@
-(:name color-theme-railscasts :type git :url "git://github.com/olegshaldybin/color-theme-railscasts.git")
