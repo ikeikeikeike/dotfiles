@@ -1,7 +1,0 @@
-*.pyc
-.stamp
-Pymacs/__init__.py
-build
-pymacs.el
-pymacs.pdf
-pymacs.rst
