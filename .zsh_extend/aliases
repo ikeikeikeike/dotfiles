@@ -162,7 +162,7 @@ alias -g G="| grep"
 source ~/.kubectl_aliases
 
 # python
-alias mkvirtualenv="mkvirtualenv --no-site-packages --distribute "
+# alias mkvirtualenv="mkvirtualenv --no-site-packages --distribute "
 
 # kube
 alias kubestats="kubectl get node,po,deploy,sts,svc,job,ing,pv,pvc,configmap,secret,hpa,endpoints -o wide"
