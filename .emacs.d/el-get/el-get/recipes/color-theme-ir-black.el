@@ -1,1 +1,0 @@
-(:name color-theme-ir-black :type git :url "git://github.com/burke/color-theme-ir-black.git")
