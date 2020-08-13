@@ -1,1 +1,0 @@
-(:name regex-tool :type git :url "git://github.com/jwiegley/regex-tool.git")
