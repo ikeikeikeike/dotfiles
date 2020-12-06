@@ -6,5 +6,3 @@ nnoremap <c-\> :LspDefinition<cr>
 " nnoremap gt :<C-U>call MyTagStackPop()<cr>
 
 let g:LanguageClient_useVirtualText=0
-
-

@@ -377,3 +377,13 @@ nnoremap <Leader>y :<C-U>FZFYank<CR>
 "inoremap <C-Y><C-Y> <C-O>:<C-U>FZFYank<CR>
 '''
 
+
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+hook_add = '''
+let g:rustfmt_autosave = 1
+'''
+
+#
+#
+#
