@@ -211,6 +211,7 @@ export MANPATH=$CABAL_HOME/share:$MANPATH
 
 
 ### golang ###
+#
 if [[ -s "$HOME/.gvm/scripts/gvm" ]]; then
     source "$HOME/.gvm/scripts/gvm"
 fi
@@ -226,6 +227,13 @@ fi
 export PATH=$PATH:/usr/lib/dart/bin
 export PATH=$PATH:$HOME/.pub-cache/bin
 export PATH=$PATH:$HOME/sdk/flutter/bin
+
+
+### Rust
+
+if [[ -s "$HOME/.cargo/env" ]]; then
+    source "$HOME/.cargo/env"
+fi
 
 
 ### python ###
@@ -323,8 +331,8 @@ HISTSIZE=10000000
 SAVEHIST=10000000
 
 
-
 # end
+#
 #
 #
 #
