@@ -201,6 +201,8 @@ if [[ -f ~/.nvm/nvm.sh ]]; then
   source ~/.nvm/nvm.sh
 fi
 
+export NODE_OPTIONS="--max-old-space-size=1024 --max_old_space_size=1024"
+
 ### haskell ###
 
 export CABAL_HOME=~/.cabal
@@ -209,6 +211,7 @@ export MANPATH=$CABAL_HOME/share:$MANPATH
 
 
 ### golang ###
+#
 if [[ -s "$HOME/.gvm/scripts/gvm" ]]; then
     source "$HOME/.gvm/scripts/gvm"
 fi
@@ -224,6 +227,13 @@ fi
 export PATH=$PATH:/usr/lib/dart/bin
 export PATH=$PATH:$HOME/.pub-cache/bin
 export PATH=$PATH:$HOME/sdk/flutter/bin
+
+
+### Rust
+
+if [[ -s "$HOME/.cargo/env" ]]; then
+    source "$HOME/.cargo/env"
+fi
 
 
 ### python ###
@@ -242,7 +252,7 @@ export PYTHONIOENCODING=UTF-8
 export WORKON_HOME=$HOME/.virtualenvs
 # virtualenvwrapper
 if [ -f `\which virtualenvwrapper.sh 2> /dev/null` ]; then
-  source virtualenvwrapper.sh 2> /dev/null
+  source `which virtualenvwrapper.sh` 2> /dev/null
 fi
 
 ## extra virtualenv
@@ -262,6 +272,10 @@ export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 # if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
 #   source "${VIRTUAL_ENV}/bin/activate"
 # fi
+
+### kubernetest k8s
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 ### flutter
 
@@ -315,8 +329,13 @@ if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google
 # zplug: # git clone https://github.com/zplug/zplug $ZPLUG_HOME
 export ZPLUG_HOME=~/.zplug
 
+# history
+HISTFILE=$HOME/.zsh-history
+HISTSIZE=10000000
+SAVEHIST=10000000
 
 # end
+#
 #
 #
 #

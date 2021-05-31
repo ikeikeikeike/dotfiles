@@ -5,7 +5,7 @@
 #easy_install pip
 
 #
-pip install virtualenv virtualenvwrapper
+pip install virtualenv virtualenvwrapper pipenv poetry
 
 #
 # pip install distribute
@@ -43,7 +43,7 @@ pip install -U flake8 flake8-import-order autoflake autopep8 black isort
 pip install pgcli mycli httpie
 
 pip install awscli
-pip install neovim
+pip install neovim pynvim
 pip install python-language-server
 
 

@@ -58,7 +58,9 @@ fi
 #   zprof | less
 # fi
 
-# history
-HISTFILE=$HOME/.zsh-history
-HISTSIZE=10000000
-SAVEHIST=10000000
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# end
+#
+#
+#

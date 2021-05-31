@@ -1,25 +1,30 @@
+#
+# TODO: Change the Plug which is better for me
+#
+
+
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-on_ft = ['dart', 'python', 'ruby']
 hook_add = '''
 let g:deoplete#enable_at_startup = 1
 '''
 
+<<<<<<< HEAD
 [[plugins]]
 repo = 'posva/vim-vue'
 on_ft = ['vue']
 hook_add = '''
 '''
 
+=======
+>>>>>>> ubuntu
 [[plugins]]
-repo = 'justinmk/vim-dirvish'
+repo = 'lighttiger2505/sqls.vim'
 hook_add = '''
-nmap <silent> <C-f> <Plug>(dirvish_up)
-" nmap <silent> <C-f> :<C-u>Dirvish<CR>
 '''
 
-# https://github.com/neoclide/coc.nvim
 [[plugins]]
+<<<<<<< HEAD
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
@@ -94,28 +99,43 @@ function! MyTagStackPop() abort
   " Get previous position
   let l:curr_stack_level = s:lsp_stack_level - 1
   let l:jump_entry = s:lsp_stack[l:curr_stack_level]
+=======
+repo = 'prabirshrestha/async.vim'
+hook_add = '''
+'''
+>>>>>>> ubuntu
 
-  " Pop stack
-  let s:lsp_stack = s:lsp_stack[0:l:curr_stack_level]
-  let s:lsp_stack_level = s:lsp_stack_level - 1
-
-  " Jump to previous location
-  if &modified
-    exec 'hide edit'  l:jump_entry['file']
-  else
-    exec 'edit' l:jump_entry['file']
-  endif
-
-  call cursor(l:jump_entry['line'], l:jump_entry['col'])
-  normal! zz
-endfunction
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+let g:lsp_virtual_text_enabled = 0
 '''
 
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+merged = 0
+hook_add = '''
+'''
+
+[[plugins]]
+repo = 'lighttiger2505/deoplete-vim-lsp'
+hook_add = '''
+'''
+
+[[plugins]]
+repo = 'justinmk/vim-dirvish'
+hook_add = '''
+nmap <silent> <C-f> <Plug>(dirvish_up)
+" nmap <silent> <C-f> :<C-u>Dirvish<CR>
+'''
 
 [[plugins]]
 repo = 'hashivim/vim-terraform'
 on_ft = 'terraform'
-
+hook_add = '''
+let g:terraform_align=1
+let g:terraform_fmt_on_save=1
+'''
 
 [[plugins]]
 repo = 'dart-lang/dart-vim-plugin'
@@ -208,6 +228,12 @@ let g:precious_enable_switchers = {
 \	"vue" : {
 \		"setfiletype" : 0
 \	},
+<<<<<<< HEAD
+=======
+\	"erb" : {
+\		"setfiletype" : 0
+\	},
+>>>>>>> ubuntu
 \}
 '''
 
@@ -261,10 +287,10 @@ repo = 'vim-airline/vim-airline-themes'
 
 
 [[plugins]]
-repo = 'sjl/gundo.vim'
+repo = 'simnalamburt/vim-mundo'
 hook_add = '''
-let g:gundo_right = 1
-nnoremap <F8> :GundoToggle<CR>
+let g:mundo_right = 1
+" nnoremap <F8> :GundoToggle<CR>
 '''
 
 
@@ -320,6 +346,12 @@ nnoremap <C-]> :<C-u>FZFTags<CR>
 repo = 'tpope/vim-surround'
 [[plugins]]
 repo = 'tpope/vim-repeat'
+
+[[plugins]]
+repo = 'posva/vim-vue'
+on_ft = ['vue']
+hook_add = '''
+'''
 
 
 
@@ -393,4 +425,69 @@ repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
+<<<<<<< HEAD
+=======
 
+
+[[plugins]]
+repo = 'svermeulen/vim-easyclip'
+hook_add = '''
+function! s:yank_list()
+  redir => ys
+  silent Yanks
+  redir END
+  return split(ys, '\n')[1:]
+endfunction
+
+function! s:yank_handler(reg)
+  if empty(a:reg)
+    echo "aborted register paste"
+  else
+    let token = split(a:reg, ' ')
+    execute 'Paste' . token[0]
+  endif
+endfunction
+
+command! FZFYank call fzf#run({
+\ 'source': <sid>yank_list(),
+\ 'sink': function('<sid>yank_handler'),
+\ 'options': '-m --prompt="FZFYank> "',
+\ 'down':    '40%'
+\ })
+
+let g:EasyClipShareYanks = 1
+let g:EasyClipYankHistorySize = 500
+let g:EasyClipUseYankDefaults = 0
+let g:EasyClipUseCutDefaults = 0
+let g:EasyClipUsePasteDefaults = 0
+let g:EasyClipEnableBlackHoleRedirect = 0
+let g:EasyClipUsePasteToggleDefaults = 0
+" g:EasyClipUseSubstituteDefaults
+" One exception to the above is substitute, which is 0 by default (ie. disabled)
+
+nnoremap <Leader>y :<C-U>FZFYank<CR>
+
+"nmap <Leader>y :Unite yankround<CR>
+"inoremap <C-Y><C-Y> <C-O>:<C-U>FZFYank<CR>
+'''
+
+
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+hook_add = '''
+let g:rustfmt_autosave = 1
+let g:rust_clip_command = 'xclip -selection clipboard'
+'''
+
+[[plugins]]
+repo = 'pinecoders/vim-pine-script'
+hook_add = '''
+"let g:rustfmt_autosave = 1
+"let g:rust_clip_command = 'xclip -selection clipboard'
+'''
+>>>>>>> ubuntu
+
+
+#
+#
+#
