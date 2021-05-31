@@ -177,8 +177,8 @@ function! ColorRoller.unroll()
   call self.change()
 endfunction
 
-nnoremap <silent><Down>   :<C-u>call ColorRoller.roll()<CR>
-nnoremap <silent><Up>     :<C-u>call ColorRoller.unroll()<CR>
+" nnoremap <silent><Down>   :<C-u>call ColorRoller.roll()<CR>
+" nnoremap <silent><Up>     :<C-u>call ColorRoller.unroll()<CR>
 " nnoremap <silent><Leader><f9> :<C-u>call ColorRoller.roll()<CR>
 
 

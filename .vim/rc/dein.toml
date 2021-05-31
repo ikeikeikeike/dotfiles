@@ -10,11 +10,6 @@ let g:deoplete#enable_at_startup = 1
 '''
 
 [[plugins]]
-repo = 'lighttiger2505/deoplete-vim-lsp'
-hook_add = '''
-'''
-
-[[plugins]]
 repo = 'lighttiger2505/sqls.vim'
 hook_add = '''
 '''
@@ -25,15 +20,20 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+let g:lsp_virtual_text_enabled = 0
+'''
+
+[[plugins]]
 repo = 'mattn/vim-lsp-settings'
 merged = 0
 hook_add = '''
 '''
 
 [[plugins]]
-repo = 'prabirshrestha/vim-lsp'
+repo = 'lighttiger2505/deoplete-vim-lsp'
 hook_add = '''
-let g:lsp_virtual_text_enabled = 0
 '''
 
 [[plugins]]
@@ -140,6 +140,9 @@ let g:precious_enable_switchers = {
 \		"setfiletype" : 0
 \	},
 \	"vue" : {
+\		"setfiletype" : 0
+\	},
+\	"erb" : {
 \		"setfiletype" : 0
 \	},
 \}
@@ -382,7 +385,16 @@ nnoremap <Leader>y :<C-U>FZFYank<CR>
 repo = 'rust-lang/rust.vim'
 hook_add = '''
 let g:rustfmt_autosave = 1
+let g:rust_clip_command = 'xclip -selection clipboard'
 '''
+
+[[plugins]]
+repo = 'pinecoders/vim-pine-script'
+hook_add = '''
+"let g:rustfmt_autosave = 1
+"let g:rust_clip_command = 'xclip -selection clipboard'
+'''
+
 
 #
 #
