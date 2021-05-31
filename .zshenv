@@ -252,7 +252,7 @@ export PYTHONIOENCODING=UTF-8
 export WORKON_HOME=$HOME/.virtualenvs
 # virtualenvwrapper
 if [ -f `\which virtualenvwrapper.sh 2> /dev/null` ]; then
-  source virtualenvwrapper.sh 2> /dev/null
+  source `which virtualenvwrapper.sh` 2> /dev/null
 fi
 
 ## extra virtualenv
