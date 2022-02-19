@@ -1,4 +1,4 @@
-
+ssh ubuntu@52.198.111.67 'ps aux | grep bin/jesse' | grep -v 'grep' || echo '\033[91mno jeese process there\033[0m'
 
 if [ -f $HOME/.zsh_extend/aliases ]; then
   source $HOME/.zsh_extend/aliases

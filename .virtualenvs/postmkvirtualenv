@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 # This hook is run after a new virtualenv is activated.
 
+pip install pip -U
+
 #
 #easy_install pip
 
@@ -63,8 +65,6 @@ pip install python-language-server
 
 # ipython readline
 pip install readline
-
-pip install pip -U
 
 echo <<_EOF_
 

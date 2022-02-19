@@ -1,7 +1,6 @@
 # for debug
 # zmodload zsh/zprof && zprof
 
-
 # Archi & Distribution
 if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
   case "`uname -sr`" in
