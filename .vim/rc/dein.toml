@@ -365,9 +365,9 @@ command! FZFYank call fzf#run({
 \ })
 
 let g:EasyClipShareYanks = 1
-let g:EasyClipYankHistorySize = 500
-let g:EasyClipUseYankDefaults = 0
-let g:EasyClipUseCutDefaults = 0
+let g:EasyClipYankHistorySize = 1000
+" let g:EasyClipUseYankDefaults = 0
+" let g:EasyClipUseCutDefaults = 0
 let g:EasyClipUsePasteDefaults = 0
 let g:EasyClipEnableBlackHoleRedirect = 0
 let g:EasyClipUsePasteToggleDefaults = 0
