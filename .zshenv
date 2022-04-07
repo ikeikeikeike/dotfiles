@@ -1,3 +1,13 @@
+# history
+export HISTFILE=$HOME/.zsh_history
+export HISTSIZE=100000000
+export SAVEHIST=100000000
+
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=100000000
+SAVEHIST=100000000
+
+
 # for debug
 # zmodload zsh/zprof && zprof
 
@@ -17,11 +27,12 @@ if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
     case "`cat /etc/redhat-release`" in
       *CentOS*);  export DISTRIBUTE="centos" ;;
       *Red*);     export DISTRIBUTE="redhat" ;;
-      *);         export DISTRIBUTE="dummy" ;;
+      *);         export DISTRIBUTE="dummy"  ;;
     esac
   else
-    case "`uname -v`" in
-      *-Ubuntu*); export DISTRIBUTE="ubuntu" ;;
+    case "`uname -a`" in
+      *Ubuntu*);  export DISTRIBUTE="ubuntu" ;;
+      *arm64*);   export DISTRIBUTE="arm64"  ;;
       *);         export DISTRIBUTE="dummy"  ;;
     esac
   fi
@@ -56,7 +67,7 @@ if [ $ARCHI = darwin ]; then
 
   export MANPATH=/Developer/usr/share/man:$MANPATH
   export MANPATH=/opt/local/man:$MANPATH
-  export PATH=/Developer/usr/bin/:/opt/local/lib/mysql5/bin:$PATH
+  export PATH=/Developer/usr/bin/:/opt/local/lib/mysql5/bin:/opt/local/lib/mysql8/bin:$PATH
   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
   export PATH=/usr/local/luajit/bin/:$PATH
   export BOOST_ROOT=$HOME/include/boost:/opt/local/include/boost:$BOOST_ROOT
@@ -268,6 +279,7 @@ export PIP_RESPECT_VIRTUALENV=true
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
+# export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3.9
 
 # if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
 #   source "${VIRTUAL_ENV}/bin/activate"
@@ -329,13 +341,18 @@ if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google
 # zplug: # git clone https://github.com/zplug/zplug $ZPLUG_HOME
 export ZPLUG_HOME=~/.zplug
 
-# history
-HISTFILE=$HOME/.zsh-history
-HISTSIZE=10000000
-SAVEHIST=10000000
-
 # end
 #
 #
 #
 #
+
+# history
+export HISTFILE=$HOME/.zsh_history
+export HISTSIZE=100000000
+export SAVEHIST=100000000
+
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=100000000
+SAVEHIST=100000000
+

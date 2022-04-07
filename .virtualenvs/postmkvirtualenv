@@ -3,15 +3,18 @@
 
 #
 #easy_install pip
+pip install -U pip
+pip install -U pip
+pip install -U pip
 
 #
-pip install virtualenv virtualenvwrapper pipenv poetry
+pip install -U virtualenv virtualenvwrapper pipenv poetry
 
 #
 # pip install distribute
 
 # interactive shell
-pip install ipython ptpython
+pip install -U ipython ptpython
 # pip install bpython
 
 # debug
@@ -43,8 +46,8 @@ pip install -U flake8 flake8-import-order autoflake autopep8 black isort
 pip install pgcli mycli httpie
 
 pip install awscli
-pip install neovim pynvim
-pip install python-language-server
+pip install -U neovim pynvim
+pip install -U python-language-server
 
 
 #  ******************************************************************************
@@ -62,6 +65,7 @@ pip install python-language-server
 #  ******************************************************************************
 
 # ipython readline
+pip install gnureadline
 pip install readline
 
 pip install pip -U

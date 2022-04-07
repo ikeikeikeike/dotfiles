@@ -1,0 +1,2 @@
+
+nnoremap <c-\> :LspDefinition<cr>

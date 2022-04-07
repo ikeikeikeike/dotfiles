@@ -1,4 +1,13 @@
+# history
+export HISTFILE=$HOME/.zsh_history
+export HISTSIZE=100000000
+export SAVEHIST=100000000
 
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=100000000
+SAVEHIST=100000000
+
+ssh -i ~/.ssh/mine-awskey ubuntu@52.198.111.67 'ps aux | grep bin/jesse' | grep -v 'grep' || echo '\033[91mERROR: no jesse process there\033[0m'
 
 if [ -f $HOME/.zsh_extend/aliases ]; then
   source $HOME/.zsh_extend/aliases
@@ -58,9 +67,17 @@ fi
 #   zprof | less
 # fi
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # end
 #
 #
 #
+
+# history
+export HISTFILE=$HOME/.zsh_history
+export HISTSIZE=100000000
+export SAVEHIST=100000000
+
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=100000000
+SAVEHIST=100000000
+

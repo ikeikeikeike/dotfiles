@@ -5,13 +5,15 @@ PATH=$PATH:/opt/local/bin:/opt/local/sbn:/usr/local/bin:/usr/local/sbin
 sudo port clean --all installed; sudo port -dv selfupdate && sudo port -fdv upgrade outdated && sudo port -vu uninstall &
 
 # homebrew
-brew -v update && brew -v upgrade &
-brew cleanup
+# brew -v update && brew -v upgrade &
+# brew cleanup
 
 # npm
-npm update -g && npm upgrade -g &
+sudo npm update -g && sudo npm upgrade -g &
 
 # updatedb
 # LC_ALL=C sudo gupdatedb --prunepaths="/tmp /var/tmp /.Spotlight-V100 /.fseventsd /Volumes/MobileBackups /Volumes/Volume /.MobileBackups" &
 # sudo gupdatedb --localpaths='/' &
 sudo /usr/libexec/locate.updatedb &
+
+
