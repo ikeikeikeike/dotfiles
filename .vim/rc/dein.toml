@@ -121,8 +121,8 @@ let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 
-au FileType go nmap <Leader>] <Plug>(go-callers)
-au FileType go nmap <Leader>\ <Plug>(go-implements)
+au FileType go nmap <Leader>\ <Plug>(go-callers) <bar> :call ToggleQuickFix()<CR>
+au FileType go nmap <Leader>] <Plug>(go-implements) <bar> :call ToggleQuickFix()<CR>
 '''
 
 [[plugins]]
@@ -248,17 +248,18 @@ let g:airline#extensions#ale#enabled = 1
 '''
 
 [[plugins]]
+repo = 'junegunn/fzf'
+build = './install --all'
+merged = 0
+
+[[plugins]]
 repo = 'zackhsi/fzf-tags'
 depends = ['fzf.vim']
 
 [[plugins]]
 repo = 'junegunn/fzf.vim'
-# build = './install --all'
-# depends = ['fzf']
+depends = ['fzf']
 hook_add = '''
-let g:fzf_layout = { 'left': '~40%' }
-nnoremap <silent> <Leader><C-f> :<C-u>FZF<CR>
-nnoremap <C-]> :<C-u>FZFTags<CR>
 '''
 
 [[plugins]]
