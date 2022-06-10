@@ -139,26 +139,26 @@ on_ft = 'go'
 [[plugins]]
 repo = 'sheerun/vim-polyglot'
 
-[[plugins]]
-repo = 'osyo-manga/vim-precious'
-depends = ['context_filetype.vim']
-hook_add = '''
-let g:precious_enable_switchers = {
-\	"markdown" : {
-\		"setfiletype" : 0
-\	},
-\	"html" : {
-\		"setfiletype" : 0
-\	},
-\	"vue" : {
-\		"setfiletype" : 0
-\	},
-\	"erb" : {
-\		"setfiletype" : 0
-\	},
-\}
-'''
-
+# [[plugins]]
+# repo = 'osyo-manga/vim-precious'
+# depends = ['context_filetype.vim']
+# hook_add = '''
+# let g:precious_enable_switchers = {
+# \	"markdown" : {
+# \		"setfiletype" : 0
+# \	},
+# \	"html" : {
+# \		"setfiletype" : 0
+# \	},
+# \	"vue" : {
+# \		"setfiletype" : 0
+# \	},
+# \	"erb" : {
+# \		"setfiletype" : 0
+# \	},
+# \}
+# '''
+#
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
 

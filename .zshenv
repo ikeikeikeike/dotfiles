@@ -61,33 +61,35 @@ typeset -gx -U FPATH
 #
 #
 
+export PATH=$HOME/bin:$HOME/sbin:/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
+export MANPATH=$HOME/share/man:/usr/local/man:/usr/local/share/man:/usr/X11/man:/usr/share/man:$MANPATH
+
 if [ $ARCHI = darwin ]; then
   export LANG=ja_JP.UTF-8
   export LC_ALL=ja_JP.UTF-8
 
-  export MANPATH=/Developer/usr/share/man:$MANPATH
-  export MANPATH=/opt/local/man:$MANPATH
-  export PATH=/Developer/usr/bin/:/opt/local/lib/mysql5/bin:/opt/local/lib/mysql8/bin:$PATH
-  export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-  export PATH=/usr/local/luajit/bin/:$PATH
-  export BOOST_ROOT=$HOME/include/boost:/opt/local/include/boost:$BOOST_ROOT
   export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 
-  export MANPATH=/usr/share/man:/usr/X11/man:$MANPATH
-  export PATH=$PATH:$HOME/bin:$HOME/sbin
   export MANPATH=$MANPATH:$HOME/share/man
-  export PATH=/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
-  export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
-  export PATH=/usr/local/opt/coreutils/libexec/gnubin:/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:$PATH:/bin:/sbin:/usr/bin:/usr/sbin
   export MANPATH=$MANPATH:/usr/local/man:/usr/local/share/man:/usr/share/man
-  export PATH=/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
+  export MANPATH=/Developer/usr/share/man:$MANPATH
   export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:$MANPATH
+  export MANPATH=/usr/share/man:/usr/X11/man:$MANPATH
+  export MANPATH=/opt/local/man:$MANPATH
+  export MANPATH=/opt/local/libexec/gnubin/man:/usr/local/opt/coreutils/libexec/gnubin/man:$MANPATH
+
   export PATH=$HOME/.nodebrew/current/bin:$PATH
   export PATH=$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH
+  export PATH=/Developer/usr/bin/:/opt/local/lib/mysql5/bin:/opt/local/lib/mysql8/bin:$PATH
+  export PATH=/usr/local/luajit/bin/:$PATH
   export PATH=/usr/local/opt/gettext/bin:$PATH
+
+  export PATH=/opt/local/libexec/gnubin:/usr/local/opt/coreutils/libexec/gnubin:$PATH
 
   export DISPLAY=:0.0
   export MAKEOPTS="-j4"
+
+  export BOOST_ROOT=$HOME/include/boost:/opt/local/include/boost:$BOOST_ROOT
 
   export C_INCLUDE_PATH=/opt/local/include:$C_INCLUDE_PATH
   export CPLUS_INCLUDE_PATH=/opt/local/include:$HOME/include:$CPLUS_INCLUDE_PATH
@@ -103,10 +105,6 @@ if [ $DISTRIBUTE = centos ]; then
   export LC_CTYPE=en_US.UTF-8
   export LC_ALL=en_US.UTF-8
 fi
-
-export PATH=$HOME/bin:$HOME/sbin:/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
-export MANPATH=$HOME/share/man:/usr/local/man:/usr/local/share/man:/usr/X11/man:/usr/share/man:$MANPATH
-
 
 # begin cofigures
 #
