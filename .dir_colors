@@ -386,6 +386,7 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .hx 01;38;05;209
 .go 01;38;05;209
 .ts 01;38;05;209
+.tsx 01;38;05;209
 .pl 01;38;05;209
 .el 01;38;05;209
 *Makefile 01;38;05;209
