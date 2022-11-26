@@ -235,7 +235,7 @@ fi
 
 export PATH=$PATH:/usr/lib/dart/bin
 export PATH=$PATH:$HOME/.pub-cache/bin
-export PATH=$PATH:$HOME/sdk/flutter/bin
+export PATH=$PATH:$HOME/flutter/bin
 
 
 ### Rust

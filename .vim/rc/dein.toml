@@ -43,6 +43,13 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'github/copilot.vim'
+hook_add = '''
+imap <silent> <C-j> <Plug>(copilot-next)
+imap <silent> <C-k> <Plug>(copilot-previous)
+'''
+
+[[plugins]]
 repo = 'justinmk/vim-dirvish'
 hook_add = '''
 nmap <silent> <C-f> <Plug>(dirvish_up)
@@ -228,7 +235,7 @@ let g:ale_fixers = {
   \ 'python': ['autopep8', 'black', 'isort'],
   \ }
 
-let g:ale_ruby_rubocop_options = '--except Style/AsciiComments,Metrics/LineLength'
+let g:ale_ruby_rubocop_options = '--except Style/AsciiComments,Metrics/LineLength,Style/StringLiterals,Metrics/MethodLength,Metrics/AbcSize'
 
 let g:ale_python_pylint_executable = g:python3_host_prog
 " let g:ale_python_pylint_args XXX: see pylintrc
