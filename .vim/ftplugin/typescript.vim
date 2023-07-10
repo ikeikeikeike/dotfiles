@@ -1,5 +1,8 @@
 
 nnoremap <c-\> :LspDefinition<cr>
+nnoremap <Leader>\ :LspImplementation<cr>
+nnoremap <Leader>] :LspReferences<cr>
+
 " nnoremap <c-g> :<C-U>call MyTagStackPop()<cr>
 
 " nnoremap gd :call MyGoToDefinition()<cr>

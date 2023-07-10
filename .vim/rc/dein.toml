@@ -19,10 +19,41 @@ repo = 'prabirshrestha/async.vim'
 hook_add = '''
 '''
 
+# [[plugins]]
+# repo = 'github/copilot.vim'
+# hook_add = '''
+# '''
+
+
+# [[plugins]]
+# repo = 'nvim-lua/plenary.nvim'
+# hook_add = '''
+# '''
+#
+# [[plugins]]
+# repo = 'nvim-telescope/telescope.nvim'
+# hook_add = '''
+# '''
+#
+# [[plugins]]
+# repo = 'MunifTanjim/nui.nvim'
+# hook_add = '''
+# '''
+#
+# [[plugins]]
+# repo = 'jackMort/ChatGPT.nvim'
+# depends = ['plenary.nvim', 'telescope.nvim', 'nui.nvim']
+# hook_add = '''
+# lua <<EOF
+# require("chatgpt").setup()
+# EOF
+# '''
+
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
 hook_add = '''
 let g:lsp_virtual_text_enabled = 0
+let g:lsp_diagnostics_virtual_text_enabled = 0
 '''
 
 [[plugins]]
@@ -106,13 +137,17 @@ set completeopt=menu,preview
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = "goimports"
 
-let g:go_def_mode = 'godef'
+" let g:go_def_mode = 'godef'
+let g:go_def_mode = 'gopls'
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+
+au FileType go nmap <Leader>] <Plug>(go-callers)
+au FileType go nmap <Leader>\ <Plug>(go-implements)
 '''
 [[plugins]]
 repo = 'dgryski/vim-godef'
@@ -143,6 +178,15 @@ let g:precious_enable_switchers = {
 \		"setfiletype" : 0
 \	},
 \	"erb" : {
+\		"setfiletype" : 0
+\	},
+\	"tsx" : {
+\		"setfiletype" : 0
+\	},
+\	"js" : {
+\		"setfiletype" : 0
+\	},
+\	"ts" : {
 \		"setfiletype" : 0
 \	},
 \}
@@ -239,6 +283,7 @@ let g:airline#extensions#ale#enabled = 1
 [[plugins]]
 repo = 'junegunn/fzf'
 build = './install --all'
+merged = 0
 
 [[plugins]]
 repo = 'zackhsi/fzf-tags'
@@ -248,9 +293,9 @@ depends = ['fzf.vim']
 repo = 'junegunn/fzf.vim'
 # depends = ['fzf']
 hook_add = '''
-let g:fzf_layout = { 'left': '~40%' }
-nnoremap <silent> <Leader><C-f> :<C-u>FZF<CR>
-nnoremap <C-]> :<C-u>FZFTags<CR>
+" let g:fzf_layout = { 'left': '~40%' }
+" nnoremap <silent> <Leader><C-f> :<C-u>FZF<CR>
+" nnoremap <C-]> :<C-u>FZFTags<CR>
 '''
 
 [[plugins]]
