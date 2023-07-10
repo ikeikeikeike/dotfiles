@@ -11,7 +11,7 @@ let g:python_host_prog = '/usr/bin/python'
 if exists("$VIRTUAL_ENV")
   let g:python3_host_prog = expand("$VIRTUAL_ENV/bin/python")
 else
-  let g:python3_host_prog = '/usr/bin/python3.7'
+  let g:python3_host_prog = '/usr/bin/python3.10'
 endif
 
 " let g:ruby_host_prog = ''

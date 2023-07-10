@@ -196,9 +196,13 @@ export SBT_OPTS="-Xmx1024m -Xms512m -Xss128m -Dfile.encoding=UTF8"
 
 ## #nodejs ###
 
-if [[ -f ~/.nvm/nvm.sh ]]; then
-  source ~/.nvm/nvm.sh
-fi
+# if [[ -f ~/.nvm/nvm.sh ]]; then
+#   source ~/.nvm/nvm.sh
+# fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export NODE_OPTIONS="--max-old-space-size=1024 --max_old_space_size=1024"
 
@@ -275,10 +279,6 @@ export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 ### kubernetest k8s
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
-### flutter
-
-export PATH="$PATH:/usr/local/flutter/bin"
 
 ### extra ###
 
