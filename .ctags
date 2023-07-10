@@ -246,3 +246,17 @@
 --regex-javascript=/^[ \t]*let[ \t]\{1,\}\([A-Za-z0-9_$]\{1,\}\)[ \t]*,[ \t]*\([A-Za-z0-9_$]\{1,\}\)[ \t]*,[ \t]*\([A-Za-z0-9_$]\{1,\}\)/\3/V,Variable,Variables/b
 
 
+--langdef=dart
+--langmap=dart:.dart
+--regex-dart=/[ \t]*class[ \t]+([A-Za-z0-9_]+)/\1/c,classes/
+--regex-dart=/[ \t]*abstract[ \t]+class[ \t]+([A-Za-z0-9_]+)/\1/a,abstract classes/
+--regex-dart=/[ \t]*enum[ \t]+([A-Za-z0-9_]+)/\1/e,enums/
+--regex-dart=/[ \t]*typedef[ \t]+([A-Za-z0-9_]+)/\1/t,typedefs/
+--regex-dart=/[ \t]*mixin[ \t]+([A-Za-z0-9_]+)/\1/m,mixins/
+--regex-dart=/[ \t]*extension[ \t]+([A-Za-z0-9_]+)/\1/x,extensions/
+--regex-dart=/[ \t]*(void|int|double|String|bool|Future|List|Set|Map|Iterable|dynamic|var)[ \t]+([A-Za-z0-9_]+)[ \t]*\(.*\)/\2/f,functions/
+--regex-dart=/[ \t]*(void|int|double|String|bool|Future|List|Set|Map|Iterable|dynamic|var)[ \t]+([A-Za-z0-9_]+)/\2/v,variables/
+--regex-dart=/[ \t]*const[ \t]+([A-Za-z0-9_]+)/\1/c,consts/
+--regex-dart=/[ \t]*final[ \t]+([A-Za-z0-9_]+)/\1/f,finals/
+--regex-dart=/[ \t]*class[ \t]+[A-Za-z0-9_]+[ \t]*\{.*[ \t]+([A-Za-z0-9_]+)[ \t]*\(.*\)/\1/m,methods/
+--regex-dart=/[ \t]*abstract[ \t]+class[ \t]+[A-Za-z0-9_]+[ \t]*\{.*[ \t]+([A-Za-z0-9_]+)[ \t]*\(.*\)/\1/m,abstract methods/

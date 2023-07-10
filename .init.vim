@@ -5,18 +5,17 @@ if &compatible
 endif
 
 " Executers
-let g:python_host_prog = '/opt/local/bin/python2.7'
+let g:python_host_prog = '/opt/local/bin/python'
 
 " Figure out the system Python for Neovim.
 if exists("$VIRTUAL_ENV")
   let g:python3_host_prog = expand("$VIRTUAL_ENV/bin/python")
 else
-  let g:python3_host_prog = '/opt/local/bin/python3'
+  let g:python3_host_prog = '/opt/local/bin/python'
 endif
 
 " let g:ruby_host_prog = ''
 " let g:node_host_prog = ''
-
 
 if &runtimepath !~# '/dein.vim'
   if !isdirectory(expand('~/.cache/dein/repos/github.com/Shougo/dein.vim'))

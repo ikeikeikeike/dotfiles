@@ -68,7 +68,7 @@ if [ $ARCHI = darwin ]; then
   export LANG=ja_JP.UTF-8
   export LC_ALL=ja_JP.UTF-8
 
-  export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+  export EDITOR=vim
 
   export MANPATH=$MANPATH:$HOME/share/man
   export MANPATH=$MANPATH:/usr/local/man:/usr/local/share/man:/usr/share/man
@@ -171,9 +171,13 @@ elif [[ -s $HOME/.plenv/bin/plenv ]]; then
     export PLENV_ROOT=$HOME/.plenv
     export PATH=$PLENV_ROOT/bin:$PATH
     eval "$(plenv init -)"
-
 fi
 
+PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 ### java ###
 
@@ -234,9 +238,9 @@ fi
 ### Dart Flutter
 
 export PATH=$PATH:/usr/lib/dart/bin
-export PATH=$PATH:$HOME/.pub-cache/bin
+export PATH=$PATH:/usr/local/flutter/bin
 export PATH=$PATH:$HOME/flutter/bin
-
+export PATH=$PATH:$HOME/.pub-cache/bin
 
 ### Rust
 
@@ -286,10 +290,6 @@ export VIRTUAL_ENV_PYTHON_LIB=$VIRTUAL_ENV/lib
 ### kubernetest k8s
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
-### flutter
-
-export PATH="$PATH:/usr/local/flutter/bin"
 
 ### vscode
 
