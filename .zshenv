@@ -120,7 +120,7 @@ export LESS='--tabs=4 -q --no-init --LONG-PROMPT --ignore-case -R '
 export LESSOPEN='| src-hilite-lesspipe.sh %s'
 
 # Docker
-export DOCKER_HOST=tcp://localhost:4243
+# export DOCKER_HOST=tcp://localhost:4243
 
 # gsutil
 export PATH=$PATH:$HOME/lib/gsutil
@@ -314,6 +314,10 @@ export FREETDSCONF=/etc/freetds.conf
 if [ -x "$(command -v direnv)" ]; then
     eval "$(direnv hook zsh)"
 fi
+
+export ASDF_DIR="$HOME/.asdf"
+[ -s "$ASDF_DIR/asdf.sh" ]     && \. "$ASDF_DIR/asdf.sh"  # This loads
+[ -s "$ASDF_DIR/completions" ] && fpath=(${ASDF_DIR}/completions $fpath)  # append completions to fpath
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud-sdk/path.zsh.inc"; fi

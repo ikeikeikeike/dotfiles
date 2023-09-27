@@ -88,8 +88,7 @@ define_keymap(lambda wm_class: wm_class in ("Gnome-terminal"), {
 
 
 define_keymap(lambda wm_class: wm_class in (
-    "Slack", "Nautilus",
-    "libreoffice-calc", "libreoffice-writer", "libreoffice-impress",
+    "Slack",
 ), {
     K("M-w"): K("C-w"),
     K("M-a"): K("C-a"),
@@ -98,6 +97,18 @@ define_keymap(lambda wm_class: wm_class in (
     K("M-c"): K("C-c"),
     K("M-v"): K("C-v"),
 }, "Slack")
+
+define_keymap(lambda wm_class: wm_class in (
+    "Nautilus",
+    "libreoffice-calc", "libreoffice-writer", "libreoffice-impress",
+), {
+    K("M-w"): K("C-w"),
+    K("M-a"): K("C-a"),
+    K("M-s"): K("C-s"),
+    K("M-x"): K("C-x"),
+    K("M-c"): K("C-c"),
+    K("M-v"): K("C-v"),
+}, "Nautilus-Libreoffice")
 
 define_keymap(lambda wm_class: wm_class in ("jetbrains-idea-ce", "jetbrains-studio"), {
     K("M-f"): K("Super-f"),
@@ -145,6 +156,7 @@ define_keymap(lambda wm_class: wm_class not in ignores, {
 define_keymap(None, {
     K("C-LEFT_BRACE"): [K("C-LEFT_BRACE"), K("MUHENKAN")],
     K("M-SPACE"): K("Super-SPACE"),
+    # K("SUPER"): K("Super-GRAVE"),
 }, "Global")
 
 
