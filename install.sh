@@ -8,6 +8,8 @@ do
      [ $i = install.sh ] ||
      [ $i = uninstall.sh ] ||
      [ $i = fusuma ] ||
+     [ $i = xremap ] ||
+     [ $i = .xkeysnail ] ||
      [ $i = .pycodestyle ] ||
      [ $i = .init.vim ] ||
      [ $i = .git ] ||
@@ -24,7 +26,7 @@ ln -s `pwd`/.init.vim ~/.config/nvim/init.vim
 ln -s `pwd`/.vim/plugin ~/.config/nvim/plugin
 ln -s `pwd`/.vim/ftplugin ~/.config/nvim/ftplugin
 ln -s `pwd`/.pycodestyle ~/.config/pycodestyle
-ln -s `pwd`/fusuma ~/.config/fusuma
+ln -s `pwd`/xremap ~/.config/xremap
 
 git submodule init
 git submodule update
