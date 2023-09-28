@@ -92,7 +92,7 @@ if [ $DISTRIBUTE = centos ]; then
   export LC_ALL=en_US.UTF-8
 fi
 
-export PATH=$HOME/bin:$HOME/sbin:/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
+export PATH=$HOME/.local/bin:$HOME/bin:$HOME/sbin:/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
 export MANPATH=$HOME/share/man:/usr/local/man:/usr/local/share/man:/usr/X11/man:/usr/share/man:$MANPATH
 
 
@@ -167,9 +167,8 @@ fi
 
 ### java ###
 
-# export JAVA_HOME=`/usr/libexec/java_home -v 11.0`
+export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
 export PATH=${JAVA_HOME}/bin:${PATH}
-
 alias javac='javac -J-Dfile.encoding=UTF-8'
 alias java='java -Dfile.encoding=UTF-8'
 alias jdb='jdb -J-Dfile.encoding=UTF-8'
@@ -182,7 +181,6 @@ if [[ -s "/usr/libexec/java_home" ]]; then
     alias java='java -Dfile.encoding=UTF-8'
     alias jdb='jdb -J-Dfile.encoding=UTF-8'
 fi
-
 
 ### scala ###
 
@@ -254,9 +252,7 @@ export PYTHONIOENCODING=UTF-8
 # Import virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
 # virtualenvwrapper
-if [ -f `\which virtualenvwrapper.sh 2> /dev/null` ]; then
-  source `which virtualenvwrapper.sh` 2> /dev/null
-fi
+source `which virtualenvwrapper.sh` 2> /dev/null
 
 ## extra virtualenv
 # require

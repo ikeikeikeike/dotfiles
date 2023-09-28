@@ -1,0 +1,13 @@
+# copy ~/.config/systemd/user/xremap.service
+
+[Unit]
+Description=xremap
+
+[Service]
+KillMode=process
+ExecStart=/usr/local/bin/xremap --watch /home/ikeike/.config/xremap/config.yml
+ExecStop=/usr/bin/killall xremap
+Restart=always
+
+[Install]
+WantedBy=default.target
