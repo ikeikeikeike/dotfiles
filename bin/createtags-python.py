@@ -119,7 +119,8 @@ def main(args):
                     "--exclude=*/testing/* "
                     "--exclude=*/testsuite/* "
                     "--exclude=*/test/* "
-                    "--exclude=*/tests/*")
+                    "--exclude=*/tests/*"
+                    "--exclude=*/.direnv/*")
     runcmd("ctags -R    %s %s" % (exclude_option, args.path))
     aftercmd(exclude_option)
 

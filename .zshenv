@@ -129,9 +129,6 @@ export PAGER='less'
 export LESS='--tabs=4 -q --no-init --LONG-PROMPT --ignore-case -R '
 export LESSOPEN='| src-hilite-lesspipe.sh %s'
 
-# Docker
-export DOCKER_HOST=tcp://localhost:4243
-
 # gsutil
 export PATH=$PATH:$HOME/lib/gsutil
 
@@ -181,20 +178,14 @@ PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 ### java ###
 
-# export JAVA_HOME=`/usr/libexec/java_home -v 11.0`
-export PATH=${JAVA_HOME}/bin:${PATH}
-
-alias javac='javac -J-Dfile.encoding=UTF-8'
-alias java='java -Dfile.encoding=UTF-8'
-alias jdb='jdb -J-Dfile.encoding=UTF-8'
-
 if [[ -s "/usr/libexec/java_home" ]]; then
-    export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+    export JAVA_HOME=`/usr/libexec/java_home -v 11.0`
     export JAVA=$JAVA_HOME/bin
-    export STUDIO_JDK=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk
+    export PATH=${JAVA_HOME}/bin:${PATH}
     alias javac='javac -J-Dfile.encoding=UTF-8'
     alias java='java -Dfile.encoding=UTF-8'
     alias jdb='jdb -J-Dfile.encoding=UTF-8'
+    # export STUDIO_JDK=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk
 fi
 
 
@@ -237,9 +228,9 @@ fi
 
 ### Dart Flutter
 
-export PATH=$PATH:/usr/lib/dart/bin
-export PATH=$PATH:/usr/local/flutter/bin
-export PATH=$PATH:$HOME/flutter/bin
+# export PATH=$PATH:/usr/lib/dart/bin
+# export PATH=$PATH:/usr/local/flutter/bin
+# export PATH=$PATH:$HOME/flutter/bin
 export PATH=$PATH:$HOME/.pub-cache/bin
 
 ### Rust
@@ -322,13 +313,13 @@ fi
 # mysettings
 source $HOME/.adds_zshenv 2> /dev/null
 
-export ODBCINI=/etc/odbc.ini
-export ODBCSYSINI=/etc
-export FREETDSCONF=/etc/freetds.conf
-
 if [ -x "$(command -v direnv)" ]; then
     eval "$(direnv hook zsh)"
 fi
+
+export ASDF_DIR="$HOME/.asdf"
+[ -s "$ASDF_DIR/asdf.sh" ]     && \. "$ASDF_DIR/asdf.sh"  # This loads
+[ -s "$ASDF_DIR/completions" ] && fpath=(${ASDF_DIR}/completions $fpath)  # append completions to fpath
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud-sdk/path.zsh.inc"; fi

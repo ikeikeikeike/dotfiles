@@ -16,7 +16,7 @@ compctl -K _pip_completion pip
 ##
 
 # MacPorts Installer addition on 2020-02-06_at_14:41:53: adding an appropriate MANPATH variable for use with MacPorts.
-export MANPATH="/opt/local/share/man:$MANPATH"
+# export MANPATH="/opt/local/share/man:$MANPATH"
 # Finished adapting your MANPATH environment variable for use with MacPorts.
 
 # MacPorts Installer addition on 2021-05-31_at_18:57:24: adding an appropriate PATH variable for use with MacPorts.
@@ -24,6 +24,11 @@ export MANPATH="/opt/local/share/man:$MANPATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
 # MacPorts Installer addition on 2022-02-19_at_13:35:44: adding an appropriate PATH variable for use with MacPorts.
+# export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+# Finished adapting your PATH environment variable for use with MacPorts.
+
+
+# MacPorts Installer addition on 2024-07-01_at_20:45:36: adding an appropriate PATH variable for use with MacPorts.
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 

@@ -11,4 +11,5 @@ ctags -R \
   --exclude=*/tests/* \
   --exclude=*/examples/* \
   --exclude=*/example/* \
+  --exclude=*/.direnv/* \
   $1

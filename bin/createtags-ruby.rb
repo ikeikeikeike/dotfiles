@@ -85,6 +85,7 @@ def main(args)
     --exclude=*/tests/*
     --exclude=*/examples/*
     --exclude=*/example/*
+    --exclude=*/.direnv/*
   ].join(' ')
   # current path
   runcmd("ctags -f ~/rtags -R #{option} #{args[:path]}")

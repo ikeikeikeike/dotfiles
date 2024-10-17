@@ -9,6 +9,8 @@
 " =======
 
 nnoremap <c-\> :LspDefinition<cr>
+nnoremap <Leader>\ :LspReferences<CR>
+nnoremap <Leader>] :LspTypeDefinition<CR>
 
 " nnoremap <c-g> :<C-U>call MyTagStackPop()<cr>
 

@@ -2,7 +2,7 @@
 PATH=$PATH:/opt/local/bin:/opt/local/sbn:/usr/local/bin:/usr/local/sbin
 
 # macports
-sudo port clean --all installed; sudo port -dv selfupdate && sudo port -fdv upgrade outdated && sudo port -vu uninstall &
+sudo port clean --all installed; sudo port -dv selfupdate && yes | sudo port -fdv upgrade outdated && sudo port -vu uninstall &
 
 # homebrew
 # brew -v update && brew -v upgrade &
@@ -12,8 +12,8 @@ sudo port clean --all installed; sudo port -dv selfupdate && sudo port -fdv upgr
 sudo npm update -g && sudo npm upgrade -g &
 
 # updatedb
-# LC_ALL=C sudo gupdatedb --prunepaths="/tmp /var/tmp /.Spotlight-V100 /.fseventsd /Volumes/MobileBackups /Volumes/Volume /.MobileBackups" &
-# sudo gupdatedb --localpaths='/' &
-sudo /usr/libexec/locate.updatedb &
+LC_ALL=C sudo updatedb --localpaths='/opt /private /home /usr /sbin /Users /System /Library /Applications' &
 
+# sudo gupdatedb --localpaths='/' &
+# sudo /usr/libexec/locate.updatedb &
 

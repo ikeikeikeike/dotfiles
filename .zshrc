@@ -79,3 +79,5 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000000
 SAVEHIST=100000000
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

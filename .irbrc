@@ -1,23 +1,17 @@
-# -*- coding: utf-8 -*-
-require 'rubygems'
-# require 'activesupport'
-require 'pp'
-# メソッド補完 autocomplete
-require 'irb/completion'
-# # what? でメソッドを調べる
-# require 'what_methods'
-# history
-require 'irb/ext/save-history'
-
-# カラーリングの設定
-require 'wirble'
-
-# require 'utility_belt'
-
+# require "rubygems"
+# require "activesupport"
+# require "pp"
+# require "irb/completion"
+# require "what_methods"
+require "irb/ext/save-history"
+# # require "wirble"
+#
+# # require "utility_belt"
+#
 IRB.conf[:USE_READLINE] = true
-IRB.conf[:SAVE_HISTORY] = 100000
-IRB.conf[:HISTORY_PATH] = File::expand_path("~/.irb.history")
-IRB.conf[:AUTO_INDENT] = true
+IRB.conf[:SAVE_HISTORY] = 100_000
+IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb_history" # 履歴を保存するファイルのパスを設定します。
+# IRB.conf[:AUTO_INDENT] = true
 
-Wirble.init(:skip_prompt => :DEFAULT)
-Wirble.colorize
+# Wirble.init(:skip_prompt => :DEFAULT)
+# Wirble.colorize

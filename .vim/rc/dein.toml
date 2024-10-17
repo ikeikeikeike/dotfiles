@@ -1,5 +1,5 @@
 #
-# TODO: Change the Plug which is better for me
+# TODO: Change the Plug package manager which is better for me
 #
 
 
@@ -69,6 +69,11 @@ repo = 'dart-lang/dart-vim-plugin'
 on_ft = 'dart'
 
 [[plugins]]
+repo = 'thosakwe/vim-flutter'
+depends = ['dart-vim-plugin']
+on_ft = 'dart'
+
+[[plugins]]
 repo = 'tweekmonster/django-plus.vim'
 on_ft = 'django'
 [[plugins]]
@@ -78,9 +83,11 @@ on_ft = 'django'
 [[plugins]]
 repo = 'slim-template/vim-slim'
 on_ft = 'slim'
+
 [[plugins]]
 repo = 'tpope/vim-rails'
 on_ft = 'ruby'
+
 [[plugins]]
 repo = 'vim-ruby/vim-ruby'
 on_ft = 'ruby'
@@ -235,7 +242,7 @@ let g:ale_fixers = {
   \ 'python': ['autopep8', 'black', 'isort'],
   \ }
 
-let g:ale_ruby_rubocop_options = '--except Style/AsciiComments,Metrics/LineLength,Style/StringLiterals,Metrics/MethodLength,Metrics/AbcSize'
+let g:ale_ruby_rubocop_options = '--except Style/AsciiComments,Metrics/LineLength,Style/StringLiterals,Metrics/MethodLength,Metrics/AbcSize,Style/SpaceInsideBlockBraces,Metrics/ParameterLists,Style/FrozenStringLiteralComment,Layout/SpaceInsideHashLiteralBraces,Style/StringLiteralsInInterpolation,Style/StringLiteralsInInterpolation,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity'
 
 let g:ale_python_pylint_executable = g:python3_host_prog
 " let g:ale_python_pylint_args XXX: see pylintrc
