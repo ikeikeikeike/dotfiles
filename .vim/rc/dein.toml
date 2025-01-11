@@ -134,9 +134,6 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-
-au FileType go nmap <Leader>\ <Plug>(go-callers) <bar> :call ToggleQuickFix()<CR>
-au FileType go nmap <Leader>] <Plug>(go-implements) <bar> :call ToggleQuickFix()<CR>
 '''
 
 [[plugins]]
@@ -187,27 +184,6 @@ repo = 'vim-scripts/Colour-Sampler-Pack'
 repo = 'joshdick/onedark.vim'
 depends = ['Colour-Sampler-Pack']
 hook_add = '''
-if (empty($TMUX))
-  if (has("nvim"))
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
-
-if $ARCHI != 'darwin'
-  if (has("autocmd") && !has("gui_running"))
-    augroup colorset
-      autocmd!
-      let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
-      autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white })
-    augroup END
-  endif
-endif
-
-syntax on
-colorscheme onedark
 '''
 
 
@@ -235,7 +211,6 @@ repo = 'w0rp/ale'
 hook_add = '''
 let g:ale_linters = {
   \ 'python': ['flake8', 'pylint', 'pep8', 'pyflakes'],
-  \ 'go': ['go', 'govet', 'gotype', 'golint'],
   \ }
 
 let g:ale_fixers = {
@@ -261,20 +236,22 @@ let g:ale_lint_on_save = 1
 let g:airline#extensions#ale#enabled = 1
 '''
 
-[[plugins]]
-repo = 'junegunn/fzf'
-build = './install --all'
-merged = 0
-
-[[plugins]]
-repo = 'zackhsi/fzf-tags'
-depends = ['fzf.vim']
+# [[plugins]]
+# repo = 'junegunn/fzf'
+# build = './install --all'
+# merged = 0
 
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 depends = ['fzf']
 hook_add = '''
 '''
+
+[[plugins]]
+repo = 'zackhsi/fzf-tags'
+depends = ['fzf.vim']
+
+
 
 [[plugins]]
 repo = 'tpope/vim-surround'

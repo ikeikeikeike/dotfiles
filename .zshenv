@@ -215,15 +215,15 @@ export MANPATH=$CABAL_HOME/share:$MANPATH
 
 
 ### golang ###
-#
-if [[ -s "$HOME/.gvm/scripts/gvm" ]]; then
-    source "$HOME/.gvm/scripts/gvm"
-fi
+
+# if [[ -s "$HOME/.gvm/scripts/gvm" ]]; then
+#     source "$HOME/.gvm/scripts/gvm"
+# fi
 
 ### Elixir
-if [[ -s "$HOME/.exenv/bin" ]]; then
-    export PATH="$HOME/.exenv/bin:$PATH"; eval "$(exenv init -)"
-fi
+# if [[ -s "$HOME/.exenv/bin" ]]; then
+#     export PATH="$HOME/.exenv/bin:$PATH"; eval "$(exenv init -)"
+# fi
 
 
 ### Dart Flutter
@@ -329,6 +329,7 @@ if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google
 
 # zplug: # git clone https://github.com/zplug/zplug $ZPLUG_HOME
 export ZPLUG_HOME=~/.zplug
+
 
 # end
 #
