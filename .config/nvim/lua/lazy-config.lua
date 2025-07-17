@@ -125,64 +125,105 @@ require("lazy").setup({
     config = function()
       local lspconfig = require('lspconfig')
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      
-      -- Setup LSP servers
-      local servers = { "pyright", "ts_ls", "gopls", "rust_analyzer", "lua_ls" }
-      
-      for _, server in ipairs(servers) do
-        local opts = {
-          capabilities = capabilities,
-        }
-        
-        -- Custom settings for specific servers
-        if server == "lua_ls" then
-          opts.settings = {
-            Lua = {
-              diagnostics = {
-                globals = { "vim" },
-              },
-              workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
-                checkThirdParty = false,
-              },
-              telemetry = {
-                enable = false,
-              },
+
+      -- Setup LSP servers explicitly to avoid duplicates
+      -- TypeScript
+      lspconfig.ts_ls.setup{
+        capabilities = capabilities,
+        single_file_support = false,
+        root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
+        on_attach = function(client, bufnr)
+          -- Disable formatting (use prettier instead)
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+
+          -- Check if another ts_ls is already attached
+          local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+          local ts_clients = vim.tbl_filter(function(c)
+            return c.name == "ts_ls" and c.id ~= client.id
+          end, clients)
+
+          if #ts_clients > 0 then
+            -- Another ts_ls is already attached, stop this one
+            client.stop()
+            return
+          end
+        end,
+      }
+
+      -- Python
+      lspconfig.pyright.setup{
+        capabilities = capabilities,
+      }
+
+      -- Go
+      lspconfig.gopls.setup{
+        capabilities = capabilities,
+      }
+
+      -- Rust
+      lspconfig.rust_analyzer.setup{
+        capabilities = capabilities,
+      }
+
+      -- Lua
+      lspconfig.lua_ls.setup{
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" },
             },
-          }
-        end
-        
-        lspconfig[server].setup(opts)
-      end
-      
+            workspace = {
+              library = vim.api.nvim_get_runtime_file("", true),
+              checkThirdParty = false,
+            },
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
+      }
+
       -- Global mappings
       vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
       vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
       vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-      
+
       -- Use LspAttach autocommand to only map after LSP attaches
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
         callback = function(ev)
           local opts = { buffer = ev.buf }
-          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-          vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-          vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
           vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+          vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+          vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
           vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-          vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
           vim.keymap.set('n', '<space>wl', function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
           end, opts)
-          vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-          vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-          vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+          vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+          vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+          vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
           vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+          vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+
           vim.keymap.set('n', '<space>f', function()
             vim.lsp.buf.format { async = true }
           end, opts)
+
+          -- Add <C-\> for vertical split definition jump (like vim-go)
+          -- Skip for Go files to avoid conflict with vim-go
+          local filetype = vim.bo[ev.buf].filetype
+          if filetype ~= 'go' then
+            vim.keymap.set('n', '<C-\\>', function()
+              vim.cmd('vsplit')
+              vim.lsp.buf.definition()
+            end, opts)
+          end
         end,
       })
     end,
