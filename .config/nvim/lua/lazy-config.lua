@@ -458,7 +458,59 @@ require("lazy").setup({
     end,
   },
 
-  -- FZF
+  -- Telescope - Modern fuzzy finder
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    keys = {
+      { "<C-b>", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+      { "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+      { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+      { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
+      { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
+    },
+    config = function()
+      require('telescope').setup{
+        defaults = {
+          layout_strategy = 'horizontal',
+          layout_config = {
+            horizontal = {
+              preview_width = 0.4,  -- Reduced from 0.6 to give more space to results
+              width = 0.9,
+              height = 0.8,
+            },
+          },
+          path_display = { "truncate" },  -- Shows end of path if too long
+          -- Alternative options:
+          -- path_display = { "smart" },     -- Smart truncation
+          -- path_display = { "absolute" },  -- Show full absolute path
+          -- path_display = { "shorten" },   -- Shorten path (e.g., ~/D/project/file.txt)
+          -- path_display = { shorten = 3 }, -- Shorten to N characters per segment
+          file_ignore_patterns = { "node_modules", ".git/" },
+        },
+        pickers = {
+          find_files = {
+            theme = "dropdown",
+            previewer = false,  -- Disable preview for file picker to maximize space
+            layout_config = {
+              width = 0.8,
+            },
+          },
+          buffers = {
+            show_all_buffers = true,
+            sort_mru = true,
+            mappings = {
+              i = {
+                ["<c-d>"] = "delete_buffer",
+              },
+            },
+          },
+        },
+      }
+    end,
+  },
+
+  -- FZF (kept for compatibility)
   {
     "junegunn/fzf",
     build = "./install --all",
