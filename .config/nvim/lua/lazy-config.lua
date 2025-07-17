@@ -378,12 +378,37 @@ require("lazy").setup({
   { "Shougo/context_filetype.vim" },
 
   -- Color schemes
-  { "vim-scripts/Colour-Sampler-Pack" },
-
+  -- OneDark theme for Neovim
   {
-    "joshdick/onedark.vim",
-    dependencies = { "vim-scripts/Colour-Sampler-Pack" },
+    "navarasu/onedark.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('onedark').setup {
+        style = 'darker' -- dark, darker, cool, deep, warm, warmer
+      }
+      require('onedark').load()
+    end,
   },
+
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd([[colorscheme tokyonight-night]])
+  --   end,
+  -- },
+
+  -- {
+  --   "catppuccin/nvim",
+  --   name = "catppuccin",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd([[colorscheme catppuccin-mocha]])
+  --   end,
+  -- },
 
   -- Airline
   {
