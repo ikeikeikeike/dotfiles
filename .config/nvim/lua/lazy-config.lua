@@ -138,14 +138,14 @@ require("lazy").setup({
           client.server_capabilities.documentRangeFormattingProvider = false
 
           -- Check if another ts_ls is already attached
-          local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+          local clients = vim.lsp.get_clients({ bufnr = bufnr })
           local ts_clients = vim.tbl_filter(function(c)
             return c.name == "ts_ls" and c.id ~= client.id
           end, clients)
 
           if #ts_clients > 0 then
             -- Another ts_ls is already attached, stop this one
-            client.stop()
+            client:stop()
             return
           end
         end,
