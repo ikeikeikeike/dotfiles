@@ -1,11 +1,6 @@
-# history
+# history settings moved to .zshrc to avoid duplication
+# Only environment variables should be set here
 export HISTFILE=$HOME/.zsh_history
-export HISTSIZE=100000000
-export SAVEHIST=100000000
-
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=100000000
-SAVEHIST=100000000
 
 
 # for debug
@@ -337,12 +332,7 @@ export ZPLUG_HOME=~/.zplug
 #
 #
 
-# history
+# history settings moved to .zshrc to avoid duplication
+# Only environment variables should be set here
 export HISTFILE=$HOME/.zsh_history
-export HISTSIZE=100000000
-export SAVEHIST=100000000
-
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=100000000
-SAVEHIST=100000000
 

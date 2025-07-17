@@ -1,9 +1,5 @@
-# history
-export HISTFILE=$HOME/.zsh_history
-export HISTSIZE=100000000
-export SAVEHIST=100000000
-
-HISTFILE=$HOME/.zsh_history
+# history configuration (consolidated - removed duplicates)
+# HISTFILE is already exported in .zshenv
 HISTSIZE=100000000
 SAVEHIST=100000000
 
@@ -75,15 +71,6 @@ fi
 #
 #
 
-# history
-export HISTFILE=$HOME/.zsh_history
-export HISTSIZE=100000000
-export SAVEHIST=100000000
-
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=100000000
-SAVEHIST=100000000
-
-
+# removed duplicate history settings - already configured at the top of file
 
 alias claude="/Users/ike/.claude/local/claude"
