@@ -23,11 +23,13 @@ if [ $ARCHI = darwin ]; then
   alias wholediff="diff --new-line-format='+%L' --old-line-format='-%L' --unchanged-line-format=' %L'"
   alias grep='ggrep -i --color=always '
   alias grepR='\ggrep -inHR --color=always -e '
+  alias grepRI='\ggrep -inHRI --color=always -e '
   alias grepRspecify='\ggrep -nHR --color=always -e '
   alias grepRuncolor='\ggrep -inHR -e '
   alias grepRnocolor='\ggrep -inHR -e '
   alias d='sudo docker'
   alias less='less -MX'
+  alias ctags=uctags
 
   # alias eog='open -a Preview'
   # alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog

@@ -20,3 +20,8 @@ fi
 if [ -f $HOME/.kerl_postzshrc ]; then
   source $HOME/.kerl_postzshrc
 fi
+
+if [ -f $HOME/.nvm_postzshrc ]; then
+  source $HOME/.nvm_postzshrc
+fi
+

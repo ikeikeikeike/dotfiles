@@ -31,7 +31,7 @@
 #                              [--no-rvm] [--allow-testcode] [-v]
 #                              [path]
 #
-#     ctags util for rvm.
+#     uctags util for rvm.
 #
 #     positional arguments:
 #      # path                  project path.
@@ -88,13 +88,13 @@ def main(args)
     --exclude=*/.direnv/*
   ].join(' ')
   # current path
-  runcmd("ctags -f ~/rtags -R #{option} #{args[:path]}")
+  runcmd("uctags -f ~/rtags -R #{option} #{args[:path]}")
 
   # gemdirs
   if args.include?(:spackages) then
     gemdir = getvepath
     args[:spackages].each do |path|
-      runcmd("ctags -f ~/rtags -R -a #{File.join(gemdir, "#{path}*", "lib", "*")}")
+      runcmd("uctags -f ~/rtags -R -a #{File.join(gemdir, "#{path}*", "lib", "*")}")
     end
   end
 end

@@ -235,6 +235,9 @@ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 .sqfs3 01;38;05;168
 
 # image formats
+.heif 01;38;05;170
+.webp 01;38;05;170
+.heic 01;38;05;170
 .jpg 01;38;05;170
 .jpeg 01;38;05;170
 .gif 01;38;05;170

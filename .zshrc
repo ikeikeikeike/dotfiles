@@ -60,6 +60,11 @@ if [ -f /usr/local/bin/vault ]; then
   complete -o nospace -C /usr/local/bin/vault vault
 fi
 
+if [ -x "$(command -v phantom)" ]; then
+  eval "$(phantom completion zsh)" 
+fi
+
+
 # for debug
 # if (which zprof > /dev/null) ;then
 #   zprof | less
@@ -80,4 +85,5 @@ HISTSIZE=100000000
 SAVEHIST=100000000
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias claude="/Users/ike/.claude/local/claude"

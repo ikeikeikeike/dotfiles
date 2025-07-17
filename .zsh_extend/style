@@ -40,6 +40,12 @@ zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:sudo:*' command-path /opt/local/bin /opt/local/sbin /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin /Users/ikeda/.cabal/bin /opt/local/share/java/play-1.2.3 /usr/local/share/jrebel/bin /opt/local/bin /opt/local/sbin /Developer/usr/bin/ /opt/local/apache2/bin /opt/local/lib/mysql5/bin /Users/ikeda/bin /Users/ikeda/sbin /Users/ikeda/bin /usr/bin /bin /usr/sbin /sbin /usr/local/bin /usr/X11/bin /Library/Frameworks/Python.framework/Versions/2.7/bin /Users/ikeda/bin /Users/ikeda/lib/gsutil /Users/ikeda/.rvm/bin $HOME/bin $HOME/sbin
 
+# autoload -Uz quote-and-complete-word; zle -N quote-and-complete-word
+# bindkey '^I' quote-and-complete-word
+# zstyle ':completion:*' special-chars '$'
+# zstyle ':completion:*:expand:*' substitute false
+# zstyle ':completion:*:expand:*' keep-prefix true
+
 if [ -f ~/.dir_colors ]; then
     eval $(dircolors -b ~/.dir_colors)
     zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"

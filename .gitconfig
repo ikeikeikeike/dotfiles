@@ -48,11 +48,11 @@
     path = ~/.gitconfig.local
 [fetch]
     prune = true
-[commit]
-    template = ~/.git.commit_template
-[pager]
-    branch = cat
-    template = ~/.git.commit_template
+# [commit]
+#     template = ~/.git.commit_template
+# [pager]
+#     branch = cat
+#     template = ~/.git.commit_template
 [push]
     default = simple
 

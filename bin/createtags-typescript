@@ -1,0 +1,15 @@
+#!/bin/bash -veu
+
+uctags -R --languages=typescript \
+  --exclude=spectest_* \
+  --exclude=tests.* \
+  --exclude=test.* \
+  --exclude=*/unittest/* \
+  --exclude=*/testing/* \
+  --exclude=*/testsuite/* \
+  --exclude=*/test/* \
+  --exclude=*/tests/* \
+  --exclude=*/examples/* \
+  --exclude=*/example/* \
+  --exclude=*direnv* \
+  $1

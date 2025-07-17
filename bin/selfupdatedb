@@ -1,8 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 PATH=$PATH:/opt/local/bin:/opt/local/sbn:/usr/local/bin:/usr/local/sbin
 
 # macports
-sudo port clean --all installed; sudo port -dv selfupdate && yes | sudo port -fdv upgrade outdated && sudo port -vu uninstall &
+# sudo port clean --all installed; sudo port -dv selfupdate && yes | sudo port -fdv upgrade outdated && sudo port -vu uninstall &
+sudo port clean --all installed && sudo port -dv selfupdate
+for pkg in $(port echo outdated); do
+    echo "Upgrading $pkg ..."
+    yes | sudo port -fdv upgrade "$pkg" || {
+        echo "Error upgrading $pkg, skipping..."
+    }
+done
+sudo port -vu uninstall &
 
 # homebrew
 # brew -v update && brew -v upgrade &
