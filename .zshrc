@@ -3,6 +3,21 @@
 HISTSIZE=100000000
 SAVEHIST=100000000
 
+# Enhanced history protection for tmux
+# if [ -f $HOME/.zsh_history_lock.zsh ]; then
+#   source $HOME/.zsh_history_lock.zsh
+# fi
+
+# Tmux-aware history configuration
+# if [ -f $HOME/.zsh_tmux_history.zsh ]; then
+#   source $HOME/.zsh_tmux_history.zsh
+# fi
+
+# Custom key bindings
+# if [ -f $HOME/.zsh_keybindings.zsh ]; then
+#   source $HOME/.zsh_keybindings.zsh
+# fi
+
 if [ -f $HOME/.zsh_extend/aliases ]; then
   source $HOME/.zsh_extend/aliases
 fi
@@ -57,7 +72,7 @@ if [ -f /usr/local/bin/vault ]; then
 fi
 
 if [ -x "$(command -v phantom)" ]; then
-  eval "$(phantom completion zsh)" 
+  eval "$(phantom completion zsh)"
 fi
 
 
@@ -74,3 +89,4 @@ fi
 # removed duplicate history settings - already configured at the top of file
 
 alias claude="/Users/ike/.claude/local/claude"
+# source ~/.zsh_history_debug.zsh

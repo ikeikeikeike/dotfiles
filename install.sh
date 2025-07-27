@@ -40,6 +40,14 @@ if [ -d ~/.cache/dein ]; then
   rm -rf ~/.cache/dein
 fi
 
+# Link custom zsh files
+ln -s `pwd`/.zsh_custom/zsh_history_debug.zsh ~/.zsh_history_debug.zsh
+ln -s `pwd`/.zsh_custom/zsh_history_lock.zsh ~/.zsh_history_lock.zsh
+ln -s `pwd`/.zsh_custom/zsh_tmux_history.zsh ~/.zsh_tmux_history.zsh
+ln -s `pwd`/.zsh_custom/zsh_keybindings.zsh ~/.zsh_keybindings.zsh
+ln -s `pwd`/.zsh_custom/tmux_history_setup.sh ~/.tmux_history_setup.sh
+ln -s `pwd`/.zsh_custom/zsh_history_trace.sh ~/.zsh_history_trace.sh
+
 git submodule init
 git submodule update
 git submodule foreach git pull origin master
