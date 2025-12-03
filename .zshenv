@@ -56,7 +56,7 @@ typeset -gx -U FPATH
 #
 #
 
-export PATH=$HOME/bin:$HOME/sbin:/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
+export PATH=$HOME/bin:$HOME/sbin:$HOME/.local/bin:/opt/local/sbin:/opt/local/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
 export MANPATH=$HOME/share/man:/usr/local/man:/usr/local/share/man:/usr/X11/man:/usr/share/man:$MANPATH
 
 if [ $ARCHI = darwin ]; then
@@ -174,7 +174,7 @@ PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 ### java ###
 
 if [[ -s "/usr/libexec/java_home" ]]; then
-    export JAVA_HOME=`/usr/libexec/java_home -v 11.0`
+    export JAVA_HOME=`/usr/libexec/java_home -v 17.0`
     export JAVA=$JAVA_HOME/bin
     export PATH=${JAVA_HOME}/bin:${PATH}
     alias javac='javac -J-Dfile.encoding=UTF-8'
@@ -250,8 +250,8 @@ export PYTHONIOENCODING=UTF-8
 # Import virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
 # virtualenvwrapper
-if [ -f `\which virtualenvwrapper.sh 2> /dev/null` ]; then
-  source `which virtualenvwrapper.sh` 2> /dev/null
+if command -v virtualenvwrapper.sh &> /dev/null; then
+  source "$(command -v virtualenvwrapper.sh)"
 fi
 
 ## extra virtualenv
@@ -321,6 +321,11 @@ if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud
 
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+
+if [ -x "$(command -v phantom)" ]; then
+  eval "$(phantom completion zsh)" 
+fi
+
 
 # zplug: # git clone https://github.com/zplug/zplug $ZPLUG_HOME
 export ZPLUG_HOME=~/.zplug

@@ -56,11 +56,6 @@ if [ -f /usr/local/bin/vault ]; then
   complete -o nospace -C /usr/local/bin/vault vault
 fi
 
-if [ -x "$(command -v phantom)" ]; then
-  eval "$(phantom completion zsh)" 
-fi
-
-
 # for debug
 # if (which zprof > /dev/null) ;then
 #   zprof | less
@@ -73,4 +68,3 @@ fi
 
 # removed duplicate history settings - already configured at the top of file
 
-alias claude="/Users/ike/.claude/local/claude"
