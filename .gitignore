@@ -68,3 +68,8 @@ bin/Sencha
 .virtualenvs
 
 /bin/terraform
+
+
+/.init.vim.backup.20251203
+/.vim.backup.20251203/
+/.vimrc.backup.20251203
