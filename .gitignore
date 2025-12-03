@@ -73,3 +73,6 @@ bin/Sencha
 /.init.vim.backup.20251203
 /.vim.backup.20251203/
 /.vimrc.backup.20251203
+
+/nvim/backup
+/nvim/undo
