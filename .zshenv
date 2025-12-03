@@ -317,7 +317,11 @@ if [ -x "$(command -v direnv)" ]; then
 fi
 
 export ASDF_DIR="$HOME/.asdf"
-[ -s "$ASDF_DIR/asdf.sh" ]     && \. "$ASDF_DIR/asdf.sh"  # This loads
+if [ -s "$ASDF_DIR/asdf.sh" ]; then
+    \. "$ASDF_DIR/asdf.sh"  # For older asdf versions (git install)
+else
+    export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"  # For asdf 0.16+ (MacPorts/Homebrew)
+fi
 [ -s "$ASDF_DIR/completions" ] && fpath=(${ASDF_DIR}/completions $fpath)  # append completions to fpath
 
 # The next line updates PATH for the Google Cloud SDK.

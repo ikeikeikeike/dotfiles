@@ -67,4 +67,3 @@ fi
 #
 
 # removed duplicate history settings - already configured at the top of file
-
