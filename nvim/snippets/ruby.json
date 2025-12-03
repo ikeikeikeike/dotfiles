@@ -1,0 +1,70 @@
+{
+  "Debug with debugger": {
+    "prefix": "debug",
+    "body": ["debugger"],
+    "description": "Insert debugger statement"
+  },
+  "Debug with pry": {
+    "prefix": "pry",
+    "body": ["require 'pry'; binding.pry"],
+    "description": "Insert pry debugger"
+  },
+  "Debug with byebug": {
+    "prefix": "byebug",
+    "body": ["require 'byebug'; byebug"],
+    "description": "Insert byebug debugger"
+  },
+  "Encoding header": {
+    "prefix": "docencode",
+    "body": ["# -*- coding: utf-8 -*-"],
+    "description": "UTF-8 encoding header"
+  },
+  "Shebang": {
+    "prefix": "docenv",
+    "body": ["#!/usr/bin/env ruby"],
+    "description": "Ruby shebang"
+  },
+  "Frozen string literal": {
+    "prefix": "frozen",
+    "body": ["# frozen_string_literal: true"],
+    "description": "Frozen string literal pragma"
+  },
+  "Class": {
+    "prefix": "class",
+    "body": [
+      "class ${1:ClassName}",
+      "  def initialize(${2:args})",
+      "    ${0}",
+      "  end",
+      "end"
+    ],
+    "description": "Class definition"
+  },
+  "Module": {
+    "prefix": "module",
+    "body": [
+      "module ${1:ModuleName}",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Module definition"
+  },
+  "Method": {
+    "prefix": "def",
+    "body": [
+      "def ${1:method_name}(${2:args})",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Method definition"
+  },
+  "Each block": {
+    "prefix": "each",
+    "body": [
+      "${1:collection}.each do |${2:item}|",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Each iterator"
+  }
+}

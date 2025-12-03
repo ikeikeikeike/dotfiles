@@ -1,0 +1,37 @@
+{
+  "Debug": {
+    "prefix": "debug",
+    "body": ["debugger"],
+    "description": "Insert debugger statement"
+  },
+  "Console log": {
+    "prefix": "cl",
+    "body": ["console.log(${1:message})"],
+    "description": "Console log"
+  },
+  "Console log variable": {
+    "prefix": "clv",
+    "body": ["console.log('${1:var}:', ${1:var})"],
+    "description": "Console log with variable name"
+  },
+  "Interface": {
+    "prefix": "interface",
+    "body": ["interface ${1:Name} {", "  ${0}", "}"],
+    "description": "Interface definition"
+  },
+  "Type": {
+    "prefix": "type",
+    "body": ["type ${1:Name} = ${0}"],
+    "description": "Type alias"
+  },
+  "Arrow function typed": {
+    "prefix": "aft",
+    "body": ["const ${1:name} = (${2:args}): ${3:ReturnType} => {", "  ${0}", "}"],
+    "description": "Typed arrow function"
+  },
+  "Async function typed": {
+    "prefix": "asyncfnt",
+    "body": ["async function ${1:name}(${2:args}): Promise<${3:ReturnType}> {", "  ${0}", "}"],
+    "description": "Typed async function"
+  }
+}

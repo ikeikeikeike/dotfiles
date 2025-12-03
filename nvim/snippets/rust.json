@@ -1,0 +1,73 @@
+{
+  "Debug print": {
+    "prefix": "debug",
+    "body": ["dbg!(${1:&value});"],
+    "description": "Debug macro"
+  },
+  "Println": {
+    "prefix": "pl",
+    "body": ["println!(\"${1:message}\");"],
+    "description": "println! macro"
+  },
+  "Println format": {
+    "prefix": "plf",
+    "body": ["println!(\"${1:message}: {:?}\", ${2:value});"],
+    "description": "println! with format"
+  },
+  "Function": {
+    "prefix": "fn",
+    "body": [
+      "fn ${1:name}(${2:args}) -> ${3:ReturnType} {",
+      "    ${0}",
+      "}"
+    ],
+    "description": "Function"
+  },
+  "Pub function": {
+    "prefix": "pfn",
+    "body": [
+      "pub fn ${1:name}(${2:args}) -> ${3:ReturnType} {",
+      "    ${0}",
+      "}"
+    ],
+    "description": "Public function"
+  },
+  "Struct": {
+    "prefix": "struct",
+    "body": [
+      "#[derive(Debug)]",
+      "struct ${1:Name} {",
+      "    ${0}",
+      "}"
+    ],
+    "description": "Struct with Debug derive"
+  },
+  "Impl": {
+    "prefix": "impl",
+    "body": [
+      "impl ${1:Type} {",
+      "    ${0}",
+      "}"
+    ],
+    "description": "Impl block"
+  },
+  "Match": {
+    "prefix": "match",
+    "body": [
+      "match ${1:value} {",
+      "    ${2:pattern} => ${0},",
+      "}"
+    ],
+    "description": "Match expression"
+  },
+  "Test": {
+    "prefix": "test",
+    "body": [
+      "#[test]",
+      "fn ${1:test_name}() {",
+      "    ${0}",
+      "}"
+    ],
+    "description": "Test function"
+  }
+}

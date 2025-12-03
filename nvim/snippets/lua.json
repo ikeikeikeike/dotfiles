@@ -1,0 +1,68 @@
+{
+  "Print": {
+    "prefix": "pr",
+    "body": ["print(${1:message})"],
+    "description": "Print statement"
+  },
+  "Print inspect": {
+    "prefix": "pi",
+    "body": ["print(vim.inspect(${1:value}))"],
+    "description": "Print with vim.inspect"
+  },
+  "Local function": {
+    "prefix": "lf",
+    "body": [
+      "local function ${1:name}(${2:args})",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Local function"
+  },
+  "Module function": {
+    "prefix": "mf",
+    "body": [
+      "function M.${1:name}(${2:args})",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Module function"
+  },
+  "Module": {
+    "prefix": "mod",
+    "body": [
+      "local M = {}",
+      "",
+      "${0}",
+      "",
+      "return M"
+    ],
+    "description": "Lua module template"
+  },
+  "If": {
+    "prefix": "if",
+    "body": [
+      "if ${1:condition} then",
+      "  ${0}",
+      "end"
+    ],
+    "description": "If statement"
+  },
+  "For ipairs": {
+    "prefix": "fori",
+    "body": [
+      "for ${1:i}, ${2:v} in ipairs(${3:table}) do",
+      "  ${0}",
+      "end"
+    ],
+    "description": "For loop with ipairs"
+  },
+  "For pairs": {
+    "prefix": "forp",
+    "body": [
+      "for ${1:k}, ${2:v} in pairs(${3:table}) do",
+      "  ${0}",
+      "end"
+    ],
+    "description": "For loop with pairs"
+  }
+}

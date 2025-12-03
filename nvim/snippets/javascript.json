@@ -1,0 +1,47 @@
+{
+  "Debug": {
+    "prefix": "debug",
+    "body": ["debugger"],
+    "description": "Insert debugger statement"
+  },
+  "Console log": {
+    "prefix": "cl",
+    "body": ["console.log(${1:message})"],
+    "description": "Console log"
+  },
+  "Console log variable": {
+    "prefix": "clv",
+    "body": ["console.log('${1:var}:', ${1:var})"],
+    "description": "Console log with variable name"
+  },
+  "Encoding header": {
+    "prefix": "docencode",
+    "body": ["// -*- coding: utf-8 -*-"],
+    "description": "UTF-8 encoding header"
+  },
+  "Shebang": {
+    "prefix": "docenv",
+    "body": ["#!/usr/bin/env node"],
+    "description": "Node.js shebang"
+  },
+  "Arrow function": {
+    "prefix": "af",
+    "body": ["const ${1:name} = (${2:args}) => {", "  ${0}", "}"],
+    "description": "Arrow function"
+  },
+  "Arrow function inline": {
+    "prefix": "afi",
+    "body": ["const ${1:name} = (${2:args}) => ${0}"],
+    "description": "Inline arrow function"
+  },
+  "Async function": {
+    "prefix": "asyncfn",
+    "body": ["async function ${1:name}(${2:args}) {", "  ${0}", "}"],
+    "description": "Async function"
+  },
+  "Try catch": {
+    "prefix": "try",
+    "body": ["try {", "  ${1}", "} catch (${2:error}) {", "  ${0}", "}"],
+    "description": "Try catch block"
+  }
+}

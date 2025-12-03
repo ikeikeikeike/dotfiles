@@ -1,0 +1,75 @@
+{
+  "Printf debug": {
+    "prefix": "debug",
+    "body": ["fmt.Printf(\"DEBUG: %+v\\n\", ${1:value})"],
+    "description": "Printf debug statement"
+  },
+  "Println": {
+    "prefix": "pl",
+    "body": ["fmt.Println(${1:message})"],
+    "description": "fmt.Println"
+  },
+  "Error check": {
+    "prefix": "iferr",
+    "body": [
+      "if err != nil {",
+      "\treturn ${1:err}",
+      "}"
+    ],
+    "description": "If error check"
+  },
+  "Error check with wrap": {
+    "prefix": "iferrw",
+    "body": [
+      "if err != nil {",
+      "\treturn fmt.Errorf(\"${1:context}: %w\", err)",
+      "}"
+    ],
+    "description": "If error check with wrap"
+  },
+  "Function": {
+    "prefix": "func",
+    "body": [
+      "func ${1:name}(${2:args}) ${3:returnType} {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "Function"
+  },
+  "Method": {
+    "prefix": "meth",
+    "body": [
+      "func (${1:receiver} *${2:Type}) ${3:Name}(${4:args}) ${5:returnType} {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "Method"
+  },
+  "Struct": {
+    "prefix": "struct",
+    "body": [
+      "type ${1:Name} struct {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "Struct definition"
+  },
+  "Interface": {
+    "prefix": "interface",
+    "body": [
+      "type ${1:Name} interface {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "Interface definition"
+  },
+  "Test function": {
+    "prefix": "test",
+    "body": [
+      "func Test${1:Name}(t *testing.T) {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "Test function"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "Debug with IEx.pry": {
+    "prefix": "debug",
+    "body": ["require IEx; IEx.pry"],
+    "description": "Insert IEx.pry debugger"
+  },
+  "IO.inspect": {
+    "prefix": "ii",
+    "body": ["IO.inspect(${1:value}, label: \"${2:label}\")"],
+    "description": "IO.inspect with label"
+  },
+  "Module": {
+    "prefix": "defmodule",
+    "body": [
+      "defmodule ${1:ModuleName} do",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Module definition"
+  },
+  "Function": {
+    "prefix": "def",
+    "body": [
+      "def ${1:function_name}(${2:args}) do",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Public function"
+  },
+  "Private function": {
+    "prefix": "defp",
+    "body": [
+      "defp ${1:function_name}(${2:args}) do",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Private function"
+  },
+  "Pipe": {
+    "prefix": "pipe",
+    "body": ["|> ${0}"],
+    "description": "Pipe operator"
+  }
+}

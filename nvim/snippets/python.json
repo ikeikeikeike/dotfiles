@@ -1,0 +1,66 @@
+{
+  "Debug with ipdb": {
+    "prefix": "debug",
+    "body": ["import ipdb; ipdb.set_trace()"],
+    "description": "Insert ipdb debugger"
+  },
+  "Debug with breakpoint": {
+    "prefix": "bp",
+    "body": ["breakpoint()"],
+    "description": "Insert Python 3.7+ breakpoint"
+  },
+  "Encoding header": {
+    "prefix": "docencode",
+    "body": ["# -*- coding: utf-8 -*-"],
+    "description": "UTF-8 encoding header"
+  },
+  "Shebang": {
+    "prefix": "docenv",
+    "body": ["#!/usr/bin/env python3"],
+    "description": "Python shebang"
+  },
+  "File header": {
+    "prefix": "docheaders",
+    "body": [
+      "# -*- coding: utf-8 -*-",
+      "\"\"\"",
+      "${1:Module description}",
+      "",
+      "Created: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      "\"\"\""
+    ],
+    "description": "File header with docstring"
+  },
+  "Main block": {
+    "prefix": "main",
+    "body": [
+      "def main():",
+      "    ${1:pass}",
+      "",
+      "",
+      "if __name__ == \"__main__\":",
+      "    main()"
+    ],
+    "description": "Main function with if __name__ block"
+  },
+  "Function": {
+    "prefix": "def",
+    "body": [
+      "def ${1:function_name}(${2:args}):",
+      "    \"\"\"${3:Docstring}\"\"\"",
+      "    ${0:pass}"
+    ],
+    "description": "Function definition"
+  },
+  "Class": {
+    "prefix": "class",
+    "body": [
+      "class ${1:ClassName}:",
+      "    \"\"\"${2:Class docstring}\"\"\"",
+      "",
+      "    def __init__(self${3:, args}):",
+      "        ${0:pass}"
+    ],
+    "description": "Class definition"
+  }
+}
