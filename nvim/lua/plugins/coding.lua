@@ -1,47 +1,6 @@
--- Coding support plugins: AI, formatters, linters
+-- Coding support plugins: formatters, linters
 
 return {
-  -- GitHub Copilot
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    opts = {
-      panel = {
-        enabled = true,
-        auto_refresh = true,
-        keymap = {
-          jump_prev = "[[",
-          jump_next = "]]",
-          accept = "<CR>",
-          refresh = "gr",
-          open = "<M-CR>",
-        },
-      },
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        debounce = 75,
-        keymap = {
-          accept = "<M-l>",
-          accept_word = false,
-          accept_line = false,
-          next = "<C-j>",
-          prev = "<C-k>",
-          dismiss = "<C-]>",
-        },
-      },
-      filetypes = {
-        yaml = true,
-        markdown = true,
-        help = false,
-        gitcommit = true,
-        gitrebase = false,
-        ["."] = false,
-      },
-    },
-  },
-
   -- Conform: formatter
   {
     "stevearc/conform.nvim",

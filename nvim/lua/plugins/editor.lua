@@ -189,10 +189,11 @@ return {
   {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    cmd = "Oil",
+    lazy = false,  -- Load immediately to handle directory opening
     keys = {
       { "-", "<cmd>Oil<cr>", desc = "Open parent directory" },
       { "<leader>o", "<cmd>Oil<cr>", desc = "Oil file explorer" },
+      { "<C-f>", "<cmd>Oil<cr>", desc = "Open file explorer" },
     },
     opts = {
       default_file_explorer = true,

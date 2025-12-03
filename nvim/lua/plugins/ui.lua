@@ -35,7 +35,7 @@ return {
         lualine_a = { "mode" },
         lualine_b = { "branch", "diff", "diagnostics" },
         lualine_c = {
-          { "filename", path = 1 }, -- 0: just filename, 1: relative path, 2: absolute path
+          { "filename", path = 1 },
         },
         lualine_x = { "encoding", "fileformat", "filetype" },
         lualine_y = { "progress" },
@@ -85,6 +85,26 @@ return {
   {
     "nvim-tree/nvim-web-devicons",
     lazy = true,
+    opts = {
+      default = true,  -- Use default icon when specific icon not found
+      strict = true,
+      override_by_extension = {
+        ["go"] = { icon = "Go", name = "Go" },
+        ["py"] = { icon = "Py", name = "Python" },
+        ["rb"] = { icon = "Rb", name = "Ruby" },
+        ["rs"] = { icon = "Rs", name = "Rust" },
+        ["ts"] = { icon = "TS", name = "TypeScript" },
+        ["js"] = { icon = "JS", name = "JavaScript" },
+        ["lua"] = { icon = "Lu", name = "Lua" },
+        ["md"] = { icon = "Md", name = "Markdown" },
+        ["json"] = { icon = "Js", name = "JSON" },
+        ["yaml"] = { icon = "Ym", name = "YAML" },
+        ["yml"] = { icon = "Ym", name = "YAML" },
+        ["sh"] = { icon = "Sh", name = "Shell" },
+        ["bash"] = { icon = "Sh", name = "Bash" },
+        ["toml"] = { icon = "Tm", name = "TOML" },
+      },
+    },
   },
 
   -- Better UI components
