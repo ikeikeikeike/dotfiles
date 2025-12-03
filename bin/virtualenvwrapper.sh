@@ -1,0 +1,1 @@
+/Users/ikeike/Library/Python/3.13/bin/virtualenvwrapper.sh
