@@ -199,6 +199,10 @@ export SBT_OPTS="-Xmx1024m -Xms512m -Xss128m -Dfile.encoding=UTF8"
 if [[ -f ~/.nvm/nvm.sh ]]; then
   source ~/.nvm/nvm.sh
 fi
+if [[ -f /opt/local/share/nvm/init-nvm.sh ]]; then
+  source /opt/local/share/nvm/init-nvm.sh
+fi
+
 
 export NODE_OPTIONS="--max-old-space-size=1024 --max_old_space_size=1024"
 
