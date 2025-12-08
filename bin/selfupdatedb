@@ -20,8 +20,7 @@ sudo port -vu uninstall &
 npm update -g && npm upgrade -g &
 
 # updatedb
-LC_ALL=C sudo updatedb --localpaths='/opt /private /home /usr /sbin /Users /System /Library /Applications' &
-
-# sudo gupdatedb --localpaths='/' &
+# LC_ALL=C sudo updatedb --localpaths='/opt /private /home /usr /sbin /Users /System /Library /Applications' &
+sudo gupdatedb --localpaths='/' &
 # sudo /usr/libexec/locate.updatedb &
 
