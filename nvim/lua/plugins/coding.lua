@@ -82,7 +82,7 @@ return {
         bash = { "shellcheck" },
         dockerfile = { "hadolint" },
         yaml = { "yamllint" },
-        markdown = { "markdownlint" },
+        -- markdown = { "markdownlint" },  -- disabled: too noisy
       }
 
       -- Create autocommand for linting
