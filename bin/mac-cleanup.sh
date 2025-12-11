@@ -58,9 +58,13 @@ safe_rm() {
         if [[ "$DRY_RUN" == true ]]; then
             dry "Would delete: $path ($(get_size "$path"))"
         else
-            rm -rf "$path"
-            success "Deleted: $path"
-            log "Deleted: $path"
+            if rm -rf "$path" 2>/dev/null; then
+                success "Deleted: $path"
+                log "Deleted: $path"
+            else
+                warn "Could not delete: $path (may be in use)"
+                log "Failed to delete: $path"
+            fi
         fi
     fi
 }
@@ -126,8 +130,8 @@ cleanup_macports() {
     if [[ "$DRY_RUN" == true ]]; then
         dry "sudo port reclaim && sudo port uninstall inactive"
     else
-        sudo port reclaim 2>/dev/null || true
-        sudo port uninstall inactive 2>/dev/null || true
+        yes | sudo port reclaim 2>/dev/null || true
+        yes | sudo port uninstall inactive 2>/dev/null || true
         success "Done: $(get_size /opt/local)"
         log "MacPorts cleaned"
     fi
@@ -522,7 +526,6 @@ show_list() {
     echo -e "${BOLD}Available cleanup targets:${NC}\n"
 
     echo -e "${CYAN}Package Managers:${NC}"
-    printf "  %-12s %s\n" "nix" "$(get_size /nix/store)"
     printf "  %-12s %s\n" "go" "$(get_size "$HOME/go")"
     printf "  %-12s %s\n" "npm" "$(get_size "$HOME/.npm")"
     printf "  %-12s %s\n" "macports" "$(get_size /opt/local)"
@@ -532,6 +535,7 @@ show_list() {
     printf "  %-12s %s\n" "nvm" "$(get_size "${NVM_DIR:-$HOME/.nvm}")"
     printf "  %-12s %s\n" "yarn" "$(get_size "$HOME/.yarn/cache")"
     printf "  %-12s %s\n" "pnpm" "$(get_size "$HOME/.pnpm-store")"
+    printf "  %-12s %s\n" "nix" "$(get_size /nix/store)"
 
     echo -e "\n${CYAN}macOS:${NC}"
     printf "  %-12s %s\n" "caches" "$(get_size "$HOME/Library/Caches")"
@@ -571,7 +575,6 @@ show_status() {
 
     echo -e "${CYAN}Top directories:${NC}"
     local dirs=(
-        "/nix/store:Nix"
         "$HOME/Library/Caches:User Caches"
         "$HOME/Library/Application Support:App Support"
         "/opt/local:MacPorts"
@@ -580,6 +583,7 @@ show_status() {
         "$HOME/.cache:~/.cache"
         "$HOME/Library/Developer:Developer"
         "$HOME/.Trash:Trash"
+        "/nix/store:Nix"
     )
 
     for item in "${dirs[@]}"; do
@@ -592,7 +596,6 @@ show_status() {
 }
 
 run_all() {
-    cleanup_nix
     cleanup_go
     cleanup_npm
     cleanup_macports
@@ -618,6 +621,7 @@ run_all() {
     cleanup_dotcache
     cleanup_timemachine
     cleanup_system
+    cleanup_nix
 }
 
 show_help() {
