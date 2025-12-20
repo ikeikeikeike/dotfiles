@@ -223,7 +223,7 @@ export MANPATH=$CABAL_HOME/share:$MANPATH
 # if [[ -s "$HOME/.exenv/bin" ]]; then
 #     export PATH="$HOME/.exenv/bin:$PATH"; eval "$(exenv init -)"
 # fi
-
+export GOBIN=$HOME/go/bin
 
 ### Dart Flutter
 

@@ -75,8 +75,13 @@ return {
           },
           mappings = {
             i = {
-              ["<C-n>"] = actions.cycle_history_next,
-              ["<C-p>"] = actions.cycle_history_prev,
+              -- C-n/C-p で結果の上下移動
+              ["<C-n>"] = actions.move_selection_next,
+              ["<C-p>"] = actions.move_selection_previous,
+              -- 矢印キーで検索履歴
+              ["<Down>"] = actions.cycle_history_next,
+              ["<Up>"] = actions.cycle_history_prev,
+              -- C-j/C-k も結果移動（従来通り）
               ["<C-j>"] = actions.move_selection_next,
               ["<C-k>"] = actions.move_selection_previous,
               ["<C-c>"] = actions.close,
