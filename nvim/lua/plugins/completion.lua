@@ -14,6 +14,12 @@ return {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
+      -- Disable completion for text files (Japanese input friendly)
+      enabled = function()
+        local disabled_filetypes = { "text", "markdown", "gitcommit" }
+        return not vim.tbl_contains(disabled_filetypes, vim.bo.filetype)
+      end,
+
       keymap = {
         preset = "default",
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
