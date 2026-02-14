@@ -251,7 +251,7 @@ return {
         -- Uncomment these after installing npm/go/gem and running :MasonInstall <server>
         -- "gopls",
         -- "pyright",
-        -- "ruby_lsp",
+        "ruby_lsp",
         -- "ts_ls",
         -- "html",
         -- "cssls",
