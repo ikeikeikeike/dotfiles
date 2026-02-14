@@ -29,7 +29,7 @@ return {
         markdown = { "prettierd", "prettier", stop_after_first = true },
         html = { "prettierd", "prettier", stop_after_first = true },
         css = { "prettierd", "prettier", stop_after_first = true },
-        go = { "goimports", "gofmt" },
+        -- go: handled by go.nvim (see lua/plugins/lang/go.lua)
         rust = { "rustfmt" },
         ruby = { "rubocop" },
         sh = { "shfmt" },
@@ -38,7 +38,7 @@ return {
       },
       format_on_save = function(bufnr)
         -- Disable for certain filetypes
-        local ignore_filetypes = { "sql", "java" }
+        local ignore_filetypes = { "sql", "java", "go" }  -- go: handled by go.nvim
         if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
           return
         end
@@ -76,7 +76,7 @@ return {
         typescript = { "eslint_d" },
         javascriptreact = { "eslint_d" },
         typescriptreact = { "eslint_d" },
-        go = { "golangcilint" },
+        -- go: linting handled by gopls, formatting by go.nvim
         ruby = { "rubocop" },
         sh = { "shellcheck" },
         bash = { "shellcheck" },
