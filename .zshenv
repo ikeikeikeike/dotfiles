@@ -255,7 +255,7 @@ export PYTHONIOENCODING=UTF-8
 export WORKON_HOME=$HOME/.virtualenvs
 # virtualenvwrapper
 if command -v virtualenvwrapper.sh &> /dev/null; then
-  source "$(command -v virtualenvwrapper.sh)"
+  source "$(command -v virtualenvwrapper.sh)" 2>/dev/null
 fi
 
 ## extra virtualenv
@@ -338,6 +338,9 @@ fi
 # zplug: # git clone https://github.com/zplug/zplug $ZPLUG_HOME
 export ZPLUG_HOME=~/.zplug
 
+if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+fi
 
 # end
 #
