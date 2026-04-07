@@ -10,6 +10,12 @@ return {
     build = ":TSUpdate",
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall", "TSUninstall" },
     config = function()
+      -- Ensure parser install dir is in runtimepath
+      local install_dir = vim.fn.stdpath("data") .. "/site"
+      if not vim.tbl_contains(vim.opt.runtimepath:get(), install_dir) then
+        vim.opt.runtimepath:append(install_dir)
+      end
+
       local ts = require("nvim-treesitter")
       ts.setup({})
 
