@@ -37,24 +37,7 @@ return {
     ft = { "ruby", "lua", "elixir", "bash" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
-      require("nvim-treesitter.configs").setup({
-        endwise = {
-          enable = true,
-        },
-      })
-    end,
-  },
-
-  -- Additional treesitter parsers
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, {
-          "ruby",
-          "embedded_template",
-        })
-      end
+      require("nvim-treesitter-endwise").setup()
     end,
   },
 

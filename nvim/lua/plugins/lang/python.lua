@@ -44,12 +44,16 @@ return {
     ft = "python",
   },
 
-  -- Additional Python treesitter textobjects
+  -- Additional treesitter parsers (installed via treesitter.lua wanted list + rst)
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "python", "rst", "toml" })
+    branch = "main",
+    config = function()
+      -- rst is not in the main wanted list, install here
+      local ts = require("nvim-treesitter")
+      local installed = ts.installed_parsers and ts.installed_parsers() or {}
+      if not vim.tbl_contains(installed, "rst") then
+        ts.install({ "rst" })
       end
     end,
   },
