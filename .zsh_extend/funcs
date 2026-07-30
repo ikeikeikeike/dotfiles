@@ -211,8 +211,22 @@ EOF
 function gen_virtualenvwrapper_postzshrc() {
 cat << EOF > $HOME/.virtualenvwrapper_postzshrc 2>&1
 #
-# auto ganerate post zshrc
+# auto generated post zshrc
 #
+# Recover workon if it became undefined during shell init.
+# Root cause: Nix sets PYTHONPATH, PYTHONNOUSERSITE which prevent
+# /opt/local/bin/python3 from finding the virtualenvwrapper module
+# (installed in user site-packages). Set VIRTUALENVWRAPPER_PYTHON to
+# the venv python (which has the module) and clear interfering env vars.
+if ! typeset -f workon > /dev/null 2>&1; then
+  unset PYTHONPATH PYTHONHOME PYTHONUSERBASE PYTHONNOUSERSITE
+  if [ -n "\$VIRTUAL_ENV" ] && [ -x "\$VIRTUAL_ENV/bin/python3" ]; then
+    export VIRTUALENVWRAPPER_PYTHON="\$VIRTUAL_ENV/bin/python3"
+  fi
+  if command -v virtualenvwrapper.sh > /dev/null 2>&1; then
+    source "\$(command -v virtualenvwrapper.sh)" 2>/dev/null
+  fi
+fi
 workon `basename $VIRTUAL_ENV`
 EOF
 }

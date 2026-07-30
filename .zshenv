@@ -312,9 +312,8 @@ fi
 # mysettings
 source $HOME/.adds_zshenv 2> /dev/null
 
-if [ -x "$(command -v direnv)" ]; then
-    eval "$(direnv hook zsh)"
-fi
+# direnv hook moved to .zshrc (after .postzshrc) to avoid
+# unloading virtualenvwrapper during shell init in tmux
 
 export ASDF_DIR="$HOME/.asdf"
 if [ -s "$ASDF_DIR/asdf.sh" ]; then
@@ -352,3 +351,6 @@ fi
 # Only environment variables should be set here
 export HISTFILE=$HOME/.zsh_history
 
+
+# ECC observer tuning (= timeout 300s to reduce Haiku analysis timeout rate)
+export ECC_OBSERVER_TIMEOUT_SECONDS=300

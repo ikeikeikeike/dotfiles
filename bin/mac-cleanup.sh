@@ -26,6 +26,9 @@ NC='\033[0m'
 DRY_RUN=false
 VERBOSE=false
 LOG_FILE="$HOME/.mac-cleanup.log"
+SUDO_KEEPALIVE_PID=""
+# sudo 認証キャッシュの更新間隔(秒)。macOS 既定の 5 分(300秒)より十分短くする
+SUDO_KEEPALIVE_INTERVAL=50
 
 # ===== ユーティリティ =====
 
@@ -43,6 +46,17 @@ get_size() {
     local path="$1"
     if [[ -e "$path" ]]; then
         du -sh "$path" 2>/dev/null | awk '{print $1}'
+    else
+        echo "N/A"
+    fi
+}
+
+# /nix は macOS では独立した APFS ボリュームなので df は一瞬で返る。
+# 数万の store path に対する `du -sh /nix/store` は数十秒〜数分かかり
+# 「固まった」ように見えるため、ボリューム使用量の表示で代替する。
+nix_store_used() {
+    if [[ -d /nix/store ]]; then
+        df -h /nix 2>/dev/null | awk 'NR==2 {print $3}'
     else
         echo "N/A"
     fi
@@ -69,6 +83,24 @@ safe_rm() {
     fi
 }
 
+# sudo を最初に一度だけ要求し、バックグラウンドでタイムスタンプを温め続ける。
+# sudo の認証キャッシュは macOS 既定で 5 分。--all は 5 分を超えるため、後半の
+# sudo ステップ(dns/timemachine/system 等)で再びパスワードを聞かれ、しかも各
+# sudo 行が `2>/dev/null` でプロンプトを捨てるため「Enter を押さないと止まる」
+# ように見える。最初に 1 回だけ可視プロンプトで認証し、以降は止まらないようにする。
+ensure_sudo() {
+    [[ "$DRY_RUN" == true ]] && return 0
+    info "管理者権限が必要なステップがあります。最初に一度だけパスワードを入力してください:"
+    if ! sudo -v; then
+        warn "sudo 認証に失敗。sudo が必要なステップはスキップされます"
+        return 0
+    fi
+    # スクリプトが生きている間、タイムアウト前にキャッシュを更新し続ける
+    ( while kill -0 "$$" 2>/dev/null; do sudo -n true 2>/dev/null; sleep "$SUDO_KEEPALIVE_INTERVAL"; done ) &
+    SUDO_KEEPALIVE_PID=$!
+    trap 'kill "$SUDO_KEEPALIVE_PID" 2>/dev/null' EXIT
+}
+
 # ===== クリーンアップ関数 =====
 
 cleanup_nix() {
@@ -77,13 +109,15 @@ cleanup_nix() {
         warn "Nix not installed"
         return 0
     fi
-    info "Current: $(get_size /nix/store)"
+    info "Current: $(nix_store_used) used on /nix volume"
     if [[ "$DRY_RUN" == true ]]; then
         dry "nix-collect-garbage -d && nix store optimise"
     else
-        nix-collect-garbage -d 2>/dev/null || true
-        nix store optimise 2>/dev/null || true
-        success "Done: $(get_size /nix/store)"
+        info "Collecting garbage (deleting old generations)... 数十秒かかることがあります"
+        nix-collect-garbage -d >/dev/null 2>&1 || true
+        info "Optimising store (deduplicating files)... 数分かかることがあります"
+        nix store optimise >/dev/null 2>&1 || true
+        success "Done: $(nix_store_used) used on /nix volume"
         log "Nix cleaned"
     fi
 }
@@ -535,7 +569,7 @@ show_list() {
     printf "  %-12s %s\n" "nvm" "$(get_size "${NVM_DIR:-$HOME/.nvm}")"
     printf "  %-12s %s\n" "yarn" "$(get_size "$HOME/.yarn/cache")"
     printf "  %-12s %s\n" "pnpm" "$(get_size "$HOME/.pnpm-store")"
-    printf "  %-12s %s\n" "nix" "$(get_size /nix/store)"
+    printf "  %-12s %s\n" "nix" "$(nix_store_used)"
 
     echo -e "\n${CYAN}macOS:${NC}"
     printf "  %-12s %s\n" "caches" "$(get_size "$HOME/Library/Caches")"
@@ -590,12 +624,17 @@ show_status() {
         local path="${item%%:*}"
         local name="${item##*:}"
         if [[ -d "$path" ]]; then
-            printf "  %-15s %s\n" "$name" "$(get_size "$path")"
+            if [[ "$path" == "/nix/store" ]]; then
+                printf "  %-15s %s\n" "$name" "$(nix_store_used) (volume)"
+            else
+                printf "  %-15s %s\n" "$name" "$(get_size "$path")"
+            fi
         fi
     done
 }
 
 run_all() {
+    ensure_sudo
     cleanup_go
     cleanup_npm
     cleanup_macports

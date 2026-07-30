@@ -51,6 +51,11 @@ if [ -f $HOME/.postzshrc ]; then
   source $HOME/.postzshrc
 fi
 
+# direnv hook (after postzshrc so virtualenvwrapper is not disrupted)
+if [ -x "$(command -v direnv)" ]; then
+  eval "$(direnv hook zsh)"
+fi
+
 if [ -f /usr/local/bin/vault ]; then
   autoload -U +X bashcompinit && bashcompinit
   complete -o nospace -C /usr/local/bin/vault vault
