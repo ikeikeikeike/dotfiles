@@ -12,6 +12,14 @@
 
 set -euo pipefail
 
+# CLEANUP_FUNCS が連想配列(declare -A)なので bash 4 以上が要る。macOS 同梱の
+# /bin/bash は 3.2 で、そのまま走らせると何も掃除しないまま exit 0 で終わる。
+if (( BASH_VERSINFO[0] < 4 )); then
+    echo "mac-cleanup.sh requires bash 4 or newer (running ${BASH_VERSION})." >&2
+    echo "Install a newer bash and run it with that interpreter." >&2
+    exit 1
+fi
+
 # ===== 色定義 =====
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -29,6 +37,13 @@ LOG_FILE="$HOME/.mac-cleanup.log"
 SUDO_KEEPALIVE_PID=""
 # sudo 認証キャッシュの更新間隔(秒)。macOS 既定の 5 分(300秒)より十分短くする
 SUDO_KEEPALIVE_INTERVAL=50
+# $TMPDIR に残った go build の作業ディレクトリを消す閾値(分)。実行中のビルドを
+# 壊さないよう、これより長く更新されていないものだけ削除する
+GO_TMP_MIN_AGE_MIN=60
+# go が PATH に無いときに使うキャッシュパス。環境変数があればそれを優先し、
+# 無ければ macOS の go 既定値を使う(表示と削除対象を一致させるため)
+GO_DEFAULT_CACHE="${GOCACHE:-$HOME/Library/Caches/go-build}"
+GO_DEFAULT_MODCACHE="${GOMODCACHE:-$HOME/go/pkg/mod}"
 
 # ===== ユーティリティ =====
 
@@ -66,13 +81,38 @@ command_exists() {
     command -v "$1" &>/dev/null
 }
 
+# go は PATH に入っていないことがある(gvm や nix-shell の中でだけ入る)。
+# その場合に `command_exists go` で諦めると GOCACHE が丸ごと残り、--all を
+# 何度実行しても減らない。PATH の外まで探しに行く。
+find_go_bin() {
+    if command_exists go; then
+        command -v go
+        return 0
+    fi
+    local candidate
+    for candidate in \
+        "$HOME"/.gvm/gos/*/bin/go \
+        "$HOME"/.asdf/shims/go \
+        /usr/local/go/bin/go \
+        /opt/homebrew/bin/go \
+        /opt/local/bin/go \
+        "$HOME"/.nix-profile/bin/go
+    do
+        if [[ -x "$candidate" ]]; then
+            echo "$candidate"
+            return 0
+        fi
+    done
+    return 1
+}
+
 safe_rm() {
     local path="$1"
     if [[ -e "$path" ]]; then
         if [[ "$DRY_RUN" == true ]]; then
             dry "Would delete: $path ($(get_size "$path"))"
         else
-            if rm -rf "$path" 2>/dev/null; then
+            if rm -rf "${path:?}" 2>/dev/null; then
                 success "Deleted: $path"
                 log "Deleted: $path"
             else
@@ -101,6 +141,28 @@ ensure_sudo() {
     trap 'kill "$SUDO_KEEPALIVE_PID" 2>/dev/null' EXIT
 }
 
+# 掃除の実行中は標準入力を切る。どれか 1 つの外部コマンドが stdin を読むと、
+# 端末につながったまま無限に待ち続ける。各行が 2>/dev/null でプロンプトも消すため
+# 画面には何も出ず、Enter を押すまで止まったように見える。/dev/null なら即 EOF。
+detach_stdin() {
+    exec </dev/null
+}
+
+# sudo は必ず -n で呼ぶ。-n が無いと認証切れ時にパスワードを尋ね、上記の無音停止になる。
+# 認証が切れていたら一度だけ警告して skip する(黙って何もしないのを避けるため)。
+SUDO_WARNED=false
+sudo_run() {
+    if ! sudo -n true 2>/dev/null; then
+        if [[ "$SUDO_WARNED" != true ]]; then
+            warn "sudo の認証が切れています。sudo が要るステップは skip します(先に 'sudo -v' を実行してください)"
+            log "sudo unavailable; sudo steps skipped"
+            SUDO_WARNED=true
+        fi
+        return 1
+    fi
+    sudo -n "$@"
+}
+
 # ===== クリーンアップ関数 =====
 
 cleanup_nix() {
@@ -122,20 +184,64 @@ cleanup_nix() {
     fi
 }
 
+# 中断した go build が $TMPDIR に残す作業ディレクトリ。1 回で数 GB になる。
+cleanup_go_tmp() {
+    local tmp="${TMPDIR:-/tmp}"
+    tmp="${tmp%/}"
+
+    # ディレクトリ自身の mtime は、中のファイルが更新されても変わらないことがある。
+    # 実行中のビルドを消さないよう、配下に新しいファイルが 1 つでもあれば残す。
+    local dirs=() dir
+    while IFS= read -r dir; do
+        [[ -n "$dir" ]] || continue
+        if [[ -n "$(find "$dir" -mmin "-$GO_TMP_MIN_AGE_MIN" -print -quit 2>/dev/null)" ]]; then
+            continue
+        fi
+        dirs+=("$dir")
+    done < <(find "$tmp" -maxdepth 1 -type d -name 'go-build*' -mmin "+$GO_TMP_MIN_AGE_MIN" 2>/dev/null)
+
+    if [[ ${#dirs[@]} -eq 0 ]]; then
+        return 0
+    fi
+
+    info "Stale build dirs in $tmp: ${#dirs[@]} ($(du -shc "${dirs[@]}" 2>/dev/null | tail -1 | awk '{print $1}'))"
+    for dir in "${dirs[@]}"; do
+        safe_rm "$dir"
+    done
+}
+
 cleanup_go() {
     echo -e "\n${BOLD}=== Go ===${NC}"
-    info "Current: $(get_size "$HOME/go")"
-    if command_exists go; then
+
+    local go_bin gocache gomodcache
+    go_bin="$(find_go_bin || true)"
+    if [[ -n "$go_bin" ]]; then
+        gocache="$("$go_bin" env GOCACHE 2>/dev/null || true)"
+        gomodcache="$("$go_bin" env GOMODCACHE 2>/dev/null || true)"
+    fi
+    gocache="${gocache:-$GO_DEFAULT_CACHE}"
+    gomodcache="${gomodcache:-$GO_DEFAULT_MODCACHE}"
+
+    info "GOCACHE:    $gocache ($(get_size "$gocache"))"
+    info "GOMODCACHE: $gomodcache ($(get_size "$gomodcache"))"
+
+    if [[ -n "$go_bin" ]]; then
         if [[ "$DRY_RUN" == true ]]; then
-            dry "go clean -cache -modcache -testcache"
+            dry "$go_bin clean -cache -modcache -testcache"
         else
-            go clean -cache -modcache -testcache 2>/dev/null || true
-            success "Done: $(get_size "$HOME/go")"
-            log "Go cleaned"
+            info "Running go clean... 数分かかることがあります"
+            "$go_bin" clean -cache -modcache -testcache 2>/dev/null || true
         fi
     else
-        safe_rm "$HOME/go/pkg/mod"
+        warn "go not found in PATH nor in the usual install dirs; deleting caches directly"
+        safe_rm "$gocache"
+        safe_rm "$gomodcache"
     fi
+
+    cleanup_go_tmp
+
+    success "Done: GOCACHE $(get_size "$gocache") / GOMODCACHE $(get_size "$gomodcache")"
+    log "Go cleaned (go=${go_bin:-not found}, GOCACHE=$gocache)"
 }
 
 cleanup_npm() {
@@ -164,8 +270,8 @@ cleanup_macports() {
     if [[ "$DRY_RUN" == true ]]; then
         dry "sudo port reclaim && sudo port uninstall inactive"
     else
-        yes | sudo port reclaim 2>/dev/null || true
-        yes | sudo port uninstall inactive 2>/dev/null || true
+        yes | sudo_run port reclaim 2>/dev/null || true
+        yes | sudo_run port uninstall inactive 2>/dev/null || true
         success "Done: $(get_size /opt/local)"
         log "MacPorts cleaned"
     fi
@@ -205,6 +311,22 @@ cleanup_pip() {
     safe_rm "$HOME/Library/Caches/pip"
     success "Done"
     log "pip cleaned"
+}
+
+cleanup_uv() {
+    echo -e "\n${BOLD}=== uv ===${NC}"
+    local cache="${UV_CACHE_DIR:-$HOME/.cache/uv}"
+    info "Current: $(get_size "$cache")"
+    if command_exists uv; then
+        if [[ "$DRY_RUN" == true ]]; then
+            dry "uv cache clean"
+        else
+            uv cache clean >/dev/null 2>&1 || true
+        fi
+    fi
+    safe_rm "$cache"
+    success "Done: $(get_size "$cache")"
+    log "uv cleaned"
 }
 
 cleanup_cargo() {
@@ -438,8 +560,8 @@ cleanup_dns() {
     if [[ "$DRY_RUN" == true ]]; then
         dry "Flush DNS cache"
     else
-        sudo dscacheutil -flushcache 2>/dev/null || true
-        sudo killall -HUP mDNSResponder 2>/dev/null || true
+        sudo_run dscacheutil -flushcache 2>/dev/null || true
+        sudo_run killall -HUP mDNSResponder 2>/dev/null || true
         success "Done"
         log "DNS flushed"
     fi
@@ -461,7 +583,7 @@ cleanup_font() {
     if [[ "$DRY_RUN" == true ]]; then
         dry "Reset font cache"
     else
-        sudo atsutil databases -remove 2>/dev/null || true
+        sudo_run atsutil databases -remove 2>/dev/null || true
         success "Done"
         log "Font cache reset"
     fi
@@ -488,7 +610,7 @@ cleanup_timemachine() {
             dry "Delete all local snapshots"
         else
             for snap in $(tmutil listlocalsnapshots / 2>/dev/null | grep -o 'com.apple.TimeMachine.*'); do
-                sudo tmutil deletelocalsnapshots "${snap#com.apple.TimeMachine.}" 2>/dev/null || true
+                sudo_run tmutil deletelocalsnapshots "${snap#com.apple.TimeMachine.}" 2>/dev/null || true
             done
             success "Done"
             log "Time Machine snapshots deleted"
@@ -503,8 +625,8 @@ cleanup_system() {
     if [[ "$DRY_RUN" == true ]]; then
         dry "Clean system caches (requires sudo)"
     else
-        sudo rm -rf /Library/Caches/* 2>/dev/null || true
-        sudo rm -rf /var/log/asl/*.asl 2>/dev/null || true
+        sudo_run rm -rf /Library/Caches/* 2>/dev/null || true
+        sudo_run rm -rf /var/log/asl/*.asl 2>/dev/null || true
         success "Done"
         log "System caches cleaned"
     fi
@@ -521,6 +643,7 @@ declare -A CLEANUP_FUNCS=(
     [brew]=cleanup_homebrew
     [pip]=cleanup_pip
     [python]=cleanup_pip
+    [uv]=cleanup_uv
     [cargo]=cleanup_cargo
     [rust]=cleanup_cargo
     [nvm]=cleanup_nvm
@@ -560,11 +683,12 @@ show_list() {
     echo -e "${BOLD}Available cleanup targets:${NC}\n"
 
     echo -e "${CYAN}Package Managers:${NC}"
-    printf "  %-12s %s\n" "go" "$(get_size "$HOME/go")"
+    printf "  %-12s %s\n" "go" "$HOME/go $(get_size "$HOME/go") + GOCACHE $(get_size "$GO_DEFAULT_CACHE")"
     printf "  %-12s %s\n" "npm" "$(get_size "$HOME/.npm")"
     printf "  %-12s %s\n" "macports" "$(get_size /opt/local)"
     printf "  %-12s %s\n" "homebrew" "$(command_exists brew && get_size "$(brew --prefix 2>/dev/null)/Cellar" || echo "N/A")"
     printf "  %-12s %s\n" "pip" "$(get_size "$HOME/.cache/pip")"
+    printf "  %-12s %s\n" "uv" "$(get_size "${UV_CACHE_DIR:-$HOME/.cache/uv}")"
     printf "  %-12s %s\n" "cargo" "$(get_size "$HOME/.cargo")"
     printf "  %-12s %s\n" "nvm" "$(get_size "${NVM_DIR:-$HOME/.nvm}")"
     printf "  %-12s %s\n" "yarn" "$(get_size "$HOME/.yarn/cache")"
@@ -605,7 +729,11 @@ show_list() {
 show_status() {
     echo -e "${BOLD}Disk Usage Summary${NC}\n"
 
-    df -h / | tail -1 | awk '{printf "System: %s total, %s used, %s available (%s)\n\n", $2, $3, $4, $5}'
+    # / は読み取り専用の system volume で、常に 12GB 程度しか使っていない。
+    # 実際に埋まるのは /System/Volumes/Data なのでそちらを表示する。
+    local data_vol="/System/Volumes/Data"
+    [[ -d "$data_vol" ]] || data_vol="/"
+    df -h "$data_vol" | tail -1 | awk -v vol="$data_vol" '{printf "%s: %s total, %s used, %s available (%s)\n\n", vol, $2, $3, $4, $5}'
 
     echo -e "${CYAN}Top directories:${NC}"
     local dirs=(
@@ -613,6 +741,8 @@ show_status() {
         "$HOME/Library/Application Support:App Support"
         "/opt/local:MacPorts"
         "$HOME/go:Go"
+        "$GO_DEFAULT_CACHE:Go build cache"
+        "${UV_CACHE_DIR:-$HOME/.cache/uv}:uv"
         "$HOME/.npm:npm"
         "$HOME/.cache:~/.cache"
         "$HOME/Library/Developer:Developer"
@@ -625,9 +755,9 @@ show_status() {
         local name="${item##*:}"
         if [[ -d "$path" ]]; then
             if [[ "$path" == "/nix/store" ]]; then
-                printf "  %-15s %s\n" "$name" "$(nix_store_used) (volume)"
+                printf "  %-18s %s\n" "$name" "$(nix_store_used) (volume)"
             else
-                printf "  %-15s %s\n" "$name" "$(get_size "$path")"
+                printf "  %-18s %s\n" "$name" "$(get_size "$path")"
             fi
         fi
     done
@@ -635,11 +765,13 @@ show_status() {
 
 run_all() {
     ensure_sudo
+    detach_stdin
     cleanup_go
     cleanup_npm
     cleanup_macports
     cleanup_homebrew
     cleanup_pip
+    cleanup_uv
     cleanup_cargo
     cleanup_nvm
     cleanup_yarn
@@ -684,7 +816,7 @@ EXAMPLES:
     mac-cleanup.sh --all
 
 TARGETS:
-    nix, go, npm, macports, homebrew, pip, cargo, nvm, yarn, pnpm,
+    nix, go, npm, macports, homebrew, pip, uv, cargo, nvm, yarn, pnpm,
     caches, logs, trash, system, timemachine, dns, quicklook, font,
     xcode, docker, maven, gradle, cocoapods, browsers, spotify, slack,
     dotcache
@@ -745,6 +877,7 @@ main() {
     fi
 
     log "=== Cleanup started: ${targets[*]} ==="
+    detach_stdin
 
     for target in "${targets[@]}"; do
         local func="${CLEANUP_FUNCS[$target]:-}"
