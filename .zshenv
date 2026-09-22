@@ -52,6 +52,8 @@ export host=`echo $HOST | sed -e 's/\..*//'`
 #
 typeset -gx -U PATH
 typeset -gx -U FPATH
+# An inherited FPATH can point at another zsh version's functions dir; drop missing dirs and add this zsh's own.
+fpath=(${module_path[1]/\/lib\//\/share\/}/functions(N-/) ${^fpath}(N-/))
 #
 #
 #
