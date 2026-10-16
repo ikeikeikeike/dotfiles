@@ -198,11 +198,13 @@ export SBT_OPTS="-Xmx1024m -Xms512m -Xss128m -Dfile.encoding=UTF8"
 
 ## #nodejs ###
 
-if [[ -f ~/.nvm/nvm.sh ]]; then
-  source ~/.nvm/nvm.sh
-fi
-if [[ -f /opt/local/share/nvm/init-nvm.sh ]]; then
-  source /opt/local/share/nvm/init-nvm.sh
+if [[ -o interactive || -o login ]]; then
+  if [[ -f ~/.nvm/nvm.sh ]]; then
+    source ~/.nvm/nvm.sh
+  fi
+  if [[ -f /opt/local/share/nvm/init-nvm.sh ]]; then
+    source /opt/local/share/nvm/init-nvm.sh
+  fi
 fi
 
 
@@ -256,8 +258,10 @@ export PYTHONIOENCODING=UTF-8
 # Import virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
 # virtualenvwrapper
-if command -v virtualenvwrapper.sh &> /dev/null; then
-  source "$(command -v virtualenvwrapper.sh)" 2>/dev/null
+if [[ -o interactive || -o login ]]; then
+  if command -v virtualenvwrapper.sh &> /dev/null; then
+    source "$(command -v virtualenvwrapper.sh)" 2>/dev/null
+  fi
 fi
 
 ## extra virtualenv
@@ -331,8 +335,10 @@ if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
-if [ -x "$(command -v phantom)" ]; then
-  eval "$(phantom completion zsh)" 
+if [[ -o interactive ]]; then
+  if [ -x "$(command -v phantom)" ]; then
+    eval "$(phantom completion zsh)"
+  fi
 fi
 
 
@@ -356,3 +362,7 @@ export HISTFILE=$HOME/.zsh_history
 
 # ECC observer tuning (= timeout 300s to reduce Haiku analysis timeout rate)
 export ECC_OBSERVER_TIMEOUT_SECONDS=300
+
+# CCB startup and local socket budgets are separate from hook timeouts.
+export CCB_STARTUP_TRANSACTION_TIMEOUT_S=120
+export CCB_CCBD_CLIENT_TIMEOUT_S=30
